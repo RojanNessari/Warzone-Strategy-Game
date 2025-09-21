@@ -13,7 +13,7 @@ public:
     int continentId;
     int ownerId;
     int armies;
-    std::vector<int> adjacentTerritories;
+    std::vector<int> adjacentIds;
     Territory(const std::string &name, int continentId);
 };
 
