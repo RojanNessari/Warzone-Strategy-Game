@@ -13,6 +13,16 @@ Continent::Continent(const string &name, int id)
 
 Map::Map() {}
 
+std::string Territory::getName() const { return name; }
+int Territory::getcontinentId() const { return continentId; }
+int Territory::getOwnerId() const { return ownerId; }
+int Territory::getArmies() const { return armies; }
+std::vector<int> &Territory::getAdjacentIds() { return adjacentIds; }
+
+std::string Continent::getName() const { return name; }
+int Continent::getId() const { return id; }
+std::vector<int> &Continent::getTerritoryIds() { return territoryIds; }
+
 bool Map::validate() const
 {
     // TODO: Implement map connectivity check
@@ -57,9 +67,9 @@ Map *MapLoader::handleCurrentState(Section currentState, const string &line, Map
         int continentId = -1;
         for (size_t i = 0; i < map->continents.size(); ++i)
         {
-            if (map->continents[i].name == continentName)
+            if (map->continents[i].getName() == continentName)
             {
-                continentId = map->continents[i].id;
+                continentId = map->continents[i].getId();
                 break;
             }
         }
@@ -70,7 +80,7 @@ Map *MapLoader::handleCurrentState(Section currentState, const string &line, Map
             return nullptr;
         }
         map->territories.push_back(Territory(name, continentId));
-        map->continents[continentId].territoryIds.push_back(map->territories.size() - 1);
+        map->continents[continentId].getTerritoryIds().push_back(map->territories.size() - 1);
     }
     else if (currentState == BORDERS)
     {
@@ -80,7 +90,7 @@ Map *MapLoader::handleCurrentState(Section currentState, const string &line, Map
         int territoryId = -1;
         for (size_t i = 0; i < map->territories.size(); ++i)
         {
-            if (map->territories[i].name == territoryName)
+            if (map->territories[i].getName() == territoryName)
             {
                 territoryId = i;
                 break;
@@ -94,9 +104,9 @@ Map *MapLoader::handleCurrentState(Section currentState, const string &line, Map
         {
             for (size_t j = 0; j < map->territories.size(); ++j)
             {
-                if (map->territories[j].name == adjName)
+                if (map->territories[j].getName() == adjName)
                 {
-                    map->territories[territoryId].adjacentIds.push_back(j);
+                    map->territories[territoryId].getAdjacentIds().push_back(j);
                     break;
                 }
             }

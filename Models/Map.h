@@ -18,23 +18,39 @@ const std::string TERRITORIES_HEADER = "[Territories]";
 const std::string BORDER_HEADER = "[Borders]";
 
 class Territory
-{
-public:
+{ // Constructor
+
+private:
     std::string name;
     int continentId;
     int ownerId;
     int armies;
     std::vector<int> adjacentIds;
+
+public:
+    std::string getName() const;
+    int getcontinentId() const;
+    int getOwnerId() const;
+    int getArmies() const;
+    std::vector<int> &getAdjacentIds();
     Territory(const std::string &name, int continentId);
 };
 
 class Continent
 {
 public:
+    // Constructor
+    Continent(const std::string &name, int id);
+
+private:
     std::string name;
     int id;
     std::vector<int> territoryIds;
-    Continent(const std::string &name, int id);
+
+public:
+    std::string getName() const;
+    int getId() const;
+    std::vector<int> &getTerritoryIds();
 };
 
 class Map
