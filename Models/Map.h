@@ -38,16 +38,14 @@ public:
 
 class Continent
 {
-public:
-    // Constructor
-    Continent(const std::string &name, int id);
-
 private:
     std::string name;
     int id;
     std::vector<int> territoryIds;
 
 public:
+    // Constructor
+    Continent(const std::string &name, int id);
     std::string getName() const;
     int getId() const;
     std::vector<int> &getTerritoryIds();
@@ -55,9 +53,19 @@ public:
 
 class Map
 {
-public:
+private:
     std::vector<Territory> territories;
     std::vector<Continent> continents;
+
+public:
+    void addTerritory(const Territory &t);
+    void addContinent(const Continent &c);
+    int getContinentsSize() const;
+    int getTerritoriesSize() const;
+    Continent *getContinentById(int id);
+    Territory *getTerritoryByName(const std::string &name);
+    Continent *getContinentByIndex(int idx);
+    Territory *getTerritoryByIndex(int idx);
     Map();
     bool validate() const;
     bool validateContinents() const;
