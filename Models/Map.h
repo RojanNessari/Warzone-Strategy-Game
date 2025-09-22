@@ -3,8 +3,19 @@
 
 #include <string>
 #include <vector>
-#include <map>
-#include <set>
+
+enum Section
+{
+    NONE,
+    CONTINENTS,
+    TERRITORIES,
+    BORDERS
+};
+
+const std::string WHITE_SPACE = " \t\r\n";
+const std::string CONTINENT_HEADER = "[Continents]";
+const std::string TERRITORIES_HEADER = "[Territories]";
+const std::string BORDER_HEADER = "[Borders]";
 
 class Territory
 {
@@ -42,6 +53,8 @@ class MapLoader
 public:
     MapLoader();
     Map *loadMap(const std::string &filename);
+    Map *handleCurrentState(Section currentState, const std::string &line, Map *map);
+    Section getSectionFromHeader(const std::string &line);
 };
 
 #endif // MAP_H
