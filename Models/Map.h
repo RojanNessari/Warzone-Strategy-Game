@@ -1,9 +1,7 @@
 #ifndef MAP_H
 #define MAP_H
-
 #include <string>
 #include <vector>
-
 enum Section
 {
     NONE,
@@ -33,6 +31,7 @@ public:
     int getOwnerId() const;
     int getArmies() const;
     std::vector<int> &getAdjacentIds();
+    const std::vector<int> &getAdjacentIds() const;
     Territory(const std::string &name, int continentId);
 };
 
@@ -49,6 +48,7 @@ public:
     std::string getName() const;
     int getId() const;
     std::vector<int> &getTerritoryIds();
+    const std::vector<int> &getTerritoryIds() const;
 };
 
 class Map

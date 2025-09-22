@@ -1,34 +1,50 @@
 #include "Models/Map.h"
 #include <iostream>
 #include <vector>
+#include <filesystem>
 #include <string>
+using namespace std;
+
+const string TEST_DIR = "Tests";
+
+vector<string> getAllMapFiles(const string &rootDir)
+{
+    vector<string> mapFiles;
+    for (const auto &entry : filesystem::recursive_directory_iterator(rootDir))
+    {
+        if (entry.is_regular_file() && entry.path().extension() == ".map")
+        {
+            mapFiles.push_back(entry.path().string());
+        }
+    }
+    return mapFiles;
+}
 
 void testLoadMaps()
 {
-    // TODO: Implement loading and testing of map files
-    std::vector<std::string> mapFiles = {
-        "valid_map1.map",
-        "valid_map2.map",
-        "invalid_map1.map",
-        "invalid_map2.map"};
+    vector<string> mapFiles = getAllMapFiles(TEST_DIR);
     MapLoader loader;
     for (const auto &file : mapFiles)
     {
-        std::cout << "Loading map: " << file << std::endl;
+        cout << "🗺️ Found Map File: " << file << endl;
+        cout << "⏳ Loading map..." << endl;
+
         Map *map = loader.loadMap(file);
+
         if (map)
         {
-            std::cout << "Map loaded successfully!" << std::endl;
-            std::cout << "Map connectivity: " << (map->validate() ? "PASS" : "FAIL") << std::endl;
-            std::cout << "Continent connectivity: " << (map->validateContinents() ? "PASS" : "FAIL") << std::endl;
-            std::cout << "Territory membership: " << (map->validateTerritoryMembership() ? "PASS" : "FAIL") << std::endl;
+            cout << "✅ Map loaded successfully!" << endl;
+            cout << "🔗 Map connectivity: " << (map->validate() ? "✅ PASS" : "❌ FAIL") << endl;
+            cout << "🌍 Continent connectivity: " << (map->validateContinents() ? "✅ PASS" : "❌ FAIL") << endl;
+            cout << "🏰 Territory membership: " << (map->validateTerritoryMembership() ? "✅ PASS" : "❌ FAIL") << endl;
             delete map;
         }
         else
         {
-            std::cout << "Map loading failed (invalid map file)." << std::endl;
+            cout << "🚫 Map loading failed (invalid map file)." << endl;
         }
-        std::cout << "-----------------------------" << std::endl;
+
+        cout << "🧹-----------------------------" << endl;
     }
 }
 

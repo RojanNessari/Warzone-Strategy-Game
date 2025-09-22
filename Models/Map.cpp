@@ -1,8 +1,11 @@
-
 #include "Map.h"
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <vector>
+#include <set>
+#include <queue>
+
 using namespace std;
 
 // Territory constructor: initializes a territory with a name and continent ID.
@@ -34,24 +37,93 @@ int Continent::getId() const { return id; }
 // Returns a reference to the list of territory IDs in the continent.
 std::vector<int> &Continent::getTerritoryIds() { return territoryIds; }
 
+// Returns a reference to the list of adjacent territory IDs (const overload).
+const std::vector<int> &Territory::getAdjacentIds() const { return adjacentIds; }
+// Returns a reference to the list of territory IDs in the continent (const overload).
+const std::vector<int> &Continent::getTerritoryIds() const { return territoryIds; }
+
 // Validates overall map connectivity (stub).
 bool Map::validate() const
 {
-    // TODO: Implement map connectivity check
-    return true;
+    if (territories.empty())
+    {
+        return false;
+    }
+
+    set<int> visited;
+    queue<int> q;
+
+    q.push(0);
+    visited.insert(0);
+
+    while (!q.empty())
+    {
+        int tid = q.front();
+        q.pop();
+
+        for (int adj : territories[tid].getAdjacentIds())
+        {
+            if (visited.find(adj) == visited.end())
+            {
+                visited.insert(adj);
+                q.push(adj);
+            }
+        }
+    }
+
+    return visited.size() == territories.size();
 }
 
 // Validates continent connectivity (stub).
 bool Map::validateContinents() const
 {
-    // TODO: Implement continent connectivity check
+    for (const auto &continent : continents)
+    {
+        const auto &ids = continent.getTerritoryIds();
+        if (ids.empty())
+            continue;
+        std::set<int> visited;
+        std::queue<int> q;
+        q.push(ids[0]);
+        visited.insert(ids[0]);
+        while (!q.empty())
+        {
+            int tid = q.front();
+            q.pop();
+            for (int adj : territories[tid].getAdjacentIds())
+            {
+                if (territories[adj].getcontinentId() == continent.getId() &&
+                    visited.find(adj) == visited.end())
+                {
+                    visited.insert(adj);
+                    q.push(adj);
+                }
+            }
+        }
+        if (visited.size() != ids.size())
+            return false;
+    }
     return true;
 }
 
 // Validates territory membership in continents (stub).
 bool Map::validateTerritoryMembership() const
 {
-    // TODO: Implement territory membership check
+    for (const auto &territory : territories)
+    {
+        if (territory.getcontinentId() < 0 || territory.getcontinentId() >= continents.size())
+            return false;
+    }
+    for (const auto &continent : continents)
+    {
+        for (int tid : continent.getTerritoryIds())
+        {
+            if (tid < 0 || tid >= territories.size())
+                return false;
+            if (territories[tid].getcontinentId() != continent.getId())
+                return false;
+        }
+    }
     return true;
 }
 
