@@ -107,39 +107,3 @@ public:
 };
 
 #endif // MAP_H
-
-// To do:
-/*
-    - Create TerritoryNode() class
-        {
-         Private Property:
-         string name;
-         int id;
-
-         public:
-          getName;
-          getId
-        }
-
-
-    - Create Territoy class
-        {
-        Private Property:
-        TerritoryNode territory;
-        vector< TerritoryNode> adjacentNodes;
-
-        public:
-        add adjacent Territory( name, id )
-        }
-    - Create Continent Class
-        {
-        private properties:
-        string name;
-        int id;
-        vector<Territories> territories that belong to the continent
-        public:
-        getContinentName;
-        getContinentId
-        AddTerritoryToContinent
-        }
-*/
