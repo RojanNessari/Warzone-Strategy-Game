@@ -23,7 +23,7 @@ vector<string> getAllMapFiles(const string &rootDir)
 void singleMapLoadDebuger()
 {
     MapLoader loader;
-    string mapFile = "/Users/achrafcheniti/Desktop/FALL 2025/COMP-345-PROJECT/Tests/_64_BIG BLUE/_64_ BIG BLUE.map";
+    string mapFile = "./Tests/_64_BIG BLUE/_64_ BIG BLUE.map";
 
     cout << "[DEBUG] Loading Map File " << mapFile << endl;
     cout << "[DEBUG] Loading map . . ." << endl;
