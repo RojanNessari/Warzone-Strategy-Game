@@ -108,6 +108,7 @@
     "ratio": "cpp",
     "stack": "cpp",
     "unordered_map": "cpp",
-    "variant": "cpp"
+    "variant": "cpp",
+    "unordered_set": "cpp"
   }
 }

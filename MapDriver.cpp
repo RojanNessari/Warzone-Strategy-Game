@@ -23,54 +23,81 @@ vector<string> getAllMapFiles(const string &rootDir)
 void singleMapLoadDebuger()
 {
     MapLoader loader;
-    string mapFile = "/Users/achrafcheniti/Desktop/FALL 2025/COMP-345-PROJECT/Tests/_64_BIG BLUE/_64_ BIG BLUE.map";
+    string mapFile = "./Tests/_64_BIG BLUE/_64_ BIG BLUE.map";
 
-    cout << "[DEBUG] Loading Map File " << mapFile << endl;
-    cout << "[DEBUG] Loading map . . ." << endl;
+    cout << "🗺️  Testing single map: " << mapFile << endl;
     Map *map = loader.loadMap(mapFile);
 
     if (map)
     {
-        cout << "✅ Map loaded successfully!" << endl;
-        cout << "🔗 Map connectivity: " << (map->validate() ? "✅ PASS" : "❌ FAIL") << endl;
-        cout << "🌍 Continent connectivity: " << (map->validateContinents() ? "✅ PASS" : "❌ FAIL") << endl;
-        cout << "🏰 Territory membership: " << (map->validateTerritoryMembership() ? "✅ PASS" : "❌ FAIL") << endl;
+        cout << "\n📊 Map loaded successfully!" << endl;
+
+        // The validate() method now does comprehensive testing
+        bool isValid = map->validate();
+
+        cout << "\n� Final Result: " << (isValid ? "✅ VALID MAP" : "❌ INVALID MAP") << endl;
         delete map;
     }
     else
     {
-        cout << "🚫 Map loading failed (invalid map file)." << endl;
+        cout << "❌ Map loading failed (invalid map file)." << endl;
     }
 
-    cout << "🧹-----------------------------" << endl;
+    cout << "\n"
+         << string(50, '=') << endl;
 }
 
 void testLoadMaps()
 {
+    cout << "🎮 COMPREHENSIVE MAP TESTING" << endl;
+    cout << string(50, '=') << endl;
+
     vector<string> mapFiles = getAllMapFiles(TEST_DIR);
     MapLoader loader;
+
+    int validMaps = 0;
+    int invalidMaps = 0;
+
     for (const auto &file : mapFiles)
     {
-        cout << "🗺️ Found Map File: " << file << endl;
-        cout << "⏳ Loading map..." << endl;
+        cout << "\n🗺️  Testing: " << file << endl;
 
         Map *map = loader.loadMap(file);
 
         if (map)
         {
-            cout << "✅ Map loaded successfully!" << endl;
-            cout << "🔗 Map connectivity: " << (map->validate() ? "✅ PASS" : "❌ FAIL") << endl;
-            cout << "🌍 Continent connectivity: " << (map->validateContinents() ? "✅ PASS" : "❌ FAIL") << endl;
-            cout << "🏰 Territory membership: " << (map->validateTerritoryMembership() ? "✅ PASS" : "❌ FAIL") << endl;
+            cout << "📊 Map loaded successfully!" << endl;
+
+            // Comprehensive validation
+            bool isValid = map->validate();
+
+            if (isValid)
+            {
+                validMaps++;
+                cout << "🎯 Result: ✅ VALID MAP" << endl;
+            }
+            else
+            {
+                invalidMaps++;
+                cout << "🎯 Result: ❌ INVALID MAP" << endl;
+            }
+
             delete map;
         }
         else
         {
-            cout << "🚫 Map loading failed (invalid map file)." << endl;
+            invalidMaps++;
+            cout << "❌ Map loading failed (file format error)." << endl;
         }
 
-        cout << "🧹-----------------------------" << endl;
+        cout << string(40, '-') << endl;
     }
+
+    cout << "\n📈 FINAL SUMMARY:" << endl;
+    cout << "   Valid maps: " << validMaps << endl;
+    cout << "   Invalid maps: " << invalidMaps << endl;
+    cout << "   Total tested: " << (validMaps + invalidMaps) << endl;
+    cout << string(50, '=') << endl;
 }
 
 int main()
