@@ -24,10 +24,12 @@ private:
     int continentId;
     int ownerId;
     int armies;
-    std::unordered_set<int> adjacentIds;  // Using set for O(1) lookup and no duplicates
+    int x;
+    int y;
+    std::unordered_set<int> adjacentIds; // Using set for O(1) lookup and no duplicates
 
 public:
-    Territory(const std::string &name, int id, int continentId);
+    Territory(const std::string &name, int id, int continentId, int x = 0, int y = 0);
     std::string getName() const;
     int getId() const;
     int getContinentId() const;
@@ -38,6 +40,8 @@ public:
     void addAdjacentTerritory(int territoryId);
     void setOwner(int playerId);
     void setArmies(int armyCount);
+    int getX() const;
+    int getY() const;
 };
 
 class Continent
@@ -46,7 +50,7 @@ private:
     std::string name;
     int id;
     int bonusValue;
-    std::unordered_set<int> territoryIds;  // Using set for O(1) operations
+    std::unordered_set<int> territoryIds; // Using set for O(1) operations
 
 public:
     Continent(const std::string &name, int id, int bonusValue = 0);
@@ -64,35 +68,35 @@ class Map
 private:
     std::vector<Territory> territories;
     std::vector<Continent> continents;
-    
+
     // Hash maps for O(1) lookup performance
-    std::unordered_map<std::string, int> territoryNameToId;  // territory name -> territory index
+    std::unordered_map<std::string, int> territoryNameToId; // territory name -> territory index
     std::unordered_map<int, int> continentIdToIndex;        // continent id -> continent index
     std::unordered_map<std::string, int> continentNameToId; // continent name -> continent id
 
 public:
     Map();
-    
+
     // Territory operations
     void addTerritory(const Territory &t);
     Territory *getTerritoryByName(const std::string &name);
     Territory *getTerritoryById(int id);
     Territory *getTerritoryByIndex(int idx);
     int getTerritoriesSize() const;
-    
-    // Continent operations  
+
+    // Continent operations
     void addContinent(const Continent &c);
     Continent *getContinentById(int id);
     Continent *getContinentByName(const std::string &name);
     Continent *getContinentByIndex(int idx);
     int getContinentsSize() const;
-    
+
     // Graph connectivity validation
     bool validate() const;
     bool isConnectedGraph() const;
     bool validateContinents() const;
     bool validateTerritoryMembership() const;
-    
+
     // Helper methods
     void printMapStatistics() const;
 };

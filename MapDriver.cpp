@@ -31,10 +31,10 @@ void singleMapLoadDebuger()
     if (map)
     {
         cout << "\n📊 Map loaded successfully!" << endl;
-        
+
         // The validate() method now does comprehensive testing
         bool isValid = map->validate();
-        
+
         cout << "\n� Final Result: " << (isValid ? "✅ VALID MAP" : "❌ INVALID MAP") << endl;
         delete map;
     }
@@ -43,20 +43,21 @@ void singleMapLoadDebuger()
         cout << "❌ Map loading failed (invalid map file)." << endl;
     }
 
-    cout << "\n" << string(50, '=') << endl;
+    cout << "\n"
+         << string(50, '=') << endl;
 }
 
 void testLoadMaps()
 {
     cout << "🎮 COMPREHENSIVE MAP TESTING" << endl;
     cout << string(50, '=') << endl;
-    
+
     vector<string> mapFiles = getAllMapFiles(TEST_DIR);
     MapLoader loader;
-    
+
     int validMaps = 0;
     int invalidMaps = 0;
-    
+
     for (const auto &file : mapFiles)
     {
         cout << "\n🗺️  Testing: " << file << endl;
@@ -66,18 +67,21 @@ void testLoadMaps()
         if (map)
         {
             cout << "📊 Map loaded successfully!" << endl;
-            
+
             // Comprehensive validation
             bool isValid = map->validate();
-            
-            if (isValid) {
+
+            if (isValid)
+            {
                 validMaps++;
                 cout << "🎯 Result: ✅ VALID MAP" << endl;
-            } else {
+            }
+            else
+            {
                 invalidMaps++;
                 cout << "🎯 Result: ❌ INVALID MAP" << endl;
             }
-            
+
             delete map;
         }
         else
@@ -88,7 +92,7 @@ void testLoadMaps()
 
         cout << string(40, '-') << endl;
     }
-    
+
     cout << "\n📈 FINAL SUMMARY:" << endl;
     cout << "   Valid maps: " << validMaps << endl;
     cout << "   Invalid maps: " << invalidMaps << endl;
@@ -98,7 +102,7 @@ void testLoadMaps()
 
 int main()
 {
-    testLoadMaps();
-    // singleMapLoadDebuger();
+    // testLoadMaps();
+    singleMapLoadDebuger();
     return 0;
 }
