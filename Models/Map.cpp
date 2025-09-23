@@ -203,6 +203,7 @@ Map *MapLoader::handleCurrentState(Section currentState, const string &line, Map
         {
             string name = line.substr(0, eq);
             int id = map->getContinentsSize();
+            // TODO: add getting bonus Continent1=4 currently getting Continent1 name and id
             map->addContinent(Continent(name, id));
         }
     }
@@ -214,7 +215,10 @@ Map *MapLoader::handleCurrentState(Section currentState, const string &line, Map
         getline(ss, xStr, ',');
         getline(ss, yStr, ',');
         getline(ss, continentName, ',');
+        // this extracts correctly, but for the adjcent territories, we need to keep extracting until the end of line
+        // cout << "Territory Name: " << name << ", xStr: " << xStr << ", yStr: " << yStr << ", continentName: " << continentName << endl;
 
+        // Search for the continent id maybe we can create a map to get the data instead of a vector for faster search
         int continentId = -1;
         for (size_t i = 0; i < map->getContinentsSize(); ++i)
         {
@@ -225,7 +229,7 @@ Map *MapLoader::handleCurrentState(Section currentState, const string &line, Map
                 break;
             }
         }
-        if (continentId == -1)
+        if (continentId == -1) // when continent id has not changed
         {
             cerr << "Error: Unknown continent " << continentName << endl;
             delete map;
@@ -236,7 +240,7 @@ Map *MapLoader::handleCurrentState(Section currentState, const string &line, Map
         if (c)
             c->getTerritoryIds().push_back(map->getTerritoriesSize() - 1);
     }
-    else if (currentState == BORDERS)
+    else if (currentState == BORDERS) // BORDERS does not exist to be removed
     {
         stringstream ss(line);
         string territoryName;
@@ -284,6 +288,23 @@ Section MapLoader::getSectionFromHeader(const string &line)
     return NONE;
 }
 
+const char *sectionToString(Section section)
+{
+    switch (section)
+    {
+    case CONTINENTS:
+        return "CONTINENTS";
+    case TERRITORIES:
+        return "Territories";
+    case BORDERS:
+        return "Borders";
+    case NONE:
+        return "NONE";
+    default:
+        return "UNKNOWN";
+    }
+}
+
 // Loads a map from a file and returns a pointer to the Map object.
 Map *MapLoader::loadMap(const string &filename)
 {
@@ -291,7 +312,7 @@ Map *MapLoader::loadMap(const string &filename)
 
     if (!file.is_open())
     {
-        cerr << "Error: Cannot open file " << filename << endl;
+        cerr << "❌ Error: Cannot open file " << filename << endl;
         return nullptr;
     }
 
@@ -306,8 +327,11 @@ Map *MapLoader::loadMap(const string &filename)
         line.erase(line.find_last_not_of(WHITE_SPACE) + 1);
 
         Section newSection = getSectionFromHeader(line);
+
         if (newSection != NONE)
         {
+            string strSection = sectionToString(newSection);
+            cout << "[DEBUG] Detected Section: " << strSection << endl;
             currentSection = newSection;
             continue;
         }

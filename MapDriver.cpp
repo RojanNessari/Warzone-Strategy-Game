@@ -20,6 +20,31 @@ vector<string> getAllMapFiles(const string &rootDir)
     return mapFiles;
 }
 
+void singleMapLoadDebuger()
+{
+    MapLoader loader;
+    string mapFile = "/Users/achrafcheniti/Desktop/FALL 2025/COMP-345-PROJECT/Tests/_64_BIG BLUE/_64_ BIG BLUE.map";
+
+    cout << "[DEBUG] Loading Map File " << mapFile << endl;
+    cout << "[DEBUG] Loading map . . ." << endl;
+    Map *map = loader.loadMap(mapFile);
+
+    if (map)
+    {
+        cout << "✅ Map loaded successfully!" << endl;
+        cout << "🔗 Map connectivity: " << (map->validate() ? "✅ PASS" : "❌ FAIL") << endl;
+        cout << "🌍 Continent connectivity: " << (map->validateContinents() ? "✅ PASS" : "❌ FAIL") << endl;
+        cout << "🏰 Territory membership: " << (map->validateTerritoryMembership() ? "✅ PASS" : "❌ FAIL") << endl;
+        delete map;
+    }
+    else
+    {
+        cout << "🚫 Map loading failed (invalid map file)." << endl;
+    }
+
+    cout << "🧹-----------------------------" << endl;
+}
+
 void testLoadMaps()
 {
     vector<string> mapFiles = getAllMapFiles(TEST_DIR);
@@ -50,6 +75,7 @@ void testLoadMaps()
 
 int main()
 {
-    testLoadMaps();
+    // testLoadMaps();
+    singleMapLoadDebuger();
     return 0;
 }
