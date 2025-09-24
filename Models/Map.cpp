@@ -13,23 +13,32 @@ using namespace std;
 Territory::Territory(const string &name, int id, int continentId, int x, int y)
     : name(name), id(id), continentId(continentId), x(x), y(y), ownerId(-1), armies(0) {}
 
+Territory::Territory(const Territory &other) : name(other.name), id(other.id), continentId(other.continentId), x(other.x),
+                                               y(other.y), ownerId(other.ownerId), armies(other.armies) {};
+
 // Continent constructor: initializes a continent with a name, ID, and bonus value.
 Continent::Continent(const string &name, int id, int bonusValue)
     : name(name), id(id), bonusValue(bonusValue) {}
 
+Continent::Continent(const Continent &other)
+    : name(other.name), id(other.id), bonusValue(other.bonusValue) {};
+
 // Map constructor: initializes an empty map.
 Map::Map() {}
 
+Map::Map(const Map &other) : territories(other.territories), territoryNameToId(other.territoryNameToId),
+                             continentIdToIndex(other.continentIdToIndex), continentNameToId(other.continentNameToId) {}
+
 // Territory methods
-std::string Territory::getName() const { return name; }
+string Territory::getName() const { return name; }
 int Territory::getId() const { return id; }
 int Territory::getContinentId() const { return continentId; }
 int Territory::getOwnerId() const { return ownerId; }
 int Territory::getArmies() const { return armies; }
 int Territory::getX() const { return x; }
 int Territory::getY() const { return y; }
-std::unordered_set<int> &Territory::getAdjacentIds() { return adjacentIds; }
-const std::unordered_set<int> &Territory::getAdjacentIds() const { return adjacentIds; }
+unordered_set<int> &Territory::getAdjacentIds() { return adjacentIds; }
+const unordered_set<int> &Territory::getAdjacentIds() const { return adjacentIds; }
 
 void Territory::addAdjacentTerritory(int territoryId)
 {
@@ -47,11 +56,11 @@ void Territory::setArmies(int armyCount)
 }
 
 // Continent methods
-std::string Continent::getName() const { return name; }
+string Continent::getName() const { return name; }
 int Continent::getId() const { return id; }
 int Continent::getBonusValue() const { return bonusValue; }
-std::unordered_set<int> &Continent::getTerritoryIds() { return territoryIds; }
-const std::unordered_set<int> &Continent::getTerritoryIds() const { return territoryIds; }
+unordered_set<int> &Continent::getTerritoryIds() { return territoryIds; }
+const unordered_set<int> &Continent::getTerritoryIds() const { return territoryIds; }
 
 void Continent::addTerritory(int territoryId)
 {
@@ -321,6 +330,7 @@ void Map::printMapStatistics() const
 
 // MapLoader constructor: initializes a map loader.
 MapLoader::MapLoader() {}
+MapLoader::MapLoader(const MapLoader &other) : MapLoader() {}
 
 // Handles the current parsing state and updates the map accordingly.
 Map *MapLoader::handleCurrentState(Section currentState, const string &line, Map *map)
