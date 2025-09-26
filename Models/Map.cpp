@@ -33,16 +33,37 @@ Territory &Territory::operator=(const Territory &other)
     return *this;
 }
 
+// Assignment operator
 ostream &operator<<(ostream &os, const Territory &t)
 {
-    os << "Territory(Name: " << t.getName()
-       << ", ID: " << t.getId()
-       << ", ContinentID: " << t.getContinentId()
-       << ", OwnerID: " << t.getOwnerId()
-       << ", Armies: " << t.getArmies()
-       << ", X: " << t.getX()
+    os << "🗺️ Territory(Name: " << t.getName()
+       << " 🆔: " << t.getId()
+       << " 🌍 ContinentID: " << t.getContinentId()
+       << " 👤 OwnerID: " << t.getOwnerId()
+       << " 🪖 Armies: " << t.getArmies()
+       << " 📍 X: " << t.getX()
        << ", Y: " << t.getY()
        << ")";
+    return os;
+}
+
+ostream &operator<<(ostream &os, const Continent &c)
+{
+    os << "🌎 Continent(Name: " << c.getName()
+       << " 🆔: " << c.getId()
+       << " 🎁 Bonus: " << c.getBonusValue()
+       << " 🗺️ Territories: " << c.getTerritoryIds().size()
+       << ")";
+    return os;
+}
+
+ostream &operator<<(ostream &os, const Map &m)
+{
+    os << "🗺️ Map("
+       << "🌎 Continents: " << m.getContinentsSize()
+       << ", 🗺️ Territories: " << m.getTerritoriesSize()
+       << ")\n";
+    m.printMapStatistics();
     return os;
 }
 

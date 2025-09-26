@@ -109,6 +109,8 @@ public:
     ~Map();
     // Assignment operator
     Map &operator=(const Map &other);
+    // assignment insertion operator
+    friend std::ostream &operator<<(std::ostream, Map &m);
     // Territory operations
     void addTerritory(const Territory &t);
     // Getters
