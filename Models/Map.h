@@ -34,10 +34,13 @@ public:
     Territory(const std::string &name, int id, int continentId, int x = 0, int y = 0);
     // Copy Constructory
     Territory(const Territory &other);
-    // Assignment Operator:
+    // Assignment Operator
     Territory &operator=(const Territory &other);
-    // Stream Insettion operator
+    // deconstructor
+    ~Territory();
 
+    // stream insertion operator:
+    friend std::ostream &operator<<(std::ostream &os, const Territory &t);
     // Getters
     std::string getName() const;
     int getId() const;
@@ -68,6 +71,12 @@ public:
     Continent(const std::string &name, int id, int bonusValue = 0);
     // Copy Constructor
     Continent(const Continent &other);
+    // Assignment Operator
+    Continent &operator=(const Continent &other);
+    // Deconstructor:
+    ~Continent();
+    // Stream insertion operator
+    friend std::ostream &operator<<(std::ostream &os, Continent &c);
     // getters
     std::string getName() const;
     int getId() const;
@@ -96,7 +105,10 @@ public:
     Map();
     // Copy Constructor
     Map(const Map &other);
-
+    // Deconstructor:
+    ~Map();
+    // Assignment operator
+    Map &operator=(const Map &other);
     // Territory operations
     void addTerritory(const Territory &t);
     // Getters
@@ -127,6 +139,7 @@ class MapLoader
 public:
     // Constructor
     MapLoader();
+    ~MapLoader();
     // copy Constructor
     MapLoader(const MapLoader &other);
     Map *loadMap(const std::string &filename);

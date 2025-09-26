@@ -16,15 +16,81 @@ Territory::Territory(const string &name, int id, int continentId, int x, int y)
 Territory::Territory(const Territory &other) : name(other.name), id(other.id), continentId(other.continentId), x(other.x),
                                                y(other.y), ownerId(other.ownerId), armies(other.armies) {};
 
+// Assigment operator:
+Territory &Territory::operator=(const Territory &other)
+{
+    if (this != &other)
+    {
+        name = other.name;
+        id = other.id;
+        continentId = other.continentId;
+        ownerId = other.ownerId;
+        armies = other.armies;
+        x = other.x;
+        y = other.y;
+        adjacentIds = other.adjacentIds;
+    }
+    return *this;
+}
+
+ostream &operator<<(ostream &os, const Territory &t)
+{
+    os << "Territory(Name: " << t.getName()
+       << ", ID: " << t.getId()
+       << ", ContinentID: " << t.getContinentId()
+       << ", OwnerID: " << t.getOwnerId()
+       << ", Armies: " << t.getArmies()
+       << ", X: " << t.getX()
+       << ", Y: " << t.getY()
+       << ")";
+    return os;
+}
+
+// Deconstructor Territory
+Territory::~Territory() {};
+
 // Continent constructor: initializes a continent with a name, ID, and bonus value.
 Continent::Continent(const string &name, int id, int bonusValue)
     : name(name), id(id), bonusValue(bonusValue) {}
-
+// Copy Constructor
 Continent::Continent(const Continent &other)
     : name(other.name), id(other.id), bonusValue(other.bonusValue) {};
+// Assignment Operator
+
+Continent &Continent::operator=(const Continent &other)
+{
+    if (this != &other)
+    {
+        name = other.name;
+        id = other.id;
+        bonusValue = other.bonusValue;
+        territoryIds = other.territoryIds;
+    }
+    return *this;
+}
+
+// Deconstructor Continent:
+Continent::~Continent() {};
 
 // Map constructor: initializes an empty map.
-Map::Map() {}
+Map::Map() {};
+
+// Deconstructor map
+Map::~Map() {};
+
+// Assignment Operator:
+Map &Map::operator=(const Map &other)
+{
+    if (this != &other)
+    {
+        territories = other.territories;
+        continents = other.continents;
+        territoryNameToId = other.territoryNameToId;
+        continentIdToIndex = other.continentIdToIndex;
+        continentNameToId = other.continentNameToId;
+    }
+    return *this;
+}
 
 Map::Map(const Map &other) : territories(other.territories), territoryNameToId(other.territoryNameToId),
                              continentIdToIndex(other.continentIdToIndex), continentNameToId(other.continentNameToId) {}
