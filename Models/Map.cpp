@@ -6,6 +6,7 @@
 #include <unordered_set>
 #include <queue>
 #include <algorithm>
+#include <cctype>
 
 using namespace std;
 
@@ -418,7 +419,7 @@ void Map::printMapStatistics() const
 // MapLoader constructor: initializes a map loader.
 MapLoader::MapLoader() {}
 MapLoader::MapLoader(const MapLoader &other) : MapLoader() {}
-
+MapLoader::~MapLoader() {};
 // Handles the current parsing state and updates the map accordingly.
 Map *MapLoader::handleCurrentState(Section currentState, const string &line, Map *map)
 {
@@ -519,9 +520,14 @@ Map *MapLoader::handleCurrentState(Section currentState, const string &line, Map
 // Returns the Section enum value based on the header line.
 Section MapLoader::getSectionFromHeader(const string &line)
 {
-    if (line == CONTINENT_HEADER)
+    string lowercasedString = line; // create a copy of original string
+    transform(lowercasedString.begin(), lowercasedString.end(), lowercasedString.begin(),
+              [](unsigned char c)
+              { return tolower(c); });
+
+    if (lowercasedString == CONTINENT_HEADER) // [BUG-FIX] check if equal [Continent] to lower case
         return CONTINENTS;
-    if (line == TERRITORIES_HEADER)
+    if (lowercasedString == TERRITORIES_HEADER) // [BUG-FIX] check if equal [Territories] to lower case
         return TERRITORIES;
     return NONE;
 }
@@ -567,6 +573,7 @@ Map *MapLoader::loadMap(const string &filename)
         // Remove whitespace
         line.erase(0, line.find_first_not_of(WHITE_SPACE));
         line.erase(line.find_last_not_of(WHITE_SPACE) + 1);
+        cout << "line: " << line << endl;
 
         if (line.empty())
             continue;

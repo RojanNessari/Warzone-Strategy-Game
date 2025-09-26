@@ -6,6 +6,7 @@
 using namespace std;
 
 const string TEST_DIR = "Tests";
+const string SINGLE_TEST_DIR = "./Tests/Florida/Florida.map";
 
 vector<string> getAllMapFiles(const string &rootDir)
 {
@@ -23,7 +24,7 @@ vector<string> getAllMapFiles(const string &rootDir)
 void singleMapLoadDebuger()
 {
     MapLoader loader;
-    string mapFile = "./Tests/_64_BIG BLUE/_64_ BIG BLUE.map";
+    string mapFile = SINGLE_TEST_DIR;
 
     cout << "🗺️  Testing single map: " << mapFile << endl;
     Map *map = loader.loadMap(mapFile);
@@ -53,6 +54,7 @@ void testLoadMaps()
     cout << string(50, '=') << endl;
 
     vector<string> mapFiles = getAllMapFiles(TEST_DIR);
+    vector<string> failedMapFiles;
     MapLoader loader;
 
     int validMaps = 0;
@@ -79,6 +81,7 @@ void testLoadMaps()
             else
             {
                 invalidMaps++;
+                failedMapFiles.push_back(file);
                 cout << "🎯 Result: ❌ INVALID MAP" << endl;
             }
 
@@ -87,6 +90,7 @@ void testLoadMaps()
         else
         {
             invalidMaps++;
+            failedMapFiles.push_back(file);
             cout << "❌ Map loading failed (file format error)." << endl;
         }
 
@@ -97,12 +101,21 @@ void testLoadMaps()
     cout << "   Valid maps: " << validMaps << endl;
     cout << "   Invalid maps: " << invalidMaps << endl;
     cout << "   Total tested: " << (validMaps + invalidMaps) << endl;
+
+    if (!failedMapFiles.empty())
+    {
+        cout << "   Failed map files:" << endl;
+        for (const auto &name : failedMapFiles)
+        {
+            cout << "      " << name << endl;
+        }
+    }
     cout << string(50, '=') << endl;
 }
 
 int main()
 {
-    // testLoadMaps();
-    singleMapLoadDebuger();
+    testLoadMaps();
+    // singleMapLoadDebuger();
     return 0;
 }

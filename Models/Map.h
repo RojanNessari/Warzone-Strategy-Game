@@ -13,8 +13,8 @@ enum Section
 };
 
 const std::string WHITE_SPACE = " \t\r\n";
-const std::string CONTINENT_HEADER = "[Continents]";
-const std::string TERRITORIES_HEADER = "[Territories]";
+const std::string CONTINENT_HEADER = "[continents]";
+const std::string TERRITORIES_HEADER = "[territories]";
 
 class Territory
 {
