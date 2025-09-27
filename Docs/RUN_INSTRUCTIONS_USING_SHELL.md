@@ -32,4 +32,18 @@ fi
    ./run.sh
    ```
 
+## Giving Execute Permission to Other Scripts
+
+If you have other shell scripts (for example, `run_player_driver.sh`), you also need to give them execute permission before running:
+
+```sh
+chmod +x run_player_driver.sh
+```
+
+Then you can run it with:
+
+```sh
+./run_player_driver.sh
+```
+
 This will compile and run your program, showing emoji status messages for each step!
