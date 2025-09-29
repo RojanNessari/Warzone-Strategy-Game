@@ -24,27 +24,35 @@ Card::Card(CardType t){
 }
 Card::Card(const Card& other) {
     type = other.type;   
-    DebugPrint("Card created by copy constructor of type: " + string(CardTypeToString(type)));
+    DebugPrint(" copy constructor is using to copy " );
 }
 Card & Card ::operator=(const Card&other){
     if(this!=&other){
        type=other.type;
-   
+    DebugPrint(" assignment operator is using to assign ");    
     }
+    
     return *this;
-     DebugPrint("Card created by assignment operator of type: " + string(CardTypeToString(type)));
+    
 
 }
-    ostream& operator<<(std::ostream& os, const Card& card) {
+ostream& operator<<(std::ostream& os, const Card& card) {
         os << "Card(Type: " << CardTypeToString(card.type)<< ")";
         return os;
     }
-    void play(Player& player,OrderList& ordersList){
+void play(Player& player,OrderList& ordersList){
         // Implementation of play method
-        DebugPrint("Playing card of type: " + string(CardTypeToString(type)));
+        DebugPrint("Playing card of type: " );
         // Add logic to create and add the corresponding order to ordersList
     }
   
 
-  
+Hand::Hand(vector<Card*> c){
+    card=c;
+    DebugPrint("Hand created in Hand costractor with "+ to_string(c.size())+" cards");
+}
+Hand::Hand(const Hand&other){
+    card=other.card;
+    DebugPrint(" copy constructor is using to copy " + to_string(other.card.size())+" cards");
+} 
   
