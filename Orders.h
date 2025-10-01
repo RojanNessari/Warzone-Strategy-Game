@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 
-// ===== Base Order =====
+//  base Order
 class Order {
 public:
     Order();
@@ -22,7 +22,7 @@ protected:
     std::string effect;
 };
 
-// ===== Deploy Order (example subclass) =====
+//  deploy Order
 class Deploy : public Order {
 public:
     Deploy();
@@ -30,7 +30,7 @@ public:
     void execute() override;
 };
 
-// ===== OrdersList =====
+//  OrdersList 
 class OrdersList {
 private:
     std::vector<Order*> orders;
@@ -43,4 +43,4 @@ public:
     void print() const;
 };
 
-#endif // ORDERS_H
+#endif 
