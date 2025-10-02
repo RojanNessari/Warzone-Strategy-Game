@@ -6,6 +6,7 @@
 #include <unordered_set>
 #include <queue>
 #include <algorithm>
+#include <cctype>
 
 using namespace std;
 
@@ -13,23 +14,119 @@ using namespace std;
 Territory::Territory(const string &name, int id, int continentId, int x, int y)
     : name(name), id(id), continentId(continentId), x(x), y(y), ownerId(-1), armies(0) {}
 
+Territory::Territory(const Territory &other) : name(other.name), id(other.id), continentId(other.continentId), x(other.x),
+                                               y(other.y), ownerId(other.ownerId), armies(other.armies) {};
+
+// Assigment operator:
+Territory &Territory::operator=(const Territory &other)
+{
+    if (this != &other)
+    {
+        name = other.name;
+        id = other.id;
+        continentId = other.continentId;
+        ownerId = other.ownerId;
+        armies = other.armies;
+        x = other.x;
+        y = other.y;
+        adjacentIds = other.adjacentIds;
+    }
+    return *this;
+}
+
+// Assignment operator
+ostream &operator<<(ostream &os, const Territory &t)
+{
+    os << "🗺️ Territory(Name: " << t.getName()
+       << " 🆔: " << t.getId()
+       << " 🌍 ContinentID: " << t.getContinentId()
+       << " 👤 OwnerID: " << t.getOwnerId()
+       << " 🪖 Armies: " << t.getArmies()
+       << " 📍 X: " << t.getX()
+       << ", Y: " << t.getY()
+       << ")";
+    return os;
+}
+
+ostream &operator<<(ostream &os, const Continent &c)
+{
+    os << "🌎 Continent(Name: " << c.getName()
+       << " 🆔: " << c.getId()
+       << " 🎁 Bonus: " << c.getBonusValue()
+       << " 🗺️ Territories: " << c.getTerritoryIds().size()
+       << ")";
+    return os;
+}
+
+ostream &operator<<(ostream &os, const Map &m)
+{
+    os << "🗺️ Map("
+       << "🌎 Continents: " << m.getContinentsSize()
+       << ", 🗺️ Territories: " << m.getTerritoriesSize()
+       << ")\n";
+    m.printMapStatistics();
+    return os;
+}
+
+// Deconstructor Territory
+Territory::~Territory() {};
+
 // Continent constructor: initializes a continent with a name, ID, and bonus value.
 Continent::Continent(const string &name, int id, int bonusValue)
     : name(name), id(id), bonusValue(bonusValue) {}
+// Copy Constructor
+Continent::Continent(const Continent &other)
+    : name(other.name), id(other.id), bonusValue(other.bonusValue) {};
+// Assignment Operator
+
+Continent &Continent::operator=(const Continent &other)
+{
+    if (this != &other)
+    {
+        name = other.name;
+        id = other.id;
+        bonusValue = other.bonusValue;
+        territoryIds = other.territoryIds;
+    }
+    return *this;
+}
+
+// Deconstructor Continent:
+Continent::~Continent() {};
 
 // Map constructor: initializes an empty map.
-Map::Map() {}
+Map::Map() {};
+
+// Deconstructor map
+Map::~Map() {};
+
+// Assignment Operator:
+Map &Map::operator=(const Map &other)
+{
+    if (this != &other)
+    {
+        territories = other.territories;
+        continents = other.continents;
+        territoryNameToId = other.territoryNameToId;
+        continentIdToIndex = other.continentIdToIndex;
+        continentNameToId = other.continentNameToId;
+    }
+    return *this;
+}
+
+Map::Map(const Map &other) : territories(other.territories), territoryNameToId(other.territoryNameToId),
+                             continentIdToIndex(other.continentIdToIndex), continentNameToId(other.continentNameToId) {}
 
 // Territory methods
-std::string Territory::getName() const { return name; }
+string Territory::getName() const { return name; }
 int Territory::getId() const { return id; }
 int Territory::getContinentId() const { return continentId; }
 int Territory::getOwnerId() const { return ownerId; }
 int Territory::getArmies() const { return armies; }
 int Territory::getX() const { return x; }
 int Territory::getY() const { return y; }
-std::unordered_set<int> &Territory::getAdjacentIds() { return adjacentIds; }
-const std::unordered_set<int> &Territory::getAdjacentIds() const { return adjacentIds; }
+unordered_set<int> &Territory::getAdjacentIds() { return adjacentIds; }
+const unordered_set<int> &Territory::getAdjacentIds() const { return adjacentIds; }
 
 void Territory::addAdjacentTerritory(int territoryId)
 {
@@ -47,11 +144,11 @@ void Territory::setArmies(int armyCount)
 }
 
 // Continent methods
-std::string Continent::getName() const { return name; }
+string Continent::getName() const { return name; }
 int Continent::getId() const { return id; }
 int Continent::getBonusValue() const { return bonusValue; }
-std::unordered_set<int> &Continent::getTerritoryIds() { return territoryIds; }
-const std::unordered_set<int> &Continent::getTerritoryIds() const { return territoryIds; }
+unordered_set<int> &Continent::getTerritoryIds() { return territoryIds; }
+const unordered_set<int> &Continent::getTerritoryIds() const { return territoryIds; }
 
 void Continent::addTerritory(int territoryId)
 {
@@ -321,7 +418,8 @@ void Map::printMapStatistics() const
 
 // MapLoader constructor: initializes a map loader.
 MapLoader::MapLoader() {}
-
+MapLoader::MapLoader(const MapLoader &other) : MapLoader() {}
+MapLoader::~MapLoader() {};
 // Handles the current parsing state and updates the map accordingly.
 Map *MapLoader::handleCurrentState(Section currentState, const string &line, Map *map)
 {
@@ -422,9 +520,14 @@ Map *MapLoader::handleCurrentState(Section currentState, const string &line, Map
 // Returns the Section enum value based on the header line.
 Section MapLoader::getSectionFromHeader(const string &line)
 {
-    if (line == CONTINENT_HEADER)
+    string lowercasedString = line; // create a copy of original string
+    transform(lowercasedString.begin(), lowercasedString.end(), lowercasedString.begin(),
+              [](unsigned char c)
+              { return tolower(c); });
+
+    if (lowercasedString == CONTINENT_HEADER) // [BUG-FIX] check if equal [Continent] to lower case
         return CONTINENTS;
-    if (line == TERRITORIES_HEADER)
+    if (lowercasedString == TERRITORIES_HEADER) // [BUG-FIX] check if equal [Territories] to lower case
         return TERRITORIES;
     return NONE;
 }
@@ -470,6 +573,7 @@ Map *MapLoader::loadMap(const string &filename)
         // Remove whitespace
         line.erase(0, line.find_first_not_of(WHITE_SPACE));
         line.erase(line.find_last_not_of(WHITE_SPACE) + 1);
+        cout << "line: " << line << endl;
 
         if (line.empty())
             continue;

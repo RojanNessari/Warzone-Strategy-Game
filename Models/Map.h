@@ -13,12 +13,13 @@ enum Section
 };
 
 const std::string WHITE_SPACE = " \t\r\n";
-const std::string CONTINENT_HEADER = "[Continents]";
-const std::string TERRITORIES_HEADER = "[Territories]";
+const std::string CONTINENT_HEADER = "[continents]";
+const std::string TERRITORIES_HEADER = "[territories]";
 
 class Territory
 {
 private:
+    // obj property
     std::string name;
     int id;
     int continentId;
@@ -29,36 +30,60 @@ private:
     std::unordered_set<int> adjacentIds; // Using set for O(1) lookup and no duplicates
 
 public:
+    // Constructor
     Territory(const std::string &name, int id, int continentId, int x = 0, int y = 0);
+    // Copy Constructory
+    Territory(const Territory &other);
+    // Assignment Operator
+    Territory &operator=(const Territory &other);
+    // deconstructor
+    ~Territory();
+
+    // stream insertion operator:
+    friend std::ostream &operator<<(std::ostream &os, const Territory &t);
+    // Getters
     std::string getName() const;
     int getId() const;
     int getContinentId() const;
     int getOwnerId() const;
     int getArmies() const;
     std::unordered_set<int> &getAdjacentIds();
+    int getX() const;
+    int getY() const;
     const std::unordered_set<int> &getAdjacentIds() const;
+    // setters
     void addAdjacentTerritory(int territoryId);
     void setOwner(int playerId);
     void setArmies(int armyCount);
-    int getX() const;
-    int getY() const;
 };
 
 class Continent
 {
 private:
+    // Obj property
     std::string name;
     int id;
     int bonusValue;
     std::unordered_set<int> territoryIds; // Using set for O(1) operations
 
 public:
+    // Constructor
     Continent(const std::string &name, int id, int bonusValue = 0);
+    // Copy Constructor
+    Continent(const Continent &other);
+    // Assignment Operator
+    Continent &operator=(const Continent &other);
+    // Deconstructor:
+    ~Continent();
+    // Stream insertion operator
+    friend std::ostream &operator<<(std::ostream &os, Continent &c);
+    // getters
     std::string getName() const;
     int getId() const;
     int getBonusValue() const;
     std::unordered_set<int> &getTerritoryIds();
     const std::unordered_set<int> &getTerritoryIds() const;
+    // setters
     void addTerritory(int territoryId);
     void setBonusValue(int bonus);
 };
@@ -66,6 +91,7 @@ public:
 class Map
 {
 private:
+    // Obj property
     std::vector<Territory> territories;
     std::vector<Continent> continents;
 
@@ -75,10 +101,19 @@ private:
     std::unordered_map<std::string, int> continentNameToId; // continent name -> continent id
 
 public:
+    // Constructor
     Map();
-
+    // Copy Constructor
+    Map(const Map &other);
+    // Deconstructor:
+    ~Map();
+    // Assignment operator
+    Map &operator=(const Map &other);
+    // assignment insertion operator
+    friend std::ostream &operator<<(std::ostream, Map &m);
     // Territory operations
     void addTerritory(const Territory &t);
+    // Getters
     Territory *getTerritoryByName(const std::string &name);
     Territory *getTerritoryById(int id);
     Territory *getTerritoryByIndex(int idx);
@@ -104,7 +139,11 @@ public:
 class MapLoader
 {
 public:
+    // Constructor
     MapLoader();
+    ~MapLoader();
+    // copy Constructor
+    MapLoader(const MapLoader &other);
     Map *loadMap(const std::string &filename);
     Map *handleCurrentState(Section currentState, const std::string &line, Map *map);
     Section getSectionFromHeader(const std::string &line);
