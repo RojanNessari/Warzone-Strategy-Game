@@ -41,4 +41,4 @@
 *.dwo
 
 # ignore vs code bullshit
-.vscode/
+.vscode/.DS_Store
