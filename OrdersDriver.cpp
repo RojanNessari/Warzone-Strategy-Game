@@ -1,7 +1,8 @@
-#include "Orders.h"
+#include "Models/Orders.cpp"
 #include <iostream>
 
-void testOrdersLists() {
+void testOrdersLists()
+{
     OrdersList list;
 
     list.add(new Deploy());
@@ -23,16 +24,19 @@ void testOrdersLists() {
     list.print();
 
     std::cout << "\nExecuting all orders..." << std::endl;
-    for (size_t i = 0; i < list.size(); i++) {
-        Order* o = list.get((int)i);
-        if (o && o->validate()) {
+    for (size_t i = 0; i < list.size(); i++)
+    {
+        Order *o = list.get((int)i);
+        if (o && o->validate())
+        {
             o->execute();
         }
     }
     list.print();
 }
 
-int main() {
+int main()
+{
     testOrdersLists();
     return 0;
 }
