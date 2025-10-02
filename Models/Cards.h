@@ -1,42 +1,37 @@
 #ifndef CARDS_H
 #define CARDS_H
 
-#include <string>
 #include <vector>
-#include <iostream>
+#include <iosfwd>  
 
 class Player;
-class OrderList;
-
+class OrdersList;   
+class Deck; 
+// ----------------- Card Types -----------------
 enum class CardType {
     Bomb,
-    Reinforcement,
+    Reinforcement,   
     Blockade,
     Airlift,
-    Diplomacy
+    Diplomacy       
 };
 
 const char* CardTypeToString(CardType type);
 
-// single definition will live in Cards.cpp
-extern const bool DEBUG;
-void DebugPrint(const std::string& message);
-
 // ----------------- Card -----------------
-class Deck; // forward declare for play()
+
 
 class Card {
 private:
     CardType type;
-
 public:
     explicit Card(CardType t);
     Card(const Card& other);
     Card& operator=(const Card& other);
     ~Card();
 
-    // Creates an order (Part 3) and returns this card to the deck
-    void play(Player& player, OrderList& ordersList, Deck& deck);
+    // Play creates an Order (adds to OrdersList) then returns this card to the Deck
+    void play(Player& player, OrdersList& ordersList, Deck& deck);
 
     friend std::ostream& operator<<(std::ostream& os, const Card& card);
 };
@@ -44,22 +39,18 @@ public:
 // ----------------- Hand -----------------
 class Hand {
 private:
-    std::vector<Card*> cards;
-
+    std::vector<Card*> cards;  
 public:
     Hand();
     Hand(const Hand& other);
     Hand& operator=(const Hand& other);
     ~Hand();
 
-    void addCard(Card* c);
-    Card* removeAt(size_t index);
+    void addCard(Card* c);           
+    Card* removeAt(std::size_t idx); 
 
     // Remove card at index, call Card::play (which returns the card to the deck)
-    void playCard(size_t index, Player& player, OrderList& ordersList, Deck& deck);
-
-    // optional helper you were using before
-    Hand& getHand() { return *this; }
+    void playCard(std::size_t index, Player& player, OrdersList& ordersList, Deck& deck);
 
     friend std::ostream& operator<<(std::ostream& os, const Hand& h);
 };
@@ -67,18 +58,17 @@ public:
 // ----------------- Deck -----------------
 class Deck {
 private:
-    std::vector<Card*> cards;
-
+    std::vector<Card*> cards; 
 public:
     Deck();
     Deck(const Deck& other);
     Deck& operator=(const Deck& other);
     ~Deck();
 
-    // Draw a random card from the deck and add it to the player's hand
+    // Draw a random card from the deck and add it to the player's hand.
     Card* draw(Player& player, Hand& hand);
 
-    // When a card is played, it is returned to the deck
+    // When a card is played, it is returned to the deck.
     void returnCard(Card* c);
 
     friend std::ostream& operator<<(std::ostream& os, const Deck& d);
