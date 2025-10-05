@@ -1,5 +1,5 @@
-echo "🔨 Compiling MapDriver.cpp..."
-g++ -std=c++17 -o PlayerDriver PlayerDriver.cpp Models/Player.cpp
+echo "🔨 Compiling PlayerDriver.cpp..."
+g++ -std=c++17 -o PlayerDriver PlayerDriver.cpp Models/Player.cpp Models/Map.cpp Models/Cards.cpp Models/Orders.cpp
 
 if [[ $? -eq 0 ]]; then
     echo "🚀 Running PlayerDriver..."

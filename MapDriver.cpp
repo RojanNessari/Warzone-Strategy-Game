@@ -6,7 +6,7 @@
 using namespace std;
 
 const string TEST_DIR = "Tests";
-const string SINGLE_TEST_DIR = "./Tests/Florida/Florida.map";
+const string SINGLE_TEST_DIR = "./Tests/AUCircles/AuCircles.map";
 
 vector<string> getAllMapFiles(const string &rootDir)
 {
@@ -115,7 +115,7 @@ void testLoadMaps()
 
 int main()
 {
-    testLoadMaps();
-    // singleMapLoadDebuger();
+    // testLoadMaps();
+    singleMapLoadDebuger();
     return 0;
 }

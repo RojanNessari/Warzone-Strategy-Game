@@ -4,35 +4,39 @@
 #include <vector>
 #include <string>
 #include <iostream>
+class Territory;
+class OrdersList;
+class Hand;
 
 class Player
 {
-
 public:
-    // constructor
+    // Constructor
     Player();
 
-    // copy constructor
-    Player(const Player &other0bject);
+    // Copy constructor
+    Player(const Player &other);
 
-    // Assighment operator
+    // Assignment operator
     Player &operator=(const Player &other);
 
-    // destructor
+    // Destructor
     ~Player();
 
     // Required functions
-    std::vector<std::string> toDefend();
-    std::vector<std::string> toAttack();
+    std::vector<Territory *> toDefend() const; // Return a collection of Territories to be defended
+    std::vector<Territory *> toAttack() const; // Return a collection of Territories to be attacked
     void issueOrder();
 
-    // stream insertion operator overload
+    // Stream insertion operator overload
     friend std::ostream &operator<<(std::ostream &os, const Player &player);
 
+    Hand *getHandOfCards() const;
+
 private:
-    std::vector<std::string> *territories; // Pointer: list of territories
-    std::vector<std::string> *handOfCards; // Pointer: list of cards
-    std::vector<std::string> *orders;
+    std::vector<Territory *> territories; // List of territories owned by the player (as pointers)
+    Hand *handOfCards;                    // List of cards owned by the player
+    OrdersList *orders;                   // List of orders issued by the player (as pointer)
 };
 
 #endif

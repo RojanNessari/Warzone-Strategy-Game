@@ -1,4 +1,4 @@
-#include "Models/Orders.cpp"
+#include "Models/Orders.h"
 #include <iostream>
 
 void testOrdersLists()
@@ -12,18 +12,18 @@ void testOrdersLists()
     list.add(new Airlift());
     list.add(new Negotiate());
 
-    std::cout << "Initial Orders:" << std::endl;
+    std::cout << "📋 Initial Orders:" << std::endl;
     list.print();
 
-    std::cout << "\nMoving order 2 (Bomb) to the top..." << std::endl;
+    std::cout << "\n🔼 Moving order 2 (Bomb) to the top..." << std::endl;
     list.move(2, 0);
     list.print();
 
-    std::cout << "\nRemoving order 3..." << std::endl;
+    std::cout << "\n❌ Removing order 3..." << std::endl;
     list.remove(3);
     list.print();
 
-    std::cout << "\nExecuting all orders..." << std::endl;
+    std::cout << "\n⚡ Executing all orders..." << std::endl;
     for (size_t i = 0; i < list.size(); i++)
     {
         Order *o = list.get((int)i);

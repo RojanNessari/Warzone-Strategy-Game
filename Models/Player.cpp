@@ -1,24 +1,25 @@
 
-
 #include "Player.h"
 #include <iostream>
+#include "Orders.h"
+#include "Cards.h"
 using namespace std;
 
 // Default constructor
-Player::Player()
+Player::Player() : territories(), handOfCards(new Hand()), orders(new OrdersList())
 {
-    territories = new vector<string>();
-    handOfCards = new vector<string>();
-    orders = new vector<string>();
     cout << "Player created." << endl;
 }
 
 // Copy constructor
 Player::Player(const Player &other)
 {
-    territories = new vector<string>(*other.territories);
-    handOfCards = new vector<string>(*other.handOfCards);
-    orders = new vector<string>(*other.orders);
+    // Deep copy territories pointers (shallow copy, you may want to deep copy if needed)
+    territories = other.territories;
+    // Deep copy Hand
+    handOfCards = new Hand(*other.handOfCards);
+    // Deep copy OrdersList
+    orders = new OrdersList(*other.orders);
     cout << "Player copied." << endl;
 }
 
@@ -27,12 +28,13 @@ Player &Player::operator=(const Player &other)
 {
     if (this != &other)
     {
-        delete territories;
-        delete handOfCards;
-        delete orders;
-        territories = new vector<string>(*other.territories);
-        handOfCards = new vector<string>(*other.handOfCards);
-        orders = new vector<string>(*other.orders);
+        territories = other.territories;
+        if (handOfCards)
+            delete handOfCards;
+        handOfCards = new Hand(*other.handOfCards);
+        if (orders)
+            delete orders;
+        orders = new OrdersList(*other.orders);
     }
     cout << "Player assigned." << endl;
     return *this;
@@ -41,37 +43,49 @@ Player &Player::operator=(const Player &other)
 // Destructor
 Player::~Player()
 {
-    delete territories;
-    delete handOfCards;
-    delete orders;
+    if (handOfCards)
+        delete handOfCards;
+    if (orders)
+        delete orders;
     cout << "Player destroyed." << endl;
 }
 
+Hand *Player::getHandOfCards() const { return handOfCards; }
+
 // Methods
-vector<string> Player::toDefend()
+vector<Territory *> Player::toDefend() const
 {
-    // Return a simple list for now
-    return {"Territory1", "Territory2"};
+    // Return a subset of territories to defend (arbitrary logic for now)
+    return territories; // Placeholder: return all territories
 }
 
-vector<string> Player::toAttack()
+vector<Territory *> Player::toAttack() const
 {
-    // Return a simple list for now
-    return {"Territory3", "Territory4"};
+    // Return a subset of territories to attack (arbitrary logic for now)
+    return territories; // Placeholder: return all territories
 }
 
 void Player::issueOrder()
 {
-    orders->push_back("Sample Order");
+    // For demonstration, create a Deploy order (you can modify this to accept parameters)
+    Order *newOrder = new Deploy();
+    orders->add(newOrder);
     cout << "Order issued." << endl;
 }
 
 // Stream insertion operator
 ostream &operator<<(ostream &os, const Player &player)
 {
-    os << "Player with "
-       << player.territories->size() << " territories, "
-       << player.handOfCards->size() << " cards, and "
-       << player.orders->size() << " orders.";
+    os << "👤 Player with "
+       << player.territories.size() << " 🗺️ territories, ";
+    if (player.handOfCards)
+        os << *(player.handOfCards);
+    else
+        os << "0 🃏 cards, ";
+    if (player.orders)
+        os << player.orders->size();
+    else
+        os << 0;
+    os << " 📜 orders.";
     return os;
 }
