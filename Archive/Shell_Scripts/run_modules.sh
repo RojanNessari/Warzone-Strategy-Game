@@ -75,22 +75,6 @@ run_game_engine() {
     fi
 }
 
-run_all() {
-    echo "🚀 Running All Modules 🚀"
-    echo "=========================="
-    run_cards
-    echo ""
-    run_map
-    echo ""
-    run_orders
-    echo ""
-    run_player
-    echo ""
-    run_game_engine
-    echo ""
-    echo "🎉 All modules completed! 🎉"
-}
-
 # Check if argument provided
 if [[ $# -eq 1 ]]; then
     case $1 in
@@ -109,12 +93,9 @@ if [[ $# -eq 1 ]]; then
         "engine"|"5")
             run_game_engine
             ;;
-        "all"|"6")
-            run_all
-            ;;
         *)
             echo "❌ Invalid option: $1"
-            echo "Usage: $0 [cards|map|orders|player|engine|all] or [1|2|3|4|5|6]"
+            echo "Usage: $0 [cards|map|orders|player|engine] or [1|2|3|4|5]"
             exit 1
             ;;
     esac
@@ -127,10 +108,9 @@ else
     echo "3. 📜 Orders Module"
     echo "4. 👤 Player Module"
     echo "5. 🎮 Game Engine Module"
-    echo "6. 🚀 Run All Modules"
     echo "0. ❌ Exit"
     echo ""
-    read -p "Enter your choice [0-6]: " choice
+    read -p "Enter your choice [0-5]: " choice
 
     case $choice in
         1)
@@ -147,9 +127,6 @@ else
             ;;
         5)
             run_game_engine
-            ;;
-        6)
-            run_all
             ;;
         0)
             echo "👋 Goodbye!"

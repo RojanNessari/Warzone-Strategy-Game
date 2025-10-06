@@ -36,9 +36,3 @@ void testCards()
 
     std::cout << "✅ Testing complete.\n";
 }
-
-int main()
-{
-    testCards();
-    return 0;
-}

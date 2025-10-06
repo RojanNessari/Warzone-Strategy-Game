@@ -112,10 +112,3 @@ void testLoadMaps()
     }
     cout << string(50, '=') << endl;
 }
-
-int main()
-{
-    // testLoadMaps();
-    singleMapLoadDebuger();
-    return 0;
-}

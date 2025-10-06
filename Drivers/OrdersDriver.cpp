@@ -34,9 +34,3 @@ void testOrdersLists()
     }
     list.print();
 }
-
-int main()
-{
-    testOrdersLists();
-    return 0;
-}

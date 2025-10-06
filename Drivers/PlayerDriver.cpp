@@ -46,9 +46,3 @@ void testPlayers()
 
     cout << "\n✅ All Player features tested!\n";
 }
-
-int main()
-{
-    testPlayers();
-    return 0;
-}
