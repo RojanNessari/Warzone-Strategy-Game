@@ -1,5 +1,5 @@
 echo "🔨 Compiling MapDriver.cpp..."
-g++ -std=c++17 -o MapDriver MapDriver.cpp Models/Map.cpp
+g++ -std=c++17 -o MapDriver Drivers/MapDriver.cpp Models/Map.cpp
 
 if [[ $? -eq 0 ]]; then
     echo "🚀 Running MapDriver..."

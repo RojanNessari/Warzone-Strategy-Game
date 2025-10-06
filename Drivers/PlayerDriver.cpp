@@ -1,6 +1,6 @@
-#include "Models/Player.h"
-#include "Models/Orders.h"
-#include "Models/Cards.h"
+#include "../Models/Player.h"
+#include "../Models/Orders.h"
+#include "../Models/Cards.h"
 #include <iostream>
 using namespace std;
 

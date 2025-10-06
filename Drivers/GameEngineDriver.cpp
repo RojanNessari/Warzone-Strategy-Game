@@ -1,4 +1,4 @@
-#include "Models/GameEngine.h"
+#include "../Models/GameEngine.h"
 #include <iostream>
 #include <string>
 
@@ -46,4 +46,10 @@ Type 'quit' to exit.
 
         ge.applyCommand(cmd); // engine validates all other transitions
     }
+}
+
+int main()
+{
+    testGameStates();
+    return 0;
 }

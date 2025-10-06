@@ -1,5 +1,5 @@
 echo "🔨 Compiling CardsDriver.cpp..."
-g++ -std=c++17 -o CardsDriver CardsDriver.cpp Models/Cards.cpp Models/Player.cpp Models/Orders.cpp
+g++ -std=c++17 -o CardsDriver Drivers/CardsDriver.cpp Models/Cards.cpp Models/Player.cpp Models/Orders.cpp
 
 if [[ $? -eq 0 ]]; then
     echo "🚀 Running CardsDriver..."

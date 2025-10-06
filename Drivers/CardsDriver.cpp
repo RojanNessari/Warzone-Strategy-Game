@@ -1,7 +1,7 @@
 #include <iostream>
-#include "Models/Cards.h"
-#include "Models/Player.h"
-#include "Models/Orders.h"
+#include "../Models/Cards.h"
+#include "../Models/Player.h"
+#include "../Models/Orders.h"
 
 void testCards()
 {
