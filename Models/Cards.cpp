@@ -107,18 +107,18 @@ void Card::play(Player &player, OrdersList &ordersList, Deck &deck)
         newOrder = new Negotiate();
         break;
     default:
-        std::cout << "❌ Unknown card type, no order created.\n";
+        std::cout << "Unknown card type, no order created.\n";
         break;
     }
 
     if (newOrder)
     {
         ordersList.add(newOrder);
-        std::cout << "✅ Order added to OrdersList.\n";
+        std::cout << "Order added to OrdersList.\n";
     }
     else
     {
-        std::cout << "⚠️  No order created.\n";
+        std::cout << "No order created.\n";
     }
 
     // After playing, return this card to the deck.

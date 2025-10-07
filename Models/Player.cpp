@@ -76,16 +76,16 @@ void Player::issueOrder()
 // Stream insertion operator
 ostream &operator<<(ostream &os, const Player &player)
 {
-    os << "👤 Player with "
-       << player.territories.size() << " 🗺️ territories, ";
+    os << "Player with "
+       << player.territories.size() << " territories, ";
     if (player.handOfCards)
         os << *(player.handOfCards);
     else
-        os << "0 🃏 cards, ";
+        os << "0 cards, ";
     if (player.orders)
         os << player.orders->size();
     else
         os << 0;
-    os << " 📜 orders.";
+    os << " orders.";
     return os;
 }

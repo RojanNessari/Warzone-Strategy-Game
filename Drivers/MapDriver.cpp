@@ -26,22 +26,22 @@ void singleMapLoadDebuger()
     MapLoader loader;
     string mapFile = SINGLE_TEST_DIR;
 
-    cout << "🗺️  Testing single map: " << mapFile << endl;
+    cout << "  Testing single map: " << mapFile << endl;
     Map *map = loader.loadMap(mapFile);
 
     if (map)
     {
-        cout << "\n📊 Map loaded successfully!" << endl;
+        cout << "\n Map loaded successfully!" << endl;
 
         // The validate() method now does comprehensive testing
         bool isValid = map->validate();
 
-        cout << "\n� Final Result: " << (isValid ? "✅ VALID MAP" : "❌ INVALID MAP") << endl;
+        cout << "\n Final Result: " << (isValid ? " VALID MAP" : " INVALID MAP") << endl;
         delete map;
     }
     else
     {
-        cout << "❌ Map loading failed (invalid map file)." << endl;
+        cout << " Map loading failed (invalid map file)." << endl;
     }
 
     cout << "\n"
@@ -50,7 +50,7 @@ void singleMapLoadDebuger()
 
 void testLoadMaps()
 {
-    cout << "🎮 COMPREHENSIVE MAP TESTING" << endl;
+    cout << " COMPREHENSIVE MAP TESTING" << endl;
     cout << string(50, '=') << endl;
 
     vector<string> mapFiles = getAllMapFiles(TEST_DIR);
@@ -62,13 +62,13 @@ void testLoadMaps()
 
     for (const auto &file : mapFiles)
     {
-        cout << "\n🗺️  Testing: " << file << endl;
+        cout << "\n Testing: " << file << endl;
 
         Map *map = loader.loadMap(file);
 
         if (map)
         {
-            cout << "📊 Map loaded successfully!" << endl;
+            cout << " Map loaded successfully!" << endl;
 
             // Comprehensive validation
             bool isValid = map->validate();
@@ -76,13 +76,13 @@ void testLoadMaps()
             if (isValid)
             {
                 validMaps++;
-                cout << "🎯 Result: ✅ VALID MAP" << endl;
+                cout << " Result:  VALID MAP" << endl;
             }
             else
             {
                 invalidMaps++;
                 failedMapFiles.push_back(file);
-                cout << "🎯 Result: ❌ INVALID MAP" << endl;
+                cout << " Result:  INVALID MAP" << endl;
             }
 
             delete map;
@@ -91,13 +91,13 @@ void testLoadMaps()
         {
             invalidMaps++;
             failedMapFiles.push_back(file);
-            cout << "❌ Map loading failed (file format error)." << endl;
+            cout << " Map loading failed (file format error)." << endl;
         }
 
         cout << string(40, '-') << endl;
     }
 
-    cout << "\n📈 FINAL SUMMARY:" << endl;
+    cout << "\n FINAL SUMMARY:" << endl;
     cout << "   Valid maps: " << validMaps << endl;
     cout << "   Invalid maps: " << invalidMaps << endl;
     cout << "   Total tested: " << (validMaps + invalidMaps) << endl;

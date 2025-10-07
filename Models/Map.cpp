@@ -12,10 +12,10 @@ using namespace std;
 
 // Territory constructor: initializes a territory with a name, id, continent ID, and coordinates.
 Territory::Territory(const string &name, int id, int continentId, int x, int y)
-    : name(name), id(id), continentId(continentId), x(x), y(y), ownerId(-1), armies(0) {}
+    : name(name), id(id), continentId(continentId), ownerId(-1), armies(0), x(x), y(y) {}
 
-Territory::Territory(const Territory &other) : name(other.name), id(other.id), continentId(other.continentId), x(other.x),
-                                               y(other.y), ownerId(other.ownerId), armies(other.armies) {};
+Territory::Territory(const Territory &other) : name(other.name), id(other.id), continentId(other.continentId), ownerId(other.ownerId), armies(other.armies), x(other.x),
+                                               y(other.y) {};
 
 // Assigment operator:
 Territory &Territory::operator=(const Territory &other)
@@ -37,12 +37,12 @@ Territory &Territory::operator=(const Territory &other)
 // Assignment operator
 ostream &operator<<(ostream &os, const Territory &t)
 {
-    os << "🗺️ Territory(Name: " << t.getName()
-       << " 🆔: " << t.getId()
-       << " 🌍 ContinentID: " << t.getContinentId()
-       << " 👤 OwnerID: " << t.getOwnerId()
-       << " 🪖 Armies: " << t.getArmies()
-       << " 📍 X: " << t.getX()
+    os << " Territory(Name: " << t.getName()
+       << " ID: " << t.getId()
+       << " ContinentID: " << t.getContinentId()
+       << " OwnerID: " << t.getOwnerId()
+       << " Armies: " << t.getArmies()
+       << " X: " << t.getX()
        << ", Y: " << t.getY()
        << ")";
     return os;
@@ -50,19 +50,19 @@ ostream &operator<<(ostream &os, const Territory &t)
 
 ostream &operator<<(ostream &os, const Continent &c)
 {
-    os << "🌎 Continent(Name: " << c.getName()
-       << " 🆔: " << c.getId()
-       << " 🎁 Bonus: " << c.getBonusValue()
-       << " 🗺️ Territories: " << c.getTerritoryIds().size()
+    os << " Continent(Name: " << c.getName()
+       << " ID: " << c.getId()
+       << " Bonus: " << c.getBonusValue()
+       << " Territories: " << c.getTerritoryIds().size()
        << ")";
     return os;
 }
 
 ostream &operator<<(ostream &os, const Map &m)
 {
-    os << "🗺️ Map("
-       << "🌎 Continents: " << m.getContinentsSize()
-       << ", 🗺️ Territories: " << m.getTerritoriesSize()
+    os << "Map("
+       << "Continents: " << m.getContinentsSize()
+       << ", Territories: " << m.getTerritoriesSize()
        << ")\n";
     m.printMapStatistics();
     return os;
@@ -169,20 +169,20 @@ bool Map::validate() const
 
     // 1. Check if map is a connected graph
     bool connected = isConnectedGraph();
-    cout << "1. Map connectivity: " << (connected ? "✅ PASSED" : "❌ FAILED") << endl;
+    cout << "1. Map connectivity: " << (connected ? "PASSED" : "FAILED") << endl;
     isValid &= connected;
 
     // 2. Check if continents are connected subgraphs
     bool continentsValid = validateContinents();
-    cout << "2. Continent connectivity: " << (continentsValid ? "✅ PASSED" : "❌ FAILED") << endl;
+    cout << "2. Continent connectivity: " << (continentsValid ? "PASSED" : "FAILED") << endl;
     isValid &= continentsValid;
 
     // 3. Check territory membership (each territory belongs to exactly one continent)
     bool membershipValid = validateTerritoryMembership();
-    cout << "3. Territory membership: " << (membershipValid ? "✅ PASSED" : "❌ FAILED") << endl;
+    cout << "3. Territory membership: " << (membershipValid ? "PASSED" : "FAILED") << endl;
     isValid &= membershipValid;
 
-    cout << "\nOverall map validation: " << (isValid ? "✅ VALID" : "❌ INVALID") << endl;
+    cout << "\nOverall map validation: " << (isValid ? "VALID" : "INVALID") << endl;
     cout << "======================\n"
          << endl;
 
@@ -232,7 +232,7 @@ bool Map::validateContinents() const
 
         if (territoryIds.empty())
         {
-            cout << "   ⚠️  Continent '" << continent.getName() << "' has no territories" << endl;
+            cout << " Continent '" << continent.getName() << "' has no territories" << endl;
             continue;
         }
 
@@ -266,7 +266,7 @@ bool Map::validateContinents() const
         // Check if all territories in this continent were visited
         if (visited.size() != territoryIds.size())
         {
-            cout << "   ❌ Continent '" << continent.getName() << "' is not connected: "
+            cout << " Continent '" << continent.getName() << "' is not connected: "
                  << visited.size() << "/" << territoryIds.size() << " territories reachable" << endl;
             return false;
         }
@@ -293,7 +293,7 @@ bool Map::validateTerritoryMembership() const
                 // Check if this territory is listed in the continent
                 if (continent.getTerritoryIds().find(i) == continent.getTerritoryIds().end())
                 {
-                    cout << "   ❌ Territory '" << territory.getName()
+                    cout << " Territory '" << territory.getName()
                          << "' not found in continent '" << continent.getName() << "'" << endl;
                     return false;
                 }
@@ -303,7 +303,7 @@ bool Map::validateTerritoryMembership() const
 
         if (!foundContinent)
         {
-            cout << "   ❌ Territory '" << territory.getName()
+            cout << " Territory '" << territory.getName()
                  << "' has invalid continent ID: " << continentId << endl;
             return false;
         }
@@ -316,14 +316,14 @@ bool Map::validateTerritoryMembership() const
         {
             if (territoryId < 0 || territoryId >= static_cast<int>(territories.size()))
             {
-                cout << "   ❌ Continent '" << continent.getName()
+                cout << " Continent '" << continent.getName()
                      << "' has invalid territory ID: " << territoryId << endl;
                 return false;
             }
 
             if (territories[territoryId].getContinentId() != continent.getId())
             {
-                cout << "   ❌ Territory '" << territories[territoryId].getName()
+                cout << " Territory '" << territories[territoryId].getName()
                      << "' continent mismatch" << endl;
                 return false;
             }
@@ -465,7 +465,7 @@ Map *MapLoader::handleCurrentState(Section currentState, const string &line, Map
 
         if (!continent)
         {
-            cerr << "❌ Error: Unknown continent '" << continentName << "' for territory '" << name << "'" << endl;
+            cerr << "Error: Unknown continent '" << continentName << "' for territory '" << name << "'" << endl;
             delete map;
             return nullptr;
         }
@@ -554,7 +554,7 @@ Map *MapLoader::loadMap(const string &filename)
 
     if (!file.is_open())
     {
-        cerr << "❌ Error: Cannot open file " << filename << endl;
+        cerr << "Error: Cannot open file " << filename << endl;
         return nullptr;
     }
 
@@ -565,7 +565,7 @@ Map *MapLoader::loadMap(const string &filename)
     // Store territory adjacency info for second pass
     vector<pair<string, vector<string>>> territoryAdjacencies;
 
-    cout << "📖 Loading map from: " << filename << endl;
+    cout << "Loading map from: " << filename << endl;
 
     // First pass: Load continents and territories
     while (getline(file, line))
@@ -606,7 +606,7 @@ Map *MapLoader::loadMap(const string &filename)
             Continent *continent = map->getContinentByName(continentName);
             if (!continent)
             {
-                cerr << "❌ Error: Unknown continent '" << continentName << "' for territory '" << name << "'" << endl;
+                cerr << "Error: Unknown continent '" << continentName << "' for territory '" << name << "'" << endl;
                 delete map;
                 return nullptr;
             }
@@ -683,13 +683,13 @@ Map *MapLoader::loadMap(const string &filename)
             }
             else
             {
-                cout << "⚠️  Warning: Adjacent territory '" << adjName
+                cout << "Warning: Adjacent territory '" << adjName
                      << "' not found for '" << territoryName << "'" << endl;
             }
         }
     }
 
-    cout << "✅ Map loaded successfully!" << endl;
+    cout << "Map loaded successfully!" << endl;
     map->printMapStatistics();
 
     return map;
