@@ -1,0 +1,56 @@
+stateDiagram-v2
+    [*] --> start
+
+    start --> map_loaded : loadmap
+    map_loaded --> map_validated : validatemap
+    map_validated --> players_added : addplayer
+    players_added --> players_added : addplayer
+    players_added --> assign_reinforcement : gamestart
+
+    assign_reinforcement --> issue_orders : issueorder
+    issue_orders --> execute_orders : execorder
+    execute_orders --> assign_reinforcement : execorder
+    execute_orders --> win : win
+
+    win --> [*] : end
+
+    note right of start
+        Initial state when game engine
+        is created
+    end note
+
+    note right of map_loaded
+        Map file has been loaded
+        but not yet validated
+    end note
+
+    note right of map_validated
+        Map has been validated
+        and is ready for play
+    end note
+
+    note right of players_added
+        Players have been added
+        to the game
+    end note
+
+    note right of assign_reinforcement
+        Beginning of game turn:
+        assign reinforcements
+        to players
+    end note
+
+    note right of issue_orders
+        Players issue their
+        orders for this turn
+    end note
+
+    note right of execute_orders
+        Execute all orders
+        in sequence
+    end note
+
+    note right of win
+        Game has ended,
+        a player has won
+    end note

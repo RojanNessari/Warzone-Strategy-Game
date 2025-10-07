@@ -1,0 +1,77 @@
+classDiagram
+    class CardType {
+        <<enumeration>>
+        Bomb
+        Reinforcement
+        Blockade
+        Airlift
+        Diplomacy
+    }
+
+    class Card {
+        -CardType type
+        +Card(CardType t)
+        +Card(const Card& other)
+        +operator=(const Card& other)
+        +~Card()
+        +play(Player& player, OrdersList& ordersList, Deck& deck) void
+    }
+
+    class Hand {
+        -vector~Card*~ cards
+        +Hand()
+        +Hand(const Hand& other)
+        +operator=(const Hand& other)
+        +~Hand()
+        +size() size_t
+        +addCard(Card* c) void
+        +removeAt(size_t idx) Card*
+        +playCard(size_t index, Player& player, OrdersList& ordersList, Deck& deck) void
+    }
+
+    class Deck {
+        -vector~Card*~ cards
+        +Deck()
+        +Deck(const Deck& other)
+        +operator=(const Deck& other)
+        +~Deck()
+        +draw(Player& player, Hand& hand) Card*
+        +returnCard(Card* c) void
+    }
+
+    class Player {
+        -vector~Territory*~ territories
+        -Hand* handOfCards
+        -OrdersList* orders
+        +Player()
+        +Player(const Player& other)
+        +operator=(const Player& other)
+        +~Player()
+        +toDefend() vector~Territory*~
+        +toAttack() vector~Territory*~
+        +issueOrder() void
+        +getHandOfCards() Hand*
+    }
+
+    class OrdersList {
+        -vector~Order*~ orders
+        +OrdersList()
+        +OrdersList(const OrdersList& other)
+        +operator=(const OrdersList& other)
+        +~OrdersList()
+        +add(Order* order) void
+        +print() void
+        +remove(int index) void
+        +move(int fromIndex, int toIndex) void
+        +size() size_t
+        +get(int index) Order*
+    }
+
+    %% Relationships
+    Card --> CardType : uses
+    Hand "1" --> "*" Card : contains
+    Deck "1" --> "*" Card : contains
+    Player "1" --> "1" Hand : has
+    Card --> Player : plays with
+    Card --> OrdersList : creates orders in
+    Card --> Deck : returns to

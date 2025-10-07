@@ -1,0 +1,32 @@
+classDiagram
+    class State {
+        -string* name_
+        -map~string,State*~* transitions_
+        +State(const string& name)
+        +State(const State& other)
+        +operator=(const State& other)
+        +~State()
+        +addTransition(const string& command, State* next) void
+        +nextState(const string& command) State*
+        +getName() const string&
+        +getTransitions() const map~string,State*~&
+    }
+
+    class GameEngine {
+        -State* current_
+        -vector~State*~* states_
+        +GameEngine()
+        +GameEngine(const GameEngine& other)
+        +operator=(const GameEngine& other)
+        +~GameEngine()
+        +buildGraph() void
+        +applyCommand(const string&) bool
+        +current() const State*
+        -findState(const string& name) State*
+        -clear() void
+    }
+
+    %% Relationships
+    GameEngine "1" --> "*" State : manages
+    GameEngine "1" --> "1" State : current state
+    State "*" --> "*" State : transitions to

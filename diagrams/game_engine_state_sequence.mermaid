@@ -1,0 +1,59 @@
+sequenceDiagram
+    participant U as User
+    participant GE as GameEngine
+    participant S1 as State(start)
+    participant S2 as State(map_loaded)
+    participant S3 as State(map_validated)
+    participant S4 as State(players_added)
+    participant S5 as State(assign_reinforcement)
+    participant S6 as State(issue_orders)
+    participant S7 as State(execute_orders)
+    participant S8 as State(win)
+
+    Note over U,S8: Game Engine State Transition Sequence
+
+    U->>GE: Start game
+    GE->>S1: Initialize to start state
+
+    U->>GE: applyCommand("loadmap")
+    GE->>S1: nextState("loadmap")
+    S1->>S2: transition to map_loaded
+    GE->>GE: current_ = map_loaded state
+
+    U->>GE: applyCommand("validatemap")
+    GE->>S2: nextState("validatemap")
+    S2->>S3: transition to map_validated
+    GE->>GE: current_ = map_validated state
+
+    U->>GE: applyCommand("addplayer")
+    GE->>S3: nextState("addplayer")
+    S3->>S4: transition to players_added
+    GE->>GE: current_ = players_added state
+
+    U->>GE: applyCommand("gamestart")
+    GE->>S4: nextState("gamestart")
+    S4->>S5: transition to assign_reinforcement
+    GE->>GE: current_ = assign_reinforcement state
+
+    U->>GE: applyCommand("issueorder")
+    GE->>S5: nextState("issueorder")
+    S5->>S6: transition to issue_orders
+    GE->>GE: current_ = issue_orders state
+
+    U->>GE: applyCommand("execorder")
+    GE->>S6: nextState("execorder")
+    S6->>S7: transition to execute_orders
+    GE->>GE: current_ = execute_orders state
+
+    alt Game continues
+        GE->>S7: nextState("execorder")
+        S7->>S5: transition back to assign_reinforcement
+    else Game ends
+        GE->>S7: nextState("win")
+        S7->>S8: transition to win state
+        GE->>GE: current_ = win state
+    end
+
+    U->>GE: applyCommand("end")
+    GE->>S8: nextState("end")
+    Note over GE: Game terminates
