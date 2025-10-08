@@ -3,7 +3,7 @@
   Course: COMP 345
   Assignment: A1 (Parts 1–5)
   Authors: Adja Bineta Boye (ID: 40281923), Ali Sher (ID: 40255236), Achraf Cheniti (ID: 40244865)
-           Joseph El Bitar (ID: 40270590)
+           Joseph El Bitar (ID: 40270590), Rojan Nessari (ID: 40255637)
   Date: 2025-10-07
 
   Purpose:
@@ -42,14 +42,13 @@ using namespace std;
 
 void menu()
 {
-   
 
     string cmd;
 
     while (true)
     {
-         //Display menu as written
-    cout << R"(
+        // Display menu as written
+        cout << R"(
 ╔══════════════════════════════════════════════════════╗
 ║                COMP-345 Assignment-01                ║
 ╠══════════════════════════════════════════════════════╣
@@ -65,9 +64,8 @@ void menu()
 ╚══════════════════════════════════════════════════════╝
     )";
 
-    
         cout << "\n Enter your choice (1-5) or 'quit': ";
-        if (!getline(cin, cmd)) //Get the users input
+        if (!getline(cin, cmd)) // Get the users input
             break;
 
         if (cmd == "quit")
@@ -81,7 +79,7 @@ void menu()
             cout << "\n ═══════════════════════════════════════════════════\n";
             cout << "   Running Map Module Test...\n";
             cout << " ═══════════════════════════════════════════════════\n";
-            testLoadMaps();//Part 1 tests
+            testLoadMaps(); // Part 1 tests
             cout << "\n Map Module Test Completed!\n";
         }
         else if (cmd == "2")
@@ -89,7 +87,7 @@ void menu()
             cout << "\n ═══════════════════════════════════════════════════\n";
             cout << "   Running Player Module Test...\n";
             cout << " ═══════════════════════════════════════════════════\n";
-            testPlayers();//Part 2 tests
+            testPlayers(); // Part 2 tests
             cout << "\n Player Module Test Completed!\n";
         }
         else if (cmd == "3")
@@ -97,7 +95,7 @@ void menu()
             cout << "\n ═══════════════════════════════════════════════════\n";
             cout << " Running Orders Module Test...\n";
             cout << " ═══════════════════════════════════════════════════\n";
-            testOrdersLists();//Part 3 tests
+            testOrdersLists(); // Part 3 tests
             cout << "\n Orders Module Test Completed!\n";
         }
         else if (cmd == "4")
@@ -105,7 +103,7 @@ void menu()
             cout << "\n ═══════════════════════════════════════════════════\n";
             cout << " Running Cards Module Test...\n";
             cout << " ═══════════════════════════════════════════════════\n";
-            testCards();//Part 4 tests
+            testCards(); // Part 4 tests
             cout << "\n Cards Module Test Completed!\n";
         }
         else if (cmd == "5")
@@ -113,12 +111,12 @@ void menu()
             cout << "\n ═══════════════════════════════════════════════════\n";
             cout << "   Running Game Engine Module Test...\n";
             cout << " ═══════════════════════════════════════════════════\n";
-            testGameStates();//Part 5 tests
+            testGameStates(); // Part 5 tests
             cout << "\n Game Engine Module Test Completed!\n";
         }
         else
         {
-            //Any other input is rejected; loop continues
+            // Any other input is rejected; loop continues
             cout << " Invalid input! Please enter a number from 1-5 or 'quit'.\n";
         }
     }
