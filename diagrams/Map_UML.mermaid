@@ -1,0 +1,99 @@
+classDiagram
+    class Territory {
+        -string name
+        -int id
+        -int continentId
+        -int ownerId
+        -int armies
+        -int x
+        -int y
+        -unordered_set~int~ adjacentIds
+        
+        +Territory(string name, int id, int continentId, int x, int y)
+        +Territory(Territory other)
+        +operator=(Territory other) Territory
+        +~Territory()
+        +operator~ostream os, Territory t~ ostream
+        +getName() string
+        +getId() int
+        +getContinentId() int
+        +getOwnerId() int
+        +getArmies() int
+        +getAdjacentIds() unordered_set~int~
+        +getX() int
+        +getY() int
+        +addAdjacentTerritory(int territoryId) void
+        +setOwner(int playerId) void
+        +setArmies(int armyCount) void
+    }
+    
+    class Continent {
+        -string name
+        -int id
+        -int bonusValue
+        -unordered_set~int~ territoryIds
+        
+        +Continent(string name, int id, int bonusValue)
+        +Continent(Continent other)
+        +operator=(Continent other) Continent
+        +~Continent()
+        +operator~ostream os, Continent c~ ostream
+        +getName() string
+        +getId() int
+        +getBonusValue() int
+        +getTerritoryIds() unordered_set~int~
+        +addTerritory(int territoryId) void
+        +setBonusValue(int bonus) void
+    }
+    
+    class Map {
+        -vector~Territory~ territories
+        -vector~Continent~ continents
+        -unordered_map~string_int~ territoryNameToId
+        -unordered_map~int_int~ continentIdToIndex
+        -unordered_map~string_int~ continentNameToId
+        
+        +Map()
+        +Map(Map other)
+        +~Map()
+        +operator=(Map other) Map
+        +operator~ostream os, Map m~ ostream
+        +addTerritory(Territory t) void
+        +getTerritoryByName(string name) Territory*
+        +getTerritoryById(int id) Territory*
+        +getTerritoryByIndex(int idx) Territory*
+        +getTerritoriesSize() int
+        +addContinent(Continent c) void
+        +getContinentById(int id) Continent*
+        +getContinentByName(string name) Continent*
+        +getContinentByIndex(int idx) Continent*
+        +getContinentsSize() int
+        +validate() bool
+        +isConnectedGraph() bool
+        +validateContinents() bool
+        +validateTerritoryMembership() bool
+        +printMapStatistics() void
+    }
+    
+    class MapLoader {
+        +MapLoader()
+        +~MapLoader()
+        +MapLoader(MapLoader other)
+        +loadMap(string filename) Map*
+        +handleCurrentState(Section currentState, string line, Map* map) Map*
+        +getSectionFromHeader(string line) Section
+    }
+    
+    class Section {
+        <<enumeration>>
+        NONE
+        CONTINENTS
+        TERRITORIES
+    }
+    
+    Map --> Territory
+    Map --> Continent
+    Continent --> Territory
+    Territory --> Territory
+    MapLoader --> Map
+    MapLoader --> Section

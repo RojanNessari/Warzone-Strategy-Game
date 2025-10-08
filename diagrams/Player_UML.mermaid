@@ -1,0 +1,41 @@
+classDiagram
+    class Player {
+        -vector_Territory territories
+        -Hand handOfCards
+        -OrdersList orders
+        
+        +Player()
+        +toDefend() vector_Territory
+        +toAttack() vector_Territory
+        +issueOrder() void
+        +getHandOfCards() Hand
+    }
+    
+    class Territory {
+        <<external>>
+        +getName() string
+        +getId() int
+        +getOwnerId() int
+        +getArmies() int
+    }
+    
+    class Hand {
+        <<external>>
+        -vector_Card cards
+        +Hand()
+        +addCard() void
+        +playCard() void
+    }
+    
+    class OrdersList {
+        <<external>>
+        -vector_Order orders
+        +OrdersList()
+        +add() void
+        +remove() void
+        +move() void
+    }
+    
+    Player --> Territory
+    Player --> Hand
+    Player --> OrdersList
