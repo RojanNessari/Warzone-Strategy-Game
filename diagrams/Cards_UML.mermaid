@@ -1,0 +1,54 @@
+classDiagram
+    class CardType {
+        <<enumeration>>
+        Bomb
+        Reinforcement
+        Blockade
+        Airlift
+        Diplomacy
+    }
+    
+    class Card {
+        -CardType type
+        
+        +Card()
+        +play() void
+    }
+    
+    class Hand {
+        -vector_Card cards
+        
+        +Hand()
+        +size() size_t
+        +addCard() void
+        +removeAt() Card
+        +playCard() void
+    }
+    
+    class Deck {
+        -vector_Card cards
+        
+        +Deck()
+        +draw() Card
+        +returnCard() void
+    }
+    
+    class Player {
+        <<external>>
+        +getHandOfCards() Hand
+    }
+    
+    class OrdersList {
+        <<external>>
+        +add() void
+    }
+    
+    Card --> CardType
+    Hand --> Card
+    Deck --> Card
+    Player --> Hand
+    Card --> Player
+    Card --> OrdersList
+    Card --> Deck
+    Hand --> Player
+    Deck --> Hand

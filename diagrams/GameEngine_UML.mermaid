@@ -1,0 +1,26 @@
+classDiagram
+    class State {
+        -string name_
+        -map_transitions transitions_
+        
+        +State()
+        +addTransition() void
+        +nextState() State
+        +getName() string
+        +getTransitions() map_transitions
+    }
+    
+    class GameEngine {
+        -State current_
+        -vector_State states_
+        
+        +GameEngine()
+        +buildGraph() void
+        +applyCommand() bool
+        +current() State
+        -findState() State
+        -clear() void
+    }
+    
+    GameEngine --> State
+    State --> State

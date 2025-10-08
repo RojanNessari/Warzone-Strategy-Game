@@ -1,0 +1,66 @@
+classDiagram
+    class Order {
+        <<abstract>>
+        #string description
+        #string effect
+        
+        +Order()
+        +validate() bool
+        +execute() void
+    }
+    
+    class Deploy {
+        +Deploy()
+        +validate() bool
+        +execute() void
+    }
+    
+    class Advance {
+        +Advance()
+        +validate() bool
+        +execute() void
+    }
+    
+    class Bomb {
+        +Bomb()
+        +validate() bool
+        +execute() void
+    }
+    
+    class Blockade {
+        +Blockade()
+        +validate() bool
+        +execute() void
+    }
+    
+    class Airlift {
+        +Airlift()
+        +validate() bool
+        +execute() void
+    }
+    
+    class Negotiate {
+        +Negotiate()
+        +validate() bool
+        +execute() void
+    }
+    
+    class OrdersList {
+        -vector_Order orders
+        
+        +OrdersList()
+        +add() void
+        +print() void
+        +remove() void
+        +move() void
+        +size() size_t
+        +get() Order
+    }
+    
+    Order <|-- Deploy
+    Order <|-- Advance
+    Order <|-- Bomb
+    Order <|-- Blockade
+    Order <|-- Airlift
+    Order <|-- Negotiate
+    OrdersList --> Order
