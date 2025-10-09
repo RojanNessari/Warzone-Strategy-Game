@@ -76,7 +76,7 @@ public:
     // Deconstructor:
     ~Continent();
     // Stream insertion operator
-    friend std::ostream& operator<<(std::ostream& os, const Continent& c);
+    friend std::ostream &operator<<(std::ostream &os, const Continent &c);
     // getters
     std::string getName() const;
     int getId() const;
@@ -110,7 +110,7 @@ public:
     // Assignment operator
     Map &operator=(const Map &other);
     // assignment insertion operator
-    friend std::ostream& operator<<(std::ostream& os, const Map& m);
+    friend std::ostream &operator<<(std::ostream &os, const Map &m);
     // Territory operations
     void addTerritory(const Territory &t);
     // Getters

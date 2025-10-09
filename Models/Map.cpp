@@ -160,6 +160,7 @@ void Continent::setBonusValue(int bonus)
     bonusValue = bonus;
 }
 
+#pragma region validate
 // Validates the entire map: connectivity, continent validity, and territory membership
 bool Map::validate() const
 {
@@ -189,6 +190,7 @@ bool Map::validate() const
     return isValid;
 }
 
+#pragma region isConnectedGraph
 // Check if the map is a connected graph using BFS
 bool Map::isConnectedGraph() const
 {
@@ -223,6 +225,7 @@ bool Map::isConnectedGraph() const
     return visited.size() == territories.size();
 }
 
+#pragma region validateContinents
 // Validates that each continent is a connected subgraph
 bool Map::validateContinents() const
 {
@@ -274,6 +277,7 @@ bool Map::validateContinents() const
     return true;
 }
 
+#pragma region validateTerritory
 // Validates that each territory belongs to exactly one continent
 bool Map::validateTerritoryMembership() const
 {
@@ -547,6 +551,7 @@ const char *sectionToString(Section section)
     }
 }
 
+#pragma region loadMap
 // Loads a map from a file and returns a pointer to the Map object.
 Map *MapLoader::loadMap(const string &filename)
 {
