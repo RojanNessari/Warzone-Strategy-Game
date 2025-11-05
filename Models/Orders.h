@@ -5,6 +5,12 @@
 #include <string>
 #include <vector>
 
+class GameEngine;
+class Player;
+class Territory;
+class Map;
+
+
 // base Order
 class Order
 {
@@ -20,6 +26,7 @@ public:
 
     virtual bool validate() = 0;
     virtual void execute() = 0;
+    virtual Order* clone() const = 0;
 
     // For printing orders
     friend std::ostream &operator<<(std::ostream &os, const Order &order);
@@ -33,56 +40,94 @@ protected:
 class Deploy : public Order
 {
 public:
+    Deploy(Player* issuer, Territory* target, int armies);
     Deploy();
     ~Deploy();                         // deconstructor
     Deploy(const Deploy &otherDeploy); // copy Constructor
     Deploy &operator=(const Deploy &otherDeploy);
     bool validate() override;
     void execute() override;
+    Order* clone() const override;
+
+    private:
+        Player* issuer = nullptr;
+        Territory* target = nullptr;
+        int armies = 0;
 };
 
 class Advance : public Order
 {
 public:
+    Advance(Player* issuer, Territory* source, Territory* target, int armies, Map* map);
     Advance();
     ~Advance();
     Advance(const Advance &otherAdvance);
     Advance &operator=(const Advance &otherAdvance);
     bool validate() override;
     void execute() override;
+    Order* clone() const override;
+
+    private:
+        Player* issuer = nullptr;
+        Territory* source = nullptr;
+        Territory* target = nullptr;
+        Map* map = nullptr;
+        int armies = 0;
+
 };
 
 class Bomb : public Order
 {
 public:
+    Bomb(Player* issuer, Territory* target, Map* map);
     Bomb();
     ~Bomb();
     Bomb(const Bomb &otherBomb);
     Bomb &operator=(const Bomb &otherBomb);
     bool validate() override;
     void execute() override;
+
+    private:
+        Player* issuer = nullptr;
+        Territory* target = nullptr;
+        Map* map = nullptr;
 };
 
 class Blockade : public Order
 {
 public:
+    Blockade(Player* issuer, Territory* target, GameEngine* engine);
     Blockade();
     ~Blockade();
     Blockade(const Blockade &otherBlockade);
     Blockade &operator=(const Blockade &otherBlockade);
     bool validate() override;
     void execute() override;
+    Order* clone() const override;
+
+    private:
+        Player* issuer = nullptr;
+        Territory* target = nullptr;
+        Map* map = nullptr;
 };
 
 class Airlift : public Order
 {
 public:
+    Airlift(Player* issuer, Territory* source, Territory* target, int armies);
     Airlift();
     ~Airlift();
     Airlift(const Airlift &otherAirlift);
     Airlift &operator=(const Airlift &otherAirlift);
     bool validate() override;
     void execute() override;
+    Order* clone() const override;
+
+    private:
+    Player* issuer = nullptr;
+    Territory* source = nullptr;
+    Territory* target = nullptr;
+    int armies = 0;
 };
 
 class Negotiate : public Order

@@ -1,4 +1,11 @@
 #include "Orders.h"
+#include "Player.h"
+#include "Map.h"
+#include "GameEngine.h"
+#include "random"
+#include "algorithm"
+
+
 
 //  Base Order
 Order::Order() : description("Generic Order"), effect("None") {}
@@ -28,26 +35,37 @@ std::ostream &operator<<(std::ostream &os, const Order &order)
 
 //  Deploy
 Deploy::Deploy() { description = "Deploy Order"; }
+Deploy::Deploy(Player* p, Territory* t, int a)
+    : issuer(p), target(t), armies(a) { description = "Deploy Order"; }
 Deploy::~Deploy() {}
 
-Deploy::Deploy(const Deploy &otherDeploy) : Order(otherDeploy) {}
+Deploy::Deploy(const Deploy &otherDeploy) : Order(otherDeploy), issuer(otherDeploy.issuer), target(otherDeploy.target), armies(otherDeploy.armies) {}
 
 Deploy &Deploy::operator=(const Deploy &otherDeploy)
 {
     if (this != &otherDeploy)
     {
         Order::operator=(otherDeploy);
+        this -> issuer = otherDeploy.issuer;
+        this -> target = otherDeploy.target;
+        this -> armies = otherDeploy.armies;
     }
     return *this;
 }
 
-bool Deploy::validate() { return true; }
+Order* Deploy::clone() const { return new Deploy(*this);}
+
+bool Deploy::validate() { 
+    if(!issuer || !target) return false;
+    return target ->getOwnerId() == issuer->getId(); }
 void Deploy::execute()
 {
-    if (validate())
-    {
-        effect = "Deployed armies";
-    }
+    if (!validate()) { effect = "Invalid: target not owned by issuer."; 
+        return; }
+int moved = issuer->takeFromReinforcement(armies);
+target->addArmies(moved);
+
+effect = "Deployed " + std::to_string(moved) + " to " + target->getName();
 }
 
 Advance::Advance() { description = "Advance Order"; }

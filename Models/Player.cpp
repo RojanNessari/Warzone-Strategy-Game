@@ -3,6 +3,7 @@
 #include <iostream>
 #include "Orders.h"
 #include "Cards.h"
+#include "Map.h"
 using namespace std;
 
 // Default constructor
@@ -53,6 +54,28 @@ Player::~Player()
 Hand *Player::getHandOfCards() const { return handOfCards; }
 
 // Methods
+int Player::getId() const { return id; }
+void Player::setId(int pid) { id = pid; }
+
+int Player::takeFromReinforcement(int n) {
+    int take = std::max(0, std::min(n, reinforcementPool));
+    reinforcementPool -= take;
+    return take;
+}
+void Player::addToReinforcement(int n) { reinforcementPool += std::max(0, n); }
+
+void Player::markConqueredThisTurn() { conqueredFlag = true; }
+bool Player::conqueredThisTurn() const { return conqueredFlag; }
+void Player::resetConqueredThisTurn() { conqueredFlag = false; }
+
+bool Player::ownsTerritoryId(int tid) const {
+    for (const Territory* t : territories) {
+        if (t && t->getId() == tid)  
+            return true;
+    }
+    return false;
+}
+
 vector<Territory *> Player::toDefend() const
 {
     // Return a subset of territories to defend (arbitrary logic for now)

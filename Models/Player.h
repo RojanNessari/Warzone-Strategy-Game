@@ -23,6 +23,17 @@ public:
     // Destructor
     ~Player();
 
+    int  getId() const;         
+    void setId(int pid);
+
+    int  takeFromReinforcement(int n);  // for Deploy
+    void addToReinforcement(int n);
+    void markConqueredThisTurn();
+    bool conqueredThisTurn() const;
+    void resetConqueredThisTurn();
+
+    bool ownsTerritoryId(int tid) const;
+
     // Required functions
     std::vector<Territory *> toDefend() const; // Return a collection of Territories to be defended
     std::vector<Territory *> toAttack() const; // Return a collection of Territories to be attacked
@@ -34,6 +45,9 @@ public:
     Hand *getHandOfCards() const;
 
 private:
+    int id = -1;
+    int reinforcementPool = 0;
+    bool conqueredFlag = false;
     std::vector<Territory *> territories; // List of territories owned by the player (as pointers)
     Hand *handOfCards;                    // List of cards owned by the player
     OrdersList *orders;                   // List of orders issued by the player (as pointer)

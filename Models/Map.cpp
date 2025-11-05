@@ -128,6 +128,23 @@ int Territory::getY() const { return y; }
 unordered_set<int> &Territory::getAdjacentIds() { return adjacentIds; }
 const unordered_set<int> &Territory::getAdjacentIds() const { return adjacentIds; }
 
+void Territory::addArmies(int delta) {
+    if (delta > 0) {
+        armies += delta;
+    }
+}
+
+int Territory::removeArmies(int delta) {
+    if (delta <= 0) return 0;
+    int take = std::min(delta, armies);
+    armies -= take;
+    return take;
+}
+
+bool Territory::isAdjacentTo(int territoryId) const {
+    return adjacentIds.find(territoryId) != adjacentIds.end();
+}
+
 void Territory::addAdjacentTerritory(int territoryId)
 {
     adjacentIds.insert(territoryId);

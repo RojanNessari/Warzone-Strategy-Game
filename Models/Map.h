@@ -47,6 +47,9 @@ public:
     int getContinentId() const;
     int getOwnerId() const;
     int getArmies() const;
+    void addArmies(int delta);
+    int  removeArmies(int delta);
+    bool isAdjacentTo(int territoryId) const;
     std::unordered_set<int> &getAdjacentIds();
     int getX() const;
     int getY() const;
