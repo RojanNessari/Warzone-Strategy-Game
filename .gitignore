@@ -42,3 +42,4 @@
 
 # ignore vs code bullshit
 .vscode/.DS_Store
+.vscode
