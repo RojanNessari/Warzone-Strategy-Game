@@ -1,5 +1,5 @@
-#ifndef COMMAND_PROCESSOR_H
-#define COMMAND_PROCESSOR_H
+#ifndef COMMAND_PROCESSING_H
+#define COMMAND_PROCESSING_H
 
 #include <vector>
 #include <string>
@@ -97,6 +97,8 @@ public:
 
 private:
     std::string fileName;
+    std::ifstream *fileStream; // Keep file open between reads
+    int currentLine;           // Track current line number
 };
 
 // Command class - represents a command with its text and execution effect
