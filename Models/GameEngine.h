@@ -1,8 +1,12 @@
 #pragma once
-#include <iostream>
 #include <string>
-#include <map>
 #include <vector>
+#include <map>
+#include <unordered_set>
+#include <utility>
+#include <iostream>
+
+class Player;
 
 class State {
 public:
@@ -39,6 +43,11 @@ public:
     bool applyCommand(const std::string&);  // validate + transition
     const State* current() const;
 
+    Player* getNeutralPlayer();
+    void addTruce(Player* a, Player* b);
+    bool isTruced(Player* a, Player* b) const;
+    void clearTrucesForNewTurn();
+
     friend std::ostream& operator<<(std::ostream& os, const GameEngine& ge);
 
 private:
@@ -47,4 +56,12 @@ private:
 
     State* findState(const std::string& name) const;
     void clear();                   // delete all allocated states
+
+    Player* neutralPlayer = nullptr;
+    struct PairHash {
+        size_t operator()(const std::pair<int,int>& p) const {
+            return (static_cast<size_t>(p.first) << 32) ^ static_cast<size_t>(p.second);
+        }
+    };
+    std::unordered_set<std::pair<int,int>, PairHash> truces;
 };

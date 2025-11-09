@@ -1,4 +1,5 @@
 #include "Map.h"
+#include "Player.h"
 #include <fstream>
 #include <sstream>
 #include <iostream>
@@ -12,10 +13,10 @@ using namespace std;
 
 // Territory constructor: initializes a territory with a name, id, continent ID, and coordinates.
 Territory::Territory(const string &name, int id, int continentId, int x, int y)
-    : name(name), id(id), continentId(continentId), ownerId(-1), armies(0), x(x), y(y) {}
+    : name(name), id(id), continentId(continentId), owner(nullptr), armies(0), x(x), y(y) {}
 
-Territory::Territory(const Territory &other) : name(other.name), id(other.id), continentId(other.continentId), ownerId(other.ownerId), armies(other.armies), x(other.x),
-                                               y(other.y) {};
+Territory::Territory(const Territory &other) : name(other.name), id(other.id), continentId(other.continentId), owner(other.owner), armies(other.armies), x(other.x),
+                                               y(other.y),  adjacentIds(other.adjacentIds) {};
 
 // Assigment operator:
 Territory &Territory::operator=(const Territory &other)
@@ -25,7 +26,7 @@ Territory &Territory::operator=(const Territory &other)
         name = other.name;
         id = other.id;
         continentId = other.continentId;
-        ownerId = other.ownerId;
+        owner = other.owner;
         armies = other.armies;
         x = other.x;
         y = other.y;
@@ -40,9 +41,9 @@ ostream &operator<<(ostream &os, const Territory &t)
     os << " Territory(Name: " << t.getName()
        << " ID: " << t.getId()
        << " ContinentID: " << t.getContinentId()
-       << " OwnerID: " << t.getOwnerId()
+       << " owner: " << (t.getOwner() ? std::to_string(t.getOwner()->getId()) : "None")
        << " Armies: " << t.getArmies()
-       << " X: " << t.getX()
+       << " X: " << t.getX() 
        << ", Y: " << t.getY()
        << ")";
     return os;
@@ -121,7 +122,6 @@ Map::Map(const Map &other) : territories(other.territories), territoryNameToId(o
 string Territory::getName() const { return name; }
 int Territory::getId() const { return id; }
 int Territory::getContinentId() const { return continentId; }
-int Territory::getOwnerId() const { return ownerId; }
 int Territory::getArmies() const { return armies; }
 int Territory::getX() const { return x; }
 int Territory::getY() const { return y; }
@@ -150,10 +150,6 @@ void Territory::addAdjacentTerritory(int territoryId)
     adjacentIds.insert(territoryId);
 }
 
-void Territory::setOwner(int playerId)
-{
-    ownerId = playerId;
-}
 
 void Territory::setArmies(int armyCount)
 {
