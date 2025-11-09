@@ -1,10 +1,9 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include "CommandProcessor.h"
+#include "CommandProcessing.h"
 #include "GameEngine.h"
-#include "Player.h"
-
+#include "../utils/logger.h"
 using namespace std;
 
 // ============================================================================
@@ -53,8 +52,7 @@ void Command::saveEffect(const string &effectText)
 {
 
     effect = effectText; // Store the effect string
-    // Display message
-    cout << "Effect saved: " << effectText << endl;
+    logMessage(INFO, "Effect saved: " + effectText);
 }
 
 // Stream insertion operator for Command
@@ -74,41 +72,62 @@ ostream &operator<<(ostream &os, const Command &cmd)
 
 // Constructor - opens the file
 FileLineReader::FileLineReader(const string &fileName)
-    : fileName(fileName) {}
+    : fileName(fileName), fileStream(new ifstream(fileName)), currentLine(0)
+{
+    if (!fileStream->is_open())
+    {
+        logMessage(ERROR, "Error: Could not open file " + fileName);
+    }
+}
 
 // Copy constructor
 FileLineReader::FileLineReader(const FileLineReader &other)
-    : fileName(other.fileName) {}
+    : fileName(other.fileName), fileStream(new ifstream(other.fileName)), currentLine(0) {}
 
 // Assignment operator
 FileLineReader &FileLineReader::operator=(const FileLineReader &other)
 {
     if (this != &other)
     {
+        // Close existing file
+        if (fileStream)
+        {
+            fileStream->close();
+            delete fileStream;
+        }
+
         fileName = other.fileName;
+        fileStream = new ifstream(other.fileName);
+        currentLine = 0;
     }
     return *this;
 }
 
 // Destructor
-FileLineReader::~FileLineReader() {}
+FileLineReader::~FileLineReader()
+{
+    if (fileStream)
+    {
+        if (fileStream->is_open())
+        {
+            fileStream->close();
+        }
+        delete fileStream;
+    }
+}
 
 string FileLineReader::readLineFromFile()
 {
-    ifstream file(fileName);
     string line;
 
-    if (file.is_open())
+    if (fileStream && fileStream->is_open() && getline(*fileStream, line))
     {
-        if (getline(file, line))
-        {
-            file.close();
-            return line;
-        }
-        file.close();
+        currentLine++;
+        return line;
     }
 
-    return ""; // Return empty string if file can't be read or EOF
+    logMessage(DEBUG, "End of file or error reading file.");
+    return ""; // Return empty string if EOF or error
 }
 
 // Stream insertion operator for FileLineReader
@@ -206,8 +225,8 @@ void CommandProcessor::saveCommand(Command *cmd)
 {
     if (cmd != nullptr)
     {
-        commands.push_back(cmd); // add to vetor
-        cout << "Command saved: " << cmd->getCommand() << endl;
+        commands.push_back(cmd); // add to vector
+        logMessage(INFO, "Command saved: " + cmd->getCommand());
     }
 }
 
@@ -230,6 +249,13 @@ bool CommandProcessor::validate(Command *cmd, GameEngine *engine)
         return false;
     }
 
+    // Check if engine has a current state
+    if (engine->current() == nullptr)
+    {
+        cmd->saveEffect("Error: Game engine not initialized. Call buildGraph() first.");
+        return false;
+    }
+
     // Get Current State name from engine
     string currentState = engine->current()->getName();
 
@@ -239,36 +265,45 @@ bool CommandProcessor::validate(Command *cmd, GameEngine *engine)
     string commandName;
     iss >> commandName; // Extract first word
 
+    logMessage(DEBUG, "Current State: " + currentState);
+
     // Validate based on the stat transition table
     if (commandName == "loadmap")
     {
-        if (currentState == "start" || currentState == "maploaded")
+        if (currentState == "start" || currentState == "map_loaded")
         {
             cmd->saveEffect("Valid command: loadmap in state " + currentState);
+            engine->applyCommand(commandName); // trigger state transition
+                                               // this should take from start -> loadmap -> map_loaded
+                                               // or map_loaded -> loadmap
+
             return true;
         }
     }
     else if (commandName == "validatemap")
     {
-        if (currentState == "maploaded")
+        if (currentState == "map_loaded")
         {
             cmd->saveEffect("Valid command: validatemap in state " + currentState);
+            engine->applyCommand(commandName);
             return true;
         }
     }
     else if (commandName == "addplayer")
     {
-        if (currentState == "mapvalidated" || currentState == "playersadded")
+        if (currentState == "map_validated" || currentState == "players_added")
         {
             cmd->saveEffect("Valid command: addplayer in state " + currentState);
+            engine->applyCommand(commandName);
             return true;
         }
     }
     else if (commandName == "gamestart")
     {
-        if (currentState == "playersadded")
+        if (currentState == "players_added")
         {
             cmd->saveEffect("Valid command: gamestart in state " + currentState);
+            engine->applyCommand(commandName);
             return true;
         }
     }
@@ -277,7 +312,8 @@ bool CommandProcessor::validate(Command *cmd, GameEngine *engine)
         if (currentState == "win")
         {
             cmd->saveEffect("Valid command: replay in state " + currentState);
-            return true;
+            engine->applyCommand(commandName);
+            return false;
         }
     }
     else if (commandName == "quit")
@@ -285,13 +321,14 @@ bool CommandProcessor::validate(Command *cmd, GameEngine *engine)
         if (currentState == "win")
         {
             cmd->saveEffect("Valid command: quit in state " + currentState);
+            engine->applyCommand(commandName);
             return true;
         }
     }
     else
     {
         cmd->saveEffect("Error: Unknown command '" + commandName + "'");
-        return true;
+        return false; // Unknown command is invalid
     }
     // If we get here, command was invalid for current state
     cmd->saveEffect("Error: Command '" + commandName + "' is not valid in state '" + currentState + "'");
@@ -374,15 +411,16 @@ string FileCommandProcessorAdapter::readCommand()
 
         if (!line.empty())
         {
-            cout << "Read from file: " << line << endl;
+            logMessage(INFO, "Read from file: " + line);
             return line;
         }
         else
         {
-            cout << "End of file or empty line" << endl;
+            logMessage(DEBUG, "End of file or empty line");
             return "";
         }
     }
+    logMessage(ERROR, "No file reader available");
     return ""; // No file reader available
 }
 // Stream insertion operator for FileCommandProcessorAdapter
