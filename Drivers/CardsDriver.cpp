@@ -10,7 +10,7 @@ void testCards()
     Deck deck;
     std::cout << deck << '\n';
 
-    Player player1;
+    Player player1("n00b69");
     Hand hand1;
     OrdersList ordersList;
 

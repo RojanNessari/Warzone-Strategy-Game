@@ -1,76 +1,138 @@
 #include <iostream>
 #include <string>
-#include "../Models/CommandProcessor.h"
+#include "../Models/CommandProcessing.h"
 #include "../Models/GameEngine.h"
+#include "../utils/logger.h"
 using namespace std;
-string LINE(30, '=');
 
-void testCommandProcessor()
-{ /*
-  testCommandProcessor()
-  _description_:
-      1. Commands can be read using CommandProcessor class from the console
-      2. Commands can be read from text file using CommandProcessorAdapter
-      3. commands that are invalid in the current game state are rejected, and valid commands result in  the correct effect and state change
-  */
-    cout << LINE << endl;
-    cout << "Testing CommandProcessor Module" << endl;
-    cout << LINE << endl;
+const string CONSOLE_MODE = "-console";
+const string FILE_MODE = "-file";
 
-    // Step 1: Initialize Game Engine
-    GameEngine engine;
+string mode;
+string file_name;
 
-    // Step 2: Test Console Input
-
-    cout << "\n[Console Input Test]" << endl;
-    CommandProcessor consoleProcessor;
-    Command *cmd_1 = consoleProcessor.getCommand();
-    if (cmd_1)
-    {
-        if (consoleProcessor.validate(cmd_1, &engine))
-        {
-            cmd_1->saveEffect("Command " + cmd_1->getCommand() + " executed successfully.");
-        }
-        else
-        {
-            cmd_1->saveEffect("Invalid command for current game " + cmd_1->getCommand());
-        }
-        cout << *cmd_1 << endl;
-    }
-
-    // step 3: Test File Input
-    cout << "\n[File Input Test]" << endl;
-    string testFileName = "test_commands.txt";
-    FileCommandProcessorAdapter fileProcessor(testFileName);
-    Command *cmd_2 = fileProcessor.getCommand(); // read from file
-    if (cmd_2)
-    {
-        if (fileProcessor.validate(cmd_2, &engine))
-        {
-            cmd2->saveEffect("Command executed successfully.");
-        }
-        else
-        {
-            cmd2->saveEffect("Invalid command for the current game state.");
-        }
-        cout << *cmd_2 << endl;
-    }
-    // Step 4: Test Invalid Commands
-    cout << "\n[Invalid Command Test]" << endl;
-    Command invalidCommand('InvalidCommand');
-    if (!consoleProcessor.validate(&invalidCommand, &gameEngine))
-    {
-        invalidCommand.saveEffect("Invalid command for the current game state.");
-    }
-    cout << invalidCommand << endl;
-
-    cout << LINE << endl;
-    cout << "CommandProcessor Module Test Completed" << endl;
-    cout << LINE << endl;
+void setMode(const string &inputMode)
+{
+    mode = inputMode;
+}
+string getMode()
+{
+    return mode;
 }
 
-int main()
+void setFileName(const string &inputFileName)
 {
-    testCommandProcessor();
+    file_name = inputFileName;
+}
+
+string getFileName()
+{
+    return file_name;
+}
+
+void testCommandProcessor()
+{
+    // Step 1: Initialize Game Engine
+    GameEngine engine;
+    engine.buildGraph();
+    logMessage(INFO, "Game Engine initialized and graph built.");
+
+    // Step 2: Get current Mode
+    string currentMode = getMode();
+
+    if (currentMode == CONSOLE_MODE)
+    {
+        CommandProcessor consoleProcessor;
+        while (true)
+        {
+            Command *cmd = consoleProcessor.getCommand();
+
+            if (cmd)
+            {
+                if (consoleProcessor.validate(cmd, &engine))
+                {
+                    cmd->saveEffect("Command " + cmd->getCommand() + " executed successfully.");
+                }
+                else
+                {
+                    if (cmd->getCommand() == "terminate")
+                    {
+                        logMessage(INFO, "Terminating Test per User Request.");
+                        break;
+                    }
+                    cmd->saveEffect("Invalid command for current game " + cmd->getCommand());
+                }
+                logMessage(INFO, cmd->getCommand() + " - " + cmd->getEffect());
+            }
+        }
+    }
+    else if (currentMode == FILE_MODE)
+    {
+        string testFileName = getFileName();
+        FileCommandProcessorAdapter fileProcessor(testFileName);
+        while (true)
+        {
+            Command *cmd = fileProcessor.getCommand(); // read from file
+            if (cmd == nullptr)
+            {
+                break; // end of file
+            }
+            if (cmd)
+            {
+                if (fileProcessor.validate(cmd, &engine))
+                {
+                    cmd->saveEffect("Command executed successfully.");
+                }
+                else
+                {
+                    cmd->saveEffect("Invalid command for the current game state.");
+                }
+                logMessage(INFO, cmd->getCommand() + " - " + cmd->getEffect());
+            }
+        }
+    }
+    else
+    {
+        CommandProcessor consoleProcessor;
+        logMessage(INFO, "[Invalid Command Test]");
+        Command invalidCommand("InvalidCommand");
+        if (!consoleProcessor.validate(&invalidCommand, &engine))
+        {
+            invalidCommand.saveEffect("Invalid command for the current game state.");
+        }
+        logMessage(INFO, invalidCommand.getCommand() + " - " + invalidCommand.getEffect());
+    }
+}
+
+int main(int argc, char *argv[])
+{
+    if (argc < 2)
+    {
+        logMessage(ERROR, "Usage: " + string(argv[0]) + " -console OR -file <filename>");
+        return 1;
+    }
+
+    string mode = argv[1];
+    setMode(mode); // set mode globally
+
+    if (mode == CONSOLE_MODE)
+    {
+        testCommandProcessor();
+    }
+    else if (mode == FILE_MODE && argc >= 3)
+    {
+        string filename = argv[2];
+        logMessage(INFO, "Running in file mode with: " + filename);
+        logMessage(INFO, "[Reading commands from file: " + filename + "]");
+        setFileName(filename);
+        testCommandProcessor();
+    }
+    else
+    {
+        logMessage(ERROR, "Invalid arguments!");
+        logMessage(ERROR, "Usage: " + string(argv[0]) + " -console OR -file <filename>");
+        return 1;
+    }
+
     return 0;
 }

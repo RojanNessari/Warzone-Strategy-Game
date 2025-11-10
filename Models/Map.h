@@ -140,6 +140,9 @@ public:
 
     // Helper methods
     void printMapStatistics() const;
+
+    // distributeTerritories - distributes all territories fairly among players
+    void distributeTerritories(std::vector<Player *> &players);
 };
 
 class MapLoader
