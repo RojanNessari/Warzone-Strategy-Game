@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include "../utils/LoggingObserver.h"
 
 class GameEngine;
 class Player;
@@ -11,7 +12,7 @@ class Territory;
 class Map;
 
 // base Order
-class Order
+class Order : public Subject, public ILoggable
 {
 public:
     // Constructor
@@ -34,6 +35,9 @@ public:
 
     // For printing orders
     friend std::ostream &operator<<(std::ostream &os, const Order &order);
+
+    // stringToLog Method
+    std::string stringToLog();
 
 protected:
     std::string description;
@@ -154,7 +158,7 @@ private:
 };
 
 // OrdersList
-class OrdersList
+class OrdersList : public Subject, public ILoggable
 {
 private:
     std::vector<Order *> orders;
@@ -180,6 +184,9 @@ public:
 
     size_t size() const;
     Order *get(int index) const;
+
+    // ILoggable interface implementation
+    std::string stringToLog() override;
 };
 
 #endif // ORDERS_H

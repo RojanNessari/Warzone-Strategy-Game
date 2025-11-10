@@ -14,7 +14,8 @@ g++ -std=c++17 -o CommandProcessingDriver \
     Models/Player.cpp \
     Models/Orders.cpp \
     Models/Cards.cpp \
-    utils/logger.cpp
+    utils/logger.cpp \
+    utils/LoggingObserver.cpp
 
 if [[ $? -ne 0 ]]; then
     echo "❌ Compilation failed!"

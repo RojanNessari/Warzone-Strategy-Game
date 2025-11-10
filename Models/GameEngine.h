@@ -8,6 +8,7 @@
 #include <unordered_set>
 #include <utility>
 #include <iostream>
+#include "../utils/LoggingObserver.h"
 using namespace std;
 
 // Forward declarations
@@ -33,7 +34,7 @@ private:
     map<string, State *> *transitions_;
 };
 
-class GameEngine
+class GameEngine : public Subject, public ILoggable
 {
 public:
     GameEngine();
@@ -53,6 +54,7 @@ public:
     void clearTrucesForNewTurn();
 
     friend ostream &operator<<(ostream &os, const GameEngine &ge);
+    std::string stringToLog() override;
 
 private:
     void clear();

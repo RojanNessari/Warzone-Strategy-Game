@@ -4,13 +4,14 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include "../utils/LoggingObserver.h"
 
 // Forward declarations
 class Command;
 class GameEngine;
 class FileLineReader;
 
-class CommandProcessor
+class CommandProcessor : public Subject, public ILoggable
 {
 public:
     // Constructor
@@ -33,6 +34,8 @@ public:
 
     // Stream insertion operator
     friend std::ostream &operator<<(std::ostream &os, const CommandProcessor &cp);
+    // logging function
+    std::string stringToLog();
 
 protected:
     // Protected method to read command from console (no parameters - reads from cin)
@@ -102,7 +105,7 @@ private:
 };
 
 // Command class - represents a command with its text and execution effect
-class Command
+class Command : public Subject, public ILoggable
 {
 public:
     // Constructor - creates command with given text
@@ -128,6 +131,8 @@ public:
 
     // Stream insertion operator
     friend std::ostream &operator<<(std::ostream &os, const Command &cmd);
+
+    std::string stringToLog();
 
 private:
     std::string command; // The command text

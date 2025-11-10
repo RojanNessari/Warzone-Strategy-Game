@@ -9,6 +9,7 @@
 #include "Orders.h"
 #include "Cards.h"
 #include "../utils/logger.h"
+
 using namespace std;
 const string NEUTRAL_NAME = "NEUTRAL_NAME";
 
@@ -174,7 +175,12 @@ bool GameEngine::applyCommand(const string &cmd)
     }
     logMessage(INFO, string("Transition: ") + current_->getName() + " -- " + cmd + " ==> " + next->getName());
     current_ = next;
+    Notify(this); // Notify observers about the state change
     return true;
+}
+string GameEngine::stringToLog()
+{
+    return "GameEngine: Current State is: " + (current_ ? current_->getName() : "NULL");
 }
 
 const State *GameEngine::current() const { return current_; }

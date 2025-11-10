@@ -1,0 +1,5 @@
+CommandProcessor: Last command Processed: loadmap Maps/alberta.map
+OrdersList: 1 order(s)
+GameEngine: Current State is: map_loaded
+GameEngine: Current State is: map_validated
+GameEngine: Current State is: players_added

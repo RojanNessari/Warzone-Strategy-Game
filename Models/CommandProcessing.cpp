@@ -50,9 +50,14 @@ string Command::getEffect() const
 //          "Map 'conquest.map' loaded successfully" or "Error: Map file not found"
 void Command::saveEffect(const string &effectText)
 {
-
     effect = effectText; // Store the effect string
     logMessage(INFO, "Effect saved: " + effectText);
+    Notify(this); // Notify Observer
+}
+
+string Command::stringToLog()
+{
+    return "Command: " + command + ", Effect:" + effect;
 }
 
 // Stream insertion operator for Command
@@ -196,6 +201,15 @@ string CommandProcessor::readCommand()
     return commandLine;
 }
 
+string CommandProcessor::stringToLog()
+{
+    if (!commands.empty())
+    {
+        return "CommandProcessor: Last command Processed: " + commands.back()->getCommand();
+    }
+    return "CommandProcessor: No commands processed yet";
+}
+
 // This method is the main public interface - it:
 // 1. Reads a command (using readCommand())
 // 2. Creates a Command object
@@ -227,6 +241,7 @@ void CommandProcessor::saveCommand(Command *cmd)
     {
         commands.push_back(cmd); // add to vector
         logMessage(INFO, "Command saved: " + cmd->getCommand());
+        Notify(this);
     }
 }
 
