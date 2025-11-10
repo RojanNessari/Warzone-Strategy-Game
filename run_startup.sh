@@ -1,5 +1,5 @@
 echo "Compiling GameEngineDriver.cpp..."
-g++ -std=c++17 -o GameEngineDriver Drivers/GameEngineDriver.cpp Models/*.cpp
+g++ -std=c++17 -o GameEngineDriver Drivers/GameEngineDriver.cpp Models/*.cpp utils/*.cpp
     if [[ $? -eq 0 ]]; then
         echo "Running GameEngineDriver..."
         ./GameEngineDriver
