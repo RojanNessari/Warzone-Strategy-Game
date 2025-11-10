@@ -1,5 +1,5 @@
-#ifndef COMMAND_PROCESSOR_H
-#define COMMAND_PROCESSOR_H
+#ifndef COMMAND_PROCESSING_H
+#define COMMAND_PROCESSING_H
 
 #include <vector>
 #include <string>
