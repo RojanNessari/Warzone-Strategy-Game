@@ -8,6 +8,7 @@
 #include "Player.h"
 #include "Orders.h"
 #include "Cards.h"
+#include "../utils/logger.h"
 using namespace std;
 
 // ---------- STATE CLASS ----------
@@ -127,11 +128,10 @@ bool GameEngine::applyCommand(const string &cmd)
     State *next = current_->nextState(cmd);
     if (!next)
     {
-        cout << "Invalid command from state '" << current_->getName() << "'\n";
+        logMessage(ERROR, string("Invalid command from state '") + current_->getName() + "'");
         return false;
     }
-    cout << "Transition: " << current_->getName()
-         << " -- " << cmd << " ==> " << next->getName() << "\n";
+    logMessage(INFO, string("Transition: ") + current_->getName() + " -- " + cmd + " ==> " + next->getName());
     current_ = next;
     return true;
 }
@@ -198,12 +198,12 @@ void GameEngine::startupPhase()
     MapLoader map_loader;
     Map *map = nullptr;
     Deck gameDeck; // Create deck for the game
-    cout << "====================================" << endl;
-    cout << "GAME STARTUP PHASE" << endl;
-    cout << "====================================" << endl;
+    logMessage(INFO, "====================================");
+    logMessage(INFO, "GAME STARTUP PHASE");
+    logMessage(INFO, "====================================");
     while (true)
     {
-        cout << "Enter your command: ";
+        logMessage(INFO, "Enter your command:");
         getline(cin, input);
 
         // Parse command and argument properly
@@ -221,7 +221,7 @@ void GameEngine::startupPhase()
         {
             if (argument.empty())
             {
-                cout << "Usage: loadmap <filename>\n";
+                logMessage(ERROR, "Usage: loadmap <filename>");
                 continue;
             }
             // Clean up old map if exists
@@ -233,12 +233,12 @@ void GameEngine::startupPhase()
             map = map_loader.loadMap(argument); // Load map file
             if (map == nullptr)
             {
-                cout << "Error: Failed to load map.\n";
-                cout << argument << endl;
+                logMessage(ERROR, "Error: Failed to load map.");
+                logMessage(DEBUG, argument);
                 continue;
             }
 
-            cout << "Map '" << argument << "' loaded successfully.\n";
+            logMessage(INFO, string("Map '") + argument + "' loaded successfully.");
             mapLoaded = true;
             applyCommand("loadmap");
         }
@@ -247,20 +247,20 @@ void GameEngine::startupPhase()
         {
             if (!mapLoaded || map == nullptr)
             {
-                cout << "You must load a map first.\n";
+                logMessage(ERROR, "You must load a map first.");
                 continue;
             }
 
             bool isMapValidated = map->validate();
             if (isMapValidated)
             {
-                cout << "Map validated successfully.\n";
+                logMessage(INFO, "Map validated successfully.");
                 mapValidated = true;
                 applyCommand("validatemap");
             }
             else
             {
-                cout << "Map validation failed. Please check the map file.\n";
+                logMessage(ERROR, "Map validation failed. Please check the map file.");
             }
         }
 
@@ -268,17 +268,17 @@ void GameEngine::startupPhase()
         {
             if (!mapLoaded)
             {
-                cout << "You must load a map first.\n";
+                logMessage(ERROR, "You must load a map first.");
                 continue;
             }
             if (!mapValidated)
             {
-                cout << "You must validate the map.\n";
+                logMessage(ERROR, "You must validate the map.");
                 continue;
             }
             if (argument.empty())
             {
-                cout << "Usage: addplayer <playername>\n";
+                logMessage(ERROR, "Usage: addplayer <playername>");
                 continue;
             }
 
@@ -289,67 +289,66 @@ void GameEngine::startupPhase()
 
             if (it != players.end())
             {
-                cout << "Player '" << argument << "' already added.\n";
+                logMessage(ERROR, string("Player '") + argument + "' already added.");
                 continue;
             }
             if (players.size() > 6)
             {
-                cout << "Ease up lil bro, you can only add 2-6 Players." << endl;
+                logMessage(ERROR, "Ease up lil bro, you can only add 2-6 Players.");
                 continue;
             }
             // Create new player and add to list
             Player *newPlayer = new Player(argument);
             players.push_back(newPlayer);
-            cout << "Player '" << newPlayer->getPlayerName() << "' added.\n";
+            logMessage(INFO, string("Player '") + newPlayer->getPlayerName() + "' added.");
             applyCommand("addplayer");
         }
         else if (command == "gamestart")
         {
             if (players.size() < 2)
             {
-                cout << "You need between 2 and 6 players before starting.\n";
+                logMessage(ERROR, "You need between 2 and 6 players before starting.");
                 continue;
             }
-
-            cout << "\n=== Starting the game with " << players.size() << " players ===" << endl;
+            logMessage(INFO, string("=== Starting the game with ") + to_string(players.size()) + " players ===");
             for (const auto *p : players)
-                cout << "  - " << p->getPlayerName() << "\n";
+                logMessage(INFO, string("  - ") + p->getPlayerName());
 
             // 4a. Distribute territories fairly among players
-            cout << "\n4a) Distributing territories equally among players...\n";
+            logMessage(INFO, "4a) Distributing territories equally among players...");
             map->distributeTerritories(players);
 
             // 4b. Determine random order of play
-            cout << "\n4b) Determining random order of play...\n";
+            logMessage(INFO, "4b) Determining random order of play...");
             random_device rd;
             mt19937 g(rd());
             shuffle(players.begin(), players.end(), g);
-            cout << "Order of play:\n";
+            logMessage(INFO, "Order of play:");
             for (size_t i = 0; i < players.size(); ++i)
-                cout << "  " << (i + 1) << ". " << players[i]->getPlayerName() << "\n";
+                logMessage(INFO, string("  ") + to_string(i + 1) + ". " + players[i]->getPlayerName());
 
             // 4c. Give 50 initial army units to each player's reinforcement pool
-            cout << "\n4c) Assigning 50 army units to each player's reinforcement pool...\n";
+            logMessage(INFO, "4c) Assigning 50 army units to each player's reinforcement pool...");
             for (auto *p : players)
             {
                 p->setReinforcementPool(50);
-                cout << "  " << p->getPlayerName() << " receives 50 armies.\n";
+                logMessage(INFO, string("  ") + p->getPlayerName() + " receives 50 armies.");
             }
 
             // 4d. Let each player draw 2 initial cards from the deck
-            cout << "\n4d) Each player draws 2 initial cards from the deck...\n";
+            logMessage(INFO, "4d) Each player draws 2 initial cards from the deck...");
             for (auto *p : players)
             {
                 gameDeck.draw(*p, *(p->getHandOfCards()));
                 gameDeck.draw(*p, *(p->getHandOfCards()));
-                cout << "  " << p->getPlayerName() << " drew 2 cards.\n";
+                logMessage(INFO, string("  ") + p->getPlayerName() + " drew 2 cards.");
             }
 
             // 4e. Switch to play phase
-            cout << "\n4e) Switching to play phase!\n";
+            logMessage(INFO, "4e) Switching to play phase!");
             applyCommand("assigncountries");
-            cout << "Transitioned to assign_reinforcement state.\n";
-            cout << "Play phase started! (Next valid command: 'issueorder')\n";
+            logMessage(INFO, "Transitioned to assign_reinforcement state.");
+            logMessage(INFO, "Play phase started! (Next valid command: 'issueorder')");
             break;
         }
 

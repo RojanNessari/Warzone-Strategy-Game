@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <random>
 #include <cctype>
+#include "../utils/logger.h"
 
 using namespace std;
 
@@ -164,28 +165,26 @@ void Continent::setBonusValue(int bonus)
 // Validates the entire map: connectivity, continent validity, and territory membership
 bool Map::validate() const
 {
-    cout << "\n=== MAP VALIDATION ===" << endl;
+    logMessage(INFO, "=== MAP VALIDATION ===");
 
     bool isValid = true;
 
     // 1. Check if map is a connected graph
     bool connected = isConnectedGraph();
-    cout << "1. Map connectivity: " << (connected ? "PASSED" : "FAILED") << endl;
+    logMessage(INFO, string("1. Map connectivity: ") + (connected ? "PASSED" : "FAILED"));
     isValid &= connected;
 
     // 2. Check if continents are connected subgraphs
     bool continentsValid = validateContinents();
-    cout << "2. Continent connectivity: " << (continentsValid ? "PASSED" : "FAILED") << endl;
+    logMessage(INFO, string("2. Continent connectivity: ") + (continentsValid ? "PASSED" : "FAILED"));
     isValid &= continentsValid;
 
     // 3. Check territory membership (each territory belongs to exactly one continent)
     bool membershipValid = validateTerritoryMembership();
-    cout << "3. Territory membership: " << (membershipValid ? "PASSED" : "FAILED") << endl;
+    logMessage(INFO, string("3. Territory membership: ") + (membershipValid ? "PASSED" : "FAILED"));
     isValid &= membershipValid;
-
-    cout << "\nOverall map validation: " << (isValid ? "VALID" : "INVALID") << endl;
-    cout << "======================\n"
-         << endl;
+    logMessage(INFO, string("Overall map validation: ") + (isValid ? "VALID" : "INVALID"));
+    logMessage(INFO, "======================");
 
     return isValid;
 }
@@ -233,7 +232,7 @@ bool Map::validateContinents() const
 
         if (territoryIds.empty())
         {
-            cout << " Continent '" << continent.getName() << "' has no territories" << endl;
+            logMessage(DEBUG, string("Continent '") + continent.getName() + "' has no territories");
             continue;
         }
 
@@ -267,8 +266,7 @@ bool Map::validateContinents() const
         // Check if all territories in this continent were visited
         if (visited.size() != territoryIds.size())
         {
-            cout << " Continent '" << continent.getName() << "' is not connected: "
-                 << visited.size() << "/" << territoryIds.size() << " territories reachable" << endl;
+            logMessage(ERROR, string("Continent '") + continent.getName() + "' is not connected: " + to_string(visited.size()) + "/" + to_string(territoryIds.size()) + " territories reachable");
             return false;
         }
     }
@@ -466,7 +464,7 @@ Map *MapLoader::handleCurrentState(Section currentState, const string &line, Map
 
         if (!continent)
         {
-            cerr << "Error: Unknown continent '" << continentName << "' for territory '" << name << "'" << endl;
+            logMessage(ERROR, string("Error: Unknown continent '") + continentName + "' for territory '" + name + "'");
             delete map;
             return nullptr;
         }
@@ -481,7 +479,7 @@ Map *MapLoader::handleCurrentState(Section currentState, const string &line, Map
         }
         catch (const exception &)
         {
-            cout << "Warning: Invalid coordinates for territory " << name << endl;
+            logMessage(WARNING, string("Warning: Invalid coordinates for territory ") + name);
         }
         Territory territory(name, territoryId, continent->getId(), x, y);
 
@@ -499,8 +497,7 @@ Map *MapLoader::handleCurrentState(Section currentState, const string &line, Map
             }
         }
 
-        cout << "[DEBUG] Territory: " << name << " -> " << continentName
-             << " (Adjacent: " << adjacentNames.size() << ")" << endl;
+        logMessage(DEBUG, string("Territory: ") + name + " -> " + continentName + " (Adjacent: " + to_string(adjacentNames.size()) + ")");
 
         // Add territory to map
         map->addTerritory(territory);
@@ -555,7 +552,7 @@ Map *MapLoader::loadMap(const string &filename)
 
     if (!file.is_open())
     {
-        cerr << "Error: Cannot open file " << filename << endl;
+        logMessage(ERROR, string("Error: Cannot open file ") + filename);
         return nullptr;
     }
 
@@ -566,7 +563,7 @@ Map *MapLoader::loadMap(const string &filename)
     // Store territory adjacency info for second pass
     vector<pair<string, vector<string>>> territoryAdjacencies;
 
-    cout << "Loading map from: " << filename << endl;
+    logMessage(INFO, string("Loading map from: ") + filename);
 
     // First pass: Load continents and territories
     while (getline(file, line))
@@ -574,7 +571,7 @@ Map *MapLoader::loadMap(const string &filename)
         // Remove whitespace
         line.erase(0, line.find_first_not_of(WHITE_SPACE));
         line.erase(line.find_last_not_of(WHITE_SPACE) + 1);
-        cout << "line: " << line << endl;
+        logMessage(DEBUG, string("line: ") + line);
 
         if (line.empty())
             continue;
@@ -583,7 +580,7 @@ Map *MapLoader::loadMap(const string &filename)
         if (newSection != NONE)
         {
             string strSection = sectionToString(newSection);
-            cout << "[DEBUG] Detected Section: " << strSection << endl;
+            logMessage(DEBUG, string("Detected Section: ") + strSection);
             currentSection = newSection;
             continue;
         }
@@ -646,8 +643,7 @@ Map *MapLoader::loadMap(const string &filename)
             map->addTerritory(territory);
             continent->addTerritory(territoryId);
 
-            cout << "[DEBUG] Territory: " << name << " -> " << continentName
-                 << " (Adjacent: " << adjacentNames.size() << ")" << endl;
+            logMessage(DEBUG, string("Territory: ") + name + " -> " + continentName + " (Adjacent: " + to_string(adjacentNames.size()) + ")");
         }
         else
         {
@@ -663,7 +659,7 @@ Map *MapLoader::loadMap(const string &filename)
     file.close();
 
     // Second pass: Establish adjacencies
-    cout << "[DEBUG] Establishing adjacencies..." << endl;
+    logMessage(DEBUG, "Establishing adjacencies...");
     for (const auto &territoryAdj : territoryAdjacencies)
     {
         const string &territoryName = territoryAdj.first;
@@ -684,13 +680,12 @@ Map *MapLoader::loadMap(const string &filename)
             }
             else
             {
-                cout << "Warning: Adjacent territory '" << adjName
-                     << "' not found for '" << territoryName << "'" << endl;
+                logMessage(WARNING, string("Adjacent territory '") + adjName + "' not found for '" + territoryName + "'");
             }
         }
     }
 
-    cout << "Map loaded successfully!" << endl;
+    logMessage(INFO, "Map loaded successfully!");
     map->printMapStatistics();
 
     return map;
@@ -701,7 +696,7 @@ void Map::distributeTerritories(vector<Player *> &players)
 {
     if (players.empty() || territories.empty())
     {
-        cout << "Cannot distribute territories: no players or no territories available.\n";
+        logMessage(ERROR, "Cannot distribute territories: no players or no territories available.");
         return;
     }
 
@@ -732,7 +727,7 @@ void Map::distributeTerritories(vector<Player *> &players)
     }
 
     // Print distribution summary
-    cout << "Territory distribution:\n";
+    logMessage(INFO, "Territory distribution:");
     for (size_t i = 0; i < players.size(); ++i)
     {
         int count = 0;
@@ -741,6 +736,6 @@ void Map::distributeTerritories(vector<Player *> &players)
             if (territory.getOwnerId() == static_cast<int>(i))
                 count++;
         }
-        cout << "  " << players[i]->getPlayerName() << ": " << count << " territories\n";
+        logMessage(INFO, string("  ") + players[i]->getPlayerName() + ": " + to_string(count) + " territories");
     }
 }

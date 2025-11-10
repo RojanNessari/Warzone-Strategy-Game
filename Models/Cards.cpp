@@ -5,15 +5,15 @@
 #include <random>
 #include <sstream>
 #include <algorithm>
-
-using std::ostream;
+#include "../utils/logger.h"
+using namespace std;
 
 // ---------- Debug helper (internal) ----------
 static constexpr bool DEBUG_CARDS = true;
-static inline void DebugPrint(const std::string &msg)
+static inline void DebugPrint(const string &msg)
 {
     if (DEBUG_CARDS)
-        std::cout << "[DEBUG] " << msg << '\n';
+        logMessage(DEBUG, msg);
 }
 
 // ---------- Utilities ----------
@@ -37,13 +37,13 @@ const char *CardTypeToString(CardType type)
 }
 
 // One RNG for the TU
-static std::random_device rd;
-static std::mt19937 rng(rd());
+static random_device rd;
+static mt19937 rng(rd());
 
 // ----------------- Card -----------------
 Card::Card(CardType t) : type(t)
 {
-    DebugPrint(std::string("Card created: ") + CardTypeToString(t));
+    DebugPrint(string("Card created: ") + CardTypeToString(t));
 }
 
 Card::Card(const Card &other) : type(other.type)
@@ -63,7 +63,7 @@ Card &Card::operator=(const Card &other)
 
 Card::~Card()
 {
-    DebugPrint(std::string("Card destroyed: ") + CardTypeToString(type));
+    DebugPrint(string("Card destroyed: ") + CardTypeToString(type));
 }
 
 ostream &operator<<(ostream &os, const Card &card)
@@ -74,7 +74,7 @@ ostream &operator<<(ostream &os, const Card &card)
 
 void Card::play(Player &player, OrdersList &ordersList, Deck &deck)
 {
-    std::cout << "Playing card: " << CardTypeToString(type) << '\n';
+    logMessage(INFO, string("Playing card: ") + CardTypeToString(type));
 
     // Create the appropriate Order and add it to OrdersList.
     // Mapping:
@@ -87,43 +87,43 @@ void Card::play(Player &player, OrdersList &ordersList, Deck &deck)
     switch (type)
     {
     case CardType::Bomb:
-        std::cout << " -> Creating Bomb order.\n";
+        logMessage(DEBUG, " -> Creating Bomb order.");
         newOrder = new Bomb();
         break;
     case CardType::Reinforcement:
-        std::cout << " -> Creating Deploy order (from Reinforcement).\n";
+        logMessage(DEBUG, " -> Creating Deploy order (from Reinforcement).");
         newOrder = new Deploy();
         break;
     case CardType::Blockade:
-        std::cout << " -> Creating Blockade order.\n";
+        logMessage(DEBUG, " -> Creating Blockade order.");
         newOrder = new Blockade();
         break;
     case CardType::Airlift:
-        std::cout << " -> Creating Airlift order.\n";
+        logMessage(DEBUG, " -> Creating Airlift order.");
         newOrder = new Airlift();
         break;
     case CardType::Diplomacy:
-        std::cout << " -> Creating Negotiate order.\n";
+        logMessage(DEBUG, " -> Creating Negotiate order.");
         newOrder = new Negotiate();
         break;
     default:
-        std::cout << "Unknown card type, no order created.\n";
+        logMessage(ERROR, "Unknown card type, no order created.");
         break;
     }
 
     if (newOrder)
     {
         ordersList.add(newOrder);
-        std::cout << "Order added to OrdersList.\n";
+        logMessage(INFO, "Order added to OrdersList.");
     }
     else
     {
-        std::cout << "No order created.\n";
+        logMessage(WARNING, "No order created.");
     }
 
     // After playing, return this card to the deck.
     deck.returnCard(this);
-    std::cout << " -> Card returned to deck.\n";
+    logMessage(DEBUG, " -> Card returned to deck.");
 }
 
 // ----------------- Hand -----------------
@@ -140,7 +140,7 @@ Hand::Hand(const Hand &other)
     {
         cards.push_back(new Card(*c));
     }
-    DebugPrint("Hand copy-constructed with " + std::to_string(cards.size()) + " cards");
+    DebugPrint("Hand copy-constructed with " + to_string(cards.size()) + " cards");
 }
 
 Hand &Hand::operator=(const Hand &other)
@@ -154,7 +154,7 @@ Hand &Hand::operator=(const Hand &other)
         {
             cards.push_back(new Card(*c));
         }
-        DebugPrint("Hand assigned with " + std::to_string(cards.size()) + " cards");
+        DebugPrint("Hand assigned with " + to_string(cards.size()) + " cards");
     }
     return *this;
 }
@@ -169,12 +169,12 @@ Hand::~Hand()
 void Hand::addCard(Card *c)
 {
     cards.push_back(c);
-    std::ostringstream oss;
+    ostringstream oss;
     oss << *c;
     DebugPrint("Added to hand: " + oss.str());
 }
 
-Card *Hand::removeAt(std::size_t index)
+Card *Hand::removeAt(size_t index)
 {
     if (index >= cards.size())
     {
@@ -183,13 +183,13 @@ Card *Hand::removeAt(std::size_t index)
     }
     Card *c = cards[index];
     cards.erase(cards.begin() + index);
-    std::ostringstream oss;
+    ostringstream oss;
     oss << *c;
     DebugPrint("Removed from hand: " + oss.str());
     return c;
 }
 
-void Hand::playCard(std::size_t index, Player &player, OrdersList &ordersList, Deck &deck)
+void Hand::playCard(size_t index, Player &player, OrdersList &ordersList, Deck &deck)
 {
     if (index >= cards.size())
     {
@@ -220,15 +220,15 @@ Deck::Deck()
         cards.push_back(new Card(CardType::Airlift));
         cards.push_back(new Card(CardType::Diplomacy));
     }
-    std::shuffle(cards.begin(), cards.end(), rng);
-    DebugPrint("Deck constructed with " + std::to_string(cards.size()) + " cards");
+    shuffle(cards.begin(), cards.end(), rng);
+    DebugPrint("Deck constructed with " + to_string(cards.size()) + " cards");
 }
 
 Deck::Deck(const Deck &other)
 {
     for (auto *c : other.cards)
         cards.push_back(new Card(*c));
-    DebugPrint("Deck copy-constructed with " + std::to_string(cards.size()) + " cards");
+    DebugPrint("Deck copy-constructed with " + to_string(cards.size()) + " cards");
 }
 
 Deck &Deck::operator=(const Deck &other)
@@ -240,7 +240,7 @@ Deck &Deck::operator=(const Deck &other)
         cards.clear();
         for (auto *c : other.cards)
             cards.push_back(new Card(*c));
-        DebugPrint("Deck assigned with " + std::to_string(cards.size()) + " cards");
+        DebugPrint("Deck assigned with " + to_string(cards.size()) + " cards");
     }
     return *this;
 }
@@ -259,15 +259,15 @@ Card *Deck::draw(Player & /*player*/, Hand &hand)
         DebugPrint("Deck::draw on empty deck");
         return nullptr;
     }
-    std::uniform_int_distribution<std::size_t> dist(0, cards.size() - 1);
-    std::size_t idx = dist(rng);
+    uniform_int_distribution<size_t> dist(0, cards.size() - 1);
+    size_t idx = dist(rng);
 
     Card *c = cards[idx];
     cards.erase(cards.begin() + idx);
 
     hand.addCard(c);
 
-    std::ostringstream oss;
+    ostringstream oss;
     oss << *c;
     DebugPrint("Deck::draw gave " + oss.str() + " to player's hand");
     return c;
@@ -276,7 +276,7 @@ Card *Deck::draw(Player & /*player*/, Hand &hand)
 void Deck::returnCard(Card *c)
 {
     cards.push_back(c);
-    std::ostringstream oss;
+    ostringstream oss;
     oss << *c;
     DebugPrint("Deck::returnCard received " + oss.str());
 }

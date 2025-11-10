@@ -191,7 +191,7 @@ CommandProcessor::~CommandProcessor()
 string CommandProcessor::readCommand()
 {
     string commandLine;
-    cout << "Enter Command: ";
+    logMessage(INFO, "Enter Command:");
     getline(cin, commandLine); // Read the entire line include spaces
     return commandLine;
 }

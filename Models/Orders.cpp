@@ -1,4 +1,6 @@
 #include "Orders.h"
+#include <sstream>
+#include "../utils/logger.h"
 
 //  Base Order
 Order::Order() : description("Generic Order"), effect("None") {}
@@ -211,7 +213,9 @@ void OrdersList::print() const
 {
     for (size_t i = 0; i < orders.size(); i++)
     {
-        std::cout << i << ": " << *orders[i] << std::endl;
+        std::ostringstream oss;
+        oss << i << ": " << *orders[i];
+        logMessage(INFO, oss.str());
     }
 }
 void OrdersList::remove(int index)

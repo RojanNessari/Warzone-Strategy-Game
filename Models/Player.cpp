@@ -4,12 +4,13 @@
 #include <iostream>
 #include "Orders.h"
 #include "Cards.h"
+#include "../utils/logger.h"
 using namespace std;
 
 // Default constructor
 Player::Player(const std::string &playerName) : territories(), handOfCards(new Hand()), orders(new OrdersList()), playerName(playerName), reinforcementPool(0)
 {
-    cout << "Player created." << endl;
+    logMessage(INFO, "Player created.");
 }
 
 // getPlayer Name:
@@ -52,7 +53,7 @@ Player::Player(const Player &other)
     // Deep copy OrdersList
     orders = new OrdersList(*other.orders);
 
-    cout << "Player copied." << endl;
+    logMessage(DEBUG, "Player copied.");
 }
 
 // Assignment operator
@@ -84,7 +85,7 @@ Player &Player::operator=(const Player &other)
         playerName = other.playerName;
         reinforcementPool = other.reinforcementPool;
     }
-    cout << "Player assigned." << endl;
+    logMessage(DEBUG, "Player assigned.");
     return *this;
 }
 
@@ -95,7 +96,7 @@ Player::~Player()
         delete handOfCards;
     if (orders)
         delete orders;
-    cout << "Player destroyed." << endl;
+    logMessage(INFO, "Player destroyed.");
 }
 
 Hand *Player::getHandOfCards() const { return handOfCards; }
@@ -124,7 +125,7 @@ void Player::issueOrder()
     // For demonstration, create a Deploy order (you can modify this to accept parameters)
     Order *newOrder = new Deploy();
     orders->add(newOrder);
-    cout << "Order issued." << endl;
+    logMessage(INFO, "Order issued.");
 }
 
 // Stream insertion operator

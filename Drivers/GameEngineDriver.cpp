@@ -1,6 +1,7 @@
 #include "GameEngineDriver.h"
 #include "../Models/GameEngine.h"
 #include <iostream>
+#include "../utils/logger.h"
 using namespace std;
 
 void testGameStates()
@@ -9,20 +10,12 @@ void testGameStates()
     ge.buildGraph();
 
     // Print the menu using Raw String literal R
-    std::cout << R"(=== Part 5: Game Engine ===
-Valid commands:
-  1) loadmap          2) validatemap     3) addplayer
-  4) assigncountries  5) play            6) issueorder
-  7) endissueorders   8) execorder       9) endexecorders
- 10) win             11) end
-
-Type 'quit' to exit.
-)";
+    logMessage(INFO, "=== Part 5: Game Engine ===\nValid commands:\n  1) loadmap          2) validatemap     3) addplayer\n  4) assigncountries  5) play            6) issueorder\n  7) endissueorders   8) execorder       9) endexecorders\n 10) win             11) end\n\nType 'quit' to exit.");
 
     std::string cmd; // user input buffer
     while (true)
     {
-        std::cout << "\nCurrent: " << ge << "\n> "; // show current state and prompt
+        logMessage(DEBUG, string("Current: ") + ge.current()->getName());
         if (!std::getline(std::cin, cmd))
             break;
         if (cmd == "quit")

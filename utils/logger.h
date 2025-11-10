@@ -7,7 +7,8 @@ enum LogLevel
 {
     DEBUG,
     INFO,
-    ERROR
+    ERROR,
+    WARNING
 };
 
 void logMessage(LogLevel level, const std::string &message);
