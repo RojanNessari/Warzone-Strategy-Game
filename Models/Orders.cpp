@@ -5,14 +5,12 @@
 #include <random>
 #include <algorithm>
 
-
-
 //  Base Order
-Order::Order(Player* issuingPlayer) : description("Generic Order"), effect("None"), executed(false), issuer(issuingPlayer) {}
-Order::Order() : description("Generic Order"), effect("None"), executed(false), issuer(nullptr) {} 
+Order::Order(Player *issuingPlayer) : description("Generic Order"), effect("None"), executed(false), issuer(issuingPlayer) {}
+Order::Order() : description("Generic Order"), effect("None"), executed(false), issuer(nullptr) {}
 
 Order::~Order() {}
- 
+
 Order::Order(const Order &otherOrder) : description(otherOrder.description), effect(otherOrder.effect), executed(otherOrder.executed), issuer(otherOrder.issuer) {}
 
 Order &Order::operator=(const Order &otherOrder)
@@ -39,7 +37,7 @@ std::ostream &operator<<(std::ostream &os, const Order &order)
 
 //  Deploy
 Deploy::Deploy() { description = "Deploy Order"; }
-Deploy::Deploy(Player* p, Territory* t, int a)
+Deploy::Deploy(Player *p, Territory *t, int a)
     : issuer(p), target(t), armies(a) { description = "Deploy Order"; }
 Deploy::~Deploy() {}
 
@@ -50,39 +48,47 @@ Deploy &Deploy::operator=(const Deploy &otherDeploy)
     if (this != &otherDeploy)
     {
         Order::operator=(otherDeploy);
-        this -> issuer = otherDeploy.issuer;
-        this -> target = otherDeploy.target;
-        this -> armies = otherDeploy.armies;
+        this->issuer = otherDeploy.issuer;
+        this->target = otherDeploy.target;
+        this->armies = otherDeploy.armies;
     }
     return *this;
 }
 
-Order* Deploy::clone() const { return new Deploy(*this);}
+Order *Deploy::clone() const { return new Deploy(*this); }
 
-bool Deploy::validate() { 
-    if(!issuer || !target) return false;
-    if (target->getOwner() != issuer) return false;
-    return true; 
+bool Deploy::validate()
+{
+    if (!issuer || !target)
+        return false;
+    if (target->getOwner() != issuer)
+        return false;
+    if (armies > issuer->getReinforcementPool())
+        return false;
+    return true;
 }
 void Deploy::execute()
 {
-    if (!validate()) { effect = "Invalid: target not owned by issuer."; 
-        return; 
+    if (!validate())
+    {
+        effect = "Invalid: target not owned by issuer.";
+        return;
     }
-if (issuer->getReinforcementPool() < armies) {
+    if (issuer->getReinforcementPool() < armies)
+    {
         effect = "Invalid: not enough reinforcement armies.";
         return;
     }
-    
+
     issuer->setReinforcementPool(issuer->getReinforcementPool() - armies);
     target->addArmies(armies);
 
-effect = "Deployed " + std::to_string(armies) + " to " + target->getName();
-executed = true;
+    effect = "Deployed " + std::to_string(armies) + " to " + target->getName();
+    executed = true;
 }
 
 Advance::Advance() { description = "Advance Order"; }
-Advance::Advance(Player* p, Territory* s, Territory* t, int a)
+Advance::Advance(Player *p, Territory *s, Territory *t, int a)
     : issuer(p), source(s), target(t), armies(a) { description = "Advance Order"; }
 Advance::~Advance() {}
 
@@ -93,31 +99,38 @@ Advance &Advance::operator=(const Advance &otherAdvance)
     if (this != &otherAdvance)
     {
         Order::operator=(otherAdvance);
-        issuer=otherAdvance.issuer;
-        source=otherAdvance.source;
-        target=otherAdvance.target;
-        armies=otherAdvance.armies; 
+        issuer = otherAdvance.issuer;
+        source = otherAdvance.source;
+        target = otherAdvance.target;
+        armies = otherAdvance.armies;
     }
     return *this;
 }
 
-Order* Advance::clone() const { return new Advance(*this); }
+Order *Advance::clone() const { return new Advance(*this); }
 
+bool Advance::validate()
+{
+    if (!issuer || !source || !target)
+        return false;
+    if (source->getOwner() != issuer)
+        return false; // source has to be yours
+    if (source->getArmies() <= 0)
+        return false;
+    if (!source->isAdjacentTo(target->getId()))
+        return false;
 
-bool Advance::validate() { 
-    if (!issuer || !source || !target) return false;
-    if (source->getOwner() != issuer) return false;//source has to be yours
-    if (source->getArmies() <= 0) return false;
-    if(!source->isAdjacentTo(target->getId())) return false;
-    
-    return true; 
+    return true;
 }
 void Advance::execute()
 {
-    if (!validate()) { 
-        effect = "Invalid: source not owned or not adjacent."; 
-        return; }
-    if (target->getOwner() == issuer) {
+    if (!validate())
+    {
+        effect = "Invalid: source not owned or not adjacent.";
+        return;
+    }
+    if (target->getOwner() == issuer)
+    {
         // friendly move
         int src = source->getArmies();
         int moved = std::max(0, std::min(armies, src));
@@ -137,32 +150,39 @@ void Advance::execute()
     std::bernoulli_distribution atkHit(0.6), defHit(0.7);
 
     int a = atk, d = def;
-    while (a > 0 && d > 0) {
+    while (a > 0 && d > 0)
+    {
         int aKills = 0, dKills = 0;
-        for (int i = 0; i < a; ++i) if (atkHit(rng)) aKills++;
-        for (int i = 0; i < d; ++i) if (defHit(rng)) dKills++;
+        for (int i = 0; i < a; ++i)
+            if (atkHit(rng))
+                aKills++;
+        for (int i = 0; i < d; ++i)
+            if (defHit(rng))
+                dKills++;
         d = std::max(0, d - aKills);
         a = std::max(0, a - dKills);
     }
 
     target->setArmies(d);
-    if (d == 0 && a > 0) {
+    if (d == 0 && a > 0)
+    {
         // capture territory; survivors occupy
-        Player* prevOwner = target->getOwner();
+        Player *prevOwner = target->getOwner();
         (void)prevOwner; // if unused
         target->setOwner(issuer);
         target->setArmies(a);
         issuer->markConqueredThisTurn();
         effect = "Conquered " + target->getName() + " with " + std::to_string(a) + " survivors.";
-    } else {
+    }
+    else
+    {
         effect = "Attack ended. Defender left " + std::to_string(d) + ", attackers left " + std::to_string(a) + ".";
     }
     executed = true;
-
 }
 
 Bomb::Bomb() { description = "Bomb Order"; }
-Bomb::Bomb(Player* p, Territory* t, Map* m)
+Bomb::Bomb(Player *p, Territory *t, Map *m)
     : issuer(p), target(t), map(m) { description = "Bomb Order"; }
 Bomb::~Bomb() {}
 
@@ -173,24 +193,29 @@ Bomb &Bomb::operator=(const Bomb &otherBomb)
     if (this != &otherBomb)
     {
         Order::operator=(otherBomb);
-        issuer=otherBomb.issuer; 
-        target=otherBomb.target; 
-        map=otherBomb.map;
+        issuer = otherBomb.issuer;
+        target = otherBomb.target;
+        map = otherBomb.map;
     }
     return *this;
 }
 
-Order* Bomb::clone() const { return new Bomb(*this); }
+Order *Bomb::clone() const { return new Bomb(*this); }
 
-bool Bomb::validate() {
-    if (!issuer || !target) return false;
+bool Bomb::validate()
+{
+    if (!issuer || !target)
+        return false;
 
-    if (target->getOwner() == issuer) return false;// Cannot bomb own territory
+    if (target->getOwner() == issuer)
+        return false; // Cannot bomb own territory
 
     // Must be adjacent to at least one of the issuer's territories
     bool adjacent = false;
-    for (auto* myT : issuer->toDefend()) {
-        if (myT && myT->isAdjacentTo(target->getId())) {
+    for (auto *myT : issuer->toDefend())
+    {
+        if (myT && myT->isAdjacentTo(target->getId()))
+        {
             adjacent = true;
             break;
         }
@@ -199,7 +224,11 @@ bool Bomb::validate() {
 }
 void Bomb::execute()
 {
-     if (!validate()) { effect = "Invalid: target is not enemy or not adjacent to issuer territories."; return; }
+    if (!validate())
+    {
+        effect = "Invalid: target is not enemy or not adjacent to issuer territories.";
+        return;
+    }
     int before = target->getArmies();
     int after = before / 2;
     target->setArmies(after);
@@ -208,7 +237,7 @@ void Bomb::execute()
 }
 
 Blockade::Blockade() { description = "Blockade Order"; }
-Blockade::Blockade(Player* p, Territory* t, GameEngine* eng)
+Blockade::Blockade(Player *p, Territory *t, GameEngine *eng)
     : issuer(p), target(t), engine(eng) { description = "Blockade Order"; }
 Blockade::~Blockade() {}
 
@@ -219,59 +248,70 @@ Blockade &Blockade::operator=(const Blockade &otherBlockade)
     if (this != &otherBlockade)
     {
         Order::operator=(otherBlockade);
-        issuer=otherBlockade.issuer; 
-        target=otherBlockade.target; 
-        engine=otherBlockade.engine;
+        issuer = otherBlockade.issuer;
+        target = otherBlockade.target;
+        engine = otherBlockade.engine;
     }
     return *this;
 }
 
-Order* Blockade::clone() const { return new Blockade(*this); }
+Order *Blockade::clone() const { return new Blockade(*this); }
 
-bool Blockade::validate() { 
-    if (!issuer || !target || !engine) return false;
-    return target->getOwner() == issuer;// must be own territory
+bool Blockade::validate()
+{
+    if (!issuer || !target || !engine)
+        return false;
+    return target->getOwner() == issuer; // must be own territory
 }
 
 void Blockade::execute()
 {
-    if (!validate()) { effect = "Invalid: target must be owned by issuer."; return; }
+    if (!validate())
+    {
+        effect = "Invalid: target must be owned by issuer.";
+        return;
+    }
     target->setArmies(target->getArmies() * 2);
-    Player* neutral = engine->getNeutralPlayer();
+    Player *neutral = engine->getNeutralPlayer();
     target->setOwner(neutral);
     effect = "Blockade: doubled armies and transferred " + target->getName() + " to Neutral.";
     executed = true;
 }
 
-Airlift::Airlift() { description = "Airlift Order"; }Airlift::Airlift(Player* p, Territory* s, Territory* t, int a)
+Airlift::Airlift() { description = "Airlift Order"; }
+Airlift::Airlift(Player *p, Territory *s, Territory *t, int a)
     : issuer(p), source(s), target(t), armies(a) { description = "Airlift Order"; }
 Airlift::~Airlift() {}
 
-Airlift::Airlift(const Airlift &otherAirlift) : Order(otherAirlift) , issuer(otherAirlift.issuer), source(otherAirlift.source), target(otherAirlift.target), armies(otherAirlift.armies) {}
+Airlift::Airlift(const Airlift &otherAirlift) : Order(otherAirlift), issuer(otherAirlift.issuer), source(otherAirlift.source), target(otherAirlift.target), armies(otherAirlift.armies) {}
 Airlift &Airlift::operator=(const Airlift &otherAirlift)
 {
     if (this != &otherAirlift)
     {
         Order::operator=(otherAirlift);
-        issuer=otherAirlift.issuer; 
-        source=otherAirlift.source; 
-        target=otherAirlift.target; 
-        armies=otherAirlift.armies;
+        issuer = otherAirlift.issuer;
+        source = otherAirlift.source;
+        target = otherAirlift.target;
+        armies = otherAirlift.armies;
     }
     return *this;
 }
 
-Order* Airlift::clone() const { return new Airlift(*this); }
+Order *Airlift::clone() const { return new Airlift(*this); }
 
-bool Airlift::validate() { 
-    if (!issuer || !source || !target) return false;
-    return source->getOwner() == issuer
-        && target->getOwner() == issuer; 
-    
-    }
+bool Airlift::validate()
+{
+    if (!issuer || !source || !target)
+        return false;
+    return source->getOwner() == issuer && target->getOwner() == issuer;
+}
 void Airlift::execute()
 {
-    if (!validate()) { effect = "Invalid: source/target must both be owned by issuer."; return; }
+    if (!validate())
+    {
+        effect = "Invalid: source/target must both be owned by issuer.";
+        return;
+    }
     int src = source->getArmies();
     int moved = std::max(0, std::min(armies, src));
     source->setArmies(src - moved);
@@ -281,7 +321,7 @@ void Airlift::execute()
 }
 
 Negotiate::Negotiate() { description = "Negotiate Order"; }
-Negotiate::Negotiate(Player* p, Player* o, GameEngine* eng)
+Negotiate::Negotiate(Player *p, Player *o, GameEngine *eng)
     : issuer(p), other(o), engine(eng) { description = "Negotiate (Diplomacy) Order"; }
 Negotiate::~Negotiate() {}
 
@@ -292,22 +332,29 @@ Negotiate &Negotiate::operator=(const Negotiate &otherNegotiate)
     if (this != &otherNegotiate)
     {
         Order::operator=(otherNegotiate);
-        issuer=otherNegotiate.issuer; 
-        other=otherNegotiate.other; 
-        engine=otherNegotiate.engine;
+        issuer = otherNegotiate.issuer;
+        other = otherNegotiate.other;
+        engine = otherNegotiate.engine;
     }
     return *this;
 }
 
-Order* Negotiate::clone() const { return new Negotiate(*this); }
+Order *Negotiate::clone() const { return new Negotiate(*this); }
 
-bool Negotiate::validate() { if (!issuer || !other || !engine) return false;
+bool Negotiate::validate()
+{
+    if (!issuer || !other || !engine)
+        return false;
     return issuer != other;
 }
 void Negotiate::execute()
 {
-    if (!validate()) { effect = "Invalid: cannot negotiate with self."; return; }
-    engine->addTruce(issuer, other);// store truce for rest of this turn
+    if (!validate())
+    {
+        effect = "Invalid: cannot negotiate with self.";
+        return;
+    }
+    engine->addTruce(issuer, other); // store truce for rest of this turn
     effect = "Negotiation: attacks between players blocked for this turn.";
     executed = true;
 }
@@ -327,20 +374,32 @@ OrdersList::~OrdersList()
 OrdersList::OrdersList(const OrdersList &other)
 {
     orders.reserve(other.orders.size());
-    for (Order* o : other.orders) orders.push_back(o ? o->clone() : nullptr);
+    for (Order *o : other.orders)
+        orders.push_back(o ? o->clone() : nullptr);
 }
 
 // Assignment operator
 OrdersList &OrdersList::operator=(const OrdersList &other)
 {
-    if (this != &other) {
-        for (auto* o : orders) delete o;
+    if (this != &other)
+    {
+        for (auto *o : orders)
+            delete o;
         orders.clear();
         orders.reserve(other.orders.size());
-        for (Order* o : other.orders) orders.push_back(o ? o->clone() : nullptr);
+        for (Order *o : other.orders)
+            orders.push_back(o ? o->clone() : nullptr);
     }
     return *this;
+}
 
+void OrdersList::clear()
+{
+    for (auto *o : orders)
+    {
+        delete o;
+    }
+    orders.clear();
 }
 
 void OrdersList::add(Order *order)
