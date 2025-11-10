@@ -5,7 +5,7 @@ echo "ORDERS DRIVER"
     if [[ $? -eq 0 ]]; then
         echo "Running MainDriver..."
         ./OrdersDriver
-        rm -f OrdersDriver
+        #rm -f OrdersDriver
         echo "OrdersDriver execution complete!"
     else
         echo "OrdersDriver compilation failed!"
