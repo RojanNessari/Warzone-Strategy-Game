@@ -1,4 +1,5 @@
 #include "Map.h"
+#include "Player.h"
 #include <fstream>
 #include <sstream>
 #include <iostream>
@@ -14,10 +15,10 @@ using namespace std;
 
 // Territory constructor: initializes a territory with a name, id, continent ID, and coordinates.
 Territory::Territory(const string &name, int id, int continentId, int x, int y)
-    : name(name), id(id), continentId(continentId), ownerId(-1), armies(0), x(x), y(y) {}
+    : name(name), id(id), continentId(continentId), owner(nullptr), armies(0), x(x), y(y) {}
 
-Territory::Territory(const Territory &other) : name(other.name), id(other.id), continentId(other.continentId), ownerId(other.ownerId), armies(other.armies), x(other.x),
-                                               y(other.y) {};
+Territory::Territory(const Territory &other) : name(other.name), id(other.id), continentId(other.continentId), owner(other.owner), armies(other.armies), x(other.x),
+                                               y(other.y), adjacentIds(other.adjacentIds) {};
 
 // Assigment operator:
 Territory &Territory::operator=(const Territory &other)
@@ -27,7 +28,7 @@ Territory &Territory::operator=(const Territory &other)
         name = other.name;
         id = other.id;
         continentId = other.continentId;
-        ownerId = other.ownerId;
+        owner = other.owner;
         armies = other.armies;
         x = other.x;
         y = other.y;
@@ -42,7 +43,7 @@ ostream &operator<<(ostream &os, const Territory &t)
     os << " Territory(Name: " << t.getName()
        << " ID: " << t.getId()
        << " ContinentID: " << t.getContinentId()
-       << " OwnerID: " << t.getOwnerId()
+       << " owner: " << (t.getOwner() ? std::to_string(t.getOwner()->getId()) : "None")
        << " Armies: " << t.getArmies()
        << " X: " << t.getX()
        << ", Y: " << t.getY()
@@ -123,12 +124,28 @@ Map::Map(const Map &other) : territories(other.territories), territoryNameToId(o
 string Territory::getName() const { return name; }
 int Territory::getId() const { return id; }
 int Territory::getContinentId() const { return continentId; }
-int Territory::getOwnerId() const { return ownerId; }
 int Territory::getArmies() const { return armies; }
 int Territory::getX() const { return x; }
 int Territory::getY() const { return y; }
 unordered_set<int> &Territory::getAdjacentIds() { return adjacentIds; }
 const unordered_set<int> &Territory::getAdjacentIds() const { return adjacentIds; }
+
+void Territory::addArmies(int delta) {
+    if (delta > 0) {
+        armies += delta;
+    }
+}
+
+int Territory::removeArmies(int delta) {
+    if (delta <= 0) return 0;
+    int take = std::min(delta, armies);
+    armies -= take;
+    return take;
+}
+
+bool Territory::isAdjacentTo(int territoryId) const {
+    return adjacentIds.find(territoryId) != adjacentIds.end();
+}
 
 void Territory::addAdjacentTerritory(int territoryId)
 {
@@ -137,7 +154,10 @@ void Territory::addAdjacentTerritory(int territoryId)
 
 void Territory::setOwner(int playerId)
 {
-    ownerId = playerId;
+    // This method is kept for backward compatibility with distributeTerritories
+    // Note: This sets an ID but we're using Player* internally now
+    // You may need to update distributeTerritories to use setOwner(Player*) instead
+    // For now, this is a stub that does nothing - update as needed
 }
 
 void Territory::setArmies(int armyCount)
@@ -716,8 +736,8 @@ void Map::distributeTerritories(vector<Player *> &players)
     {
         Territory *territory = &territories[territoryIdx];
 
-        // Assign territory to current player
-        territory->setOwner(playerIndex);
+        // Assign territory to current player using the new Player* setter
+        territory->setOwner(players[playerIndex]);
 
         // Add territory pointer to player's collection
         players[playerIndex]->toDefend().push_back(territory);
@@ -733,7 +753,7 @@ void Map::distributeTerritories(vector<Player *> &players)
         int count = 0;
         for (const auto &territory : territories)
         {
-            if (territory.getOwnerId() == static_cast<int>(i))
+            if (territory.getOwner() == players[i])
                 count++;
         }
         logMessage(INFO, string("  ") + players[i]->getPlayerName() + ": " + to_string(count) + " territories");

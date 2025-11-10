@@ -44,6 +44,10 @@ public:
 
     // Assignment 2 – Part 2
     void startupPhase();
+    Player* getNeutralPlayer();
+    void addTruce(Player* a, Player* b);
+    bool isTruced(Player* a, Player* b) const;
+    void clearTrucesForNewTurn();
 
     friend ostream &operator<<(ostream &os, const GameEngine &ge);
 

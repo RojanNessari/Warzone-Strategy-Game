@@ -23,7 +23,24 @@ public:
     // Destructor
     ~Player();
 
-    // getter
+    int  getId() const;         
+    void setId(int pid);
+
+    int getReinforcementPool() const { return reinforcementPool; }
+    void setReinforcementPool(int amount) { reinforcementPool = amount; }
+    
+    void addTerritory(Territory* territory) { 
+        territories.push_back(territory); 
+    }
+    std::vector<Territory*> getTerritories() const { return territories; }
+    int  takeFromReinforcement(int n);  // for Deploy
+    void addToReinforcement(int n);
+    void markConqueredThisTurn() { conqueredThisTurn = true; }
+    bool hasConqueredThisTurn() const { return conqueredThisTurn; }
+    void resetConqueredFlag() { conqueredThisTurn = false; }
+
+    bool ownsTerritoryId(int tid) const;
+  // getter
     std::string getPlayerName() const;
 
     // Reinforcement pool methods
@@ -43,9 +60,12 @@ public:
     Hand *getHandOfCards() const;
 
 private:
+    int id = -1;
+    int reinforcementPool = 0;
     std::vector<Territory *> territories; // List of territories owned by the player (as pointers)
     Hand *handOfCards;                    // List of cards owned by the player
     OrdersList *orders;                   // List of orders issued by the player (as pointer)
+    bool conqueredThisTurn = false;
     std::string playerName;               // Player name
     int reinforcementPool;                // Army units in reinforcement pool
 };

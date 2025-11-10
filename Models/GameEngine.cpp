@@ -90,6 +90,41 @@ State *GameEngine::findState(const string &name) const
     return nullptr;
 }
 
+// normalize order of IDs so {1,2} == {2,1}
+static inline pair<int,int> normPair(Player* a, Player* b) {
+    int x = a->getId(), y = b->getId();
+    if (x > y) swap(x, y);
+    return {x, y};
+}
+
+// record that two players have a truce for the rest of the turn
+void GameEngine::addTruce(Player* a, Player* b) {
+    truces.insert(normPair(a, b));
+}
+
+// check if two players currently have a truce
+bool GameEngine::isTruced(Player* a, Player* b) const {
+    auto p = (a->getId() < b->getId())
+        ? pair<int,int>{a->getId(), b->getId()}
+        : pair<int,int>{b->getId(), a->getId()};
+    return truces.find(p) != truces.end();
+}
+
+// clear truces (call at the start of each new turn)
+void GameEngine::clearTrucesForNewTurn() {
+    truces.clear();
+}
+
+
+Player* GameEngine::getNeutralPlayer() {
+  if (!neutralPlayer) {
+    neutralPlayer = new Player();
+    neutralPlayer->setId(-1);  }
+  return neutralPlayer;
+}
+
+
+
 void GameEngine::buildGraph()
 {
     clear();
