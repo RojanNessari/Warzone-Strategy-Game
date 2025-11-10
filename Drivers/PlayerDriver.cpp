@@ -9,8 +9,8 @@ void testPlayers()
     cout << "\n Testing Player Class Features \n";
 
     // Create players
-    Player p1;
-    Player p2;
+    Player p1("n00b69");
+    Player p2("flora");
 
     cout << "\n Initial Players:\n";
     cout << p1 << endl;
