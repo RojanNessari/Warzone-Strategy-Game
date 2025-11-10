@@ -5,6 +5,9 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <unordered_set>
+#include <utility>
+#include <iostream>
 using namespace std;
 
 // Forward declarations
@@ -44,9 +47,9 @@ public:
 
     // Assignment 2 – Part 2
     void startupPhase();
-    Player* getNeutralPlayer();
-    void addTruce(Player* a, Player* b);
-    bool isTruced(Player* a, Player* b) const;
+    Player *getNeutralPlayer();
+    void addTruce(Player *a, Player *b);
+    bool isTruced(Player *a, Player *b) const;
     void clearTrucesForNewTurn();
 
     friend ostream &operator<<(ostream &os, const GameEngine &ge);
@@ -58,6 +61,15 @@ private:
     State *current_;
     vector<State *> *states_;
     vector<Player *> players;
+    Player *neutralPlayer = nullptr;
+    struct PairHash
+    {
+        size_t operator()(const pair<int, int> &p) const
+        {
+            return (static_cast<size_t>(p.first) << 32) ^ static_cast<size_t>(p.second);
+        }
+    };
+    unordered_set<pair<int, int>, PairHash> truces;
 };
 
 #endif

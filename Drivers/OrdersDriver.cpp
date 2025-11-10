@@ -4,6 +4,10 @@
 #include "../Models/Map.h"
 #include "../Models/GameEngine.h"
 #include "../Models/Cards.h"
+using namespace std;
+
+const string MOCK_PLAYER_NAME_1 = "n00b69";
+const string MOCK_PLAYER_NAME_2 = "FLORA78";
 
 void testOrdersLists()
 {
@@ -16,18 +20,18 @@ void testOrdersLists()
     list.add(new Airlift());
     list.add(new Negotiate());
 
-    std::cout << " Initial Orders:" << std::endl;
+    cout << " Initial Orders:" << endl;
     list.print();
 
-    std::cout << "\n Moving order 2 (Bomb) to the top..." << std::endl;
+    cout << "\n Moving order 2 (Bomb) to the top..." << endl;
     list.move(2, 0);
     list.print();
 
-    std::cout << "\n Removing order 3..." << std::endl;
+    cout << "\n Removing order 3..." << endl;
     list.remove(3);
     list.print();
 
-    std::cout << "\n Executing all orders..." << std::endl;
+    cout << "\n Executing all orders..." << endl;
     for (size_t i = 0; i < list.size(); i++)
     {
         Order *o = list.get((int)i);
@@ -39,35 +43,36 @@ void testOrdersLists()
     list.print();
 }
 
-void testOrderExecution() {
-    std::cout << "Testing Order Execution (Part 4)" << std::endl;
-    
+void testOrderExecution()
+{
+    cout << "Testing Order Execution (Part 4)" << endl;
+
     // Setup test environment
-    GameEngine* engine = new GameEngine();
-    Player* player1 = new Player();
-    Player* player2 = new Player();
-    Player* neutral = engine->getNeutralPlayer();
-    
+    GameEngine *engine = new GameEngine();
+    Player *player1 = new Player(MOCK_PLAYER_NAME_1);
+    Player *player2 = new Player(MOCK_PLAYER_NAME_2);
+    Player *neutral = engine->getNeutralPlayer();
+
     player1->setId(1);
     player2->setId(2);
     player1->setReinforcementPool(50);
     player2->setReinforcementPool(50);
-    
+
     // Create test territories
-    Territory* t1 = new Territory("Territory1", 1, 1, 0, 0);
-    Territory* t2 = new Territory("Territory2", 2, 1, 0, 0);
-    Territory* t3 = new Territory("Territory3", 3, 1, 0, 0);
-    Territory* t4 = new Territory("Territory4", 4, 1, 0, 0);
-    
+    Territory *t1 = new Territory("Territory1", 1, 1, 0, 0);
+    Territory *t2 = new Territory("Territory2", 2, 1, 0, 0);
+    Territory *t3 = new Territory("Territory3", 3, 1, 0, 0);
+    Territory *t4 = new Territory("Territory4", 4, 1, 0, 0);
+
     t1->setOwner(player1);
-    t2->setOwner(player2); 
+    t2->setOwner(player2);
     t3->setOwner(player1);
     t4->setOwner(player2);
     t1->setArmies(10);
     t2->setArmies(5);
     t3->setArmies(8);
     t4->setArmies(6);
-    
+
     // Make territories adjacent
     t1->addAdjacentTerritory(2);
     t1->addAdjacentTerritory(3);
@@ -77,111 +82,111 @@ void testOrderExecution() {
     t2->addAdjacentTerritory(4);
 
     t3->addAdjacentTerritory(1);
-    
+
     t4->addAdjacentTerritory(1);
     t4->addAdjacentTerritory(2);
-    
+
     // Add territories to players
     player1->addTerritory(t1);
     player1->addTerritory(t3);
     player2->addTerritory(t2);
     player2->addTerritory(t4);
-    
-    std::cout << "\n1. Testing Deploy Order:" << std::endl;
+
+    cout << "\n1. Testing Deploy Order:" << endl;
     Deploy deploy(player1, t1, 5);
     deploy.execute();
-    std::cout << "Effect: " << deploy.getEffect() << std::endl;
-    std::cout << "Reinforcement pool after deploy: " << player1->getReinforcementPool() << std::endl;
-    
-    std::cout << "\n2. Testing Invalid Deploy Order:" << std::endl;
-    Deploy invalidDeploy(player1, t2, 5);  // t2 not owned by player1
+    cout << "Effect: " << deploy.getEffect() << endl;
+    cout << "Reinforcement pool after deploy: " << player1->getReinforcementPool() << endl;
+
+    cout << "\n2. Testing Invalid Deploy Order:" << endl;
+    Deploy invalidDeploy(player1, t2, 5); // t2 not owned by player1
     invalidDeploy.execute();
-    std::cout << "Effect: " << invalidDeploy.getEffect() << std::endl;
-    
-    std::cout << "\n3. Testing Advance Order (Friendly Move):" << std::endl;
+    cout << "Effect: " << invalidDeploy.getEffect() << endl;
+
+    cout << "\n3. Testing Advance Order (Friendly Move):" << endl;
     Advance advanceFriendly(player1, t1, t3, 3);
     advanceFriendly.execute();
-    std::cout << "Effect: " << advanceFriendly.getEffect() << std::endl;
-    std::cout << "Source armies: " << t1->getArmies() << ", Target armies: " << t3->getArmies() << std::endl;
-    
-    std::cout << "\n4. Testing Advance Order (Attack):" << std::endl;
-    std::cout << "Before attack - Owner of t2: Player" << t2->getOwner()->getId() << std::endl;
-    std::cout << "Before attack - Armies in t1: " << t1->getArmies() << ", t2: " << t2->getArmies() << std::endl;
-    
+    cout << "Effect: " << advanceFriendly.getEffect() << endl;
+    cout << "Source armies: " << t1->getArmies() << ", Target armies: " << t3->getArmies() << endl;
+
+    cout << "\n4. Testing Advance Order (Attack):" << endl;
+    cout << "Before attack - Owner of t2: Player" << t2->getOwner()->getId() << endl;
+    cout << "Before attack - Armies in t1: " << t1->getArmies() << ", t2: " << t2->getArmies() << endl;
+
     Advance advanceAttack(player1, t1, t2, 8);
     advanceAttack.execute();
-    std::cout << "Effect: " << advanceAttack.getEffect() << std::endl;
-    std::cout << "After attack - Owner of t2: Player" << t2->getOwner()->getId() << std::endl;
-    std::cout << "Conquered this turn: " << player1->hasConqueredThisTurn() << std::endl;
-    
-    std::cout << "\n5. Testing Bomb Order:" << std::endl;
-    std::cout << "Before bomb - Armies in t4: " << t4->getArmies() << std::endl;
-    Bomb bomb(player1, t4, nullptr);  // Map not needed for this simple test
+    cout << "Effect: " << advanceAttack.getEffect() << endl;
+    cout << "After attack - Owner of t2: Player" << t2->getOwner()->getId() << endl;
+    cout << "Conquered this turn: " << player1->hasConqueredThisTurn() << endl;
+
+    cout << "\n5. Testing Bomb Order:" << endl;
+    cout << "Before bomb - Armies in t4: " << t4->getArmies() << endl;
+    Bomb bomb(player1, t4, nullptr); // Map not needed for this simple test
     bomb.execute();
-    std::cout << "Effect: " << bomb.getEffect() << std::endl;
-    std::cout << "After bomb - Armies in t4: " << t4->getArmies() << std::endl;
-    
-    std::cout << "\n6. Testing Invalid Bomb Order:" << std::endl;
-    Bomb invalidBomb(player1, t1, nullptr);  // Can't bomb own territory
+    cout << "Effect: " << bomb.getEffect() << endl;
+    cout << "After bomb - Armies in t4: " << t4->getArmies() << endl;
+
+    cout << "\n6. Testing Invalid Bomb Order:" << endl;
+    Bomb invalidBomb(player1, t1, nullptr); // Can't bomb own territory
     invalidBomb.execute();
-    std::cout << "Effect: " << invalidBomb.getEffect() << std::endl;
-    
-    std::cout << "\n7. Testing Blockade Order:" << std::endl;
-    std::cout << "Before blockade - Owner of t3: Player" << t3->getOwner()->getId() << std::endl;
-    std::cout << "Before blockade - Armies in t3: " << t3->getArmies() << std::endl;
-    
+    cout << "Effect: " << invalidBomb.getEffect() << endl;
+
+    cout << "\n7. Testing Blockade Order:" << endl;
+    cout << "Before blockade - Owner of t3: Player" << t3->getOwner()->getId() << endl;
+    cout << "Before blockade - Armies in t3: " << t3->getArmies() << endl;
+
     Blockade blockade(player1, t3, engine);
     blockade.execute();
-    std::cout << "Effect: " << blockade.getEffect() << std::endl;
-    std::cout << "After blockade - Owner of t3: Player" << t3->getOwner()->getId() << std::endl;
-    std::cout << "After blockade - Armies in t3: " << t3->getArmies() << std::endl;
-    
-    std::cout << "\n8. Testing Airlift Order:" << std::endl;
-    std::cout << "Before airlift - Armies in t1: " << t1->getArmies() << ", t3: " << t3->getArmies() << std::endl;
-    
+    cout << "Effect: " << blockade.getEffect() << endl;
+    cout << "After blockade - Owner of t3: Player" << t3->getOwner()->getId() << endl;
+    cout << "After blockade - Armies in t3: " << t3->getArmies() << endl;
+
+    cout << "\n8. Testing Airlift Order:" << endl;
+    cout << "Before airlift - Armies in t1: " << t1->getArmies() << ", t3: " << t3->getArmies() << endl;
+
     // Reset t3 ownership to player1 for airlift test
     t3->setOwner(player1);
     Airlift airlift(player1, t1, t3, 4);
     airlift.execute();
-    std::cout << "Effect: " << airlift.getEffect() << std::endl;
-    std::cout << "After airlift - Armies in t1: " << t1->getArmies() << ", t3: " << t3->getArmies() << std::endl;
-    
-    std::cout << "\n9. Testing Negotiate Order:" << std::endl;
+    cout << "Effect: " << airlift.getEffect() << endl;
+    cout << "After airlift - Armies in t1: " << t1->getArmies() << ", t3: " << t3->getArmies() << endl;
+
+    cout << "\n9. Testing Negotiate Order:" << endl;
     Negotiate negotiate(player1, player2, engine);
     negotiate.execute();
-    std::cout << "Effect: " << negotiate.getEffect() << std::endl;
-    
+    cout << "Effect: " << negotiate.getEffect() << endl;
+
     // Test that truce prevents attacks
-    std::cout << "\n10. Testing Truce Prevents Attacks:" << std::endl;
+    cout << "\n10. Testing Truce Prevents Attacks:" << endl;
     Advance attackDuringTruce(player1, t1, t4, 3);
     // The attack should be prevented by the truce (this would be handled in validate())
-    std::cout << "Truce between player1 and player2: " << engine->isTruced(player1, player2) << std::endl;
-    
-    std::cout << "\n11. Testing Card Reward System:" << std::endl;
+    cout << "Truce between player1 and player2: " << engine->isTruced(player1, player2) << endl;
+
+    cout << "\n11. Testing Card Reward System:" << endl;
     player1->resetConqueredFlag();
-    std::cout << "Before conquest - conqueredThisTurn: " << player1->hasConqueredThisTurn() << std::endl;
-    
+    cout << "Before conquest - conqueredThisTurn: " << player1->hasConqueredThisTurn() << endl;
+
     // Simulate a conquest
     player1->markConqueredThisTurn();
-    std::cout << "After conquest - conqueredThisTurn: " << player1->hasConqueredThisTurn() << std::endl;
-    
-    std::cout << "\n12. Testing OrdersList Functionality:" << std::endl;
+    cout << "After conquest - conqueredThisTurn: " << player1->hasConqueredThisTurn() << endl;
+
+    cout << "\n12. Testing OrdersList Functionality:" << endl;
     OrdersList ordersList;
     ordersList.add(new Deploy(player1, t1, 3));
     ordersList.add(new Advance(player1, t1, t2, 2));
     ordersList.add(new Bomb(player1, t4, nullptr));
-    
-    std::cout << "Orders in list: " << ordersList.size() << std::endl;
+
+    cout << "Orders in list: " << ordersList.size() << endl;
     ordersList.print();
-    
-    std::cout << "\nMoving order 0 to position 2:" << std::endl;
+
+    cout << "\nMoving order 0 to position 2:" << endl;
     ordersList.move(0, 2);
     ordersList.print();
-    
-    std::cout << "\nRemoving order at position 1:" << std::endl;
+
+    cout << "\nRemoving order at position 1:" << endl;
     ordersList.remove(1);
     ordersList.print();
-    
+
     // Cleanup
     delete engine;
     delete player1;
@@ -190,11 +195,12 @@ void testOrderExecution() {
     delete t2;
     delete t3;
     delete t4;
-    
-    std::cout << "\nAll Order Execution Tests Complete" << std::endl;
+
+    cout << "\nAll Order Execution Tests Complete" << endl;
 }
 
-int main() {
+int main()
+{
     testOrderExecution();
     return 0;
 }
