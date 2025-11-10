@@ -6,6 +6,7 @@
 #include <unordered_set>
 #include <queue>
 #include <algorithm>
+#include <random>
 #include <cctype>
 
 using namespace std;
@@ -693,4 +694,53 @@ Map *MapLoader::loadMap(const string &filename)
     map->printMapStatistics();
 
     return map;
+}
+
+// Distribute territories fairly among players
+void Map::distributeTerritories(vector<Player *> &players)
+{
+    if (players.empty() || territories.empty())
+    {
+        cout << "Cannot distribute territories: no players or no territories available.\n";
+        return;
+    }
+
+    // Create a shuffled list of territory indices
+    vector<int> territoryIndices;
+    for (size_t i = 0; i < territories.size(); ++i)
+    {
+        territoryIndices.push_back(i);
+    }
+    random_device rd;
+    mt19937 g(rd());
+    shuffle(territoryIndices.begin(), territoryIndices.end(), g);
+
+    // Distribute territories in round-robin fashion
+    size_t playerIndex = 0;
+    for (int territoryIdx : territoryIndices)
+    {
+        Territory *territory = &territories[territoryIdx];
+
+        // Assign territory to current player
+        territory->setOwner(playerIndex);
+
+        // Add territory pointer to player's collection
+        players[playerIndex]->toDefend().push_back(territory);
+
+        // Move to next player (round-robin)
+        playerIndex = (playerIndex + 1) % players.size();
+    }
+
+    // Print distribution summary
+    cout << "Territory distribution:\n";
+    for (size_t i = 0; i < players.size(); ++i)
+    {
+        int count = 0;
+        for (const auto &territory : territories)
+        {
+            if (territory.getOwnerId() == static_cast<int>(i))
+                count++;
+        }
+        cout << "  " << players[i]->getPlayerName() << ": " << count << " territories\n";
+    }
 }

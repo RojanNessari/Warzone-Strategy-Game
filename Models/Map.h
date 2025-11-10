@@ -4,6 +4,7 @@
 #include <vector>
 #include <unordered_map>
 #include <unordered_set>
+#include "Player.h"
 
 enum Section
 {
@@ -76,7 +77,7 @@ public:
     // Deconstructor:
     ~Continent();
     // Stream insertion operator
-    friend std::ostream& operator<<(std::ostream& os, const Continent& c);
+    friend std::ostream &operator<<(std::ostream &os, const Continent &c);
     // getters
     std::string getName() const;
     int getId() const;
@@ -110,7 +111,7 @@ public:
     // Assignment operator
     Map &operator=(const Map &other);
     // assignment insertion operator
-    friend std::ostream& operator<<(std::ostream& os, const Map& m);
+    friend std::ostream &operator<<(std::ostream &os, const Map &m);
     // Territory operations
     void addTerritory(const Territory &t);
     // Getters
@@ -134,6 +135,9 @@ public:
 
     // Helper methods
     void printMapStatistics() const;
+
+    // distributeTerritories - distributes all territories fairly among players
+    void distributeTerritories(std::vector<Player *> &players);
 };
 
 class MapLoader

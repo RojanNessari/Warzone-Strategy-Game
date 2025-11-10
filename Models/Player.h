@@ -12,7 +12,7 @@ class Player
 {
 public:
     // Constructor
-    Player();
+    Player(const std::string &playerName);
 
     // Copy constructor
     Player(const Player &other);
@@ -23,8 +23,17 @@ public:
     // Destructor
     ~Player();
 
+    // getter
+    std::string getPlayerName() const;
+
+    // Reinforcement pool methods
+    int getReinforcementPool() const;
+    void setReinforcementPool(int armies);
+    void addReinforcements(int armies);
+
     // Required functions
     std::vector<Territory *> toDefend() const; // Return a collection of Territories to be defended
+    std::vector<Territory *> &toDefend();      // Non-const version for modifying territories
     std::vector<Territory *> toAttack() const; // Return a collection of Territories to be attacked
     void issueOrder();
 
@@ -37,6 +46,8 @@ private:
     std::vector<Territory *> territories; // List of territories owned by the player (as pointers)
     Hand *handOfCards;                    // List of cards owned by the player
     OrdersList *orders;                   // List of orders issued by the player (as pointer)
+    std::string playerName;               // Player name
+    int reinforcementPool;                // Army units in reinforcement pool
 };
 
 #endif
