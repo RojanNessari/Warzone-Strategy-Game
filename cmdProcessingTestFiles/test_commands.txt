@@ -1,0 +1,5 @@
+loadmap Tests/_64_BIG BLUE/_64_ BIG BLUE.map
+validatemap
+addplayer Player1
+addplayer Player2
+gamestart
