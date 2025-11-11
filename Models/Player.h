@@ -4,9 +4,9 @@
 #include <vector>
 #include <string>
 #include <iostream>
-class Territory;
-class OrdersList;
-class Hand;
+#include "Map.h"
+#include "Orders.h"
+#include "Cards.h"
 
 class Player
 {
@@ -50,7 +50,8 @@ public:
     std::vector<Territory *> toDefend() const; // Return a collection of Territories to be defended
     std::vector<Territory *> &toDefend();      // Non-const version for modifying territories
     std::vector<Territory *> toAttack() const; // Return a collection of Territories to be attacked
-    void issueOrder();
+    bool issueOrder();                         // Returns false when done issuing orders
+    OrdersList *getOrdersList() const;         // Get the orders list
 
     // Stream insertion operator overload
     friend std::ostream &operator<<(std::ostream &os, const Player &player);

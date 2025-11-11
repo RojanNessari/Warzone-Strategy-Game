@@ -13,6 +13,8 @@ using namespace std;
 
 // Forward declarations
 class Player;
+class Deck;
+class Map;
 
 class State
 {
@@ -53,6 +55,12 @@ public:
     bool isTruced(Player *a, Player *b) const;
     void clearTrucesForNewTurn();
 
+    // Assignment 2 – Part 3: Main Game Loop
+    void mainGameLoop();
+    void reinforcementPhase();
+    void issueOrdersPhase();
+    void executeOrdersPhase();
+
     friend ostream &operator<<(ostream &os, const GameEngine &ge);
     std::string stringToLog() override;
 
@@ -64,6 +72,8 @@ private:
     vector<State *> *states_;
     vector<Player *> players;
     Player *neutralPlayer = nullptr;
+    Map *gameMap = nullptr;
+    Deck *gameDeck = nullptr;
     struct PairHash
     {
         size_t operator()(const pair<int, int> &p) const

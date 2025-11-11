@@ -130,20 +130,25 @@ int Territory::getY() const { return y; }
 unordered_set<int> &Territory::getAdjacentIds() { return adjacentIds; }
 const unordered_set<int> &Territory::getAdjacentIds() const { return adjacentIds; }
 
-void Territory::addArmies(int delta) {
-    if (delta > 0) {
+void Territory::addArmies(int delta)
+{
+    if (delta > 0)
+    {
         armies += delta;
     }
 }
 
-int Territory::removeArmies(int delta) {
-    if (delta <= 0) return 0;
+int Territory::removeArmies(int delta)
+{
+    if (delta <= 0)
+        return 0;
     int take = std::min(delta, armies);
     armies -= take;
     return take;
 }
 
-bool Territory::isAdjacentTo(int territoryId) const {
+bool Territory::isAdjacentTo(int territoryId) const
+{
     return adjacentIds.find(territoryId) != adjacentIds.end();
 }
 
@@ -180,6 +185,23 @@ void Continent::addTerritory(int territoryId)
 void Continent::setBonusValue(int bonus)
 {
     bonusValue = bonus;
+}
+
+std::vector<Territory *> Continent::getTerritories(Map *map) const
+{
+    std::vector<Territory *> result;
+    if (!map)
+        return result;
+
+    for (int territoryId : territoryIds)
+    {
+        Territory *territory = map->getTerritoryById(territoryId);
+        if (territory)
+        {
+            result.push_back(territory);
+        }
+    }
+    return result;
 }
 
 // Validates the entire map: connectivity, continent validity, and territory membership
@@ -416,6 +438,11 @@ Continent *Map::getContinentByIndex(int idx)
 int Map::getContinentsSize() const
 {
     return continents.size();
+}
+
+std::vector<Continent> &Map::getContinents()
+{
+    return continents;
 }
 
 // Helper method to print map statistics

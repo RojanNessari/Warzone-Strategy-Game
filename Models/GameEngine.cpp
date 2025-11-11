@@ -71,6 +71,19 @@ GameEngine::~GameEngine()
         delete player;
     }
     players.clear();
+
+    // Clean up map and deck
+    if (gameMap != nullptr)
+    {
+        delete gameMap;
+        gameMap = nullptr;
+    }
+
+    if (gameDeck != nullptr)
+    {
+        delete gameDeck;
+        gameDeck = nullptr;
+    }
 }
 
 void GameEngine::clear()
@@ -234,20 +247,266 @@ GameEngine &GameEngine::operator=(const GameEngine &other)
     return *this;
 }
 
+// ----------- Main game loop methods -------
+
+// ----------- REINFORCEMENT PHASE -----------
+void GameEngine::reinforcementPhase()
+{
+    logMessage(INFO, "====================================");
+    logMessage(INFO, "REINFORCEMENT PHASE");
+    logMessage(INFO, "====================================");
+
+    for (Player *player : players)
+    {
+        if (player->getTerritories().empty())
+            continue;
+
+        // Calculate base reinforcements: territories /3 minimum 3
+        int territoriesOwned = player->getTerritories().size();
+        int armies = std::max(3, territoriesOwned / 3);
+
+        logMessage(INFO, player->getPlayerName() + " owns " +
+                             std::to_string(territoriesOwned) + " territories");
+        logMessage(INFO, "Base reinforcements: " + std::to_string(armies));
+
+        // Add Continent Bonuses
+        if (gameMap != nullptr)
+        {
+            for (Continent &continent : gameMap->getContinents())
+            {
+                bool ownsAll = true;
+                std::vector<Territory *> continentTerritories = continent.getTerritories(gameMap);
+
+                for (Territory *territory : continentTerritories)
+                {
+                    if (territory->getOwner() != player)
+                    {
+                        ownsAll = false;
+                        break;
+                    }
+                }
+
+                if (ownsAll && !continentTerritories.empty())
+                {
+                    int bonus = continent.getBonusValue();
+                    armies += bonus;
+                    logMessage(INFO, player->getPlayerName() +
+                                         " controls continent " + continent.getName() +
+                                         " (+" + std::to_string(bonus) + " bonus)");
+                }
+            }
+        }
+        player->setReinforcementPool(armies);
+        logMessage(INFO, player->getPlayerName() + " receives " +
+                             std::to_string(armies) + " armies");
+    }
+    logMessage(INFO, "====================================");
+}
+
+// ---------- ISSUING ORDERS PHASE ----------
+
+void GameEngine::issueOrdersPhase()
+{
+    logMessage(INFO, "====================================");
+    logMessage(INFO, "ISSUING ORDERS PHASE");
+    logMessage(INFO, "====================================");
+
+    std::vector<bool> playersDone(players.size(), false);
+    bool allDone = false;
+    while (!allDone)
+    {
+        allDone = true;
+        for (size_t i = 0; i < players.size(); i++)
+        {
+            if (playersDone[i])
+                continue;
+            Player *player = players[i];
+            // skip players with no territories
+            if (player->getTerritories().empty())
+            {
+                playersDone[i] = true;
+                continue;
+            }
+            logMessage(INFO, player->getPlayerName() + "'s turn to issue order");
+
+            bool hasMore = player->issueOrder();
+
+            if (!hasMore)
+            {
+                playersDone[i] = true;
+                logMessage(INFO, player->getPlayerName() + " has no more orders to issue");
+            }
+            else
+            {
+                allDone = false;
+            }
+        }
+    }
+    logMessage(INFO, "\nAll players have finished issuing orders");
+    logMessage(INFO, "====================================\n");
+}
+
+// ---------- EXECUTE ORDERS PHASE ----------
+
+void GameEngine::executeOrdersPhase()
+{
+    logMessage(INFO, "====================================");
+    logMessage(INFO, "EXECUTE ORDERS PHASE");
+    logMessage(INFO, "====================================");
+
+    for (Player *player : players)
+    {
+        player->resetConqueredFlag();
+    }
+
+    clearTrucesForNewTurn();
+
+    logMessage(INFO, "\n--- Executing Deploy Orders ---");
+    bool foundDeploy = true;
+
+    while (foundDeploy)
+    {
+        foundDeploy = false;
+        for (Player *player : players)
+        {
+            if (player->getTerritories().empty())
+            {
+                continue;
+            }
+            OrdersList *orderList = player->getOrdersList(); // need to implement get orders list
+            // Find first deploy order:
+            for (size_t i = 0; i < orderList->size(); i++)
+            {
+                Order *order = orderList->get(i);
+                Deploy *deployOrder = dynamic_cast<Deploy *>(order);
+                if (deployOrder != nullptr)
+                {
+                    logMessage(INFO, "\nExecuting " + player->getPlayerName() + "'s Deploy order");
+                    order->execute();
+                    logMessage(INFO, "Effect: " + order->getEffect());
+
+                    orderList->remove(i);
+                    foundDeploy = true;
+                    break;
+                }
+            }
+        }
+    }
+    // Give cards to players who conquered at least one territory
+    if (gameDeck != nullptr)
+    {
+        logMessage(INFO, "--- Distributing Cards ---");
+        for (Player *player : players)
+        {
+            if (player->hasConqueredThisTurn())
+            {
+                Card *card = gameDeck->draw(*player, *(player->getHandOfCards()));
+                if (card != nullptr)
+                {
+                    player->getHandOfCards()->addCard(card);
+                    logMessage(INFO, player->getPlayerName() +
+                                         " conquered territory and receives a card");
+                }
+            }
+        }
+    }
+    logMessage(INFO, "====================================\n");
+}
+
+// ---------- MAIN GAME LOOP ----------
+void GameEngine::mainGameLoop()
+{
+    logMessage(INFO, "====================================");
+    logMessage(INFO, "STARTING MAIN GAME LOOP");
+    logMessage(INFO, "====================================\n");
+
+    int turnNumber = 1;
+
+    while (true)
+    {
+        logMessage(INFO, "\n****************************************");
+        logMessage(INFO, "TURN " + std::to_string(turnNumber));
+        logMessage(INFO, "****************************************\n");
+        // 1. Reinforcement Phase
+        reinforcementPhase();
+
+        // 2. Issue Orders Phase
+        issueOrdersPhase();
+
+        // 3. Execute Orders Phase
+        executeOrdersPhase();
+
+        // 4. Remove players with no territories
+        logMessage(INFO, "--- Checking for eliminated players ---");
+
+        auto it = players.begin();
+        while (it != players.end())
+        {
+            if ((*it)->getTerritories().empty())
+            {
+                logMessage(INFO, (*it)->getPlayerName() +
+                                     " has been eliminated (no territories)");
+                // remove player from active players
+                it = players.erase(it);
+            }
+            else
+            {
+                ++it;
+            }
+        }
+        // 5. Check win Condition
+        int playersWithTerritories = 0;
+        Player *potentialPlayerWinner = nullptr;
+        for (Player *player : players)
+        {
+            if (!player->getTerritories().empty())
+            {
+                playersWithTerritories++;
+                potentialPlayerWinner = player;
+            }
+        }
+        if (playersWithTerritories == 1)
+        {
+            logMessage(INFO, "\n====================================");
+            logMessage(INFO, "GAME OVER!");
+            logMessage(INFO, potentialPlayerWinner->getPlayerName() + " WINS!");
+            logMessage(INFO, "====================================");
+            applyCommand("win");
+            break;
+        }
+        if (playersWithTerritories == 0)
+        {
+            logMessage(ERROR, "\nNo players remain with territories. Game ends in a draw.");
+            break;
+        }
+        turnNumber++;
+
+        if (turnNumber > 100)
+        {
+            logMessage(WARNING, "Woho, Limit reached pal. End Game.");
+            break;
+        }
+    }
+}
+
 // ---------- STARTUP PHASE ----------
 void GameEngine::startupPhase()
 {
     string input, command, argument;
     bool mapLoaded = false;
     bool mapValidated = false;
-    // Remove local players vector, use member variable instead
 
     MapLoader map_loader;
-    Map *map = nullptr;
-    Deck gameDeck; // Create deck for the game
     logMessage(INFO, "====================================");
     logMessage(INFO, "GAME STARTUP PHASE");
     logMessage(INFO, "====================================");
+
+    // Initialize deck if not already created
+    if (gameDeck == nullptr)
+    {
+        gameDeck = new Deck();
+    }
+
     while (true)
     {
         logMessage(INFO, "Enter your command:");
@@ -272,13 +531,13 @@ void GameEngine::startupPhase()
                 continue;
             }
             // Clean up old map if exists
-            if (map != nullptr)
+            if (gameMap != nullptr)
             {
-                delete map;
+                delete gameMap;
             }
 
-            map = map_loader.loadMap(argument); // Load map file
-            if (map == nullptr)
+            gameMap = map_loader.loadMap(argument); // Load map file
+            if (gameMap == nullptr)
             {
                 logMessage(ERROR, "Error: Failed to load map.");
                 logMessage(DEBUG, argument);
@@ -292,13 +551,13 @@ void GameEngine::startupPhase()
 
         else if (command == "validatemap")
         {
-            if (!mapLoaded || map == nullptr)
+            if (!mapLoaded || gameMap == nullptr)
             {
                 logMessage(ERROR, "You must load a map first.");
                 continue;
             }
 
-            bool isMapValidated = map->validate();
+            bool isMapValidated = gameMap->validate();
             if (isMapValidated)
             {
                 logMessage(INFO, "Map validated successfully.");
@@ -363,7 +622,7 @@ void GameEngine::startupPhase()
 
             // 4a. Distribute territories fairly among players
             logMessage(INFO, "4a) Distributing territories equally among players...");
-            map->distributeTerritories(players);
+            gameMap->distributeTerritories(players);
 
             // 4b. Determine random order of play
             logMessage(INFO, "4b) Determining random order of play...");
@@ -386,8 +645,8 @@ void GameEngine::startupPhase()
             logMessage(INFO, "4d) Each player draws 2 initial cards from the deck...");
             for (auto *p : players)
             {
-                gameDeck.draw(*p, *(p->getHandOfCards()));
-                gameDeck.draw(*p, *(p->getHandOfCards()));
+                gameDeck->draw(*p, *(p->getHandOfCards()));
+                gameDeck->draw(*p, *(p->getHandOfCards()));
                 logMessage(INFO, string("  ") + p->getPlayerName() + " drew 2 cards.");
             }
 
@@ -405,9 +664,6 @@ void GameEngine::startupPhase()
         }
     }
 
-    // Cleanup map (players are managed by GameEngine member variable)
-    if (map != nullptr)
-    {
-        delete map;
-    }
+    // Note: Map and Deck are now stored in member variables gameMap and gameDeck
+    // They will be cleaned up in the destructor
 }

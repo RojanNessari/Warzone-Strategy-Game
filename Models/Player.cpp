@@ -106,16 +106,19 @@ Hand *Player::getHandOfCards() const { return handOfCards; }
 int Player::getId() const { return id; }
 void Player::setId(int pid) { id = pid; }
 
-int Player::takeFromReinforcement(int n) {
+int Player::takeFromReinforcement(int n)
+{
     int take = std::max(0, std::min(n, reinforcementPool));
     reinforcementPool -= take;
     return take;
 }
 void Player::addToReinforcement(int n) { reinforcementPool += std::max(0, n); }
 
-bool Player::ownsTerritoryId(int tid) const {
-    for (const Territory* t : territories) {
-        if (t && t->getId() == tid)  
+bool Player::ownsTerritoryId(int tid) const
+{
+    for (const Territory *t : territories)
+    {
+        if (t && t->getId() == tid)
             return true;
     }
     return false;
@@ -139,12 +142,92 @@ vector<Territory *> Player::toAttack() const
     return territories; // Placeholder: return all territories
 }
 
-void Player::issueOrder()
+OrdersList *Player::getOrdersList() const
 {
-    // For demonstration, create a Deploy order (you can modify this to accept parameters)
-    Order *newOrder = new Deploy();
-    orders->add(newOrder);
-    logMessage(INFO, "Order issued.");
+    return orders;
+}
+
+bool Player::issueOrder()
+{
+    // Priority 1: Deploy orders while reinforcement pool has armies
+    if (reinforcementPool > 0)
+    {
+        // Get territories to defend
+        vector<Territory *> toDefendList = toDefend();
+
+        if (toDefendList.empty())
+        {
+            logMessage(WARNING, playerName + " has reinforcements but no territories to defend!");
+            return false;
+        }
+
+        // Deploy to the first territory in toDefend list
+        Territory *targetTerritory = toDefendList[0];
+
+        // Deploy all remaining armies (or could deploy incrementally)
+        int armiesToDeploy = reinforcementPool;
+
+        Order *deployOrder = new Deploy(this, targetTerritory, armiesToDeploy);
+        orders->add(deployOrder);
+
+        logMessage(INFO, playerName + " issues Deploy order: " +
+                             std::to_string(armiesToDeploy) + " armies to " + targetTerritory->getName());
+
+        return true; // Still has orders to issue
+    }
+
+    // Priority 2: Advance orders (after all deployments are done)
+    // For simplicity, we'll issue one advance order if we have territories
+    if (!territories.empty() && territories[0]->getArmies() > 1)
+    {
+        // Try to find an adjacent territory to attack or defend
+        Territory *source = territories[0];
+
+        // Get adjacent territories
+        const std::unordered_set<int> &adjacentIds = source->getAdjacentIds();
+
+        if (!adjacentIds.empty())
+        {
+            // Just take the first adjacent territory
+            int targetId = *adjacentIds.begin();
+
+            // For now, we need to find the actual Territory object
+            // This is a simplified approach - in real implementation you'd need access to the Map
+            // For demonstration, we'll create an advance order to move armies between own territories
+
+            if (territories.size() > 1)
+            {
+                // Move armies between our own territories
+                Territory *target = territories[1];
+                int armiesToMove = source->getArmies() / 2;
+
+                if (armiesToMove > 0)
+                {
+                    Order *advanceOrder = new Advance(this, source, target, armiesToMove);
+                    orders->add(advanceOrder);
+
+                    logMessage(INFO, playerName + " issues Advance order: " +
+                                         std::to_string(armiesToMove) + " armies from " +
+                                         source->getName() + " to " + target->getName());
+
+                    return true;
+                }
+            }
+        }
+    }
+
+    // Priority 3: Play cards from hand
+    if (handOfCards && handOfCards->size() > 0)
+    {
+        // For demonstration, we could play a card
+        // This is simplified - in full implementation, you'd use specific card logic
+        // For now, we'll skip this and just say we're done
+        logMessage(INFO, playerName + " has cards but choosing not to play them this turn");
+    }
+
+    // No more orders to issue
+    logMessage(INFO, playerName + " is done issuing orders for this turn");
+    return false;
 }
 
 // Stream insertion operator
