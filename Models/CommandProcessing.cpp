@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <filesystem>
 #include <sstream>
 #include "CommandProcessing.h"
 #include "GameEngine.h"
@@ -285,6 +286,28 @@ bool CommandProcessor::validate(Command *cmd, GameEngine *engine)
     // Validate based on the stat transition table
     if (commandName == "loadmap")
     {
+        // Extract second word to get file_path
+        string argument;
+        iss >> argument;
+        if (argument.empty())
+        {
+            logMessage(ERROR, "No map file path is found.");
+            return false;
+        }
+        try
+        {
+            if (!filesystem::exists(argument)) // file path does not exist
+            {
+                logMessage(ERROR, "This file path does not exist");
+                return false;
+            }
+        }
+        catch (const filesystem::filesystem_error &err)
+        {
+            logMessage(ERROR, "FileSystem Error: " + string(err.what()));
+            return false;
+        }
+
         if (currentState == "start" || currentState == "map_loaded")
         {
             cmd->saveEffect("Valid command: loadmap in state " + currentState);
@@ -306,6 +329,15 @@ bool CommandProcessor::validate(Command *cmd, GameEngine *engine)
     }
     else if (commandName == "addplayer")
     {
+        string argument;
+        iss >> argument;
+        cout << "argument: " << argument << endl;
+
+        if (argument.empty())
+        {
+            logMessage(WARNING, "You haven't entered a player Name.");
+            return false;
+        }
         if (currentState == "map_validated" || currentState == "players_added")
         {
             cmd->saveEffect("Valid command: addplayer in state " + currentState);
