@@ -4,6 +4,7 @@
 #include <sstream>
 #include "CommandProcessing.h"
 #include "GameEngine.h"
+#include <fstream>
 #include "../utils/logger.h"
 using namespace std;
 
@@ -53,7 +54,7 @@ void Command::saveEffect(const string &effectText)
 {
     effect = effectText; // Store the effect string
     logMessage(INFO, "Effect saved: " + effectText);
-    Notify(this); // Notify Observer
+    Notify(this, "INFO"); // Notify Observer
 }
 
 string Command::stringToLog()
@@ -242,7 +243,7 @@ void CommandProcessor::saveCommand(Command *cmd)
     {
         commands.push_back(cmd); // add to vector
         logMessage(INFO, "Command saved: " + cmd->getCommand());
-        Notify(this);
+        Notify(this, "INFO");
     }
 }
 
@@ -331,7 +332,6 @@ bool CommandProcessor::validate(Command *cmd, GameEngine *engine)
     {
         string argument;
         iss >> argument;
-        cout << "argument: " << argument << endl;
 
         if (argument.empty())
         {
@@ -360,7 +360,7 @@ bool CommandProcessor::validate(Command *cmd, GameEngine *engine)
         {
             cmd->saveEffect("Valid command: replay in state " + currentState);
             engine->applyCommand(commandName);
-            return false;
+            return true;
         }
     }
     else if (commandName == "quit")

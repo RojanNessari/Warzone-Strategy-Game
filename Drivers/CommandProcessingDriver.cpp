@@ -3,10 +3,8 @@
 #include "../Models/CommandProcessing.h"
 #include "../Models/GameEngine.h"
 #include "../utils/logger.h"
+#include "CommandProcessingDriver.h"
 using namespace std;
-
-const string CONSOLE_MODE = "-console";
-const string FILE_MODE = "-file";
 
 string mode;
 string file_name;
@@ -104,6 +102,7 @@ void testCommandProcessor()
     }
 }
 
+/*
 int main(int argc, char *argv[])
 {
     if (argc < 2)
@@ -136,3 +135,4 @@ int main(int argc, char *argv[])
 
     return 0;
 }
+*/

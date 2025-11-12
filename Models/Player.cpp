@@ -136,10 +136,45 @@ vector<Territory *> &Player::toDefend()
     return territories;
 }
 
-vector<Territory *> Player::toAttack() const
+vector<Territory *> Player::toAttack(Map *map) const
 {
-    // Return a subset of territories to attack (arbitrary logic for now)
-    return territories; // Placeholder: return all territories
+    // Return neighboring enemy territories that can be attacked
+    vector<Territory *> attackTargets;
+    
+    if (map == nullptr)
+    {
+        logMessage(WARNING, "toAttack() called with null map");
+        return attackTargets;
+    }
+
+    // For each territory owned by this player
+    for (Territory *ownedTerritory : territories)
+    {
+        if (ownedTerritory == nullptr)
+            continue;
+
+        // Get all adjacent territory IDs
+        const std::unordered_set<int> &adjacentIds = ownedTerritory->getAdjacentIds();
+
+        // Check each adjacent territory
+        for (int adjId : adjacentIds)
+        {
+            // Look up the adjacent territory in the map
+            Territory *adjacentTerritory = map->getTerritoryById(adjId);
+            
+            if (adjacentTerritory == nullptr)
+                continue;
+            
+            // Check if this adjacent territory is owned by an enemy (not us)
+            if (adjacentTerritory->getOwner() != this && adjacentTerritory->getOwner() != nullptr)
+            {
+                // This is an enemy territory adjacent to our territory
+                attackTargets.push_back(adjacentTerritory);
+            }
+        }
+    }
+
+    return attackTargets;
 }
 
 OrdersList *Player::getOrdersList() const
@@ -147,7 +182,7 @@ OrdersList *Player::getOrdersList() const
     return orders;
 }
 
-bool Player::issueOrder()
+bool Player::issueOrder(Map *map)
 {
     // Priority 1: Deploy orders while reinforcement pool has armies
     if (reinforcementPool > 0)
@@ -169,7 +204,7 @@ bool Player::issueOrder()
 
         Order *deployOrder = new Deploy(this, targetTerritory, armiesToDeploy);
         orders->add(deployOrder);
-
+        reinforcementPool -= armiesToDeploy;
         logMessage(INFO, playerName + " issues Deploy order: " +
                              std::to_string(armiesToDeploy) + " armies to " + targetTerritory->getName());
 
@@ -177,41 +212,66 @@ bool Player::issueOrder()
     }
 
     // Priority 2: Advance orders (after all deployments are done)
-    // For simplicity, we'll issue one advance order if we have territories
-    if (!territories.empty() && territories[0]->getArmies() > 1)
+    // Issue advance orders to defend or attack
+    if (!territories.empty())
     {
-        // Try to find an adjacent territory to attack or defend
-        Territory *source = territories[0];
+        // Get lists of territories to defend and attack
+        vector<Territory *> defendList = toDefend();
+        vector<Territory *> attackList = toAttack(map);  // Pass map parameter
 
-        // Get adjacent territories
-        const std::unordered_set<int> &adjacentIds = source->getAdjacentIds();
+        // Strategy: Try to move armies to defend first, then attack
 
-        if (!adjacentIds.empty())
+        // Option 1: Move armies between own territories for defense
+        if (defendList.size() > 1)
         {
-            // Just take the first adjacent territory
-            int targetId = *adjacentIds.begin();
-
-            // For now, we need to find the actual Territory object
-            // This is a simplified approach - in real implementation you'd need access to the Map
-            // For demonstration, we'll create an advance order to move armies between own territories
-
-            if (territories.size() > 1)
+            // Find a source territory with armies to move
+            for (Territory *source : territories)
             {
-                // Move armies between our own territories
-                Territory *target = territories[1];
-                int armiesToMove = source->getArmies() / 2;
-
-                if (armiesToMove > 0)
+                if (source->getArmies() > 1)
                 {
-                    Order *advanceOrder = new Advance(this, source, target, armiesToMove);
-                    orders->add(advanceOrder);
+                    // Move to first territory in defend list
+                    Territory *target = defendList[0];
 
-                    logMessage(INFO, playerName + " issues Advance order: " +
-                                         std::to_string(armiesToMove) + " armies from " +
-                                         source->getName() + " to " + target->getName());
+                    // Don't move to the same territory
+                    if (source != target)
+                    {
+                        int armiesToMove = source->getArmies() / 2; // Move half
 
-                    return true;
+                        if (armiesToMove > 0)
+                        {
+                            Order *advanceOrder = new Advance(this, source, target, armiesToMove);
+                            orders->add(advanceOrder);
+
+                            logMessage(INFO, playerName + " issues Advance order (defend): " +
+                                                 std::to_string(armiesToMove) + " armies from " +
+                                                 source->getName() + " to " + target->getName());
+
+                            return true;
+                        }
+                    }
                 }
+            }
+        }
+
+        // Option 2: Attack enemy territories
+        // Note: toAttack() currently returns empty list due to lack of Map access
+        // This would work if toAttack() was properly implemented
+        if (!attackList.empty() && territories[0]->getArmies() > 1)
+        {
+            Territory *source = territories[0];
+            Territory *target = attackList[0];
+            int armiesToAttack = source->getArmies() - 1; // Leave one army
+
+            if (armiesToAttack > 0)
+            {
+                Order *advanceOrder = new Advance(this, source, target, armiesToAttack);
+                orders->add(advanceOrder);
+
+                logMessage(INFO, playerName + " issues Advance order (attack): " +
+                                     std::to_string(armiesToAttack) + " armies from " +
+                                     source->getName() + " to " + target->getName());
+
+                return true;
             }
         }
     }
@@ -219,10 +279,27 @@ bool Player::issueOrder()
     // Priority 3: Play cards from hand
     if (handOfCards && handOfCards->size() > 0)
     {
-        // For demonstration, we could play a card
-        // This is simplified - in full implementation, you'd use specific card logic
-        // For now, we'll skip this and just say we're done
-        logMessage(INFO, playerName + " has cards but choosing not to play them this turn");
+        // Play the first card in hand
+        // The Hand::playCard method will:
+        // 1. Create appropriate order based on card type
+        // 2. Add order to the orders list
+        // 3. Return card to deck
+
+        logMessage(INFO, playerName + " plays a card from hand");
+
+        // Note: We need a Deck reference to return the card
+        // For now, we'll just log that we would play a card
+        // In a full implementation, this would need access to the game's Deck
+
+        // TODO: Need to refactor to have access to Deck
+        // handOfCards->playCard(0, *this, *orders, deck);
+
+        logMessage(INFO, playerName + " has " + std::to_string(handOfCards->size()) +
+                             " cards but cannot play without Deck reference");
+
+        // Return false to indicate done issuing for this turn
+        // This prevents infinite loop while card playing is incomplete
+        return false;
     }
 
     // No more orders to issue

@@ -163,15 +163,15 @@ void GameEngine::buildGraph()
     S("map_loaded")->addTransition("validatemap", S("map_validated"));
     S("map_validated")->addTransition("addplayer", S("players_added"));
     S("players_added")->addTransition("addplayer", S("players_added"));
-    S("players_added")->addTransition("assigncountries", S("assign_reinforcement"));
+    S("players_added")->addTransition("gamestart", S("assign_reinforcement"));
     S("assign_reinforcement")->addTransition("issueorder", S("issue_orders"));
     S("issue_orders")->addTransition("issueorder", S("issue_orders"));
     S("issue_orders")->addTransition("endissueorders", S("execute_orders"));
     S("execute_orders")->addTransition("execorder", S("execute_orders"));
     S("execute_orders")->addTransition("endexecorders", S("assign_reinforcement"));
-    S("execute_orders")->addTransition("play", S("issue_orders"));
     S("execute_orders")->addTransition("win", S("win"));
-    S("win")->addTransition("play", S("assign_reinforcement"));
+    S("win")->addTransition("replay", S("start"));
+    S("win")->addTransition("quit", S("endGame"));
 
     current_ = S("start");
 }
@@ -188,7 +188,7 @@ bool GameEngine::applyCommand(const string &cmd)
     }
     logMessage(INFO, string("Transition: ") + current_->getName() + " -- " + cmd + " ==> " + next->getName());
     current_ = next;
-    Notify(this); // Notify observers about the state change
+    Notify(this, "INFO"); // Added INFO as the messageType for Notify
     return true;
 }
 string GameEngine::stringToLog()
@@ -329,7 +329,7 @@ void GameEngine::issueOrdersPhase()
             }
             logMessage(INFO, player->getPlayerName() + "'s turn to issue order");
 
-            bool hasMore = player->issueOrder();
+            bool hasMore = player->issueOrder(gameMap);  // Pass the map
 
             if (!hasMore)
             {
@@ -373,7 +373,7 @@ void GameEngine::executeOrdersPhase()
             {
                 continue;
             }
-            OrdersList *orderList = player->getOrdersList(); // need to implement get orders list
+            OrdersList *orderList = player->getOrdersList();
             // Find first deploy order:
             for (size_t i = 0; i < orderList->size(); i++)
             {
@@ -392,10 +392,40 @@ void GameEngine::executeOrdersPhase()
             }
         }
     }
+
+    // Execute all other orders in round-robin fashion
+    logMessage(INFO, "\n--- Executing Other Orders (Advance, Bomb, Airlift, etc.) ---");
+    bool foundOtherOrders = true;
+
+    while (foundOtherOrders)
+    {
+        foundOtherOrders = false;
+        for (Player *player : players)
+        {
+            if (player->getTerritories().empty())
+            {
+                continue;
+            }
+            OrdersList *orderList = player->getOrdersList();
+
+            // Execute the first order in the list (which is not a Deploy since they're all gone)
+            if (orderList->size() > 0)
+            {
+                Order *order = orderList->get(0);
+                logMessage(INFO, "\nExecuting " + player->getPlayerName() + "'s order");
+                order->execute();
+                logMessage(INFO, "Effect: " + order->getEffect());
+
+                orderList->remove(0);
+                foundOtherOrders = true;
+            }
+        }
+    }
+
     // Give cards to players who conquered at least one territory
     if (gameDeck != nullptr)
     {
-        logMessage(INFO, "--- Distributing Cards ---");
+        logMessage(INFO, "\n--- Distributing Cards ---");
         for (Player *player : players)
         {
             if (player->hasConqueredThisTurn())
@@ -652,7 +682,7 @@ void GameEngine::startupPhase()
 
             // 4e. Switch to play phase
             logMessage(INFO, "4e) Switching to play phase!");
-            applyCommand("assigncountries");
+            applyCommand("gamestart");
             logMessage(INFO, "Transitioned to assign_reinforcement state.");
             logMessage(INFO, "Play phase started! (Next valid command: 'issueorder')");
             break;

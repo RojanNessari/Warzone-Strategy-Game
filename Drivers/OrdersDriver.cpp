@@ -199,8 +199,10 @@ void testOrderExecution()
     cout << "\nAll Order Execution Tests Complete" << endl;
 }
 
+/*
 int main()
 {
     testOrderExecution();
     return 0;
 }
+*/

@@ -155,7 +155,7 @@ void testMainGameLoop()
                          std::to_string(player1->getReinforcementPool()) + " armies in reinforcement pool");
 
     // Issue an order - should be Deploy
-    bool hasMore = player1->issueOrder();
+    bool hasMore = player1->issueOrder(testMap); // Pass the map
 
     if (hasMore && player1->getOrdersList()->size() > 0)
     {
@@ -184,7 +184,7 @@ void testMainGameLoop()
         player2->getTerritories()[0]->setArmies(10);
 
         // Issue order - should be Advance or done
-        hasMore = player2->issueOrder();
+        hasMore = player2->issueOrder(testMap); // Pass the map
         logMessage(INFO, player2->getPlayerName() + " issued an order (or finished issuing)");
     }
 
@@ -245,6 +245,7 @@ void testMainGameLoop()
     logMessage(INFO, "Note: For full testing, run the actual mainGameLoop() with proper setup.");
 }
 
+/*
 int main()
 {
     // Uncomment to test different parts
@@ -253,3 +254,4 @@ int main()
     testMainGameLoop();
     return 0;
 }
+*/

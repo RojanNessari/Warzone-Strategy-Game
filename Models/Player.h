@@ -49,8 +49,8 @@ public:
     // Required functions
     std::vector<Territory *> toDefend() const; // Return a collection of Territories to be defended
     std::vector<Territory *> &toDefend();      // Non-const version for modifying territories
-    std::vector<Territory *> toAttack() const; // Return a collection of Territories to be attacked
-    bool issueOrder();                         // Returns false when done issuing orders
+    std::vector<Territory *> toAttack(Map *map) const; // Return a collection of Territories to be attacked
+    bool issueOrder(Map *map);                         // Returns false when done issuing orders
     OrdersList *getOrdersList() const;         // Get the orders list
 
     // Stream insertion operator overload

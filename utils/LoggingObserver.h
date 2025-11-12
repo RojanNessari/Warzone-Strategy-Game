@@ -4,36 +4,40 @@
 #include <fstream>
 
 // Interface for loggable objects
-class ILoggable {
+class ILoggable
+{
 public:
     virtual std::string stringToLog() = 0;
     virtual ~ILoggable() = default;
 };
 
 // Base observer class
-class Observer {
+class Observer
+{
 public:
-    virtual void Update(ILoggable* loggable) = 0;
+    virtual void Update(ILoggable *loggable, std::string messageType) = 0;
     virtual ~Observer() = default;
 };
 
 // Base subject class
-class Subject {
+class Subject
+{
 private:
-    std::list<Observer*>* observers;
+    std::list<Observer *> *observers;
+
 public:
     Subject();
     virtual ~Subject();
-    virtual void Attach(Observer* o);
-    virtual void Detach(Observer* o);
-    virtual void Notify(ILoggable* loggable);
+    virtual void Attach(Observer *o);
+    virtual void Detach(Observer *o);
+    virtual void Notify(ILoggable *loggable, std::string messageType);
 };
 
-
-class LogObserver : public Observer {
+class LogObserver : public Observer
+{
 public:
     LogObserver();
     ~LogObserver();
-    void Update(ILoggable* loggable) override;
+    void Update(ILoggable *loggable, std::string messageType) override;
 };
 #pragma once
