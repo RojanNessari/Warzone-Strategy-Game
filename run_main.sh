@@ -1,19 +1,15 @@
 #!/bin/bash
 
-run_main() {
-    echo "MAIN DRIVER"
-    echo "=============="
-    echo "Compiling MainDriver.cpp..."
-    g++ -std=c++17 -o MainDriver MainDriver.cpp Drivers/*.cpp Models/*.cpp
-    if [[ $? -eq 0 ]]; then
-        echo "Running MainDriver..."
-        ./MainDriver
-        rm -f MainDriver
-        echo "Main driver execution complete!"
-    else
-        echo "Main driver compilation failed!"
-    fi
-}
+echo "MAIN DRIVER"
+echo "=============="
+echo "Compiling MainDriver.cpp..."
 
-# Execute the main driver
-run_main
+if g++ -std=c++17 -o MainDriver MainDriver.cpp Drivers/*.cpp Models/*.cpp utils/*.cpp; then
+    echo "Compilation succeeded. Running MainDriver..."
+    ./MainDriver || echo "MainDriver exited with non-zero status"
+    rm -f MainDriver
+    echo "Main driver execution complete!"
+else
+    echo "Main driver compilation failed!"
+    exit 1
+fi

@@ -1,6 +1,7 @@
 #include "../Models/Player.h"
 #include "../Models/Orders.h"
 #include "../Models/Cards.h"
+#include "../Models/Map.h"
 #include <iostream>
 using namespace std;
 
@@ -9,17 +10,20 @@ void testPlayers()
     cout << "\n Testing Player Class Features \n";
 
     // Create players
-    Player p1;
-    Player p2;
+    Player p1("n00b69");
+    Player p2("flora");
 
     cout << "\n Initial Players:\n";
     cout << p1 << endl;
     cout << p2 << endl;
 
+    // Create a simple map for testing
+    Map testMap;
+
     // Issue orders
     cout << "\n Issuing orders for p1...\n";
-    p1.issueOrder();
-    p1.issueOrder();
+    p1.issueOrder(&testMap);
+    p1.issueOrder(&testMap);
     cout << p1 << endl;
 
     // Add cards to hand
@@ -42,7 +46,7 @@ void testPlayers()
 
     // Test toDefend and toAttack (should show pointer count)
     cout << "\n p1 toDefend: " << p1.toDefend().size() << " territories\n";
-    cout << " p1 toAttack: " << p1.toAttack().size() << " territories\n";
+    cout << " p1 toAttack: " << p1.toAttack(&testMap).size() << " territories\n";
 
     cout << "\n All Player features tested!\n";
 }

@@ -7,6 +7,7 @@
 class Player;
 class OrdersList;
 class Deck;
+class Card;
 // ----------------- Card Types -----------------
 enum class CardType
 {

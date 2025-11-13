@@ -1,50 +1,87 @@
-#pragma once
+#ifndef GAMEENGINE_H
+#define GAMEENGINE_H
+
 #include <iostream>
 #include <string>
-#include <map>
 #include <vector>
+#include <map>
+#include <unordered_set>
+#include <utility>
+#include <iostream>
+#include "../utils/LoggingObserver.h"
+using namespace std;
 
-class State {
+// Forward declarations
+class Player;
+class Deck;
+class Map;
+
+class State
+{
 public:
-    //Construct a state with a given name
-    State(const std::string& name);
-    //Copy construct
-    State(const State& other);
-    State& operator=(const State& other);
-    ~State();//Destructor
+    State(const string &name);
+    State(const State &other);
+    State &operator=(const State &other);
+    ~State();
 
-    void addTransition(const std::string& command, State* next); //Add an outgoing edge named 'command' to 'next'.
-    State* nextState(const std::string& command) const;//Return the next State for 'command', or nullptr if invalid from this state
-    const std::string& getName() const;
+    void addTransition(const string &cmd, State *next);
+    State *nextState(const string &cmd) const;
+    const string &getName() const;
+    const map<string, State *> &getTransitions() const;
 
-    // read-only access so GameEngine can deep-copy transitions
-    const std::map<std::string, State*>& getTransitions() const;
-
-    friend std::ostream& operator<<(std::ostream& os, const State& s);
+    friend ostream &operator<<(ostream &os, const State &s);
 
 private:
-    std::string* name_;                          // pointer
-    std::map<std::string, State*>* transitions_; // pointer 
+    string *name_;
+    map<string, State *> *transitions_;
 };
 
-class GameEngine {
+class GameEngine : public Subject, public ILoggable
+{
 public:
     GameEngine();
-    //Deep copy: clones nodes and re-wires edges among the clones
-    GameEngine(const GameEngine& other);
-    GameEngine& operator=(const GameEngine& other);
+    GameEngine(const GameEngine &other);
+    GameEngine &operator=(const GameEngine &other);
     ~GameEngine();
 
-    void buildGraph();                      // create states and connect transitions
-    bool applyCommand(const std::string&);  // validate + transition
-    const State* current() const;
+    void buildGraph();
+    bool applyCommand(const string &cmd);
+    const State *current() const;
 
-    friend std::ostream& operator<<(std::ostream& os, const GameEngine& ge);
+    // Assignment 2 – Part 2
+    void startupPhase();
+    Player *getNeutralPlayer();
+    void addTruce(Player *a, Player *b);
+    bool isTruced(Player *a, Player *b) const;
+    void clearTrucesForNewTurn();
+
+    // Assignment 2 – Part 3: Main Game Loop
+    void mainGameLoop();
+    void reinforcementPhase();
+    void issueOrdersPhase();
+    void executeOrdersPhase();
+
+    friend ostream &operator<<(ostream &os, const GameEngine &ge);
+    std::string stringToLog() override;
 
 private:
-    State* current_;                // pointer
-    std::vector<State*>* states_;   // owns all states
+    void clear();
+    State *findState(const string &name) const;
 
-    State* findState(const std::string& name) const;
-    void clear();                   // delete all allocated states
+    State *current_;
+    vector<State *> *states_;
+    vector<Player *> players;
+    Player *neutralPlayer = nullptr;
+    Map *gameMap = nullptr;
+    Deck *gameDeck = nullptr;
+    struct PairHash
+    {
+        size_t operator()(const pair<int, int> &p) const
+        {
+            return (static_cast<size_t>(p.first) << 32) ^ static_cast<size_t>(p.second);
+        }
+    };
+    unordered_set<pair<int, int>, PairHash> truces;
 };
+
+#endif

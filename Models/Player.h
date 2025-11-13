@@ -4,15 +4,15 @@
 #include <vector>
 #include <string>
 #include <iostream>
-class Territory;
-class OrdersList;
-class Hand;
+#include "Map.h"
+#include "Orders.h"
+#include "Cards.h"
 
 class Player
 {
 public:
     // Constructor
-    Player();
+    Player(const std::string &playerName);
 
     // Copy constructor
     Player(const Player &other);
@@ -23,10 +23,35 @@ public:
     // Destructor
     ~Player();
 
+    int getId() const;
+    void setId(int pid);
+
+    void addTerritory(Territory *territory)
+    {
+        territories.push_back(territory);
+    }
+    std::vector<Territory *> getTerritories() const { return territories; }
+    int takeFromReinforcement(int n); // for Deploy
+    void addToReinforcement(int n);
+    void markConqueredThisTurn() { conqueredThisTurn = true; }
+    bool hasConqueredThisTurn() const { return conqueredThisTurn; }
+    void resetConqueredFlag() { conqueredThisTurn = false; }
+
+    bool ownsTerritoryId(int tid) const;
+    // getter
+    std::string getPlayerName() const;
+
+    // Reinforcement pool methods
+    int getReinforcementPool() const;
+    void setReinforcementPool(int armies);
+    void addReinforcements(int armies);
+
     // Required functions
     std::vector<Territory *> toDefend() const; // Return a collection of Territories to be defended
-    std::vector<Territory *> toAttack() const; // Return a collection of Territories to be attacked
-    void issueOrder();
+    std::vector<Territory *> &toDefend();      // Non-const version for modifying territories
+    std::vector<Territory *> toAttack(Map *map) const; // Return a collection of Territories to be attacked
+    bool issueOrder(Map *map);                         // Returns false when done issuing orders
+    OrdersList *getOrdersList() const;         // Get the orders list
 
     // Stream insertion operator overload
     friend std::ostream &operator<<(std::ostream &os, const Player &player);
@@ -34,9 +59,13 @@ public:
     Hand *getHandOfCards() const;
 
 private:
+    int id = -1;
+    int reinforcementPool = 0;
     std::vector<Territory *> territories; // List of territories owned by the player (as pointers)
     Hand *handOfCards;                    // List of cards owned by the player
     OrdersList *orders;                   // List of orders issued by the player (as pointer)
+    bool conqueredThisTurn = false;
+    std::string playerName; // Player name
 };
 
 #endif

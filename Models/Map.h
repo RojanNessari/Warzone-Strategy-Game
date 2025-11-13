@@ -4,6 +4,10 @@
 #include <vector>
 #include <unordered_map>
 #include <unordered_set>
+#include "Player.h"
+
+class Player;
+class Map;
 
 enum Section
 {
@@ -23,7 +27,7 @@ private:
     std::string name;
     int id;
     int continentId;
-    int ownerId;
+    Player *owner;
     int armies;
     int x;
     int y;
@@ -45,16 +49,20 @@ public:
     std::string getName() const;
     int getId() const;
     int getContinentId() const;
-    int getOwnerId() const;
     int getArmies() const;
+    void addArmies(int delta);
+    int removeArmies(int delta);
+    bool isAdjacentTo(int territoryId) const;
     std::unordered_set<int> &getAdjacentIds();
     int getX() const;
     int getY() const;
     const std::unordered_set<int> &getAdjacentIds() const;
+    Player *getOwner() const { return owner; }
     // setters
     void addAdjacentTerritory(int territoryId);
     void setOwner(int playerId);
     void setArmies(int armyCount);
+    void setOwner(Player *player) { owner = player; }
 };
 
 class Continent
@@ -83,6 +91,7 @@ public:
     int getBonusValue() const;
     std::unordered_set<int> &getTerritoryIds();
     const std::unordered_set<int> &getTerritoryIds() const;
+    std::vector<Territory *> getTerritories(Map *map) const; // Get actual Territory pointers
     // setters
     void addTerritory(int territoryId);
     void setBonusValue(int bonus);
@@ -125,6 +134,7 @@ public:
     Continent *getContinentByName(const std::string &name);
     Continent *getContinentByIndex(int idx);
     int getContinentsSize() const;
+    std::vector<Continent> &getContinents(); // Get continents vector
 
     // Graph connectivity validation
     bool validate() const;
@@ -134,6 +144,9 @@ public:
 
     // Helper methods
     void printMapStatistics() const;
+
+    // distributeTerritories - distributes all territories fairly among players
+    void distributeTerritories(std::vector<Player *> &players);
 };
 
 class MapLoader

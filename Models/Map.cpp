@@ -1,4 +1,5 @@
 #include "Map.h"
+#include "Player.h"
 #include <fstream>
 #include <sstream>
 #include <iostream>
@@ -6,16 +7,18 @@
 #include <unordered_set>
 #include <queue>
 #include <algorithm>
+#include <random>
 #include <cctype>
+#include "../utils/logger.h"
 
 using namespace std;
 
 // Territory constructor: initializes a territory with a name, id, continent ID, and coordinates.
 Territory::Territory(const string &name, int id, int continentId, int x, int y)
-    : name(name), id(id), continentId(continentId), ownerId(-1), armies(0), x(x), y(y) {}
+    : name(name), id(id), continentId(continentId), owner(nullptr), armies(0), x(x), y(y) {}
 
-Territory::Territory(const Territory &other) : name(other.name), id(other.id), continentId(other.continentId), ownerId(other.ownerId), armies(other.armies), x(other.x),
-                                               y(other.y) {};
+Territory::Territory(const Territory &other) : name(other.name), id(other.id), continentId(other.continentId), owner(other.owner), armies(other.armies), x(other.x),
+                                               y(other.y), adjacentIds(other.adjacentIds) {};
 
 // Assigment operator:
 Territory &Territory::operator=(const Territory &other)
@@ -25,7 +28,7 @@ Territory &Territory::operator=(const Territory &other)
         name = other.name;
         id = other.id;
         continentId = other.continentId;
-        ownerId = other.ownerId;
+        owner = other.owner;
         armies = other.armies;
         x = other.x;
         y = other.y;
@@ -40,7 +43,7 @@ ostream &operator<<(ostream &os, const Territory &t)
     os << " Territory(Name: " << t.getName()
        << " ID: " << t.getId()
        << " ContinentID: " << t.getContinentId()
-       << " OwnerID: " << t.getOwnerId()
+       << " owner: " << (t.getOwner() ? std::to_string(t.getOwner()->getId()) : "None")
        << " Armies: " << t.getArmies()
        << " X: " << t.getX()
        << ", Y: " << t.getY()
@@ -121,12 +124,33 @@ Map::Map(const Map &other) : territories(other.territories), territoryNameToId(o
 string Territory::getName() const { return name; }
 int Territory::getId() const { return id; }
 int Territory::getContinentId() const { return continentId; }
-int Territory::getOwnerId() const { return ownerId; }
 int Territory::getArmies() const { return armies; }
 int Territory::getX() const { return x; }
 int Territory::getY() const { return y; }
 unordered_set<int> &Territory::getAdjacentIds() { return adjacentIds; }
 const unordered_set<int> &Territory::getAdjacentIds() const { return adjacentIds; }
+
+void Territory::addArmies(int delta)
+{
+    if (delta > 0)
+    {
+        armies += delta;
+    }
+}
+
+int Territory::removeArmies(int delta)
+{
+    if (delta <= 0)
+        return 0;
+    int take = std::min(delta, armies);
+    armies -= take;
+    return take;
+}
+
+bool Territory::isAdjacentTo(int territoryId) const
+{
+    return adjacentIds.find(territoryId) != adjacentIds.end();
+}
 
 void Territory::addAdjacentTerritory(int territoryId)
 {
@@ -135,7 +159,10 @@ void Territory::addAdjacentTerritory(int territoryId)
 
 void Territory::setOwner(int playerId)
 {
-    ownerId = playerId;
+    // This method is kept for backward compatibility with distributeTerritories
+    // Note: This sets an ID but we're using Player* internally now
+    // You may need to update distributeTerritories to use setOwner(Player*) instead
+    // For now, this is a stub that does nothing - update as needed
 }
 
 void Territory::setArmies(int armyCount)
@@ -160,37 +187,50 @@ void Continent::setBonusValue(int bonus)
     bonusValue = bonus;
 }
 
-#pragma region validate
+std::vector<Territory *> Continent::getTerritories(Map *map) const
+{
+    std::vector<Territory *> result;
+    if (!map)
+        return result;
+
+    for (int territoryId : territoryIds)
+    {
+        Territory *territory = map->getTerritoryById(territoryId);
+        if (territory)
+        {
+            result.push_back(territory);
+        }
+    }
+    return result;
+}
+
 // Validates the entire map: connectivity, continent validity, and territory membership
 bool Map::validate() const
 {
-    cout << "\n=== MAP VALIDATION ===" << endl;
+    logMessage(INFO, "=== MAP VALIDATION ===");
 
     bool isValid = true;
 
     // 1. Check if map is a connected graph
     bool connected = isConnectedGraph();
-    cout << "1. Map connectivity: " << (connected ? "PASSED" : "FAILED") << endl;
+    logMessage(INFO, string("1. Map connectivity: ") + (connected ? "PASSED" : "FAILED"));
     isValid &= connected;
 
     // 2. Check if continents are connected subgraphs
     bool continentsValid = validateContinents();
-    cout << "2. Continent connectivity: " << (continentsValid ? "PASSED" : "FAILED") << endl;
+    logMessage(INFO, string("2. Continent connectivity: ") + (continentsValid ? "PASSED" : "FAILED"));
     isValid &= continentsValid;
 
     // 3. Check territory membership (each territory belongs to exactly one continent)
     bool membershipValid = validateTerritoryMembership();
-    cout << "3. Territory membership: " << (membershipValid ? "PASSED" : "FAILED") << endl;
+    logMessage(INFO, string("3. Territory membership: ") + (membershipValid ? "PASSED" : "FAILED"));
     isValid &= membershipValid;
-
-    cout << "\nOverall map validation: " << (isValid ? "VALID" : "INVALID") << endl;
-    cout << "======================\n"
-         << endl;
+    logMessage(INFO, string("Overall map validation: ") + (isValid ? "VALID" : "INVALID"));
+    logMessage(INFO, "======================");
 
     return isValid;
 }
 
-#pragma region isConnectedGraph
 // Check if the map is a connected graph using BFS
 bool Map::isConnectedGraph() const
 {
@@ -225,7 +265,6 @@ bool Map::isConnectedGraph() const
     return visited.size() == territories.size();
 }
 
-#pragma region validateContinents
 // Validates that each continent is a connected subgraph
 bool Map::validateContinents() const
 {
@@ -235,7 +274,7 @@ bool Map::validateContinents() const
 
         if (territoryIds.empty())
         {
-            cout << " Continent '" << continent.getName() << "' has no territories" << endl;
+            logMessage(DEBUG, string("Continent '") + continent.getName() + "' has no territories");
             continue;
         }
 
@@ -269,15 +308,13 @@ bool Map::validateContinents() const
         // Check if all territories in this continent were visited
         if (visited.size() != territoryIds.size())
         {
-            cout << " Continent '" << continent.getName() << "' is not connected: "
-                 << visited.size() << "/" << territoryIds.size() << " territories reachable" << endl;
+            logMessage(ERROR, string("Continent '") + continent.getName() + "' is not connected: " + to_string(visited.size()) + "/" + to_string(territoryIds.size()) + " territories reachable");
             return false;
         }
     }
     return true;
 }
 
-#pragma region validateTerritory
 // Validates that each territory belongs to exactly one continent
 bool Map::validateTerritoryMembership() const
 {
@@ -403,6 +440,11 @@ int Map::getContinentsSize() const
     return continents.size();
 }
 
+std::vector<Continent> &Map::getContinents()
+{
+    return continents;
+}
+
 // Helper method to print map statistics
 void Map::printMapStatistics() const
 {
@@ -469,7 +511,7 @@ Map *MapLoader::handleCurrentState(Section currentState, const string &line, Map
 
         if (!continent)
         {
-            cerr << "Error: Unknown continent '" << continentName << "' for territory '" << name << "'" << endl;
+            logMessage(ERROR, string("Error: Unknown continent '") + continentName + "' for territory '" + name + "'");
             delete map;
             return nullptr;
         }
@@ -484,7 +526,7 @@ Map *MapLoader::handleCurrentState(Section currentState, const string &line, Map
         }
         catch (const exception &)
         {
-            cout << "Warning: Invalid coordinates for territory " << name << endl;
+            logMessage(WARNING, string("Warning: Invalid coordinates for territory ") + name);
         }
         Territory territory(name, territoryId, continent->getId(), x, y);
 
@@ -502,8 +544,7 @@ Map *MapLoader::handleCurrentState(Section currentState, const string &line, Map
             }
         }
 
-        cout << "[DEBUG] Territory: " << name << " -> " << continentName
-             << " (Adjacent: " << adjacentNames.size() << ")" << endl;
+        logMessage(DEBUG, string("Territory: ") + name + " -> " + continentName + " (Adjacent: " + to_string(adjacentNames.size()) + ")");
 
         // Add territory to map
         map->addTerritory(territory);
@@ -551,7 +592,6 @@ const char *sectionToString(Section section)
     }
 }
 
-#pragma region loadMap
 // Loads a map from a file and returns a pointer to the Map object.
 Map *MapLoader::loadMap(const string &filename)
 {
@@ -559,7 +599,7 @@ Map *MapLoader::loadMap(const string &filename)
 
     if (!file.is_open())
     {
-        cerr << "Error: Cannot open file " << filename << endl;
+        logMessage(ERROR, string("Error: Cannot open file ") + filename);
         return nullptr;
     }
 
@@ -570,7 +610,7 @@ Map *MapLoader::loadMap(const string &filename)
     // Store territory adjacency info for second pass
     vector<pair<string, vector<string>>> territoryAdjacencies;
 
-    cout << "Loading map from: " << filename << endl;
+    logMessage(INFO, string("Loading map from: ") + filename);
 
     // First pass: Load continents and territories
     while (getline(file, line))
@@ -578,7 +618,7 @@ Map *MapLoader::loadMap(const string &filename)
         // Remove whitespace
         line.erase(0, line.find_first_not_of(WHITE_SPACE));
         line.erase(line.find_last_not_of(WHITE_SPACE) + 1);
-        cout << "line: " << line << endl;
+        logMessage(DEBUG, string("line: ") + line);
 
         if (line.empty())
             continue;
@@ -587,7 +627,7 @@ Map *MapLoader::loadMap(const string &filename)
         if (newSection != NONE)
         {
             string strSection = sectionToString(newSection);
-            cout << "[DEBUG] Detected Section: " << strSection << endl;
+            logMessage(DEBUG, string("Detected Section: ") + strSection);
             currentSection = newSection;
             continue;
         }
@@ -650,8 +690,7 @@ Map *MapLoader::loadMap(const string &filename)
             map->addTerritory(territory);
             continent->addTerritory(territoryId);
 
-            cout << "[DEBUG] Territory: " << name << " -> " << continentName
-                 << " (Adjacent: " << adjacentNames.size() << ")" << endl;
+            logMessage(DEBUG, string("Territory: ") + name + " -> " + continentName + " (Adjacent: " + to_string(adjacentNames.size()) + ")");
         }
         else
         {
@@ -667,7 +706,7 @@ Map *MapLoader::loadMap(const string &filename)
     file.close();
 
     // Second pass: Establish adjacencies
-    cout << "[DEBUG] Establishing adjacencies..." << endl;
+    logMessage(DEBUG, "Establishing adjacencies...");
     for (const auto &territoryAdj : territoryAdjacencies)
     {
         const string &territoryName = territoryAdj.first;
@@ -688,14 +727,62 @@ Map *MapLoader::loadMap(const string &filename)
             }
             else
             {
-                cout << "Warning: Adjacent territory '" << adjName
-                     << "' not found for '" << territoryName << "'" << endl;
+                logMessage(WARNING, string("Adjacent territory '") + adjName + "' not found for '" + territoryName + "'");
             }
         }
     }
 
-    cout << "Map loaded successfully!" << endl;
+    logMessage(INFO, "Map loaded successfully!");
     map->printMapStatistics();
 
     return map;
+}
+
+// Distribute territories fairly among players
+void Map::distributeTerritories(vector<Player *> &players)
+{
+    if (players.empty() || territories.empty())
+    {
+        logMessage(ERROR, "Cannot distribute territories: no players or no territories available.");
+        return;
+    }
+
+    // Create a shuffled list of territory indices
+    vector<int> territoryIndices;
+    for (size_t i = 0; i < territories.size(); ++i)
+    {
+        territoryIndices.push_back(i);
+    }
+    random_device rd;
+    mt19937 g(rd());
+    shuffle(territoryIndices.begin(), territoryIndices.end(), g);
+
+    // Distribute territories in round-robin fashion
+    size_t playerIndex = 0;
+    for (int territoryIdx : territoryIndices)
+    {
+        Territory *territory = &territories[territoryIdx];
+
+        // Assign territory to current player using the new Player* setter
+        territory->setOwner(players[playerIndex]);
+
+        // Add territory pointer to player's collection
+        players[playerIndex]->toDefend().push_back(territory);
+
+        // Move to next player (round-robin)
+        playerIndex = (playerIndex + 1) % players.size();
+    }
+
+    // Print distribution summary
+    logMessage(INFO, "Territory distribution:");
+    for (size_t i = 0; i < players.size(); ++i)
+    {
+        int count = 0;
+        for (const auto &territory : territories)
+        {
+            if (territory.getOwner() == players[i])
+                count++;
+        }
+        logMessage(INFO, string("  ") + players[i]->getPlayerName() + ": " + to_string(count) + " territories");
+    }
 }
