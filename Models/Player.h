@@ -7,6 +7,7 @@
 #include "Map.h"
 #include "Orders.h"
 #include "Cards.h"
+#include "../PlayerStrategies/PlayerStrategies.h"
 
 class Player
 {
@@ -47,16 +48,18 @@ public:
     void addReinforcements(int armies);
 
     // Required functions
-    std::vector<Territory *> toDefend() const; // Return a collection of Territories to be defended
-    std::vector<Territory *> &toDefend();      // Non-const version for modifying territories
+    std::vector<Territory *> toDefend() const;         // Return a collection of Territories to be defended
     std::vector<Territory *> toAttack(Map *map) const; // Return a collection of Territories to be attacked
     bool issueOrder(Map *map);                         // Returns false when done issuing orders
-    OrdersList *getOrdersList() const;         // Get the orders list
+    OrdersList *getOrdersList() const;                 // Get the orders list
 
     // Stream insertion operator overload
     friend std::ostream &operator<<(std::ostream &os, const Player &player);
 
     Hand *getHandOfCards() const;
+
+    // Set player strategy:
+    void setStrategy(PlayerStrategy *newStrategy);
 
 private:
     int id = -1;
@@ -66,6 +69,7 @@ private:
     OrdersList *orders;                   // List of orders issued by the player (as pointer)
     bool conqueredThisTurn = false;
     std::string playerName; // Player name
+    PlayerStrategy *strategy;
 };
 
 #endif

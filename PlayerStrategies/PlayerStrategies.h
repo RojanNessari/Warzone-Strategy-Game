@@ -1,23 +1,102 @@
-#ifndef PLAYERS_STRATEGIES_H
-#define PLAYERS_STRATEGIES_H
+#ifndef PLAYERS_STRATEGY_H
+#define PLAYERS_STRATEGY_H
+#include <vector>
+#include <string>
+#include <iostream>
 
-#include "../Models/Player.h";
+using namespace std;
 
-class PlayerStrategies
+class Player;
+class Territory;
+class Map;
+
+class PlayerStrategy
 {
 public:
-    virtual PlayerStrategies() = 0; // Pure Virtual class
-
-    virtual ~PlayerStrategies(); // deconstructor
+    virtual ~PlayerStrategy() = default; // deconstructor
 
     // Player Game Methods
     // These methods are purely virtual
-    virtual issueOrder() = 0;
-    virtual toAttack() = 0;
-    virtual toDefend() = 0;
+    virtual bool issueOrder(Player *player, Map *map) = 0;
+    virtual vector<Territory *> toAttack(Player *player, Map *map) = 0;
+    virtual vector<Territory *> toDefend(Player *player) = 0;
+
+    // Virtual method to get strategy name
+    virtual string getStrategyName() const = 0;
+}
+
+// Human Player Strategy
+class HumanPlayerStrategy : public PlayerStrategy
+{
+public:
+    HumanPlayerStrategy();
+    ~HumanPlayerStrategy() override;
+
+    bool issueOrder(Player *player, Map *map) override;
+    std::vector<Territory *> toAttack(Player *player, Map *map) const override;
+    std::vector<Territory *> toDefend(Player *player) const override;
+    std::string getStrategyName() const override;
+};
+
+// Aggressive Player Strategy
+class AggressivePlayerStrategy : public PlayerStrategy
+{
+public:
+    AggressivePlayerStrategy();
+    ~AggressivePlayerStrategy() override;
+
+    bool issueOrder(Player *player, Map *map) override;
+    std::vector<Territory *> toAttack(Player *player, Map *map) const override;
+    std::vector<Territory *> toDefend(Player *player) const override;
+    std::string getStrategyName() const override;
 
 private:
-    Player *p;
-}
+    Territory *getStrongestTerritory(Player *player) const;
+};
+
+// Benevolent Player Strategy
+class BenevolentPlayerStrategy : public PlayerStrategy
+{
+public:
+    BenevolentPlayerStrategy();
+    ~BenevolentPlayerStrategy() override;
+
+    bool issueOrder(Player *player, Map *map) override;
+    std::vector<Territory *> toAttack(Player *player, Map *map) const override;
+    std::vector<Territory *> toDefend(Player *player) const override;
+    std::string getStrategyName() const override;
+
+private:
+    Territory *getWeakestTerritory(Player *player) const;
+};
+
+// Neutral Player Strategy
+class NeutralPlayerStrategy : public PlayerStrategy
+{
+public:
+    NeutralPlayerStrategy();
+    ~NeutralPlayerStrategy() override;
+
+    bool issueOrder(Player *player, Map *map) override;
+    std::vector<Territory *> toAttack(Player *player, Map *map) const override;
+    std::vector<Territory *> toDefend(Player *player) const override;
+    std::string getStrategyName() const override;
+};
+
+// Cheater Player Strategy
+class CheaterPlayerStrategy : public PlayerStrategy
+{
+public:
+    CheaterPlayerStrategy();
+    ~CheaterPlayerStrategy() override;
+
+    bool issueOrder(Player *player, Map *map) override;
+    std::vector<Territory *> toAttack(Player *player, Map *map) const override;
+    std::vector<Territory *> toDefend(Player *player) const override;
+    std::string getStrategyName() const override;
+
+private:
+    bool hasConqueredThisTurn = false;
+};
 
 #endif
