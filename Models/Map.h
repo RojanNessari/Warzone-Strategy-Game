@@ -147,6 +147,8 @@ public:
 
     // distributeTerritories - distributes all territories fairly among players
     void distributeTerritories(std::vector<Player *> &players);
+    std::vector<Territory *> getNeighborsOf(Territory *territory);
+    std::vector<Territory *> getNeighborsOf(int territoryId);
 };
 
 class MapLoader

@@ -117,6 +117,33 @@ Map &Map::operator=(const Map &other)
     return *this;
 }
 
+vector<Territory *> Map::getNeighborsOf(Territory *territory)
+{
+    return getNeighborsOf(territory->getId());
+}
+
+vector<Territory *> Map::getNeighborsOf(int territoryId)
+{
+    vector<Territory *> neighbors;
+    Territory *territory = getTerritoryById(territoryId);
+
+    if (territory != nullptr)
+    {
+        return neighbors;
+    }
+
+    const std::unordered_set<int> &adjacentIds = territory->getAdjacentIds();
+    for (int adjId : adjacentIds)
+    {
+        Territory *neighbor = getTerritoryById(adjId);
+        if (neighbor != nullptr)
+        {
+            neighbors.pus(neighbor);
+        }
+    }
+    return neighbors;
+}
+
 Map::Map(const Map &other) : territories(other.territories), territoryNameToId(other.territoryNameToId),
                              continentIdToIndex(other.continentIdToIndex), continentNameToId(other.continentNameToId) {}
 

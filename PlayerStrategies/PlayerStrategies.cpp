@@ -87,6 +87,69 @@ bool HumanPlayerStrategy::issueOrder(Player *player, Map *map)
                 cout << i + 1 << ". " << territories[i]->getName()
                      << " (armies: " << territories[i]->getArmies() << ")" << endl;
             }
+            logMessage("INFO", "Select territory to deploy to (1 - " + territories.size() + "): ");
+            int territoryChoice;
+            cin >> territoryChoice;
+            if (territoryChoice < 1 || territoryChoice > territories.size())
+            {
+                logMessage("WARNING", "Invalid Choice!");
+                return true;
+            }
+
+            logMessage("INFO", "How many armies to deploy? (available: " + player->getReinforcementPool() + "): ");
+            int armies;
+            cin >> armies;
+            if (armies > player->getReinforcementPool() || armies < 1)
+            {
+                logMessage("WARNING", "Invalid number of armies!");
+                return true;
+            }
+
+            Territory *target = territories(territoryChoice - 1);
+            player->getOrdersList()->add(new Deploy(player, target, armies));
+            player->takeFromReinforcement(armies);
+            logMessage("INFO", "Deploy order created!");
+        }
+        else if (choice == 2)
+        {
+            // Advance Order
+            vector<Territory *> territories = player->getTerritories();
+            logMessage("Your Territories: ");
+            for (size_t i = 0; i < territories.size(); i++)
+            {
+                cout << i + 1 << ". " << territories[i]->getName()
+                     << " (armies: " << territories[i]->getArmies() << ")" << endl;
+            }
+            logMessage("INFO", "Select source territory: ");
+            int sourceChoice;
+            cin >> sourceChoice;
+
+            if (sourceChoice < 1 || sourceChoice > territories.size())
+            {
+                logMessage("WARNING", "Invalid choice");
+                return true;
+            }
+            Territory *source = territories(sourceChoice - 1);
+            vector<Territory *> neighbors = map->getNeighborsOf(source);
+
+            logMessage("INFO", "Neighboring territories");
+            for (size_t i = 0; i < neighbors.size(); i++)
+            {
+                cout << i + 1 << ". " << neighbors[i]->getName()
+                     << " (armies: " << neighbors[i]->getArmies() << ")" << endl;
+            }
+
+            logMessage("INFO", "Select target territory: ");
+            int targetChoice;
+            cin >> targetChoice;
+
+            if (targetChoice < 1 || targetChoice > neighbors.size())
+            {
+                logMessage("WARNING", "Invalid Choice!");
+                return true;
+            }
+
+            logMessage("INFO", );
         }
     }
     catch (const exception &e)
