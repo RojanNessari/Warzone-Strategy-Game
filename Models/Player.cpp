@@ -9,7 +9,7 @@
 using namespace std;
 
 // Default constructor
-Player::Player(const std::string &playerName) : territories(), handOfCards(new Hand()), orders(new OrdersList()), playerName(playerName), reinforcementPool(0)
+Player::Player(const std::string &playerName) : territories(), handOfCards(new Hand()), orders(new OrdersList()), playerName(playerName), reinforcementPool(0), strategy(nullptr)
 {
     logMessage(INFO, "Player created.");
 }
@@ -97,6 +97,8 @@ Player::~Player()
         delete handOfCards;
     if (orders)
         delete orders;
+    if (strategy)
+        delete strategy;
     logMessage(INFO, "Player destroyed.");
 }
 
@@ -132,28 +134,28 @@ void Player::setStrategy(PlayerStrategy *newStrategy)
     }
 
     strategy = newStrategy;
-    logMessage("INFO", playerName + " strategy changed to " + strategy->getStrategyName())
+    logMessage(INFO, playerName + " strategy changed to " + strategy->getStrategyName());
 }
 
-vector<Territory *> Player::toDefend() const
+vector<Territory *> Player::toDefend()
 {
     if (strategy != nullptr)
     {
-        return strategy->toDefend(this)
+        return strategy->toDefend(this);
     }
-    logMessage("ERROR", "Strategy -> nullptr");
+    logMessage(ERROR, "Strategy -> nullptr");
     return vector<Territory *>();
     // Return a subset of territories to defend (arbitrary logic for now)
     // return territories; // Placeholder: return all territories
 }
 
-vector<Territory *> Player::toAttack(Map *map) const
+vector<Territory *> Player::toAttack(Map *map)
 {
     if (strategy != nullptr)
     {
-        return strategy->toAttack(this);
+        return strategy->toAttack(this, map);
     }
-    logMessage("ERROR", "Strategy -> nullptr for toAttack()") return vector<Territory *>();
+    logMessage(ERROR, "Strategy -> nullptr for toAttack()");
     return vector<Territory *>(); // fallback
 
     /*
@@ -207,7 +209,7 @@ bool Player::issueOrder(Map *map)
     {
         return strategy->issueOrder(this, map);
     }
-    logMessage("ERROR", "strategy -> nullptr for issueOrder()");
+    logMessage(ERROR, "strategy -> nullptr for issueOrder()");
     return false; // fallback
 
     /*

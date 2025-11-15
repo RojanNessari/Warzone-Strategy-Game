@@ -18,12 +18,12 @@ public:
     // Player Game Methods
     // These methods are purely virtual
     virtual bool issueOrder(Player *player, Map *map) = 0;
-    virtual vector<Territory *> toAttack(Player *player, Map *map) = 0;
-    virtual vector<Territory *> toDefend(Player *player) = 0;
+    virtual vector<Territory *> toAttack(Player *player, Map *map) const = 0;
+    virtual vector<Territory *> toDefend(Player *player) const = 0;
 
     // Virtual method to get strategy name
     virtual string getStrategyName() const = 0;
-}
+};
 
 // Human Player Strategy
 class HumanPlayerStrategy : public PlayerStrategy
@@ -97,6 +97,9 @@ public:
 
 private:
     bool hasConqueredThisTurn = false;
+    void infinitArmyCheat(Territory *territory);
+    void instantConquerCheat(const vector<Territory *> &toConquer, Player *player, Map *map);
+    void duplicateReinforcementsCheat(Player *player);
 };
 
 #endif

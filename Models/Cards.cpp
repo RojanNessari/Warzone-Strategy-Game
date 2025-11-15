@@ -143,6 +143,11 @@ Hand::Hand(const Hand &other)
     DebugPrint("Hand copy-constructed with " + to_string(cards.size()) + " cards");
 }
 
+vector<Card *> Hand::getCards() const
+{
+    return cards;
+}
+
 Hand &Hand::operator=(const Hand &other)
 {
     if (this != &other)

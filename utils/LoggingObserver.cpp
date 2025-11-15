@@ -72,17 +72,50 @@ void LogObserver::Update(ILoggable *loggable, std::string messageType)
     std::ostringstream timestamp;
     timestamp << std::put_time(localTime, "%Y-%m-%d %H:%M:%S");
     std::string color;
-    if (messageType == "ERROR")
-        color = RED;
+    if (messageType == "DEBUG")
+    {
+        color = CYAN;
+    }
     else if (messageType == "INFO")
+    {
         color = GREEN;
+    }
+    else if (messageType == "ERROR")
+    {
+        color = RED;
+    }
     else if (messageType == "WARNING")
+    {
         color = YELLOW;
-    else if (messageType == "DEBUG")
+    }
+    else if (messageType == "ANTICHEAT")
+    {
+        color = MAGENTA;
+    }
+    else if (messageType == "AI")
+    {
         color = BLUE;
+    }
+    else if (messageType == "INVENTORY")
+    {
+        color = CYAN;
+    }
+    else if (messageType == "COMBAT")
+    {
+        color = RED;
+    }
+    else if (messageType == "PROGRESSION")
+    {
+        color = GREEN;
+    }
+    else if (messageType == "INPUT")
+    {
+        color = GREEN;
+    }
     else
+    {
         color = RESET;
-
+    }
     // Format the log entry
     std::ostringstream logEntry;
     logEntry << "[" << timestamp.str() << "] [" << messageType << "] " << loggable->stringToLog();

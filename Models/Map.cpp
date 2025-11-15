@@ -127,7 +127,7 @@ vector<Territory *> Map::getNeighborsOf(int territoryId)
     vector<Territory *> neighbors;
     Territory *territory = getTerritoryById(territoryId);
 
-    if (territory != nullptr)
+    if (territory == nullptr)
     {
         return neighbors;
     }
@@ -138,7 +138,7 @@ vector<Territory *> Map::getNeighborsOf(int territoryId)
         Territory *neighbor = getTerritoryById(adjId);
         if (neighbor != nullptr)
         {
-            neighbors.pus(neighbor);
+            neighbors.push_back(neighbor);
         }
     }
     return neighbors;
@@ -793,8 +793,8 @@ void Map::distributeTerritories(vector<Player *> &players)
         // Assign territory to current player using the new Player* setter
         territory->setOwner(players[playerIndex]);
 
-        // Add territory pointer to player's collection
-        players[playerIndex]->toDefend().push_back(territory);
+        // Add territory pointer to player's collection using addTerritory method
+        players[playerIndex]->addTerritory(territory);
 
         // Move to next player (round-robin)
         playerIndex = (playerIndex + 1) % players.size();

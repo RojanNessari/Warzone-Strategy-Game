@@ -52,6 +52,7 @@ public:
     ~Hand();
 
     size_t size() const;
+    std::vector<Card *> getCards() const;
 
     void addCard(Card *c);
     Card *removeAt(std::size_t idx);
