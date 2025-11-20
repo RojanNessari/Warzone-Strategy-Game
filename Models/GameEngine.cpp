@@ -8,18 +8,29 @@
 #include "Player.h"
 #include "Orders.h"
 #include "Cards.h"
-#include "../utils/logger.h"
+
 
 using namespace std;
 const string NEUTRAL_NAME = "NEUTRAL_NAME";
 
-// ---------- STATE CLASS ----------
+// =====================================================
+//                    STATE CLASS
+// =====================================================
+
 State::State(const string &name)
-    : name_(new string(name)), transitions_(new map<string, State *>) {}
+    : name_(new string(name)), transitions_(new map<string, State *>)
+{
+    lastLogMessage = "State created: " + name;
+    Notify(this, "INFO");
+}
 
 State::State(const State &other)
-    : name_(new string(*other.name_)), transitions_(new map<string, State *>) {}
-
+    : name_(new string(*other.name_)),
+      transitions_(new map<string, State *>(*other.transitions_))
+{
+    lastLogMessage = "State copy-constructed: " + *name_;
+    Notify(this, "DEBUG");
+}
 State &State::operator=(const State &other)
 {
     if (this != &other)
@@ -32,12 +43,18 @@ State &State::operator=(const State &other)
 
 State::~State()
 {
+    lastLogMessage = "State destroyed: " + *name_;
+    Notify(this, "INFO");
     delete name_;
     delete transitions_;
 }
 
 void State::addTransition(const string &cmd, State *next)
 {
+    if (next == nullptr) {
+        
+        return;
+    }
     (*transitions_)[cmd] = next;
 }
 
@@ -47,21 +64,38 @@ State *State::nextState(const string &cmd) const
     return (it == transitions_->end()) ? nullptr : it->second;
 }
 
-const string &State::getName() const { return *name_; }
-const map<string, State *> &State::getTransitions() const { return *transitions_; }
+const string &State::getName() const {
+    // Return a safe string if name_ was not initialized for some reason.
+    static const string unnamed = "<UNNAMED_STATE>";
+    return (name_ != nullptr) ? *name_ : unnamed;
+}
+std::string State::stringToLog()const
+{
+    return lastLogMessage;
+}
+const map<string, State *> &State::getTransitions() const
+{
+    return *transitions_;
+}
 
 ostream &operator<<(ostream &os, const State &s)
 {
-    os << "State(" << *s.name_ << ")";
+    // Use getName() (safe) instead of dereferencing name_ directly.
+    os << "State(" << s.getName() << ")";
     return os;
 }
 
-// ---------- GAME ENGINE ----------
+// =====================================================
+//                    GAME ENGINE
+// =====================================================
 GameEngine::GameEngine()
-    : current_(nullptr), states_(new vector<State *>) {}
+    : current_(nullptr), states_(new vector<State *>) {    lastLogMessage = "GameEngine constructed.";
+    Notify(this, "INFO");}
 
 GameEngine::~GameEngine()
 {
+    lastLogMessage = "GameEngine destructor called. Cleaning up.";
+    Notify(this, "INFO");
     clear();
     delete states_;
 
@@ -95,6 +129,8 @@ void GameEngine::clear()
         states_->clear();
     }
     current_ = nullptr;
+    lastLogMessage = "GameEngine::clear() — All states deleted.";
+    Notify(this, "DEBUG");
 }
 
 State *GameEngine::findState(const string &name) const
@@ -118,6 +154,9 @@ static inline pair<int, int> normPair(Player *a, Player *b)
 void GameEngine::addTruce(Player *a, Player *b)
 {
     truces.insert(normPair(a, b));
+    lastLogMessage = "Truce added between Player " +
+                     to_string(a->getId()) + " and Player " + to_string(b->getId());
+    Notify(this, "INFO");
 }
 
 // check if two players currently have a truce
@@ -132,6 +171,8 @@ bool GameEngine::isTruced(Player *a, Player *b) const
 // clear truces (call at the start of each new turn)
 void GameEngine::clearTrucesForNewTurn()
 {
+    lastLogMessage = "Truces cleared for new turn.";
+    Notify(this, "INFO");
     truces.clear();
 }
 
@@ -141,6 +182,8 @@ Player *GameEngine::getNeutralPlayer()
     {
         neutralPlayer = new Player(NEUTRAL_NAME);
         neutralPlayer->setId(-1);
+         lastLogMessage = "Neutral Player created.";
+        Notify(this, "INFO");
     }
     return neutralPlayer;
 }
@@ -174,26 +217,35 @@ void GameEngine::buildGraph()
     S("win")->addTransition("quit", S("endGame"));
 
     current_ = S("start");
+    
 }
 
 bool GameEngine::applyCommand(const string &cmd)
 {
     if (!current_)
+    {
+          lastLogMessage = "applyCommand failed — current state is NULL.";
+        Notify(this, "ERROR");
         return false;
+    }
     State *next = current_->nextState(cmd);
     if (!next)
     {
-        logMessage(ERROR, string("Invalid command from state '") + current_->getName() + "'");
+         lastLogMessage = "Invalid command '" + cmd +
+                         "' from state '" + current_->getName() + "'";
+        Notify(this, "ERROR");
         return false;
     }
-    logMessage(INFO, string("Transition: ") + current_->getName() + " -- " + cmd + " ==> " + next->getName());
+    lastLogMessage = "STATE TRANSITION: " + current_->getName() +
+                     " --" + cmd + "--> " + next->getName();
+    Notify(this, "PROGRESSION");
     current_ = next;
-    Notify(this, "INFO"); // Added INFO as the messageType for Notify
+    
     return true;
 }
-string GameEngine::stringToLog()
+std::string GameEngine::stringToLog()const
 {
-    return "GameEngine: Current State is: " + (current_ ? current_->getName() : "NULL");
+    return lastLogMessage;
 }
 
 const State *GameEngine::current() const { return current_; }
@@ -252,9 +304,8 @@ GameEngine &GameEngine::operator=(const GameEngine &other)
 // ----------- REINFORCEMENT PHASE -----------
 void GameEngine::reinforcementPhase()
 {
-    logMessage(INFO, "====================================");
-    logMessage(INFO, "REINFORCEMENT PHASE");
-    logMessage(INFO, "====================================");
+    lastLogMessage = "=== REINFORCEMENT PHASE START ===";
+    Notify(this, "PROGRESSION");
 
     for (Player *player : players)
     {
@@ -264,10 +315,12 @@ void GameEngine::reinforcementPhase()
         // Calculate base reinforcements: territories /3 minimum 3
         int territoriesOwned = player->getTerritories().size();
         int armies = std::max(3, territoriesOwned / 3);
+        lastLogMessage = player->getPlayerName() + " owns " +
+                         std::to_string(territoriesOwned) + " territories.";
+        Notify(this, "INVENTORY");
 
-        logMessage(INFO, player->getPlayerName() + " owns " +
-                             std::to_string(territoriesOwned) + " territories");
-        logMessage(INFO, "Base reinforcements: " + std::to_string(armies));
+        lastLogMessage = "Base reinforcements: " + std::to_string(armies);
+        Notify(this, "INVENTORY");
 
         // Add Continent Bonuses
         if (gameMap != nullptr)
@@ -290,27 +343,29 @@ void GameEngine::reinforcementPhase()
                 {
                     int bonus = continent.getBonusValue();
                     armies += bonus;
-                    logMessage(INFO, player->getPlayerName() +
-                                         " controls continent " + continent.getName() +
-                                         " (+" + std::to_string(bonus) + " bonus)");
+                     lastLogMessage = player->getPlayerName() +
+                                     " controls continent " + continent.getName() +
+                                     " (+" + std::to_string(bonus) + " bonus armies).";
+                    Notify(this, "INVENTORY");
                 }
             }
         }
         player->setReinforcementPool(armies);
-        logMessage(INFO, player->getPlayerName() + " receives " +
-                             std::to_string(armies) + " armies");
+        lastLogMessage = player->getPlayerName() + " receives " +
+                         std::to_string(armies) + " total armies.";
+        Notify(this, "INVENTORY");
     }
-    logMessage(INFO, "====================================");
+    lastLogMessage = "=== REINFORCEMENT PHASE END ===";
+    Notify(this, "PROGRESSION");
 }
 
 // ---------- ISSUING ORDERS PHASE ----------
 
 void GameEngine::issueOrdersPhase()
 {
-    logMessage(INFO, "====================================");
-    logMessage(INFO, "ISSUING ORDERS PHASE");
-    logMessage(INFO, "====================================");
-
+  lastLogMessage = "=== ISSUE ORDERS PHASE START ===";
+    Notify(this, "PROGRESSION");
+    
     std::vector<bool> playersDone(players.size(), false);
     bool allDone = false;
     while (!allDone)
@@ -325,16 +380,22 @@ void GameEngine::issueOrdersPhase()
             if (player->getTerritories().empty())
             {
                 playersDone[i] = true;
+                     lastLogMessage = player->getPlayerName() +
+                                 " has no territories — skipping issuing orders.";
+                Notify(this, "WARNING");
                 continue;
             }
-            logMessage(INFO, player->getPlayerName() + "'s turn to issue order");
+            lastLogMessage = player->getPlayerName() + "'s turn to issue orders.";
+            Notify(this, "PROGRESSION");
 
             bool hasMore = player->issueOrder(gameMap);  // Pass the map
-
+            lastLogMessage = player->getPlayerName() +
+                             (hasMore ? " will issue more orders." : " has no more orders to issue.");
+            Notify(this, hasMore ? "PROGRESSION" : "INFO");
             if (!hasMore)
             {
                 playersDone[i] = true;
-                logMessage(INFO, player->getPlayerName() + " has no more orders to issue");
+               
             }
             else
             {
@@ -342,17 +403,16 @@ void GameEngine::issueOrdersPhase()
             }
         }
     }
-    logMessage(INFO, "\nAll players have finished issuing orders");
-    logMessage(INFO, "====================================\n");
+    lastLogMessage = "=== ISSUE ORDERS PHASE END ===";
+    Notify(this, "PROGRESSION");
 }
 
 // ---------- EXECUTE ORDERS PHASE ----------
 
 void GameEngine::executeOrdersPhase()
 {
-    logMessage(INFO, "====================================");
-    logMessage(INFO, "EXECUTE ORDERS PHASE");
-    logMessage(INFO, "====================================");
+    lastLogMessage = "=== EXECUTE ORDERS PHASE START ===";
+    Notify(this, "PROGRESSION");
 
     for (Player *player : players)
     {
@@ -361,7 +421,11 @@ void GameEngine::executeOrdersPhase()
 
     clearTrucesForNewTurn();
 
-    logMessage(INFO, "\n--- Executing Deploy Orders ---");
+     lastLogMessage = "All players' conquered flags reset and truces cleared.";
+    Notify(this, "DEBUG");
+
+    lastLogMessage = "--- Executing Deploy Orders ---";
+    Notify(this, "COMBAT");
     bool foundDeploy = true;
 
     while (foundDeploy)
@@ -381,9 +445,12 @@ void GameEngine::executeOrdersPhase()
                 Deploy *deployOrder = dynamic_cast<Deploy *>(order);
                 if (deployOrder != nullptr)
                 {
-                    logMessage(INFO, "\nExecuting " + player->getPlayerName() + "'s Deploy order");
+                     lastLogMessage = "Executing " + player->getPlayerName() + "'s Deploy order.";
+                    Notify(this, "COMBAT");
                     order->execute();
-                    logMessage(INFO, "Effect: " + order->getEffect());
+                    
+                    lastLogMessage = "Deploy order effect: " + order->getEffect();
+                    Notify(this, "COMBAT");
 
                     orderList->remove(i);
                     foundDeploy = true;
@@ -393,8 +460,8 @@ void GameEngine::executeOrdersPhase()
         }
     }
 
-    // Execute all other orders in round-robin fashion
-    logMessage(INFO, "\n--- Executing Other Orders (Advance, Bomb, Airlift, etc.) ---");
+     lastLogMessage = "--- Executing Non-Deploy Orders (Advance, Bomb, Airlift, etc.) ---";
+    Notify(this, "COMBAT");
     bool foundOtherOrders = true;
 
     while (foundOtherOrders)
@@ -412,9 +479,13 @@ void GameEngine::executeOrdersPhase()
             if (orderList->size() > 0)
             {
                 Order *order = orderList->get(0);
-                logMessage(INFO, "\nExecuting " + player->getPlayerName() + "'s order");
+                lastLogMessage = "Executing " + player->getPlayerName() + "'s order: ";
+                Notify(this, "COMBAT");
+
                 order->execute();
-                logMessage(INFO, "Effect: " + order->getEffect());
+
+                lastLogMessage = "Order effect: " + order->getEffect();
+                Notify(this, "COMBAT");
 
                 orderList->remove(0);
                 foundOtherOrders = true;
@@ -425,7 +496,8 @@ void GameEngine::executeOrdersPhase()
     // Give cards to players who conquered at least one territory
     if (gameDeck != nullptr)
     {
-        logMessage(INFO, "\n--- Distributing Cards ---");
+        lastLogMessage = "--- Distributing cards to players who conquered territories ---";
+        Notify(this, "INVENTORY");
         for (Player *player : players)
         {
             if (player->hasConqueredThisTurn())
@@ -433,30 +505,34 @@ void GameEngine::executeOrdersPhase()
                 Card *card = gameDeck->draw(*player, *(player->getHandOfCards()));
                 if (card != nullptr)
                 {
-                    player->getHandOfCards()->addCard(card);
-                    logMessage(INFO, player->getPlayerName() +
-                                         " conquered territory and receives a card");
+                    lastLogMessage = player->getPlayerName() +
+                                     " conquered a territory and receives a card.";
+                    Notify(this, "INVENTORY");
+                }
+                 else
+                {
+                    lastLogMessage = "No more cards available to draw for " + player->getPlayerName();
+                    Notify(this, "WARNING");
                 }
             }
         }
     }
-    logMessage(INFO, "====================================\n");
+     lastLogMessage = "=== EXECUTE ORDERS PHASE END ===";
+    Notify(this, "PROGRESSION");
 }
 
 // ---------- MAIN GAME LOOP ----------
 void GameEngine::mainGameLoop()
 {
-    logMessage(INFO, "====================================");
-    logMessage(INFO, "STARTING MAIN GAME LOOP");
-    logMessage(INFO, "====================================\n");
+     lastLogMessage = "=== MAIN GAME LOOP START ===";
+    Notify(this, "PROGRESSION");
 
     int turnNumber = 1;
 
     while (true)
     {
-        logMessage(INFO, "\n****************************************");
-        logMessage(INFO, "TURN " + std::to_string(turnNumber));
-        logMessage(INFO, "****************************************\n");
+             lastLogMessage = "---------- TURN " + std::to_string(turnNumber) + " ----------";
+        Notify(this, "PROGRESSION");
         // 1. Reinforcement Phase
         reinforcementPhase();
 
@@ -466,17 +542,17 @@ void GameEngine::mainGameLoop()
         // 3. Execute Orders Phase
         executeOrdersPhase();
 
-        // 4. Remove players with no territories
-        logMessage(INFO, "--- Checking for eliminated players ---");
+         lastLogMessage = "Checking for eliminated players...";
+        Notify(this, "INFO");
 
         auto it = players.begin();
         while (it != players.end())
         {
             if ((*it)->getTerritories().empty())
             {
-                logMessage(INFO, (*it)->getPlayerName() +
-                                     " has been eliminated (no territories)");
-                // remove player from active players
+                lastLogMessage = (*it)->getPlayerName() +
+                                 " has been eliminated (no territories).";
+                Notify(this, "INFO");
                 it = players.erase(it);
             }
             else
@@ -497,26 +573,28 @@ void GameEngine::mainGameLoop()
         }
         if (playersWithTerritories == 1)
         {
-            logMessage(INFO, "\n====================================");
-            logMessage(INFO, "GAME OVER!");
-            logMessage(INFO, potentialPlayerWinner->getPlayerName() + " WINS!");
-            logMessage(INFO, "====================================");
+             lastLogMessage = "GAME OVER — " + potentialPlayerWinner->getPlayerName() + " WINS!";
+            Notify(this, "PROGRESSION");
             applyCommand("win");
             break;
         }
         if (playersWithTerritories == 0)
         {
-            logMessage(ERROR, "\nNo players remain with territories. Game ends in a draw.");
+            lastLogMessage = "GAME OVER — No players remain with territories. Game ends in a draw.";
+            Notify(this, "ERROR");
             break;
         }
         turnNumber++;
 
         if (turnNumber > 100)
         {
-            logMessage(WARNING, "Woho, Limit reached pal. End Game.");
+             lastLogMessage = "Turn limit reached (100). Ending game.";
+            Notify(this, "WARNING");
             break;
         }
     }
+     lastLogMessage = "=== MAIN GAME LOOP END ===";
+    Notify(this, "PROGRESSION");
 }
 
 // ---------- STARTUP PHASE ----------
@@ -527,9 +605,8 @@ void GameEngine::startupPhase()
     bool mapValidated = false;
 
     MapLoader map_loader;
-    logMessage(INFO, "====================================");
-    logMessage(INFO, "GAME STARTUP PHASE");
-    logMessage(INFO, "====================================");
+     lastLogMessage = "=== GAME STARTUP PHASE BEGIN ===";
+    Notify(this, "PROGRESSION");
 
     // Initialize deck if not already created
     if (gameDeck == nullptr)
@@ -539,7 +616,8 @@ void GameEngine::startupPhase()
 
     while (true)
     {
-        logMessage(INFO, "Enter your command:");
+         lastLogMessage = "Waiting for startup command (loadmap, validatemap, addplayer, gamestart).";
+        Notify(this, "INPUT");
         getline(cin, input);
 
         // Parse command and argument properly
@@ -557,24 +635,29 @@ void GameEngine::startupPhase()
         {
             if (argument.empty())
             {
-                logMessage(ERROR, "Usage: loadmap <filename>");
+                lastLogMessage = "Invalid loadmap usage. Expected: loadmap <filename>";
+                Notify(this, "ERROR");
                 continue;
             }
             // Clean up old map if exists
             if (gameMap != nullptr)
             {
                 delete gameMap;
+                lastLogMessage = "Previous map deleted before loading new map.";
+                Notify(this, "DEBUG");
             }
 
             gameMap = map_loader.loadMap(argument); // Load map file
             if (gameMap == nullptr)
             {
-                logMessage(ERROR, "Error: Failed to load map.");
-                logMessage(DEBUG, argument);
+               lastLogMessage = "Failed to load map: " + argument;
+                Notify(this, "ERROR");
                 continue;
             }
 
-            logMessage(INFO, string("Map '") + argument + "' loaded successfully.");
+             lastLogMessage = "Map '" + argument + "' loaded successfully.";
+            Notify(this, "INFO");
+
             mapLoaded = true;
             applyCommand("loadmap");
         }
@@ -583,20 +666,24 @@ void GameEngine::startupPhase()
         {
             if (!mapLoaded || gameMap == nullptr)
             {
-                logMessage(ERROR, "You must load a map first.");
+                lastLogMessage = "Attempted validatemap without a loaded map.";
+                Notify(this, "ERROR");
                 continue;
             }
 
             bool isMapValidated = gameMap->validate();
             if (isMapValidated)
             {
-                logMessage(INFO, "Map validated successfully.");
+                 lastLogMessage = "Map validated successfully.";
+                Notify(this, "INFO");
                 mapValidated = true;
                 applyCommand("validatemap");
             }
             else
             {
-                logMessage(ERROR, "Map validation failed. Please check the map file.");
+               lastLogMessage = "Map validation failed.";
+                Notify(this, "ERROR");
+                cout << "Map validation failed. Please check the map file.\n";
             }
         }
 
@@ -604,17 +691,23 @@ void GameEngine::startupPhase()
         {
             if (!mapLoaded)
             {
-                logMessage(ERROR, "You must load a map first.");
+                lastLogMessage = "Attempted addplayer before loadmap.";
+                Notify(this, "ERROR");
+                cout << "You must load a map first.\n";
                 continue;
             }
             if (!mapValidated)
             {
-                logMessage(ERROR, "You must validate the map.");
+                lastLogMessage = "Attempted addplayer before validatemap.";
+                Notify(this, "ERROR");
+                cout << "You must validate the map first.\n";
                 continue;
             }
             if (argument.empty())
             {
-                logMessage(ERROR, "Usage: addplayer <playername>");
+                lastLogMessage = "Invalid addplayer usage. Expected: addplayer <playername>";
+                Notify(this, "ERROR");
+                cout << "Usage: addplayer <playername>\n";
                 continue;
             }
 
@@ -625,75 +718,105 @@ void GameEngine::startupPhase()
 
             if (it != players.end())
             {
-                logMessage(ERROR, string("Player '") + argument + "' already added.");
+                 lastLogMessage = "Player '" + argument + "' already exists.";
+                Notify(this, "ERROR");
+                cout << "Player '" << argument << "' already added.\n";
                 continue;
             }
             if (players.size() > 6)
             {
-                logMessage(ERROR, "Ease up lil bro, you can only add 2-6 Players.");
+                lastLogMessage = "Attempted to add more than 6 players.";
+                Notify(this, "ERROR");
+                cout << "You can only have between 2 and 6 players.\n";
                 continue;
             }
-            // Create new player and add to list
             Player *newPlayer = new Player(argument);
             players.push_back(newPlayer);
-            logMessage(INFO, string("Player '") + newPlayer->getPlayerName() + "' added.");
+
+            lastLogMessage = "Player '" + newPlayer->getPlayerName() + "' added.";
+            Notify(this, "INFO");
+
             applyCommand("addplayer");
         }
         else if (command == "gamestart")
         {
             if (players.size() < 2)
             {
-                logMessage(ERROR, "You need between 2 and 6 players before starting.");
+                 lastLogMessage = "Invalid gamestart: players count = " + to_string(players.size());
+                Notify(this, "ERROR");
+                cout << "You need between 2 and 6 players before starting.\n";
                 continue;
             }
-            logMessage(INFO, string("=== Starting the game with ") + to_string(players.size()) + " players ===");
+             lastLogMessage = "Starting the game with " + to_string(players.size()) + " players.";
+            Notify(this, "PROGRESSION");
             for (const auto *p : players)
-                logMessage(INFO, string("  - ") + p->getPlayerName());
-
+            {
+                lastLogMessage = "Player in game: " + p->getPlayerName();
+                Notify(this, "INFO");
+            }
             // 4a. Distribute territories fairly among players
-            logMessage(INFO, "4a) Distributing territories equally among players...");
+             lastLogMessage = "Distributing territories among players...";
+            Notify(this, "PROGRESSION");
             gameMap->distributeTerritories(players);
 
-            // 4b. Determine random order of play
-            logMessage(INFO, "4b) Determining random order of play...");
+            // 4b) Random order of play
+            lastLogMessage = "Determining random order of play...";
+            Notify(this, "PROGRESSION");
+
             random_device rd;
             mt19937 g(rd());
             shuffle(players.begin(), players.end(), g);
-            logMessage(INFO, "Order of play:");
-            for (size_t i = 0; i < players.size(); ++i)
-                logMessage(INFO, string("  ") + to_string(i + 1) + ". " + players[i]->getPlayerName());
 
-            // 4c. Give 50 initial army units to each player's reinforcement pool
-            logMessage(INFO, "4c) Assigning 50 army units to each player's reinforcement pool...");
+             for (size_t i = 0; i < players.size(); ++i)
+            {
+                lastLogMessage = "Turn order " + to_string(i + 1) + ": " + players[i]->getPlayerName();
+                Notify(this, "INFO");
+            }
+
+            // 4c) 50 initial armies each
+            lastLogMessage = "Assigning 50 initial armies to each player.";
+            Notify(this, "INVENTORY");
+
             for (auto *p : players)
             {
                 p->setReinforcementPool(50);
-                logMessage(INFO, string("  ") + p->getPlayerName() + " receives 50 armies.");
+                lastLogMessage = p->getPlayerName() + " receives 50 armies.";
+                Notify(this, "INVENTORY");
             }
 
             // 4d. Let each player draw 2 initial cards from the deck
-            logMessage(INFO, "4d) Each player draws 2 initial cards from the deck...");
+             lastLogMessage = "Each player draws 2 initial cards from the deck.";
+            Notify(this, "INVENTORY");
+
             for (auto *p : players)
             {
                 gameDeck->draw(*p, *(p->getHandOfCards()));
                 gameDeck->draw(*p, *(p->getHandOfCards()));
-                logMessage(INFO, string("  ") + p->getPlayerName() + " drew 2 cards.");
+
+                lastLogMessage = p->getPlayerName() + " drew 2 cards.";
+                Notify(this, "INVENTORY");
             }
 
             // 4e. Switch to play phase
-            logMessage(INFO, "4e) Switching to play phase!");
+            lastLogMessage = "Switching to play phase. Next state: assign_reinforcement.";
+            Notify(this, "PROGRESSION");
+
             applyCommand("gamestart");
-            logMessage(INFO, "Transitioned to assign_reinforcement state.");
-            logMessage(INFO, "Play phase started! (Next valid command: 'issueorder')");
+
+            lastLogMessage = "Startup phase complete. Entering main game loop.";
+            Notify(this, "PROGRESSION");
+
             break;
         }
 
-        else
+          else
         {
-            cout << "Invalid command. Try: loadmap, validatemap, addplayer, gamestart\n";
+            lastLogMessage = "Invalid startup command: '" + command + "'";
+            Notify(this, "ERROR");
+            cout << "Invalid command. Try: loadmap, validatemap, addplayer, gamestart.\n";
         }
     }
 
-    // Note: Map and Deck are now stored in member variables gameMap and gameDeck
-    // They will be cleaned up in the destructor
+     lastLogMessage = "=== GAME STARTUP PHASE END ===";
+    Notify(this, "PROGRESSION");
 }

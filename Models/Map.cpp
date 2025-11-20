@@ -13,12 +13,23 @@
 
 using namespace std;
 
+// ==========================================================
+//                     TERRITORY CLASS
+// ==========================================================
+
 // Territory constructor: initializes a territory with a name, id, continent ID, and coordinates.
 Territory::Territory(const string &name, int id, int continentId, int x, int y)
-    : name(name), id(id), continentId(continentId), owner(nullptr), armies(0), x(x), y(y) {}
+    : name(name), id(id), continentId(continentId), owner(nullptr), armies(0), x(x), y(y) 
+    {
+    lastLogMessage = "Territory created: " + name + " (ID=" + to_string(id) + ")";
+    Notify(this, "INFO");
+}
 
 Territory::Territory(const Territory &other) : name(other.name), id(other.id), continentId(other.continentId), owner(other.owner), armies(other.armies), x(other.x),
-                                               y(other.y), adjacentIds(other.adjacentIds) {};
+                                               y(other.y), adjacentIds(other.adjacentIds) {
+    lastLogMessage = "Territory copy-constructed: " + name;
+    Notify(this, "DEBUG");
+};
 
 // Assigment operator:
 Territory &Territory::operator=(const Territory &other)
@@ -72,11 +83,85 @@ ostream &operator<<(ostream &os, const Map &m)
 }
 
 // Deconstructor Territory
-Territory::~Territory() {};
+Territory::~Territory()
+{
+    lastLogMessage = "Territory destroyed: " + name;
+    Notify(this, "DEBUG");
+}
+void Territory::addArmies(int delta)
+{
+    if (delta > 0)
+    {
+        armies += delta;
+         lastLogMessage = "Added " + to_string(delta) + " armies to " + name +
+                     ". Total: " + to_string(armies);
+    Notify(this, "INVENTORY");
+    }
+}
+
+int Territory::removeArmies(int delta)
+{
+    if (delta <= 0)
+        return 0;
+    int take = std::min(delta, armies);
+    armies -= take;
+    lastLogMessage =  " armies from " + name +
+                     ". Remaining: " + to_string(armies);
+    Notify(this, "INVENTORY");
+    return take;
+}
+
+bool Territory::isAdjacentTo(int territoryId) const
+{
+    return adjacentIds.find(territoryId) != adjacentIds.end();
+}
+
+void Territory::addAdjacentTerritory(int territoryId)
+{
+    adjacentIds.insert(territoryId);
+    lastLogMessage = "Territory " + name + " now adjacent to ID=" + to_string(territoryId);
+    Notify(this, "DEBUG");
+}
+
+void Territory::setOwner(int playerId)
+{
+    // Old API compatibility (ignored)
+    lastLogMessage = "Deprecated setOwner(int) used on " + name;
+    Notify(this, "WARNING");
+}
+
+void Territory::setArmies(int armyCount)
+{
+    armies = armyCount;
+    
+}
+// Territory methods
+string Territory::getName() const { return name; }
+int Territory::getId() const { return id; }
+int Territory::getContinentId() const { return continentId; }
+int Territory::getArmies() const { return armies; }
+int Territory::getX() const { return x; }
+int Territory::getY() const { return y; }
+unordered_set<int> &Territory::getAdjacentIds() { return adjacentIds; }
+const unordered_set<int> &Territory::getAdjacentIds() const { return adjacentIds; }
+
+std::string Territory::stringToLog()const
+{
+    return lastLogMessage;
+}
+
+// ==========================================================
+//                     CONTINENT CLASS
+// ==========================================================
 
 // Continent constructor: initializes a continent with a name, ID, and bonus value.
 Continent::Continent(const string &name, int id, int bonusValue)
-    : name(name), id(id), bonusValue(bonusValue) {}
+    : name(name), id(id), bonusValue(bonusValue) {
+    lastLogMessage = "Continent created: " + name +
+                     " (ID=" + to_string(id) +
+                     ", Bonus=" + to_string(bonusValue) + ")";
+    Notify(this, "INFO");
+}
 // Copy Constructor
 Continent::Continent(const Continent &other)
     : name(other.name), id(other.id), bonusValue(other.bonusValue) {};
@@ -90,18 +175,78 @@ Continent &Continent::operator=(const Continent &other)
         id = other.id;
         bonusValue = other.bonusValue;
         territoryIds = other.territoryIds;
+
+        lastLogMessage = "Continent assigned: " + name;
+        Notify(this, "DEBUG");
     }
     return *this;
 }
 
 // Deconstructor Continent:
-Continent::~Continent() {};
+Continent::~Continent() {
+     lastLogMessage = "Continent destroyed: " + name;
+    Notify(this, "DEBUG");
+};
+
+// Continent methods
+string Continent::getName() const { return name; }
+int Continent::getId() const { return id; }
+int Continent::getBonusValue() const { return bonusValue; }
+unordered_set<int> &Continent::getTerritoryIds() { return territoryIds; }
+const unordered_set<int> &Continent::getTerritoryIds() const { return territoryIds; }
+
+void Continent::addTerritory(int territoryId)
+{
+    territoryIds.insert(territoryId);
+
+    lastLogMessage = "Territory ID=" + to_string(territoryId) +
+                     " added to continent: " + name;
+    Notify(this, "INFO");
+}
+
+void Continent::setBonusValue(int bonus)
+{
+    bonusValue = bonus;
+      lastLogMessage = "Bonus value for continent " + name +
+                     " set to " + to_string(bonus);
+    Notify(this, "INFO");
+}
+
+std::vector<Territory *> Continent::getTerritories(Map *map) const
+{
+    std::vector<Territory *> result;
+    if (!map)
+        return result;
+
+    for (int territoryId : territoryIds)
+    {
+        Territory *territory = map->getTerritoryById(territoryId);
+        if (territory)
+        {
+            result.push_back(territory);
+        }
+    }
+    return result;
+}
+std::string Continent::stringToLog()const
+{
+    return lastLogMessage;
+}
+
+// ==========================================================
+//                     Map CLASS
+// ==========================================================
 
 // Map constructor: initializes an empty map.
 Map::Map() {};
 
 // Deconstructor map
-Map::~Map() {};
+Map::~Map() {
+    lastLogMessage = "Map destroyed. Territories=" +
+                     to_string(territories.size()) +
+                     ", Continents=" + to_string(continents.size());
+    Notify(this, "DEBUG");
+};
 
 // Assignment Operator:
 Map &Map::operator=(const Map &other)
@@ -113,6 +258,10 @@ Map &Map::operator=(const Map &other)
         territoryNameToId = other.territoryNameToId;
         continentIdToIndex = other.continentIdToIndex;
         continentNameToId = other.continentNameToId;
+        lastLogMessage = "Map assigned from another Map. Territories=" +
+                         to_string(territories.size()) +
+                         ", Continents=" + to_string(continents.size());
+        Notify(this, "DEBUG");
     }
     return *this;
 }
@@ -147,113 +296,39 @@ vector<Territory *> Map::getNeighborsOf(int territoryId)
 Map::Map(const Map &other) : territories(other.territories), territoryNameToId(other.territoryNameToId),
                              continentIdToIndex(other.continentIdToIndex), continentNameToId(other.continentNameToId) {}
 
-// Territory methods
-string Territory::getName() const { return name; }
-int Territory::getId() const { return id; }
-int Territory::getContinentId() const { return continentId; }
-int Territory::getArmies() const { return armies; }
-int Territory::getX() const { return x; }
-int Territory::getY() const { return y; }
-unordered_set<int> &Territory::getAdjacentIds() { return adjacentIds; }
-const unordered_set<int> &Territory::getAdjacentIds() const { return adjacentIds; }
 
-void Territory::addArmies(int delta)
-{
-    if (delta > 0)
-    {
-        armies += delta;
-    }
-}
 
-int Territory::removeArmies(int delta)
-{
-    if (delta <= 0)
-        return 0;
-    int take = std::min(delta, armies);
-    armies -= take;
-    return take;
-}
 
-bool Territory::isAdjacentTo(int territoryId) const
-{
-    return adjacentIds.find(territoryId) != adjacentIds.end();
-}
-
-void Territory::addAdjacentTerritory(int territoryId)
-{
-    adjacentIds.insert(territoryId);
-}
-
-void Territory::setOwner(int playerId)
-{
-    // This method is kept for backward compatibility with distributeTerritories
-    // Note: This sets an ID but we're using Player* internally now
-    // You may need to update distributeTerritories to use setOwner(Player*) instead
-    // For now, this is a stub that does nothing - update as needed
-}
-
-void Territory::setArmies(int armyCount)
-{
-    armies = armyCount;
-}
-
-// Continent methods
-string Continent::getName() const { return name; }
-int Continent::getId() const { return id; }
-int Continent::getBonusValue() const { return bonusValue; }
-unordered_set<int> &Continent::getTerritoryIds() { return territoryIds; }
-const unordered_set<int> &Continent::getTerritoryIds() const { return territoryIds; }
-
-void Continent::addTerritory(int territoryId)
-{
-    territoryIds.insert(territoryId);
-}
-
-void Continent::setBonusValue(int bonus)
-{
-    bonusValue = bonus;
-}
-
-std::vector<Territory *> Continent::getTerritories(Map *map) const
-{
-    std::vector<Territory *> result;
-    if (!map)
-        return result;
-
-    for (int territoryId : territoryIds)
-    {
-        Territory *territory = map->getTerritoryById(territoryId);
-        if (territory)
-        {
-            result.push_back(territory);
-        }
-    }
-    return result;
-}
 
 // Validates the entire map: connectivity, continent validity, and territory membership
 bool Map::validate() const
 {
-    logMessage(INFO, "=== MAP VALIDATION ===");
+   
 
     bool isValid = true;
 
     // 1. Check if map is a connected graph
     bool connected = isConnectedGraph();
-    logMessage(INFO, string("1. Map connectivity: ") + (connected ? "PASSED" : "FAILED"));
+    lastLogMessage =string("1. Map connectivity: ") + (connected ? "PASSED" : "FAILED");
+        Notify(this, "INFO");
     isValid &= connected;
 
     // 2. Check if continents are connected subgraphs
     bool continentsValid = validateContinents();
-    logMessage(INFO, string("2. Continent connectivity: ") + (continentsValid ? "PASSED" : "FAILED"));
+    lastLogMessage =string("2. Continent connectivity: ") + (continentsValid ? "PASSED" : "FAILED");
+    Notify(this, continentsValid ? "INFO" : "ERROR");
     isValid &= continentsValid;
 
     // 3. Check territory membership (each territory belongs to exactly one continent)
     bool membershipValid = validateTerritoryMembership();
-    logMessage(INFO, string("3. Territory membership: ") + (membershipValid ? "PASSED" : "FAILED"));
+    lastLogMessage =string("3. Territory membership: ") + (membershipValid ? "PASSED" : "FAILED");
+    Notify(this, membershipValid ? "INFO" : "ERROR");
     isValid &= membershipValid;
-    logMessage(INFO, string("Overall map validation: ") + (isValid ? "VALID" : "INVALID"));
-    logMessage(INFO, "======================");
+    lastLogMessage =string("Overall map validation: ") + (isValid ? "VALID" : "INVALID");
+    Notify(this, isValid ? "INFO" : "ERROR");
+
+    lastLogMessage = "=== MAP VALIDATION END ===";
+    Notify(this, "PROGRESSION");
 
     return isValid;
 }
@@ -263,6 +338,8 @@ bool Map::isConnectedGraph() const
 {
     if (territories.empty())
     {
+       lastLogMessage ="isConnectedGraph: No territories in map (fails connectivity).";
+        Notify(this, "ERROR");
         return false;
     }
 
@@ -288,6 +365,7 @@ bool Map::isConnectedGraph() const
             }
         }
     }
+   
 
     return visited.size() == territories.size();
 }
@@ -301,7 +379,10 @@ bool Map::validateContinents() const
 
         if (territoryIds.empty())
         {
-            logMessage(DEBUG, string("Continent '") + continent.getName() + "' has no territories");
+            lastLogMessage =
+                "validateContinents: Continent '" + continent.getName() +
+                "' has no territories.";
+            Notify(this, "WARNING");
             continue;
         }
 
@@ -335,7 +416,11 @@ bool Map::validateContinents() const
         // Check if all territories in this continent were visited
         if (visited.size() != territoryIds.size())
         {
-            logMessage(ERROR, string("Continent '") + continent.getName() + "' is not connected: " + to_string(visited.size()) + "/" + to_string(territoryIds.size()) + " territories reachable");
+           lastLogMessage =
+                "validateContinents: Continent '" + continent.getName() +
+                "' is NOT connected. Reachable=" + to_string(visited.size()) +
+                " / " + to_string(territoryIds.size());
+            Notify(this, "ERROR");
             return false;
         }
     }
@@ -407,6 +492,9 @@ void Map::addTerritory(const Territory &t)
     int index = territories.size();
     territories.push_back(t);
     territoryNameToId[t.getName()] = index;
+      lastLogMessage = "Added Territory: " + t.getName() +
+                     " (ID=" + to_string(t.getId()) + ") at index " + to_string(index);
+    Notify(this, "INFO");
 }
 
 // Adds a continent to the map with hash map indexing
@@ -416,6 +504,10 @@ void Map::addContinent(const Continent &c)
     continents.push_back(c);
     continentIdToIndex[c.getId()] = index;
     continentNameToId[c.getName()] = c.getId();
+      lastLogMessage = "Added Continent: " + c.getName() +
+                     " (ID=" + to_string(c.getId()) +
+                     ", Bonus=" + to_string(c.getBonusValue()) + ")";
+    Notify(this, "INFO");
 }
 
 // Territory access methods with O(1) performance
@@ -481,13 +573,57 @@ void Map::printMapStatistics() const
 
     for (const auto &continent : continents)
     {
-        cout << "  - " << continent.getName() << " (ID: " << continent.getId()
+       cout << "  - " << continent.getName()
+             << " (ID: " << continent.getId()
              << ", Bonus: " << continent.getBonusValue()
-             << ", Territories: " << continent.getTerritoryIds().size() << ")" << endl;
+             << ", Territories: " << continent.getTerritoryIds().size()
+             << ")\n";
     }
     cout << "=====================\n"
          << endl;
 }
+// Distribute territories fairly among players
+void Map::distributeTerritories(vector<Player *> &players)
+{
+    if (players.empty() || territories.empty())
+    {
+        lastLogMessage= "Cannot distribute territories: no players or no territories available.";
+        Notify(this, "ERROR");
+        return;
+    }
+
+    // Create a shuffled list of territory indices
+    vector<int> territoryIndices;
+    for (size_t i = 0; i < territories.size(); ++i)
+    {
+        territoryIndices.push_back(i);
+    }
+    random_device rd;
+    mt19937 g(rd());
+    shuffle(territoryIndices.begin(), territoryIndices.end(), g);
+
+    // Distribute territories in round-robin fashion
+    size_t playerIndex = 0;
+    for (int territoryIdx : territoryIndices)
+    {
+        Territory *territory = &territories[territoryIdx];
+
+        // Assign territory to current player using the new Player* setter
+        territory->setOwner(players[playerIndex]);
+
+        // Add territory pointer to player's collection using addTerritory method
+        players[playerIndex]->addTerritory(territory);
+
+        // Move to next player (round-robin)
+        playerIndex = (playerIndex + 1) % players.size();
+    }
+
+ 
+}
+
+// ==========================================================
+//                     MapLoader CLASS
+// ==========================================================
 
 // MapLoader constructor: initializes a map loader.
 MapLoader::MapLoader() {}
@@ -515,7 +651,11 @@ Map *MapLoader::handleCurrentState(Section currentState, const string &line, Map
 
             int id = map->getContinentsSize();
             map->addContinent(Continent(name, id, bonusValue));
-            cout << "[DEBUG] Added continent: " << name << " (ID: " << id << ", Bonus: " << bonusValue << ")" << endl;
+            lastLogMessage = "Added continent: " + name +
+                             " (ID: " + to_string(id) +
+                             ", Bonus: " + to_string(bonusValue) + ")";
+            Notify(this, "INFO");
+           
         }
     }
     else if (currentState == TERRITORIES)
@@ -538,7 +678,9 @@ Map *MapLoader::handleCurrentState(Section currentState, const string &line, Map
 
         if (!continent)
         {
-            logMessage(ERROR, string("Error: Unknown continent '") + continentName + "' for territory '" + name + "'");
+            lastLogMessage=string("Error: Unknown continent '") + continentName + "' for territory '" + name + "'";
+            Notify(this, "ERROR");
+            
             delete map;
             return nullptr;
         }
@@ -553,7 +695,9 @@ Map *MapLoader::handleCurrentState(Section currentState, const string &line, Map
         }
         catch (const exception &)
         {
-            logMessage(WARNING, string("Warning: Invalid coordinates for territory ") + name);
+            lastLogMessage=string(" Invalid coordinates for territory ") + name;
+            Notify(this, "WARNING");
+        
         }
         Territory territory(name, territoryId, continent->getId(), x, y);
 
@@ -570,8 +714,12 @@ Map *MapLoader::handleCurrentState(Section currentState, const string &line, Map
                 adjacentNames.push_back(adjName);
             }
         }
+        lastLogMessage = string("Parsed Territory: ") + name +
+                     " -> " + continentName +
+                     " (Adjacent: " + to_string(adjacentNames.size()) + ")";
+        Notify(this, "DEBUG");
 
-        logMessage(DEBUG, string("Territory: ") + name + " -> " + continentName + " (Adjacent: " + to_string(adjacentNames.size()) + ")");
+        
 
         // Add territory to map
         map->addTerritory(territory);
@@ -626,7 +774,9 @@ Map *MapLoader::loadMap(const string &filename)
 
     if (!file.is_open())
     {
-        logMessage(ERROR, string("Error: Cannot open file ") + filename);
+        lastLogMessage= string("Cannot open file ") + filename;
+        Notify(this, "ERROR");
+     
         return nullptr;
     }
 
@@ -636,8 +786,10 @@ Map *MapLoader::loadMap(const string &filename)
 
     // Store territory adjacency info for second pass
     vector<pair<string, vector<string>>> territoryAdjacencies;
+    lastLogMessage= string("Loading map from: ") + filename;
+    Notify(this, "INFO");
 
-    logMessage(INFO, string("Loading map from: ") + filename);
+    
 
     // First pass: Load continents and territories
     while (getline(file, line))
@@ -645,7 +797,9 @@ Map *MapLoader::loadMap(const string &filename)
         // Remove whitespace
         line.erase(0, line.find_first_not_of(WHITE_SPACE));
         line.erase(line.find_last_not_of(WHITE_SPACE) + 1);
-        logMessage(DEBUG, string("line: ") + line);
+        lastLogMessage= string("Processing line: ") + line;
+        Notify(this, "DEBUG");
+        
 
         if (line.empty())
             continue;
@@ -654,7 +808,9 @@ Map *MapLoader::loadMap(const string &filename)
         if (newSection != NONE)
         {
             string strSection = sectionToString(newSection);
-            logMessage(DEBUG, string("Detected Section: ") + strSection);
+            lastLogMessage=string("Detected Section: ") + strSection;
+            Notify(this, "DEBUG");
+            
             currentSection = newSection;
             continue;
         }
@@ -716,8 +872,9 @@ Map *MapLoader::loadMap(const string &filename)
             // Add territory to map
             map->addTerritory(territory);
             continent->addTerritory(territoryId);
-
-            logMessage(DEBUG, string("Territory: ") + name + " -> " + continentName + " (Adjacent: " + to_string(adjacentNames.size()) + ")");
+            lastLogMessage= string("Added Territory: ") + name +
+                         " (ID=" + to_string(territoryId) + ") to Continent: " + continentName;
+            Notify(this, "INFO");
         }
         else
         {
@@ -733,7 +890,9 @@ Map *MapLoader::loadMap(const string &filename)
     file.close();
 
     // Second pass: Establish adjacencies
-    logMessage(DEBUG, "Establishing adjacencies...");
+    lastLogMessage= "Establishing adjacencies...";
+    Notify(this, "DEBUG");
+    
     for (const auto &territoryAdj : territoryAdjacencies)
     {
         const string &territoryName = territoryAdj.first;
@@ -754,62 +913,25 @@ Map *MapLoader::loadMap(const string &filename)
             }
             else
             {
-                logMessage(WARNING, string("Adjacent territory '") + adjName + "' not found for '" + territoryName + "'");
+                lastLogMessage = string("Adjacent territory '") + adjName + "' not found for '" + territoryName + "'";
+                Notify(this, "WARNING");
+                
             }
         }
     }
-
-    logMessage(INFO, "Map loaded successfully!");
+lastLogMessage= "Map loaded successfully!";
+    Notify(this, "INFO");
+   
     map->printMapStatistics();
 
     return map;
 }
-
-// Distribute territories fairly among players
-void Map::distributeTerritories(vector<Player *> &players)
+   std::string Map::stringToLog()const
 {
-    if (players.empty() || territories.empty())
-    {
-        logMessage(ERROR, "Cannot distribute territories: no players or no territories available.");
-        return;
-    }
-
-    // Create a shuffled list of territory indices
-    vector<int> territoryIndices;
-    for (size_t i = 0; i < territories.size(); ++i)
-    {
-        territoryIndices.push_back(i);
-    }
-    random_device rd;
-    mt19937 g(rd());
-    shuffle(territoryIndices.begin(), territoryIndices.end(), g);
-
-    // Distribute territories in round-robin fashion
-    size_t playerIndex = 0;
-    for (int territoryIdx : territoryIndices)
-    {
-        Territory *territory = &territories[territoryIdx];
-
-        // Assign territory to current player using the new Player* setter
-        territory->setOwner(players[playerIndex]);
-
-        // Add territory pointer to player's collection using addTerritory method
-        players[playerIndex]->addTerritory(territory);
-
-        // Move to next player (round-robin)
-        playerIndex = (playerIndex + 1) % players.size();
-    }
-
-    // Print distribution summary
-    logMessage(INFO, "Territory distribution:");
-    for (size_t i = 0; i < players.size(); ++i)
-    {
-        int count = 0;
-        for (const auto &territory : territories)
-        {
-            if (territory.getOwner() == players[i])
-                count++;
-        }
-        logMessage(INFO, string("  ") + players[i]->getPlayerName() + ": " + to_string(count) + " territories");
-    }
+    return lastLogMessage;
 }
+std::string MapLoader::stringToLog()const
+{
+    return lastLogMessage;
+}
+

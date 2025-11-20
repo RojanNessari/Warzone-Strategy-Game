@@ -11,7 +11,9 @@ using namespace std;
 // Default constructor
 Player::Player(const std::string &playerName) : territories(), handOfCards(new Hand()), orders(new OrdersList()), playerName(playerName), reinforcementPool(0), strategy(nullptr)
 {
-    logMessage(INFO, "Player created.");
+    lastLogMessage = "Player created: " + playerName;
+    Notify(this, "INFO");
+   
 }
 
 // getPlayer Name:
@@ -23,6 +25,8 @@ string Player::getPlayerName() const
 // Reinforcement pool methods
 int Player::getReinforcementPool() const
 {
+    lastLogMessage = playerName + " reinforcement pool set to " + to_string(reinforcementPool);
+    Notify(this, "INVENTORY");
     return reinforcementPool;
 }
 
@@ -34,72 +38,79 @@ void Player::setReinforcementPool(int armies)
 void Player::addReinforcements(int armies)
 {
     reinforcementPool += armies;
+     lastLogMessage = playerName + " gained " + to_string(armies)
+                     + " reinforcements (total=" + to_string(reinforcementPool) + ")";
+    Notify(this, "INVENTORY");
 }
 
 // Copy constructor
 Player::Player(const Player &other)
+    : territories(other.territories),
+      handOfCards(other.handOfCards ? new Hand(*other.handOfCards) : nullptr),
+      orders(other.orders ? new OrdersList(*other.orders) : nullptr),
+      playerName(other.playerName),
+      reinforcementPool(other.reinforcementPool),
+      strategy(nullptr) // clone if your strategy class provides a clone method
 {
-    playerName = other.playerName;
-    reinforcementPool = other.reinforcementPool;
-
-    // Deep copy territories
-    for (auto *territory : other.territories)
-    {
-        territories.push_back(new Territory(*territory)); // Create a new Territory object for each
-    }
-
-    // Deep copy Hand
-    handOfCards = new Hand(*other.handOfCards);
-
-    // Deep copy OrdersList
-    orders = new OrdersList(*other.orders);
-
-    logMessage(DEBUG, "Player copied.");
+    lastLogMessage = "Player copy-constructed: " + playerName;
+    Notify(this, "DEBUG");
+    // If Strategy has clone(): strategy = other.strategy ? other.strategy->clone() : nullptr;
+}
+std::string Player::stringToLog()const
+{
+    return lastLogMessage;
 }
 
 // Assignment operator
 Player &Player::operator=(const Player &other)
 {
-    if (this != &other) // Check for self-assignment
-    {
-        // Deep copy territories
-        for (auto *territory : territories)
-        {
-            delete territory; // Clean up existing territories
-        }
-        territories.clear();
-        for (auto *territory : other.territories)
-        {
-            territories.push_back(new Territory(*territory)); // Deep copy each territory
-        }
+    if (this == &other)
+        return *this;
 
-        // Deep copy handOfCards
-        if (handOfCards)
-            delete handOfCards;
-        handOfCards = other.handOfCards ? new Hand(*other.handOfCards) : nullptr;
+    // Delete current owned resources
+    if (handOfCards) { delete handOfCards; handOfCards = nullptr; }
+    if (orders) { delete orders; orders = nullptr; }
+    if (strategy) { delete strategy; strategy = nullptr; }
 
-        // Deep copy orders
-        if (orders)
-            delete orders;
-        orders = other.orders ? new OrdersList(*other.orders) : nullptr;
+    // Deep-copy owned resources from other
+    handOfCards = other.handOfCards ? new Hand(*other.handOfCards) : nullptr;
+    orders = other.orders ? new OrdersList(*other.orders) : nullptr;
+    // strategy = other.strategy ? other.strategy->clone() : nullptr; // uncomment if clone exists
 
-        playerName = other.playerName;
-        reinforcementPool = other.reinforcementPool;
-    }
-    logMessage(DEBUG, "Player assigned.");
+    // Shallow copy for territories (they are owned by Map, not Player)
+    territories = other.territories;
+
+    // copy simple fields
+    playerName = other.playerName;
+    reinforcementPool = other.reinforcementPool;
+    // copy other scalar fields as needed (id, flags, etc.)
+
+    lastLogMessage = "Player assigned: " + playerName;
+    Notify(this, "DEBUG");
     return *this;
 }
 
 // Destructor
 Player::~Player()
 {
-    if (handOfCards)
+    lastLogMessage = "Player destroyed: " + playerName;
+    Notify(this, "INFO");
+
+    if (handOfCards) {
         delete handOfCards;
-    if (orders)
+        handOfCards = nullptr;
+    }
+    if (orders) {
         delete orders;
-    if (strategy)
+        orders = nullptr;
+    }
+    // If strategy is heap allocated and owned by Player, delete it.
+    // If strategy is shared/owned elsewhere, remove this delete.
+    if (strategy) {
         delete strategy;
-    logMessage(INFO, "Player destroyed.");
+        strategy = nullptr;
+    }
+    // territories point to Territory objects owned by Map; do NOT delete them here.
 }
 
 Hand *Player::getHandOfCards() const { return handOfCards; }
@@ -112,9 +123,15 @@ int Player::takeFromReinforcement(int n)
 {
     int take = std::max(0, std::min(n, reinforcementPool));
     reinforcementPool -= take;
+     lastLogMessage = playerName + " took " + to_string(take)
+                     + " armies from reinforcement pool.";
+    Notify(this, "INVENTORY");
     return take;
 }
-void Player::addToReinforcement(int n) { reinforcementPool += std::max(0, n); }
+void Player::addToReinforcement(int n) { 
+    reinforcementPool += std::max(0, n);
+    lastLogMessage = playerName + " reinforcement increased by " + to_string(n);
+    Notify(this, "INVENTORY"); }
 
 bool Player::ownsTerritoryId(int tid) const
 {
@@ -134,16 +151,18 @@ void Player::setStrategy(PlayerStrategy *newStrategy)
     }
 
     strategy = newStrategy;
-    logMessage(INFO, playerName + " strategy changed to " + strategy->getStrategyName());
+    lastLogMessage = playerName + " strategy changed to " + strategy->getStrategyName();
+    Notify(this, "INFO");
 }
-
 vector<Territory *> Player::toDefend()
 {
     if (strategy != nullptr)
     {
         return strategy->toDefend(this);
     }
-    logMessage(ERROR, "Strategy -> nullptr");
+    lastLogMessage ="Strategy -> nullptr";
+    Notify(this, "ERROR");  
+    
     return vector<Territory *>();
     // Return a subset of territories to defend (arbitrary logic for now)
     // return territories; // Placeholder: return all territories
@@ -155,7 +174,9 @@ vector<Territory *> Player::toAttack(Map *map)
     {
         return strategy->toAttack(this, map);
     }
-    logMessage(ERROR, "Strategy -> nullptr for toAttack()");
+    lastLogMessage = "Strategy -> nullptr for toAttack()";
+    Notify(this, "ERROR");
+    
     return vector<Territory *>(); // fallback
 
     /*

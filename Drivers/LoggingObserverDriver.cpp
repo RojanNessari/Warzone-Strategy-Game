@@ -20,7 +20,7 @@ public:
         message = newMsg;
         Notify(this, "INFO"); // notify observer
     }
-    string stringToLog() override
+    string stringToLog()  const override
     {
         return "TestSubject message: " + message;
     }
@@ -80,7 +80,7 @@ void testLoggingObserver()
     }
 
     // Verify log file contents
-    std::ifstream logFile("Logs/GameLogs.txt");
+    std::ifstream logFile("Logs/gameLogs.txt");
     if (logFile.is_open())
     {
         std::cout << "Log file contents:" << std::endl;

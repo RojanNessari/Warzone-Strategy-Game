@@ -7,10 +7,17 @@
 #include <string>
 
 //  Base Order
-Order::Order(Player *issuingPlayer) : description("Generic Order"), effect("None"), executed(false), issuer(issuingPlayer) {}
+Order::Order(Player *issuingPlayer) : description("Generic Order"), effect("None"), executed(false), issuer(issuingPlayer) {
+    lastLogMessage = "Order created (generic) for issuer: " +
+                     std::string(issuer ? issuer->getPlayerName() : "NULL");
+    Notify(this, "DEBUG");
+}
 Order::Order() : description("Generic Order"), effect("None"), executed(false), issuer(nullptr) {}
 
-Order::~Order() {}
+Order::~Order() {
+    lastLogMessage = "Order destroyed: " + description;
+    Notify(this, "DEBUG");
+}
 
 Order::Order(const Order &otherOrder) : description(otherOrder.description), effect(otherOrder.effect), executed(otherOrder.executed), issuer(otherOrder.issuer) {}
 
@@ -22,6 +29,8 @@ Order &Order::operator=(const Order &otherOrder)
         effect = otherOrder.effect;
         executed = otherOrder.executed;
         issuer = otherOrder.issuer;
+        lastLogMessage = "Order assigned: " + description;
+        Notify(this, "DEBUG");
     }
     return *this;
 }
@@ -36,19 +45,31 @@ std::ostream &operator<<(std::ostream &os, const Order &order)
     return os;
 }
 
-std::string Order::stringToLog()
+std::string Order::stringToLog()const
 {
-    return "Order: " + description + ", Effect: " + effect;
+    return lastLogMessage;
 }
 
 //  Deploy
 Deploy::Deploy()
 {
-    description = "Deploy Order";
+     description = "Deploy Order";
+    lastLogMessage = "Deploy created (default).";
+    Notify(this, "DEBUG");
 }
 Deploy::Deploy(Player *p, Territory *t, int a)
-    : issuer(p), target(t), armies(a) { description = "Deploy Order"; }
-Deploy::~Deploy() {}
+    : issuer(p), target(t), armies(a) { description = "Deploy Order"; 
+     lastLogMessage = "Deploy created for " +
+                     std::string(issuer ? issuer->getPlayerName() : "NULL") +
+                     " to territory " +
+                     (target ? target->getName() : "NULL") +
+                     " with " + std::to_string(armies) + " armies.";
+    Notify(this, "DEBUG");}
+Deploy::~Deploy()
+{
+    lastLogMessage = "Deploy destroyed.";
+    Notify(this, "DEBUG");
+}
 
 Deploy::Deploy(const Deploy &otherDeploy) : Order(otherDeploy), issuer(otherDeploy.issuer), target(otherDeploy.target), armies(otherDeploy.armies) {}
 
@@ -81,13 +102,15 @@ void Deploy::execute()
     if (!validate())
     {
         effect = "Invalid: target not owned by issuer.";
-        Notify(this, "DEBUG");
+        lastLogMessage = "Deploy execution FAILED: " + effect;
+        Notify(this, "ERROR");
         return;
     }
     if (issuer->getReinforcementPool() < armies)
     {
         effect = "Invalid: not enough reinforcement armies.";
-        Notify(this, "DEBUG");
+         lastLogMessage = "Deploy execution FAILED: " + effect;
+        Notify(this, "ERROR");
         return;
     }
 
@@ -96,6 +119,7 @@ void Deploy::execute()
 
     effect = "Deployed " + std::to_string(armies) + " to " + target->getName();
     executed = true;
+     lastLogMessage = "Deploy executed: " + effect;
     Notify(this, "INFO");
 }
 
@@ -139,7 +163,8 @@ void Advance::execute()
     if (!validate())
     {
         effect = "Invalid: source not owned or not adjacent.";
-        Notify(this, "DEBUG"); // Notify observers
+        lastLogMessage = "Advance execution FAILED: " + effect;
+        Notify(this, "ERROR");
         return;
     }
     if (target->getOwner() == issuer)
@@ -150,6 +175,7 @@ void Advance::execute()
         source->setArmies(src - moved);
         target->setArmies(target->getArmies() + moved);
         effect = "Moved " + std::to_string(moved) + " to defend " + target->getName();
+        lastLogMessage = "Advance executed (friendly move): " + effect;
         Notify(this, "INFO");
         return;
     }
@@ -193,7 +219,8 @@ void Advance::execute()
         effect = "Attack ended. Defender left " + std::to_string(d) + ", attackers left " + std::to_string(a) + ".";
     }
     executed = true;
-    Notify(this, "INFO"); // Notify Observers
+   lastLogMessage = "Advance executed (combat): " + effect;
+    Notify(this, "COMBAT");
 }
 
 Bomb::Bomb() { description = "Bomb Order"; }
@@ -242,7 +269,8 @@ void Bomb::execute()
     if (!validate())
     {
         effect = "Invalid: target is not enemy or not adjacent to issuer territories.";
-        Notify(this, "DEBUG");
+       lastLogMessage = "Bomb execution FAILED: " + effect;
+        Notify(this, "ERROR");
         return;
     }
     int before = target->getArmies();
@@ -250,7 +278,8 @@ void Bomb::execute()
     target->setArmies(after);
     effect = "Bombed " + target->getName() + " from " + std::to_string(before) + " to " + std::to_string(after);
     executed = true;
-    Notify(this, "INFO");
+   lastLogMessage = "Bomb executed: " + effect;
+    Notify(this, "COMBAT");
 }
 
 Blockade::Blockade() { description = "Blockade Order"; }
@@ -477,7 +506,7 @@ Order *OrdersList::get(int index) const
     return nullptr;
 }
 
-std::string OrdersList::stringToLog()
+std::string OrdersList::stringToLog()const
 {
     std::string log = "OrdersList: ";
     if (orders.empty())

@@ -37,13 +37,14 @@ public:
     friend std::ostream &operator<<(std::ostream &os, const Order &order);
 
     // stringToLog Method
-    std::string stringToLog();
+    std::string stringToLog()const override;
 
 protected:
     std::string description;
     std::string effect;
     bool executed;
     Player *issuer;
+    std::string lastLogMessage; 
 };
 
 // Order Subclasses
@@ -162,6 +163,7 @@ class OrdersList : public Subject, public ILoggable
 {
 private:
     std::vector<Order *> orders;
+    std::string lastLogMessage; 
 
 public:
     OrdersList();
@@ -186,7 +188,7 @@ public:
     Order *get(int index) const;
 
     // ILoggable interface implementation
-    std::string stringToLog() override;
+    std::string stringToLog() const override;
 };
 
 #endif // ORDERS_H

@@ -5,6 +5,7 @@
 #include <unordered_map>
 #include <unordered_set>
 #include "Player.h"
+#include "../utils/LoggingObserver.h"
 
 class Player;
 class Map;
@@ -20,7 +21,7 @@ const std::string WHITE_SPACE = " \t\r\n";
 const std::string CONTINENT_HEADER = "[continents]";
 const std::string TERRITORIES_HEADER = "[territories]";
 
-class Territory
+class Territory: public Subject , public ILoggable
 {
 private:
     // obj property
@@ -32,6 +33,7 @@ private:
     int x;
     int y;
     std::unordered_set<int> adjacentIds; // Using set for O(1) lookup and no duplicates
+     mutable std::string lastLogMessage;
 
 public:
     // Constructor
@@ -63,9 +65,10 @@ public:
     void setOwner(int playerId);
     void setArmies(int armyCount);
     void setOwner(Player *player) { owner = player; }
+      std::string stringToLog() const override;
 };
 
-class Continent
+class Continent: public Subject , public ILoggable
 {
 private:
     // Obj property
@@ -73,6 +76,7 @@ private:
     int id;
     int bonusValue;
     std::unordered_set<int> territoryIds; // Using set for O(1) operations
+    mutable std::string lastLogMessage;
 
 public:
     // Constructor
@@ -95,9 +99,10 @@ public:
     // setters
     void addTerritory(int territoryId);
     void setBonusValue(int bonus);
+     std::string stringToLog() const override;
 };
 
-class Map
+class Map: public Subject , public ILoggable
 {
 private:
     // Obj property
@@ -108,6 +113,7 @@ private:
     std::unordered_map<std::string, int> territoryNameToId; // territory name -> territory index
     std::unordered_map<int, int> continentIdToIndex;        // continent id -> continent index
     std::unordered_map<std::string, int> continentNameToId; // continent name -> continent id
+     mutable std::string lastLogMessage;
 
 public:
     // Constructor
@@ -149,9 +155,11 @@ public:
     void distributeTerritories(std::vector<Player *> &players);
     std::vector<Territory *> getNeighborsOf(Territory *territory);
     std::vector<Territory *> getNeighborsOf(int territoryId);
+    
+     std::string stringToLog() const override;
 };
 
-class MapLoader
+class MapLoader: public Subject , public ILoggable
 {
 public:
     // Constructor
@@ -162,6 +170,9 @@ public:
     Map *loadMap(const std::string &filename);
     Map *handleCurrentState(Section currentState, const std::string &line, Map *map);
     Section getSectionFromHeader(const std::string &line);
+     std::string stringToLog() const override;
+    private:
+     mutable std::string lastLogMessage;
 };
 
 #endif // MAP_H

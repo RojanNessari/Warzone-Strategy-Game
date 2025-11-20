@@ -5,7 +5,7 @@
 #include "CommandProcessing.h"
 #include "GameEngine.h"
 #include <fstream>
-#include "../utils/logger.h"
+
 using namespace std;
 
 // ============================================================================
@@ -53,13 +53,12 @@ string Command::getEffect() const
 void Command::saveEffect(const string &effectText)
 {
     effect = effectText; // Store the effect string
-    logMessage(INFO, "Effect saved: " + effectText);
     Notify(this, "INFO"); // Notify Observer
 }
 
-string Command::stringToLog()
+std::string Command::stringToLog()const
 {
-    return "Command: " + command + ", Effect:" + effect;
+    return "Command: \"" + command + "\" | Effect: " + effect;
 }
 
 // Stream insertion operator for Command
@@ -83,7 +82,11 @@ FileLineReader::FileLineReader(const string &fileName)
 {
     if (!fileStream->is_open())
     {
-        logMessage(ERROR, "Error: Could not open file " + fileName);
+         Notify(this, "ERROR");
+    }
+    else    
+    {
+        Notify(this, "INFO");
     }
 }
 
@@ -130,11 +133,17 @@ string FileLineReader::readLineFromFile()
     if (fileStream && fileStream->is_open() && getline(*fileStream, line))
     {
         currentLine++;
+        Notify(this, "INFO");
         return line;
     }
 
-    logMessage(DEBUG, "End of file or error reading file.");
+    Notify(this, "DEBUG");
     return ""; // Return empty string if EOF or error
+}
+std::string FileLineReader::stringToLog()const
+{
+    return "FileLineReader: " + fileName +
+           " | Current line: " + to_string(currentLine);
 }
 
 // Stream insertion operator for FileLineReader
@@ -198,18 +207,17 @@ CommandProcessor::~CommandProcessor()
 string CommandProcessor::readCommand()
 {
     string commandLine;
-    logMessage(INFO, "Enter Command:");
+    Notify(this, "INPUT");
     getline(cin, commandLine); // Read the entire line include spaces
     return commandLine;
 }
 
-string CommandProcessor::stringToLog()
+std::string CommandProcessor::stringToLog()const
 {
-    if (!commands.empty())
-    {
-        return "CommandProcessor: Last command Processed: " + commands.back()->getCommand();
-    }
-    return "CommandProcessor: No commands processed yet";
+    if (commands.empty())
+        return "CommandProcessor: No commands processed yet";
+
+    return "CommandProcessor: Last command entered: " + commands.back()->getCommand();
 }
 
 // This method is the main public interface - it:
@@ -242,7 +250,6 @@ void CommandProcessor::saveCommand(Command *cmd)
     if (cmd != nullptr)
     {
         commands.push_back(cmd); // add to vector
-        logMessage(INFO, "Command saved: " + cmd->getCommand());
         Notify(this, "INFO");
     }
 }
@@ -275,14 +282,14 @@ bool CommandProcessor::validate(Command *cmd, GameEngine *engine)
 
     // Get Current State name from engine
     string currentState = engine->current()->getName();
-
+    Notify(this, "DEBUG"); // state check
     // Get Cmd text and extract cmd name
     string cmdTxt = cmd->getCommand();
     istringstream iss(cmdTxt);
     string commandName;
     iss >> commandName; // Extract first word
 
-    logMessage(DEBUG, "Current State: " + currentState);
+    
 
     // Validate based on the stat transition table
     if (commandName == "loadmap")
@@ -292,20 +299,20 @@ bool CommandProcessor::validate(Command *cmd, GameEngine *engine)
         iss >> argument;
         if (argument.empty())
         {
-            logMessage(ERROR, "No map file path is found.");
+             Notify(this, "ERROR");
             return false;
         }
         try
         {
             if (!filesystem::exists(argument)) // file path does not exist
             {
-                logMessage(ERROR, "This file path does not exist");
+                 Notify(this, "ERROR");
                 return false;
             }
         }
         catch (const filesystem::filesystem_error &err)
         {
-            logMessage(ERROR, "FileSystem Error: " + string(err.what()));
+            Notify(this, "ERROR");
             return false;
         }
 
@@ -335,7 +342,7 @@ bool CommandProcessor::validate(Command *cmd, GameEngine *engine)
 
         if (argument.empty())
         {
-            logMessage(WARNING, "You haven't entered a player Name.");
+            Notify(this, "WARNING");
             return false;
         }
         if (currentState == "map_validated" || currentState == "players_added")
@@ -401,7 +408,7 @@ ostream &operator<<(ostream &os, const CommandProcessor &cp)
 FileCommandProcessorAdapter::FileCommandProcessorAdapter(const string &fileName)
     : CommandProcessor(), fileReader(new FileLineReader(fileName))
 {
-    cout << "FileCommandProcessorAdapter created for file: " << fileName << endl;
+      Notify(this, "INFO");
 }
 
 // Copy constructor
@@ -458,16 +465,16 @@ string FileCommandProcessorAdapter::readCommand()
 
         if (!line.empty())
         {
-            logMessage(INFO, "Read from file: " + line);
+             Notify(this, "INFO");
             return line;
         }
         else
         {
-            logMessage(DEBUG, "End of file or empty line");
+             Notify(this, "DEBUG");
             return "";
         }
     }
-    logMessage(ERROR, "No file reader available");
+      Notify(this, "ERROR");
     return ""; // No file reader available
 }
 // Stream insertion operator for FileCommandProcessorAdapter

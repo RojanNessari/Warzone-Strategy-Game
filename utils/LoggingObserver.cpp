@@ -1,134 +1,118 @@
 #include "LoggingObserver.h"
-#include <iostream>
-#include <string>
+#include "logger.h" // provides logMessage() and LogLevel enum
 #include <fstream>
-#include <sys/stat.h>
-#include "logger.h"
-#include <ctime>   // For timestamp generation
-#include <iomanip> // For formatting the timestamp
-#include <sstream> // For std::ostringstream
+#include <sstream>
+#include <iomanip>
+#include <ctime>
+#include <filesystem>
+#include <iostream>
 
-const std::string LOGGER_PATH_FILE = "Logs/gamelog.txt";
+using namespace std;
 
-// Helper function to ensure directory exists
-static void ensureDirectoryExists(const std::string &filepath)
+static const string LOGGER_PATH_FILE = "Logs/gamelog.txt";
+
+// Static storage helpers
+vector<Observer *> &Subject::getObservers()
 {
-    // Extract directory path
-    size_t lastSlash = filepath.find_last_of("/\\");
-    if (lastSlash != std::string::npos)
-    {
-        std::string dir = filepath.substr(0, lastSlash);
-// Create directory if it doesn't exist (platform-independent approach)
-#ifdef _WIN32
-        _mkdir(dir.c_str());
-#else
-        mkdir(dir.c_str(), 0755);
-#endif
-    }
+    static vector<Observer *> observers;
+    return observers;
 }
-
-// Subject methods
-Subject::Subject()
+mutex &Subject::getMutex()
 {
-    observers = new std::list<Observer *>;
-}
-
-Subject::~Subject()
-{
-    delete observers;
+    static mutex m;
+    return m;
 }
 
 void Subject::Attach(Observer *o)
 {
-    observers->push_back(o);
+    if (!o) return;
+    lock_guard<mutex> lg(getMutex());
+    getObservers().push_back(o);
 }
 
 void Subject::Detach(Observer *o)
 {
-    observers->remove(o);
+    lock_guard<mutex> lg(getMutex());
+    auto &obs = getObservers();
+    obs.erase(remove(obs.begin(), obs.end(), o), obs.end());
 }
 
-void Subject::Notify(ILoggable *loggable, std::string messageType)
+void Subject::Notify(const ILoggable *loggable, const std::string &messageType) const
 {
-    for (Observer *o : *observers)
-        o->Update(loggable, messageType);
+    if (!loggable) return;
+    lock_guard<mutex> lg(getMutex());
+    for (auto *o : getObservers())
+        if (o)
+            o->Update(loggable, messageType);
 }
 
-// LogObserver methods
+// Helper: ensure Logs directory exists
+static void ensureDirectoryExists(const string &filepath)
+{
+    try {
+        filesystem::path p(filepath);
+        auto parent = p.parent_path();
+        if (!parent.empty() && !filesystem::exists(parent))
+            filesystem::create_directories(parent);
+    } catch (...) {
+        // best effort, do not throw
+    }
+}
+
+static string currentTimestamp()
+{
+    auto now = time(nullptr);
+    tm tm_buf;
+    localtime_r(&now, &tm_buf);
+    ostringstream ss;
+    ss << put_time(&tm_buf, "%Y-%m-%d %H:%M:%S");
+    return ss.str();
+}
+
+static LogLevel toLogLevel(const std::string &messageType)
+{
+    if (messageType == "DEBUG") return DEBUG;
+    if (messageType == "INFO") return INFO;
+    if (messageType == "ERROR") return ERROR;
+    if (messageType == "WARNING") return WARNING;
+    if (messageType == "ANTICHEAT") return ANTICHEAT;
+    if (messageType == "AI") return AI;
+    if (messageType == "INVENTORY") return INVENTORY;
+    if (messageType == "COMBAT") return COMBAT;
+    if (messageType == "PROGRESSION") return PROGRESSION;
+    if (messageType == "INPUT") return INPUT;
+    return INFO;
+}
+
 LogObserver::LogObserver()
 {
-    // Ensure the Logs directory exists when observer is created
     ensureDirectoryExists(LOGGER_PATH_FILE);
 }
+
 LogObserver::~LogObserver() {}
 
-void LogObserver::Update(ILoggable *loggable, std::string messageType)
+void LogObserver::Update(const ILoggable *loggable, const std::string &messageType)
 {
-    // Get the current time
-    std::time_t now = std::time(nullptr);
-    std::tm *localTime = std::localtime(&now);
+    if (!loggable) return;
 
-    // Format the timestamp
-    std::ostringstream timestamp;
-    timestamp << std::put_time(localTime, "%Y-%m-%d %H:%M:%S");
-    std::string color;
-    if (messageType == "DEBUG")
+    string text = loggable->stringToLog();
+    string ts = currentTimestamp();
+    string entry = "[" + ts + "] [" + messageType + "] " + text;
+
+    // 1) Console via colorized logMessage() (from logger.h/.cpp)
+    LogLevel lvl = toLogLevel(messageType);
+    logMessage(lvl, text); // prints to console
+
+    // 2) Append to file
+    ofstream ofs(LOGGER_PATH_FILE, ios::app);
+    if (ofs.is_open())
     {
-        color = CYAN;
-    }
-    else if (messageType == "INFO")
-    {
-        color = GREEN;
-    }
-    else if (messageType == "ERROR")
-    {
-        color = RED;
-    }
-    else if (messageType == "WARNING")
-    {
-        color = YELLOW;
-    }
-    else if (messageType == "ANTICHEAT")
-    {
-        color = MAGENTA;
-    }
-    else if (messageType == "AI")
-    {
-        color = BLUE;
-    }
-    else if (messageType == "INVENTORY")
-    {
-        color = CYAN;
-    }
-    else if (messageType == "COMBAT")
-    {
-        color = RED;
-    }
-    else if (messageType == "PROGRESSION")
-    {
-        color = GREEN;
-    }
-    else if (messageType == "INPUT")
-    {
-        color = GREEN;
+        ofs << entry << "\n";
+        ofs.close();
     }
     else
     {
-        color = RESET;
-    }
-    // Format the log entry
-    std::ostringstream logEntry;
-    logEntry << "[" << timestamp.str() << "] [" << messageType << "] " << loggable->stringToLog();
-
-    // Write to the log file
-    std::ofstream logFile(LOGGER_PATH_FILE, std::ios::app);
-    if (logFile.is_open())
-    {
-        logFile << logEntry.str() << std::endl;
-        logFile.close();
-    }
-    else
-    {
-        logMessage(ERROR, "Error: could not open: " + LOGGER_PATH_FILE + "\n");
+        // fallback console error
+        logMessage(ERROR, "Failed to open log file: " + LOGGER_PATH_FILE);
     }
 }

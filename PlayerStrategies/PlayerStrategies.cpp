@@ -49,31 +49,41 @@ string HumanPlayerStrategy::getStrategyName() const
 
 bool HumanPlayerStrategy::issueOrder(Player *player, Map *map)
 {
-    logMessage(INFO, player->getPlayerName() + "'s Turn (" + getStrategyName() + " Strategy)");
-    logMessage(INFO, "Reinforcement pool: " + to_string(player->getReinforcementPool()));
+    lastLogMessage = player->getPlayerName() + "'s Turn (" + getStrategyName() + " Strategy)";
+    Notify(this, "INFO");
+    lastLogMessage = "Reinforcement pool: " + to_string(player->getReinforcementPool());
+    Notify(this, "INVENTORY");
+
 
     cout << "\nWhat would you like to do?" << endl;
     cout << "1. Deploy armies" << endl;
     cout << "2. Advance armies" << endl;
     cout << "3. Play a card" << endl;
     cout << "4. Done issuing orders" << endl;
-    logMessage(INPUT, "Enter your choice: ");
+ 
     try
     {
         int choice;
+           lastLogMessage="user log the input"+ to_string(choice);
+         Notify(this, "INPUT");
         if (!(cin >> choice))
         {
-            logMessage(WARNING, "You entered incorrect input. Proceeding with option 4");
+            lastLogMessage = "Invalid Input. Proceeding with option 4";
+            Notify(this, "WARNING");
+            
             throw runtime_error("Invalid Input. Proceeding with option number 4");
         }
         if (choice < 1 || choice > 4)
         {
-            logMessage(WARNING, "You entered incorrect number. Proceeding with option 4");
+            lastLogMessage = "You entered incorrect number. Proceeding with option 4";
+            Notify(this, "WARNING");
+            
             return false;
         }
         if (choice == 4)
         {
-            logMessage(INFO, player->getPlayerName() + "Done issuing orders");
+            lastLogMessage = player->getPlayerName() + " done issuing orders."; 
+            Notify(this, "INFO");
             return false; // Done issuing orders
         }
 
@@ -87,89 +97,113 @@ bool HumanPlayerStrategy::issueOrder(Player *player, Map *map)
                 cout << i + 1 << ". " << territories[i]->getName()
                      << " (armies: " << territories[i]->getArmies() << ")" << endl;
             }
-            logMessage(INPUT, "Select territory to deploy to (1 - " + to_string(territories.size()) + "): ");
+            lastLogMessage="user log the input for territory choice";
+            Notify(this, "INPUT");
+    
             int territoryChoice;
             cin >> territoryChoice;
             if (territoryChoice < 1 || territoryChoice > territories.size())
             {
-                logMessage(WARNING, "Invalid Choice!");
+                lastLogMessage = "Invalid choice";
+                Notify(this, "WARNING");
+                
                 return true;
             }
-
-            logMessage(INPUT, "How many armies to deploy? (available: " + to_string(player->getReinforcementPool()) + "): ");
+            lastLogMessage="user log the input for armies to deploy";
+            Notify(this, "INPUT");
             int armies;
             cin >> armies;
+            lastLogMessage="user log the input for armies to deploy: "+ to_string(armies);
+            Notify(this, "INPUT");
             if (armies > player->getReinforcementPool() || armies < 1)
             {
-                logMessage(WARNING, "Invalid number of armies!");
+                lastLogMessage = "Invalid number of armies!";
+                Notify(this, "WARNING");    
+                
                 return true;
             }
 
             Territory *target = territories[territoryChoice - 1];
             player->getOrdersList()->add(new Deploy(player, target, armies));
             player->takeFromReinforcement(armies);
-            logMessage(INFO, "Deploy order created!");
+            lastLogMessage = "Deploy order created!";
+            Notify(this, "INFO");   
+          
         }
         else if (choice == 2)
         {
             // Advance Order
             vector<Territory *> territories = player->getTerritories();
-            logMessage(INFO, "Your Territories: ");
+            lastLogMessage  = "Select source territory:";
+            Notify(this, "INPUT");
+          
             for (size_t i = 0; i < territories.size(); i++)
             {
                 cout << i + 1 << ". " << territories[i]->getName()
                      << " (armies: " << territories[i]->getArmies() << ")" << endl;
             }
-            logMessage(INPUT, "Select source territory: ");
+         
             int sourceChoice;
             cin >> sourceChoice;
 
             if (sourceChoice < 1 || sourceChoice > territories.size())
             {
-                logMessage(WARNING, "Invalid choice");
+                lastLogMessage  = "Invalid choice";         
+                Notify(this, "WARNING");
+              
                 return true;
             }
             Territory *source = territories[sourceChoice - 1];
             vector<Territory *> neighbors = map->getNeighborsOf(source);
-
-            logMessage(INFO, "Neighboring territories");
+            lastLogMessage  = "Select target territory:";
+            Notify(this, "INPUT");
+            
             for (size_t i = 0; i < neighbors.size(); i++)
             {
                 cout << i + 1 << ". " << neighbors[i]->getName()
                      << " (armies: " << neighbors[i]->getArmies() << ")" << endl;
             }
 
-            logMessage(INPUT, "Select target territory: ");
+            
             int targetChoice;
             cin >> targetChoice;
 
             if (targetChoice < 1 || targetChoice > neighbors.size())
             {
-                logMessage(WARNING, "Invalid Choice!");
+                lastLogMessage = "Invalid choice";
+                Notify(this, "WARNING");    
+               
                 return true;
             }
 
-            logMessage(INPUT, "How many armies to advance? (available: " + to_string(source->getArmies()) + ")");
             int armies;
+            lastLogMessage = "Enter number of armies to advance:"+ to_string(armies);
+            Notify(this, "INPUT");
             cin >> armies;
 
             if (armies < 1 || armies > source->getArmies())
             {
-                logMessage(WARNING, "Invalid number of armies!");
+                lastLogMessage ="Invalid number of armies!";
+                Notify(this, "WARNING");
+               
                 return true;
             }
 
             Territory *target = neighbors[targetChoice - 1];
             player->getOrdersList()->add(new Advance(player, source, target, armies));
-            logMessage(INFO, "Advance order created!");
+            lastLogMessage="Advance order created!";
+            Notify(this, "INFO");   
+           
         }
         else if (choice == 3)
         {
             // Play a card
             Hand *hand = player->getHandOfCards();
-            logMessage(INFO, "Your Cards:");
+            lastLogMessage ="Your Cards:";
+            Notify(this, "INFO");
+           
             cout << *hand << endl;
-            logMessage(INPUT, "Enter card index to play (or 0 to cancel): ");
+        
 
             int cardIndex;
             cin >> cardIndex;
@@ -178,14 +212,25 @@ bool HumanPlayerStrategy::issueOrder(Player *player, Map *map)
             {
                 Card *card = hand->getCards()[cardIndex - 1];
                 // card->play(player, map); Need to fix this
-                logMessage(INFO, "Card played");
+
+          lastLogMessage = "Played card at index " + to_string(cardIndex);
+                Notify(this, "INFO");
+            }
+            else
+            {
+                lastLogMessage = "Invalid card index!";
+                Notify(this, "WARNING");    
+               
+                return true;
             }
         }
         return true;
     }
     catch (const exception &e)
     {
-        logMessage(ERROR, string("Human player did something unexpected: ") + e.what());
+        lastLogMessage = player->getPlayerName() + " encountered an error: " + e.what();    
+        Notify(this, "ERROR");
+      
         cin.clear();
         return false;
     }
@@ -250,8 +295,9 @@ Territory *AggressivePlayerStrategy::getStrongestTerritory(Player *player) const
 
 bool AggressivePlayerStrategy::issueOrder(Player *player, Map *map)
 {
-    logMessage(INFO, player->getPlayerName() + "'s Turn (" + getStrategyName() + " Strategy)");
-
+    lastLogMessage  = player->getPlayerName() + "'s Turn (" + getStrategyName() + " Strategy)";
+    Notify(this, "INFO");
+   
     // First, deploy all reinforcement to strongest territory
     if (player->getReinforcementPool() > 0)
     {
@@ -261,7 +307,9 @@ bool AggressivePlayerStrategy::issueOrder(Player *player, Map *map)
             int armies = player->getReinforcementPool();
             player->getOrdersList()->add(new Deploy(player, strongest, armies));
             player->takeFromReinforcement(armies);
-            logMessage(INFO, "Deployed " + to_string(armies) + " armies to " + strongest->getName());
+            lastLogMessage = "Deployed " + to_string(armies) + " armies to " + strongest->getName();
+            Notify(this, "INFO");
+            
             return true;
         }
     }
@@ -279,7 +327,8 @@ bool AggressivePlayerStrategy::issueOrder(Player *player, Map *map)
             {
                 int armiesToAdvance = strongest->getArmies() - 1;
                 player->getOrdersList()->add(new Advance(player, strongest, neighbor, armiesToAdvance));
-                logMessage(INFO, "Advancing " + to_string(armiesToAdvance) + " armies from " + strongest->getName() + " to " + neighbor->getName());
+                
+               
                 return true;
             }
         }
@@ -348,7 +397,9 @@ Territory *BenevolentPlayerStrategy::getWeakestTerritory(Player *player) const
 
 bool BenevolentPlayerStrategy::issueOrder(Player *player, Map *map)
 {
-    logMessage(INFO, player->getPlayerName() + "'s Turn (" + getStrategyName() + " Strategy)");
+    lastLogMessage  = player->getPlayerName() + "'s Turn (" + getStrategyName() + " Strategy)";
+    Notify(this, "INFO");
+    
 
     // Deploy all reinforcement to weak territory
     if (player->getReinforcementPool() > 0)
@@ -359,7 +410,9 @@ bool BenevolentPlayerStrategy::issueOrder(Player *player, Map *map)
             int armies = player->getReinforcementPool();
             player->getOrdersList()->add(new Deploy(player, weakest, armies));
             player->takeFromReinforcement(armies);
-            logMessage(INFO, "Deployed " + to_string(armies) + " armies to weakest territory: " + weakest->getName());
+            lastLogMessage ="Deployed " + to_string(armies) + " armies to weakest territory: " + weakest->getName();
+            Notify(this, "INFO");
+            
             return true;
         }
     }
@@ -382,7 +435,9 @@ bool BenevolentPlayerStrategy::issueOrder(Player *player, Map *map)
                         if (armiesToMove > 0)
                         {
                             player->getOrdersList()->add(new Advance(player, owned, weakest, armiesToMove));
-                            logMessage(INFO, "Moving " + to_string(armiesToMove) + " armies from " + owned->getName() + " to " + weakest->getName());
+                            lastLogMessage ="Moving " + to_string(armiesToMove) + " armies from " + owned->getName() + " to " + weakest->getName();
+                            Notify(this, "INFO");
+                         
                             return true;
                         }
                     }
@@ -424,7 +479,9 @@ string NeutralPlayerStrategy::getStrategyName() const
 
 bool NeutralPlayerStrategy::issueOrder(Player *player, Map *map)
 {
-    logMessage(INFO, player->getPlayerName() + "'s Turn (" + getStrategyName() + " Strategy)");
+    lastLogMessage  = player->getPlayerName() + "'s Turn (" + getStrategyName() + " Strategy)";
+    Notify(this, "INFO");
+    
     return false; // never does anything
 }
 
@@ -473,7 +530,9 @@ void CheaterPlayerStrategy::duplicateReinforcementsCheat(Player *player)
 
 bool CheaterPlayerStrategy::issueOrder(Player *player, Map *map)
 {
-    logMessage(INFO, player->getPlayerName() + "'s Turn (" + getStrategyName() + " Strategy)");
+    lastLogMessage = player->getPlayerName() + "'s Turn (" + getStrategyName() + " Strategy)";
+    Notify(this, "INFO");
+    
     if (hasConqueredThisTurn)
     {
         hasConqueredThisTurn = false; // reset for next round;
@@ -485,7 +544,8 @@ bool CheaterPlayerStrategy::issueOrder(Player *player, Map *map)
     duplicateReinforcementsCheat(player);
     if (currentReinforcement != player->getReinforcementPool())
     {
-        logMessage(ANTICHEAT, "(DUPLICATE REINFORCEMENT, " + to_string(currentReinforcement) + ", " + to_string(player->getReinforcementPool()) + ", " + player->getPlayerName() + ")");
+        lastLogMessage = "Reinforcements duplicated from " + to_string(currentReinforcement) + " to " + to_string(player->getReinforcementPool()) + ".";
+        Notify(this, "INVENTORY");
     }
 
     vector<Territory *> territories = player->getTerritories();
@@ -497,7 +557,9 @@ bool CheaterPlayerStrategy::issueOrder(Player *player, Map *map)
         infinitArmyCheat(territory);
         if (previousArmi != territory->getArmies())
         {
-            logMessage(ANTICHEAT, "(INFINIT AMMO, " + to_string(previousArmi) + ", " + to_string(territory->getArmies()) + ", " + territory->getName() + ", " + to_string(territory->getId()) + ", " + player->getPlayerName() + ")");
+            lastLogMessage = "Infinit armies cheat applied on " + territory->getName() + ": " + to_string(previousArmi) + " -> " + to_string(territory->getArmies()) + ".";
+            Notify(this, "INVENTORY");
+           
         }
     }
 
@@ -522,18 +584,23 @@ bool CheaterPlayerStrategy::issueOrder(Player *player, Map *map)
             }
         }
     }
-
-    logMessage(DEBUG, player->getPlayerName() + " owns " + to_string(territories.size()) + " territories, checked " + to_string(totalNeighborsChecked) + " neighbors, found " + to_string(enemyNeighborsFound) + " enemy neighbors");
+lastLogMessage = "Cheater Strategy checked " + to_string(totalNeighborsChecked) + " neighbors, found " + to_string(enemyNeighborsFound) + " enemy neighbors.";
+    Notify(this, "DEBUG");
+    
 
     // Log territory conquests before actually conquering them
     if (!toConquer.empty())
     {
-        logMessage(ANTICHEAT, "(INSTANT CONQUER, " + to_string(toConquer.size()) + " territories conquered by " + player->getPlayerName() + ")");
+        lastLogMessage = "Conquering " + to_string(toConquer.size()) + " territories.";
+        Notify(this, "INFO");
+        
         instantConquerCheat(toConquer, player, map);
     }
     else
     {
-        logMessage(WARNING, player->getPlayerName() + " has no adjacent enemy territories to conquer (owns all neighbors!)");
+        lastLogMessage = "No adjacent enemy territories to conquer.";
+        Notify(this, "WARNING");
+     
     }
 
     hasConqueredThisTurn = true;
@@ -548,4 +615,12 @@ vector<Territory *> CheaterPlayerStrategy::toAttack(Player *player, Map *map) co
 vector<Territory *> CheaterPlayerStrategy::toDefend(Player *player) const
 {
     return player->getTerritories();
+}
+std::string PlayerStrategy::stringToLog() const
+{
+    return lastLogMessage;
+}
+std::string HumanPlayerStrategy::stringToLog() const
+{
+    return lastLogMessage;
 }

@@ -8,8 +8,9 @@
 #include "Orders.h"
 #include "Cards.h"
 #include "../PlayerStrategies/PlayerStrategies.h"
+#include "../utils/LoggingObserver.h"
 
-class Player
+class Player : public Subject, public ILoggable
 {
 public:
     // Constructor
@@ -60,6 +61,7 @@ public:
 
     // Set player strategy:
     void setStrategy(PlayerStrategy *newStrategy);
+    std::string stringToLog() const override;
 
 private:
     int id = -1;
@@ -70,6 +72,7 @@ private:
     bool conqueredThisTurn = false;
     std::string playerName; // Player name
     PlayerStrategy *strategy;
+   mutable  std::string lastLogMessage; 
 };
 
 #endif

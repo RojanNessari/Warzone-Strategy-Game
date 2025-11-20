@@ -11,6 +11,11 @@ class Command;
 class GameEngine;
 class FileLineReader;
 
+//
+// =============================
+// CommandProcessor Class
+// =============================
+//
 class CommandProcessor : public Subject, public ILoggable
 {
 public:
@@ -35,7 +40,7 @@ public:
     // Stream insertion operator
     friend std::ostream &operator<<(std::ostream &os, const CommandProcessor &cp);
     // logging function
-    std::string stringToLog();
+    std::string stringToLog() const override;
 
 protected:
     // Protected method to read command from console (no parameters - reads from cin)
@@ -48,6 +53,11 @@ protected:
     void saveCommand(Command *cmd);
 };
 
+//
+// =============================
+// FileCommandProcessorAdapter Class
+// =============================
+//
 // Adapter Pattern: Adapts CommandProcessor to read from a file instead of console
 // This class inherits from CommandProcessor and overrides readCommand() to use FileLineReader
 class FileCommandProcessorAdapter : public CommandProcessor
@@ -67,6 +77,7 @@ public:
 
     // Stream insertion operator
     friend std::ostream &operator<<(std::ostream &os, const FileCommandProcessorAdapter &adapter);
+    
 
 private:
     // The adaptee - reads lines from file
@@ -76,8 +87,13 @@ private:
     std::string readCommand() override;
 };
 
+//
+// =============================
+// FileLineReader Class
+// =============================
+//
 // Helper class to read lines from a file (Adaptee in Adapter pattern)
-class FileLineReader
+class FileLineReader:public Subject , public ILoggable
 {
 public:
     // Constructor - opens file
@@ -94,6 +110,7 @@ public:
 
     // Read next line from file
     std::string readLineFromFile();
+    std::string stringToLog()const override;
 
     // Stream insertion operator
     friend std::ostream &operator<<(std::ostream &os, const FileLineReader &reader);
@@ -104,6 +121,11 @@ private:
     int currentLine;           // Track current line number
 };
 
+//
+// =============================
+// Command Class
+// =============================
+//
 // Command class - represents a command with its text and execution effect
 class Command : public Subject, public ILoggable
 {
@@ -132,7 +154,7 @@ public:
     // Stream insertion operator
     friend std::ostream &operator<<(std::ostream &os, const Command &cmd);
 
-    std::string stringToLog();
+    std::string stringToLog() const override;
 
 private:
     std::string command; // The command text

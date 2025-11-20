@@ -16,7 +16,7 @@ class Player;
 class Deck;
 class Map;
 
-class State
+class State :public Subject , public ILoggable
 {
 public:
     State(const string &name);
@@ -30,10 +30,11 @@ public:
     const map<string, State *> &getTransitions() const;
 
     friend ostream &operator<<(ostream &os, const State &s);
-
+    string stringToLog()const override;
 private:
     string *name_;
     map<string, State *> *transitions_;
+    string lastLogMessage;
 };
 
 class GameEngine : public Subject, public ILoggable
@@ -62,7 +63,7 @@ public:
     void executeOrdersPhase();
 
     friend ostream &operator<<(ostream &os, const GameEngine &ge);
-    std::string stringToLog() override;
+    string stringToLog() const override;
 
 private:
     void clear();
@@ -82,6 +83,7 @@ private:
         }
     };
     unordered_set<pair<int, int>, PairHash> truces;
+    std::string lastLogMessage;
 };
 
 #endif

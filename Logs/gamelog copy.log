@@ -1,6 +1,0 @@
-[2025-11-13 17:41:24] [INFO] CommandProcessor: Last command Processed: loadmap Maps/albert.map
-[2025-11-13 17:41:24] [INFO] OrdersList: 1 order(s)
-[2025-11-13 17:41:24] [INFO] GameEngine: Current State is: map_loaded
-[2025-11-13 17:41:24] [INFO] GameEngine: Current State is: map_validated
-[2025-11-13 17:41:24] [INFO] GameEngine: Current State is: players_added
-[2025-11-13 17:41:24] [INFO] GameEngine: Current State is: assign_reinforcement

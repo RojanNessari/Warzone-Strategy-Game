@@ -1,43 +1,45 @@
 #pragma once
 #include <string>
-#include <list>
-#include <fstream>
+#include <vector>
+#include <mutex>
 
 // Interface for loggable objects
 class ILoggable
 {
 public:
-    virtual std::string stringToLog() = 0;
+    virtual std::string stringToLog() const = 0;
     virtual ~ILoggable() = default;
 };
 
-// Base observer class
+// Observer interface
 class Observer
 {
 public:
-    virtual void Update(ILoggable *loggable, std::string messageType) = 0;
+    virtual void Update(const ILoggable *loggable, const std::string &messageType) = 0;
     virtual ~Observer() = default;
 };
 
-// Base subject class
+// Subject base: single global observer list so any Subject::Notify() reaches attached observers.
 class Subject
 {
-private:
-    std::list<Observer *> *observers;
-
 public:
-    Subject();
-    virtual ~Subject();
-    virtual void Attach(Observer *o);
-    virtual void Detach(Observer *o);
-    virtual void Notify(ILoggable *loggable, std::string messageType);
+    static void Attach(Observer *o);
+    static void Detach(Observer *o);
+
+protected:
+    // Instances call this to notify all attached observers
+    void Notify(const ILoggable *loggable, const std::string &messageType) const;
+
+private:
+    static std::vector<Observer *> &getObservers();
+    static std::mutex &getMutex();
 };
 
+// Concrete logging observer: prints to console (via logMessage) and appends to Logs/gamelog.txt
 class LogObserver : public Observer
 {
 public:
     LogObserver();
-    ~LogObserver();
-    void Update(ILoggable *loggable, std::string messageType) override;
+    ~LogObserver() override;
+    void Update(const ILoggable *loggable, const std::string &messageType) override;
 };
-#pragma once

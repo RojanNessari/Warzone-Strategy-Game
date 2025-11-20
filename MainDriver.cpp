@@ -15,6 +15,7 @@
 #include "Drivers/PlayerDriver.h"
 #include "Drivers/CommandProcessingDriver.h"
 #include "Drivers/LoggingObserverDriver.h"
+#include "utils/LoggingObserver.h"
 
 #include <string>
 
@@ -226,6 +227,8 @@ int main()
     string cmd;
     cout << "Run Assignment-01 ? [Y/n]" << endl;
     getline(cin, cmd);
+     static LogObserver globalLogger;
+    Subject::Attach(&globalLogger);
     if (cmd == "y" || cmd == "Y")
     {
         Assignment_01_Menu();

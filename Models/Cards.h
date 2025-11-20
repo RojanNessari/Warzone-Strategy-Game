@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <iosfwd>
+#include "../utils/LoggingObserver.h"
 
 class Player;
 class OrdersList;
@@ -22,12 +23,13 @@ const char *CardTypeToString(CardType type);
 
 // ----------------- Card -----------------
 
-class Card
-{
+class Card: public Subject, public ILoggable{
 private:
     CardType type;
+    std::string lastLogMessage;
 
 public:
+
     explicit Card(CardType t);
     Card(const Card &other);
     Card &operator=(const Card &other);
@@ -37,13 +39,15 @@ public:
     void play(Player &player, OrdersList &ordersList, Deck &deck);
 
     friend std::ostream &operator<<(std::ostream &os, const Card &card);
+ std::string stringToLog() const override;
 };
 
 // ----------------- Hand -----------------
-class Hand
+class Hand: public Subject , public ILoggable
 {
 private:
     std::vector<Card *> cards;
+    std::string lastLogMessage;
 
 public:
     Hand();
@@ -56,18 +60,21 @@ public:
 
     void addCard(Card *c);
     Card *removeAt(std::size_t idx);
+   
 
     // Remove card at index, call Card::play (which returns the card to the deck)
     void playCard(std::size_t index, Player &player, OrdersList &ordersList, Deck &deck);
 
     friend std::ostream &operator<<(std::ostream &os, const Hand &h);
+     std::string stringToLog() const override;
 };
 
 // ----------------- Deck -----------------
-class Deck
+class Deck: public Subject , public ILoggable
 {
 private:
     std::vector<Card *> cards;
+    std::string lastLogMessage;
 
 public:
     Deck();
@@ -82,6 +89,7 @@ public:
     void returnCard(Card *c);
 
     friend std::ostream &operator<<(std::ostream &os, const Deck &d);
+    std::string stringToLog() const override;
 };
 
 #endif // CARDS_H
