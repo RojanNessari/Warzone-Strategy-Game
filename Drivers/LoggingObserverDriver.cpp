@@ -18,11 +18,7 @@ public:
     void changeMessage(string newMsg)
     {
         message = newMsg;
-        Notify(this, "INFO"); // notify observer
-    }
-    string stringToLog() override
-    {
-        return "TestSubject message: " + message;
+        Notify(this, INFO, "msg: " + newMsg); // notify observer
     }
 };
 

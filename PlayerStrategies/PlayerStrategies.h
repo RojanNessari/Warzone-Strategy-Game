@@ -3,14 +3,14 @@
 #include <vector>
 #include <string>
 #include <iostream>
-
+#include "../utils/LoggingObserver.h"
 using namespace std;
 
 class Player;
 class Territory;
 class Map;
 
-class PlayerStrategy
+class PlayerStrategy : public Subject, public ILoggable
 {
 public:
     virtual ~PlayerStrategy() = default; // deconstructor

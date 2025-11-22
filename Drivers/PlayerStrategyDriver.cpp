@@ -2,6 +2,7 @@
 #include "../Models/Player.h"
 #include "../Models/Map.h"
 #include "../utils/logger.h"
+#include "../utils/LoggingObserver.h"
 #include <iostream>
 #include <string>
 #include <vector>
@@ -9,10 +10,13 @@ using namespace std;
 
 // const string MAP_FILE = "Maps/alberta.map";
 const string MAP_FILE = "Tests/003_I72_Fairchild T-31/003_I72_Fairchild T-31.map";
-
 void testPlayerStrategies()
 {
     logMessage(INFO, "========== TESTING PLAYER STRATEGIES ==========");
+
+    // Initialize global logger (singleton pattern)
+    // All Subject objects will auto-attach to it in their constructor
+    LogObserver::getInstance();
 
     MapLoader *mapLoader = new MapLoader();
     Map *gameMap = mapLoader->loadMap(MAP_FILE);
@@ -186,6 +190,9 @@ void testPlayerStrategies()
     _players.clear();
     delete gameMap;
     delete mapLoader;
+
+    // Clean up global logger at program end
+    LogObserver::destroyInstance();
 
     logMessage(INFO, "PLAYER STRATEGIES TEST COMPLETE");
 }

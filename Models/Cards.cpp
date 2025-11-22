@@ -9,11 +9,13 @@
 using namespace std;
 
 // ---------- Debug helper (internal) ----------
-static constexpr bool DEBUG_CARDS = true;
+static constexpr bool DEBUG_CARDS = false;
 static inline void DebugPrint(const string &msg)
 {
     if (DEBUG_CARDS)
+    {
         logMessage(DEBUG, msg);
+    }
 }
 
 // ---------- Utilities ----------
@@ -74,7 +76,8 @@ ostream &operator<<(ostream &os, const Card &card)
 
 void Card::play(Player &player, OrdersList &ordersList, Deck &deck)
 {
-    logMessage(INFO, string("Playing card: ") + CardTypeToString(type));
+    logMessage(COMBAT, string("Playing card: ") + CardTypeToString(type));
+    Notify(this, COMBAT, string("Playing card: ") + CardTypeToString(type));
 
     // Create the appropriate Order and add it to OrdersList.
     // Mapping:
@@ -87,43 +90,52 @@ void Card::play(Player &player, OrdersList &ordersList, Deck &deck)
     switch (type)
     {
     case CardType::Bomb:
-        logMessage(DEBUG, " -> Creating Bomb order.");
+        logMessage(INVENTORY, " -> Creating Bomb order.");
+        Notify(this, INVENTORY, " -> Creating Bomb order.");
         newOrder = new Bomb();
         break;
     case CardType::Reinforcement:
-        logMessage(DEBUG, " -> Creating Deploy order (from Reinforcement).");
+        logMessage(INVENTORY, " -> Creating Deploy order (from Reinforcement).");
+        Notify(this, INVENTORY, " -> Creating Deploy order (from Reinforcement).");
         newOrder = new Deploy();
         break;
     case CardType::Blockade:
         logMessage(DEBUG, " -> Creating Blockade order.");
+        Notify(this, INVENTORY, " -> Creating Blockade order.");
         newOrder = new Blockade();
         break;
     case CardType::Airlift:
-        logMessage(DEBUG, " -> Creating Airlift order.");
+        logMessage(INVENTORY, " -> Creating Airlift order.");
+        Notify(this, INVENTORY, " -> Creating Airlift order.");
         newOrder = new Airlift();
         break;
     case CardType::Diplomacy:
-        logMessage(DEBUG, " -> Creating Negotiate order.");
+        logMessage(INVENTORY, " -> Creating Negotiate order.");
+        Notify(this, INVENTORY, " -> Creating Negotiate order.");
         newOrder = new Negotiate();
         break;
     default:
         logMessage(ERROR, "Unknown card type, no order created.");
+        Notify(this, ERROR, "Unknown card type, no order created.");
         break;
     }
 
     if (newOrder)
     {
         ordersList.add(newOrder);
-        logMessage(INFO, "Order added to OrdersList.");
+        logMessage(INVENTORY, "Order added to OrdersList.");
+        Notify(this, INVENTORY, "Order added to OrdersList.");
     }
     else
     {
         logMessage(WARNING, "No order created.");
+        Notify(this, WARNING, "No order created.");
     }
 
     // After playing, return this card to the deck.
     deck.returnCard(this);
-    logMessage(DEBUG, " -> Card returned to deck.");
+    logMessage(INVENTORY, " -> Card returned to deck.");
+    Notify(this, INVENTORY, " -> Card returned to deck.");
 }
 
 // ----------------- Hand -----------------

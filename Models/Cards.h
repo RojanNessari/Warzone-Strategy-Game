@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <iosfwd>
-
+#include "../utils/LoggingObserver.h"
 class Player;
 class OrdersList;
 class Deck;
@@ -22,7 +22,7 @@ const char *CardTypeToString(CardType type);
 
 // ----------------- Card -----------------
 
-class Card
+class Card : public Subject, public ILoggable
 {
 private:
     CardType type;
@@ -40,7 +40,7 @@ public:
 };
 
 // ----------------- Hand -----------------
-class Hand
+class Hand : public Subject, public ILoggable
 {
 private:
     std::vector<Card *> cards;
@@ -64,7 +64,7 @@ public:
 };
 
 // ----------------- Deck -----------------
-class Deck
+class Deck : public Subject, public ILoggable
 {
 private:
     std::vector<Card *> cards;

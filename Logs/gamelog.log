@@ -1,0 +1,164 @@
+[2025-11-22 17:18:18] [1] 1. Map connectivity: PASSED
+[2025-11-22 17:18:18] [1] 2. Continent connectivity: PASSED
+[2025-11-22 17:18:18] [1] 3. Territory membership: PASSED
+[2025-11-22 17:18:18] [1] Overall map validation: VALID
+[2025-11-22 17:20:57] [1] Loading map from: Tests/003_I72_Fairchild T-31/003_I72_Fairchild T-31.map
+[2025-11-22 17:20:57] [1] 1. Map connectivity: PASSED
+[2025-11-22 17:20:57] [1] 2. Continent connectivity: PASSED
+[2025-11-22 17:20:57] [1] 3. Territory membership: PASSED
+[2025-11-22 17:20:57] [1] Overall map validation: VALID
+[2025-11-22 17:20:57] [5] PostalDude77's Turn (Aggressive Strategy)
+[2025-11-22 17:20:57] [1] New order added to the list
+[2025-11-22 17:20:57] [5] Deployed 10 armies to Territory19
+[2025-11-22 17:20:57] [5] PostalDude77's Turn (Aggressive Strategy)
+[2025-11-22 17:20:57] [1] New order added to the list
+[2025-11-22 17:20:57] [5] Advancing 4 armies from Territory19 to Territory46
+[2025-11-22 17:20:57] [5] PostalDude77's Turn (Aggressive Strategy)
+[2025-11-22 17:20:57] [1] New order added to the list
+[2025-11-22 17:20:57] [5] Advancing 4 armies from Territory19 to Territory46
+[2025-11-22 17:20:57] [5] PostalDude77's Turn (Aggressive Strategy)
+[2025-11-22 17:20:57] [1] New order added to the list
+[2025-11-22 17:20:57] [5] Advancing 4 armies from Territory19 to Territory46
+[2025-11-22 17:20:57] [5] PostalDude77's Turn (Aggressive Strategy)
+[2025-11-22 17:20:57] [1] New order added to the list
+[2025-11-22 17:20:57] [5] Advancing 4 armies from Territory19 to Territory46
+[2025-11-22 17:20:57] [5] Jalla's Turn (Neutral Strategy)
+[2025-11-22 17:20:57] [5] xRizz's Turn (Aggressive Strategy)
+[2025-11-22 17:20:57] [1] New order added to the list
+[2025-11-22 17:20:57] [5] Deployed 10 armies to Territory06
+[2025-11-22 17:20:57] [5] xRizz's Turn (Aggressive Strategy)
+[2025-11-22 17:20:57] [1] New order added to the list
+[2025-11-22 17:20:57] [5] Advancing 4 armies from Territory06 to Territory07
+[2025-11-22 17:20:57] [5] xRizz's Turn (Aggressive Strategy)
+[2025-11-22 17:20:57] [1] New order added to the list
+[2025-11-22 17:20:57] [5] Advancing 4 armies from Territory06 to Territory07
+[2025-11-22 17:20:57] [5] xRizz's Turn (Aggressive Strategy)
+[2025-11-22 17:20:57] [1] New order added to the list
+[2025-11-22 17:20:57] [5] Advancing 4 armies from Territory06 to Territory07
+[2025-11-22 17:20:57] [5] xRizz's Turn (Aggressive Strategy)
+[2025-11-22 17:20:57] [1] New order added to the list
+[2025-11-22 17:20:57] [5] Advancing 4 armies from Territory06 to Territory07
+[2025-11-22 17:20:57] [5] niCe's Turn (Cheater Strategy)
+[2025-11-22 17:20:57] [4] (DUPLICATE REINFORCEMENT, 10, 20, niCe)
+[2025-11-22 17:20:57] [4] (INFINIT AMMO, 5, 10, Territory11, 10, niCe)
+[2025-11-22 17:20:57] [4] (INFINIT AMMO, 5, 10, Territory36, 35, niCe)
+[2025-11-22 17:20:57] [4] (INFINIT AMMO, 5, 10, Territory24, 23, niCe)
+[2025-11-22 17:20:57] [4] (INFINIT AMMO, 5, 10, Territory33, 32, niCe)
+[2025-11-22 17:20:57] [4] (INFINIT AMMO, 5, 10, Territory03, 2, niCe)
+[2025-11-22 17:20:57] [4] (INFINIT AMMO, 5, 10, Territory02, 1, niCe)
+[2025-11-22 17:20:57] [4] (INFINIT AMMO, 5, 10, Territory13, 12, niCe)
+[2025-11-22 17:20:57] [4] (INFINIT AMMO, 5, 10, Territory54, 53, niCe)
+[2025-11-22 17:20:57] [4] (INFINIT AMMO, 5, 10, Territory20, 19, niCe)
+[2025-11-22 17:20:57] [4] (INFINIT AMMO, 5, 10, Territory38, 37, niCe)
+[2025-11-22 17:20:57] [4] (INFINIT AMMO, 5, 10, Territory34, 33, niCe)
+[2025-11-22 17:20:57] [5] niCe owns 11 territories, checked 51 neighbors, found 39 enemy neighbors
+[2025-11-22 17:20:57] [4] (INSTANT CONQUER, 29 territories conquered by niCe)
+[2025-11-22 17:22:40] [INFO] Loading map from: Tests/003_I72_Fairchild T-31/003_I72_Fairchild T-31.map
+[2025-11-22 17:22:40] [INFO] 1. Map connectivity: PASSED
+[2025-11-22 17:22:40] [INFO] 2. Continent connectivity: PASSED
+[2025-11-22 17:22:40] [INFO] 3. Territory membership: PASSED
+[2025-11-22 17:22:40] [INFO] Overall map validation: VALID
+[2025-11-22 17:22:40] [AI] PostalDude77's Turn (Aggressive Strategy)
+[2025-11-22 17:22:40] [INFO] New order added to the list
+[2025-11-22 17:22:40] [AI] Deployed 10 armies to Territory50
+[2025-11-22 17:22:40] [AI] PostalDude77's Turn (Aggressive Strategy)
+[2025-11-22 17:22:40] [INFO] New order added to the list
+[2025-11-22 17:22:40] [AI] Advancing 4 armies from Territory50 to Territory52
+[2025-11-22 17:22:40] [AI] PostalDude77's Turn (Aggressive Strategy)
+[2025-11-22 17:22:40] [INFO] New order added to the list
+[2025-11-22 17:22:40] [AI] Advancing 4 armies from Territory50 to Territory52
+[2025-11-22 17:22:40] [AI] PostalDude77's Turn (Aggressive Strategy)
+[2025-11-22 17:22:40] [INFO] New order added to the list
+[2025-11-22 17:22:40] [AI] Advancing 4 armies from Territory50 to Territory52
+[2025-11-22 17:22:40] [AI] PostalDude77's Turn (Aggressive Strategy)
+[2025-11-22 17:22:40] [INFO] New order added to the list
+[2025-11-22 17:22:40] [AI] Advancing 4 armies from Territory50 to Territory52
+[2025-11-22 17:22:40] [AI] Jalla's Turn (Neutral Strategy)
+[2025-11-22 17:22:40] [AI] xRizz's Turn (Aggressive Strategy)
+[2025-11-22 17:22:40] [INFO] New order added to the list
+[2025-11-22 17:22:40] [AI] Deployed 10 armies to Territory40
+[2025-11-22 17:22:40] [AI] xRizz's Turn (Aggressive Strategy)
+[2025-11-22 17:22:40] [INFO] New order added to the list
+[2025-11-22 17:22:40] [AI] Advancing 4 armies from Territory40 to Territory37
+[2025-11-22 17:22:40] [AI] xRizz's Turn (Aggressive Strategy)
+[2025-11-22 17:22:40] [INFO] New order added to the list
+[2025-11-22 17:22:40] [AI] Advancing 4 armies from Territory40 to Territory37
+[2025-11-22 17:22:40] [AI] xRizz's Turn (Aggressive Strategy)
+[2025-11-22 17:22:40] [INFO] New order added to the list
+[2025-11-22 17:22:40] [AI] Advancing 4 armies from Territory40 to Territory37
+[2025-11-22 17:22:40] [AI] xRizz's Turn (Aggressive Strategy)
+[2025-11-22 17:22:40] [INFO] New order added to the list
+[2025-11-22 17:22:40] [AI] Advancing 4 armies from Territory40 to Territory37
+[2025-11-22 17:22:40] [AI] niCe's Turn (Cheater Strategy)
+[2025-11-22 17:22:40] [ANTICHEAT] (DUPLICATE REINFORCEMENT, 10, 20, niCe)
+[2025-11-22 17:22:40] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory35, 34, niCe)
+[2025-11-22 17:22:40] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory09, 8, niCe)
+[2025-11-22 17:22:40] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory17, 16, niCe)
+[2025-11-22 17:22:40] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory10, 9, niCe)
+[2025-11-22 17:22:40] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory47, 46, niCe)
+[2025-11-22 17:22:40] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory08, 7, niCe)
+[2025-11-22 17:22:40] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory31, 30, niCe)
+[2025-11-22 17:22:40] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory49, 48, niCe)
+[2025-11-22 17:22:40] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory45, 44, niCe)
+[2025-11-22 17:22:40] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory28, 27, niCe)
+[2025-11-22 17:22:40] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory15, 14, niCe)
+[2025-11-22 17:22:40] [AI] niCe owns 11 territories, checked 43 neighbors, found 35 enemy neighbors
+[2025-11-22 17:22:40] [ANTICHEAT] (INSTANT CONQUER, 26 territories conquered by niCe)
+[2025-11-22 17:24:36] [INFO] Loading map from: Tests/003_I72_Fairchild T-31/003_I72_Fairchild T-31.map
+[2025-11-22 17:24:36] [INFO] 1. Map connectivity: PASSED
+[2025-11-22 17:24:36] [INFO] 2. Continent connectivity: PASSED
+[2025-11-22 17:24:36] [INFO] 3. Territory membership: PASSED
+[2025-11-22 17:24:36] [INFO] Overall map validation: VALID
+[2025-11-22 17:24:36] [AI] n00b69 strategy changed to Human
+[2025-11-22 17:24:36] [AI] PostalDude77 strategy changed to Aggressive
+[2025-11-22 17:24:36] [AI] Jalla strategy changed to Benevolent
+[2025-11-22 17:24:36] [AI] xRizz strategy changed to Neutral
+[2025-11-22 17:24:36] [AI] niCe strategy changed to Cheater
+[2025-11-22 17:24:36] [AI] xRizz strategy changed to Aggressive
+[2025-11-22 17:24:36] [AI] Jalla strategy changed to Neutral
+[2025-11-22 17:24:36] [AI] PostalDude77's Turn (Aggressive Strategy)
+[2025-11-22 17:24:36] [INFO] New order added to the list
+[2025-11-22 17:24:36] [AI] Deployed 10 armies to Territory17
+[2025-11-22 17:24:36] [AI] PostalDude77's Turn (Aggressive Strategy)
+[2025-11-22 17:24:36] [INFO] New order added to the list
+[2025-11-22 17:24:36] [AI] Advancing 4 armies from Territory17 to Territory18
+[2025-11-22 17:24:36] [AI] PostalDude77's Turn (Aggressive Strategy)
+[2025-11-22 17:24:36] [INFO] New order added to the list
+[2025-11-22 17:24:36] [AI] Advancing 4 armies from Territory17 to Territory18
+[2025-11-22 17:24:36] [AI] PostalDude77's Turn (Aggressive Strategy)
+[2025-11-22 17:24:36] [INFO] New order added to the list
+[2025-11-22 17:24:36] [AI] Advancing 4 armies from Territory17 to Territory18
+[2025-11-22 17:24:36] [AI] PostalDude77's Turn (Aggressive Strategy)
+[2025-11-22 17:24:36] [INFO] New order added to the list
+[2025-11-22 17:24:36] [AI] Advancing 4 armies from Territory17 to Territory18
+[2025-11-22 17:24:36] [AI] Jalla's Turn (Neutral Strategy)
+[2025-11-22 17:24:36] [AI] xRizz's Turn (Aggressive Strategy)
+[2025-11-22 17:24:36] [INFO] New order added to the list
+[2025-11-22 17:24:36] [AI] Deployed 10 armies to Territory47
+[2025-11-22 17:24:36] [AI] xRizz's Turn (Aggressive Strategy)
+[2025-11-22 17:24:36] [INFO] New order added to the list
+[2025-11-22 17:24:36] [AI] Advancing 4 armies from Territory47 to Territory53
+[2025-11-22 17:24:36] [AI] xRizz's Turn (Aggressive Strategy)
+[2025-11-22 17:24:36] [INFO] New order added to the list
+[2025-11-22 17:24:36] [AI] Advancing 4 armies from Territory47 to Territory53
+[2025-11-22 17:24:36] [AI] xRizz's Turn (Aggressive Strategy)
+[2025-11-22 17:24:36] [INFO] New order added to the list
+[2025-11-22 17:24:36] [AI] Advancing 4 armies from Territory47 to Territory53
+[2025-11-22 17:24:36] [AI] xRizz's Turn (Aggressive Strategy)
+[2025-11-22 17:24:36] [INFO] New order added to the list
+[2025-11-22 17:24:36] [AI] Advancing 4 armies from Territory47 to Territory53
+[2025-11-22 17:24:36] [AI] niCe's Turn (Cheater Strategy)
+[2025-11-22 17:24:36] [ANTICHEAT] (DUPLICATE REINFORCEMENT, 10, 20, niCe)
+[2025-11-22 17:24:36] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory25, 24, niCe)
+[2025-11-22 17:24:36] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory54, 53, niCe)
+[2025-11-22 17:24:36] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory29, 28, niCe)
+[2025-11-22 17:24:36] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory13, 12, niCe)
+[2025-11-22 17:24:36] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory48, 47, niCe)
+[2025-11-22 17:24:36] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory18, 17, niCe)
+[2025-11-22 17:24:36] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory12, 11, niCe)
+[2025-11-22 17:24:36] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory27, 26, niCe)
+[2025-11-22 17:24:36] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory38, 37, niCe)
+[2025-11-22 17:24:36] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory14, 13, niCe)
+[2025-11-22 17:24:36] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory05, 4, niCe)
+[2025-11-22 17:24:36] [AI] niCe owns 11 territories, checked 49 neighbors, found 41 enemy neighbors
+[2025-11-22 17:24:36] [ANTICHEAT] (INSTANT CONQUER, 29 territories conquered by niCe)

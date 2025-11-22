@@ -241,18 +241,23 @@ bool Map::validate() const
     // 1. Check if map is a connected graph
     bool connected = isConnectedGraph();
     logMessage(INFO, string("1. Map connectivity: ") + (connected ? "PASSED" : "FAILED"));
+    Notify(this, INFO, string("1. Map connectivity: ") + (connected ? "PASSED" : "FAILED"));
+
     isValid &= connected;
 
     // 2. Check if continents are connected subgraphs
     bool continentsValid = validateContinents();
     logMessage(INFO, string("2. Continent connectivity: ") + (continentsValid ? "PASSED" : "FAILED"));
+    Notify(this, INFO, string("2. Continent connectivity: ") + (continentsValid ? "PASSED" : "FAILED"));
     isValid &= continentsValid;
 
     // 3. Check territory membership (each territory belongs to exactly one continent)
     bool membershipValid = validateTerritoryMembership();
     logMessage(INFO, string("3. Territory membership: ") + (membershipValid ? "PASSED" : "FAILED"));
+    Notify(this, INFO, string("3. Territory membership: ") + (membershipValid ? "PASSED" : "FAILED"));
     isValid &= membershipValid;
     logMessage(INFO, string("Overall map validation: ") + (isValid ? "VALID" : "INVALID"));
+    Notify(this, INFO, string("Overall map validation: ") + (isValid ? "VALID" : "INVALID"));
     logMessage(INFO, "======================");
 
     return isValid;
@@ -302,6 +307,7 @@ bool Map::validateContinents() const
         if (territoryIds.empty())
         {
             logMessage(DEBUG, string("Continent '") + continent.getName() + "' has no territories");
+            Notify(this, DEBUG, string("Continent '") + continent.getName() + "' has no territories");
             continue;
         }
 
@@ -336,6 +342,7 @@ bool Map::validateContinents() const
         if (visited.size() != territoryIds.size())
         {
             logMessage(ERROR, string("Continent '") + continent.getName() + "' is not connected: " + to_string(visited.size()) + "/" + to_string(territoryIds.size()) + " territories reachable");
+            Notify(this, ERROR, string("Continent '") + continent.getName() + "' is not connected: " + to_string(visited.size()) + "/" + to_string(territoryIds.size()) + " territories reachable");
             return false;
         }
     }
@@ -539,6 +546,7 @@ Map *MapLoader::handleCurrentState(Section currentState, const string &line, Map
         if (!continent)
         {
             logMessage(ERROR, string("Error: Unknown continent '") + continentName + "' for territory '" + name + "'");
+            Notify(this, ERROR, string("Error: Unknown continent '") + continentName + "' for territory '" + name + "'");
             delete map;
             return nullptr;
         }
@@ -554,6 +562,7 @@ Map *MapLoader::handleCurrentState(Section currentState, const string &line, Map
         catch (const exception &)
         {
             logMessage(WARNING, string("Warning: Invalid coordinates for territory ") + name);
+            Notify(this, WARNING, string("Warning: Invalid coordinates for territory ") + name);
         }
         Territory territory(name, territoryId, continent->getId(), x, y);
 
@@ -572,7 +581,7 @@ Map *MapLoader::handleCurrentState(Section currentState, const string &line, Map
         }
 
         logMessage(DEBUG, string("Territory: ") + name + " -> " + continentName + " (Adjacent: " + to_string(adjacentNames.size()) + ")");
-
+        Notify(this, DEBUG, string("Territory: ") + name + " -> " + continentName + " (Adjacent: " + to_string(adjacentNames.size()) + ")");
         // Add territory to map
         map->addTerritory(territory);
         continent->addTerritory(territoryId);
@@ -627,6 +636,7 @@ Map *MapLoader::loadMap(const string &filename)
     if (!file.is_open())
     {
         logMessage(ERROR, string("Error: Cannot open file ") + filename);
+        Notify(this, ERROR, string("Error: Cannot open file ") + filename);
         return nullptr;
     }
 
@@ -638,6 +648,7 @@ Map *MapLoader::loadMap(const string &filename)
     vector<pair<string, vector<string>>> territoryAdjacencies;
 
     logMessage(INFO, string("Loading map from: ") + filename);
+    Notify(this, INFO, string("Loading map from: ") + filename);
 
     // First pass: Load continents and territories
     while (getline(file, line))

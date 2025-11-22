@@ -8,8 +8,9 @@
 #include "Orders.h"
 #include "Cards.h"
 #include "../PlayerStrategies/PlayerStrategies.h"
+#include "../utils/LoggingObserver.h"
 
-class Player
+class Player : public Subject, public ILoggable
 {
 public:
     // Constructor

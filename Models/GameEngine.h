@@ -62,7 +62,6 @@ public:
     void executeOrdersPhase();
 
     friend ostream &operator<<(ostream &os, const GameEngine &ge);
-    std::string stringToLog() override;
 
 private:
     void clear();

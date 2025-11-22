@@ -134,7 +134,8 @@ void Player::setStrategy(PlayerStrategy *newStrategy)
     }
 
     strategy = newStrategy;
-    logMessage(INFO, playerName + " strategy changed to " + strategy->getStrategyName());
+    logMessage(AI, playerName + " strategy changed to " + strategy->getStrategyName());
+    Notify(this, AI, playerName + " strategy changed to " + strategy->getStrategyName());
 }
 
 vector<Territory *> Player::toDefend()
