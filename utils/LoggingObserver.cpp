@@ -2,11 +2,17 @@
 #include <iostream>
 #include <string>
 #include <fstream>
-#include <sys/stat.h>
 #include "logger.h"
 #include <ctime>   // For timestamp generation
 #include <iomanip> // For formatting the timestamp
 #include <sstream> // For std::ostringstream
+
+#ifdef _WIN32
+    #include <direct.h>
+#else
+    #include <sys/stat.h>
+    #include <sys/types.h>
+#endif
 
 const std::string LOGGER_PATH_FILE = "Logs/gamelog.txt";
 

@@ -1,15 +1,17 @@
+#include "../utils/LoggingObserver.h"
 #include "GameEngine.h"
+
 #include <utility>
 #include <sstream>
 #include <fstream>
 #include <algorithm>
 #include <random>
+#include <vector>
 #include "Map.h"
 #include "Player.h"
 #include "Orders.h"
 #include "Cards.h"
 #include "../utils/logger.h"
-
 using namespace std;
 const string NEUTRAL_NAME = "NEUTRAL_NAME";
 
@@ -696,4 +698,248 @@ void GameEngine::startupPhase()
 
     // Note: Map and Deck are now stored in member variables gameMap and gameDeck
     // They will be cleaned up in the destructor
+}
+
+void GameEngine::runTournament(const vector<string>& mapFiles,
+                               const vector<string>& strategies,
+                               int numGames,
+                               int maxTurns) 
+{
+    logMessage(INFO, "====================================");
+    logMessage(INFO, "STARTING TOURNAMENT MODE");
+    logMessage(INFO, "====================================");
+
+    logMessage(INFO, "Tournament Parameters:");
+    logMessage(INFO, "Maps:");
+    for (const auto& map : mapFiles)
+        logMessage(INFO, "  - " + map);
+
+    logMessage(INFO, "Strategies:");
+    for (const auto& s : strategies)
+        logMessage(INFO, "  - " + s);
+
+    logMessage(INFO, "Games per map: " + to_string(numGames));
+    logMessage(INFO, "Max turns: " + to_string(maxTurns));
+
+    // Results table: results[mapIndex][gameIndex] = winner
+    vector<vector<string>> results(
+        mapFiles.size(),
+        vector<string>(numGames, "Draw")
+    );
+
+    // Play tournament
+    for (size_t mapIdx = 0; mapIdx < mapFiles.size(); mapIdx++)
+    {
+        logMessage(INFO, "Playing on map: " + mapFiles[mapIdx]);
+
+        for (int gameIdx = 0; gameIdx < numGames; gameIdx++)
+        {
+            logMessage(INFO, "Game " + to_string(gameIdx + 1) + "/" + to_string(numGames));
+
+            results[mapIdx][gameIdx] =
+                runSingleGame(mapFiles[mapIdx], strategies, maxTurns);
+
+            logMessage(INFO, "Result = " + results[mapIdx][gameIdx]);
+        }
+    }
+
+    // Print final tournament results
+    generateTournamentReport(results, mapFiles, strategies, numGames, maxTurns);
+}
+
+string GameEngine::runSingleGame(const string& mapFile,
+                                 const vector<string>& strategies,
+                                 int maxTurns)
+{
+    GameEngine game;
+    game.buildGraph();
+
+    // Load map
+    MapLoader loader;
+    game.gameMap = loader.loadMap(mapFile);
+
+    if (!game.gameMap)
+    {
+        logMessage(ERROR, "Map load failed: " + mapFile);
+        return "Error";
+    }
+
+    if (!game.gameMap->validate())
+    {
+        logMessage(ERROR, "Map validation failed: " + mapFile);
+        delete game.gameMap;
+        return "Error";
+    }
+
+    // Create players with basic behavior (no strategies yet)
+    for (size_t i = 0; i < strategies.size(); i++)
+    {
+    Player* p = new Player(strategies[i] + "_Player");
+        
+        if (strategies[i] == "Aggressive") {
+            p->setStrategy(new AggressivePlayerStrategy());
+        } else if (strategies[i] == "Benevolent") {
+            p->setStrategy(new BenevolentPlayerStrategy());
+        } else if (strategies[i] == "Neutral") {
+            p->setStrategy(new NeutralPlayerStrategy());
+        } else if (strategies[i] == "Cheater") {
+            p->setStrategy(new CheaterPlayerStrategy());
+        } else {
+            // Default to Human if strategy name not recognized
+            p->setStrategy(new HumanPlayerStrategy());
+        }        game.players.push_back(p);
+    }
+
+    // Automated startup
+    game.gameMap->distributeTerritories(game.players);
+
+
+    // Shuffle player order
+    random_device rd;
+    mt19937 g(rd());
+    shuffle(game.players.begin(), game.players.end(), g);
+
+    // Create deck if missing
+    if (!game.gameDeck)
+        game.gameDeck = new Deck();
+
+    for (auto* p : game.players)
+    {
+        p->setReinforcementPool(50);
+        game.gameDeck->draw(*p, *(p->getHandOfCards()));
+        game.gameDeck->draw(*p, *(p->getHandOfCards()));
+    }
+
+    game.applyCommand("gamestart");
+
+    // Main loop with turn limit
+    int turn = 1;
+    bool finished = false;
+    string winner = "Draw";
+
+    while (!finished && turn <= maxTurns)
+    {
+        game.reinforcementPhase();
+        game.issueOrdersPhase();
+        game.executeOrdersPhase();
+
+        // Remove eliminated players
+        auto it = game.players.begin();
+        while (it != game.players.end())
+        {
+            if ((*it)->getTerritories().empty())
+            {
+                it = game.players.erase(it);
+            }
+            else ++it;
+        }
+
+        // Win check - extract strategy name from player name
+        if (game.players.size() == 1)
+        {
+            string winnerName = game.players[0]->getPlayerName();
+            // Extract strategy name (remove "_Player" suffix)
+            size_t pos = winnerName.find("_Player");
+            if (pos != string::npos) {
+                winner = winnerName.substr(0, pos);
+            } else {
+                winner = winnerName;
+            }
+            finished = true;
+        }
+        else if (game.players.empty())
+        {
+            winner = "Draw";
+            finished = true;
+        }
+
+        turn++;
+    }
+
+    if (turn > maxTurns)
+        winner = "Draw";
+
+    // Cleanup
+    for (auto* p : game.players) 
+        delete p;
+    game.players.clear();
+    
+    if (game.gameMap) 
+        delete game.gameMap;
+    if (game.gameDeck) 
+        delete game.gameDeck;
+
+    return winner;
+}
+
+void GameEngine::generateTournamentReport(
+    const vector<vector<string>>& results,
+    const vector<string>& mapFiles,
+    const vector<string>& strategies,
+    int numGames,
+    int maxTurns)
+{
+    cout << "\n\n====================================\n";
+    cout << "        TOURNAMENT RESULTS\n";
+    cout << "====================================\n\n";
+
+    cout << "Tournament Mode:" << endl;
+    cout << "M: ";
+    for (size_t i = 0; i < mapFiles.size(); i++) {
+        cout << mapFiles[i];
+        if (i != mapFiles.size() - 1) cout << ", ";
+    }
+    cout << "\nP: ";
+    for (size_t i = 0; i < strategies.size(); i++) {
+        cout << strategies[i];
+        if (i != strategies.size() - 1) cout << ", ";
+    }
+    cout << "\nG: " << numGames;
+    cout << "\nD: " << maxTurns << "\n\n";
+
+    // Header
+    cout << "|            |";
+    for (int g = 1; g <= numGames; g++) {
+        cout << " Game " << g << "    |";
+    }
+    cout << "\n";
+
+    // Separator
+    cout << "|------------|";
+    for (int g = 0; g < numGames; g++) {
+        cout << "-----------|";
+    }
+    cout << "\n";
+
+    // Results rows
+    for (size_t m = 0; m < mapFiles.size(); m++)
+    {
+        // Format map name for display
+        string mapName = mapFiles[m];
+        if (mapName.length() > 10) {
+            mapName = mapName.substr(0, 10);
+        }
+        cout << "| " << mapName;
+        // Padding for map name
+        for (int i = mapName.length(); i < 10; i++) {
+            cout << " ";
+        }
+        cout << " |";
+
+        // Game results
+        for (int g = 0; g < numGames; g++)
+        {
+            string result = results[m][g];
+            cout << " " << result;
+            // Padding for result
+            int padding = 9 - result.length();
+            if (padding > 0) {
+                cout << string(padding, ' ');
+            }
+            cout << "|";
+        }
+        cout << "\n";
+    }
+
+    logMessage(INFO, "Tournament results displayed successfully.");
 }
