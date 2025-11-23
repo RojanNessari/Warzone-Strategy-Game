@@ -15,6 +15,7 @@
 #include "Drivers/PlayerDriver.h"
 #include "Drivers/CommandProcessingDriver.h"
 #include "Drivers/LoggingObserverDriver.h"
+#include "utils/LoggingObserver.h"
 
 #include <string>
 
@@ -223,6 +224,10 @@ void Assignment_02_Menu()
 
 int main()
 {
+    // Initialize global logger ONCE at the start of the program
+    // All Subject objects will auto-attach to it
+    LogObserver::getInstance();
+    
     string cmd;
     cout << "Run Assignment-01 ? [Y/n]" << endl;
     getline(cin, cmd);
@@ -236,6 +241,9 @@ int main()
     {
         Assignment_02_Menu();
     }
+    
+    // Clean up global logger at program end
+    LogObserver::destroyInstance();
 
     return 0;
 }

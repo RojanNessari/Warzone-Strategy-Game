@@ -9,6 +9,7 @@ using namespace std;
 class Player;
 class Territory;
 class Map;
+class Deck;
 
 class PlayerStrategy : public Subject, public ILoggable
 {
@@ -17,7 +18,7 @@ public:
 
     // Player Game Methods
     // These methods are purely virtual
-    virtual bool issueOrder(Player *player, Map *map) = 0;
+    virtual bool issueOrder(Player *player, Map *map, Deck *deck) = 0;
     virtual vector<Territory *> toAttack(Player *player, Map *map) const = 0;
     virtual vector<Territory *> toDefend(Player *player) const = 0;
 
@@ -32,7 +33,7 @@ public:
     HumanPlayerStrategy();
     ~HumanPlayerStrategy() override;
 
-    bool issueOrder(Player *player, Map *map) override;
+    bool issueOrder(Player *player, Map *map, Deck *deck) override;
     std::vector<Territory *> toAttack(Player *player, Map *map) const override;
     std::vector<Territory *> toDefend(Player *player) const override;
     std::string getStrategyName() const override;
@@ -45,7 +46,7 @@ public:
     AggressivePlayerStrategy();
     ~AggressivePlayerStrategy() override;
 
-    bool issueOrder(Player *player, Map *map) override;
+    bool issueOrder(Player *player, Map *map, Deck *deck) override;
     std::vector<Territory *> toAttack(Player *player, Map *map) const override;
     std::vector<Territory *> toDefend(Player *player) const override;
     std::string getStrategyName() const override;
@@ -61,7 +62,7 @@ public:
     BenevolentPlayerStrategy();
     ~BenevolentPlayerStrategy() override;
 
-    bool issueOrder(Player *player, Map *map) override;
+    bool issueOrder(Player *player, Map *map, Deck *deck) override;
     std::vector<Territory *> toAttack(Player *player, Map *map) const override;
     std::vector<Territory *> toDefend(Player *player) const override;
     std::string getStrategyName() const override;
@@ -77,7 +78,7 @@ public:
     NeutralPlayerStrategy();
     ~NeutralPlayerStrategy() override;
 
-    bool issueOrder(Player *player, Map *map) override;
+    bool issueOrder(Player *player, Map *map, Deck *deck) override;
     std::vector<Territory *> toAttack(Player *player, Map *map) const override;
     std::vector<Territory *> toDefend(Player *player) const override;
     std::string getStrategyName() const override;
@@ -90,7 +91,7 @@ public:
     CheaterPlayerStrategy();
     ~CheaterPlayerStrategy() override;
 
-    bool issueOrder(Player *player, Map *map) override;
+    bool issueOrder(Player *player, Map *map, Deck *deck) override;
     std::vector<Territory *> toAttack(Player *player, Map *map) const override;
     std::vector<Territory *> toDefend(Player *player) const override;
     std::string getStrategyName() const override;

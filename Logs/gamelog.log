@@ -162,3 +162,517 @@
 [2025-11-22 17:24:36] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory05, 4, niCe)
 [2025-11-22 17:24:36] [AI] niCe owns 11 territories, checked 49 neighbors, found 41 enemy neighbors
 [2025-11-22 17:24:36] [ANTICHEAT] (INSTANT CONQUER, 29 territories conquered by niCe)
+[2025-11-22 22:27:12] [INFO] Loading map from: Tests/003_I72_Fairchild T-31/003_I72_Fairchild T-31.map
+[2025-11-22 22:27:12] [INFO] 1. Map connectivity: PASSED
+[2025-11-22 22:27:12] [INFO] 2. Continent connectivity: PASSED
+[2025-11-22 22:27:12] [INFO] 3. Territory membership: PASSED
+[2025-11-22 22:27:12] [INFO] Overall map validation: VALID
+[2025-11-22 22:27:12] [AI] n00b69 strategy changed to Human
+[2025-11-22 22:27:12] [AI] PostalDude77 strategy changed to Aggressive
+[2025-11-22 22:27:12] [AI] Jalla strategy changed to Benevolent
+[2025-11-22 22:27:12] [AI] xRizz strategy changed to Neutral
+[2025-11-22 22:27:12] [AI] niCe strategy changed to Cheater
+[2025-11-22 22:27:12] [AI] xRizz strategy changed to Aggressive
+[2025-11-22 22:27:12] [AI] Jalla strategy changed to Neutral
+[2025-11-22 22:27:12] [AI] PostalDude77's Turn (Aggressive Strategy)
+[2025-11-22 22:27:12] [INFO] New order added to the list
+[2025-11-22 22:27:12] [AI] Deployed 10 armies to Territory41
+[2025-11-22 22:27:12] [AI] PostalDude77's Turn (Aggressive Strategy)
+[2025-11-22 22:27:12] [INFO] New order added to the list
+[2025-11-22 22:27:12] [AI] Advancing 4 armies from Territory41 to Territory42
+[2025-11-22 22:27:12] [AI] PostalDude77's Turn (Aggressive Strategy)
+[2025-11-22 22:27:12] [INFO] New order added to the list
+[2025-11-22 22:27:12] [AI] Advancing 4 armies from Territory41 to Territory42
+[2025-11-22 22:27:12] [AI] PostalDude77's Turn (Aggressive Strategy)
+[2025-11-22 22:27:12] [INFO] New order added to the list
+[2025-11-22 22:27:12] [AI] Advancing 4 armies from Territory41 to Territory42
+[2025-11-22 22:27:12] [AI] PostalDude77's Turn (Aggressive Strategy)
+[2025-11-22 22:27:12] [INFO] New order added to the list
+[2025-11-22 22:27:12] [AI] Advancing 4 armies from Territory41 to Territory42
+[2025-11-22 22:27:12] [AI] Jalla's Turn (Neutral Strategy)
+[2025-11-22 22:27:12] [AI] xRizz's Turn (Aggressive Strategy)
+[2025-11-22 22:27:12] [INFO] New order added to the list
+[2025-11-22 22:27:12] [AI] Deployed 10 armies to Territory16
+[2025-11-22 22:27:12] [AI] xRizz's Turn (Aggressive Strategy)
+[2025-11-22 22:27:12] [INFO] New order added to the list
+[2025-11-22 22:27:12] [AI] Advancing 4 armies from Territory16 to Territory22
+[2025-11-22 22:27:12] [AI] xRizz's Turn (Aggressive Strategy)
+[2025-11-22 22:27:12] [INFO] New order added to the list
+[2025-11-22 22:27:12] [AI] Advancing 4 armies from Territory16 to Territory22
+[2025-11-22 22:27:12] [AI] xRizz's Turn (Aggressive Strategy)
+[2025-11-22 22:27:12] [INFO] New order added to the list
+[2025-11-22 22:27:12] [AI] Advancing 4 armies from Territory16 to Territory22
+[2025-11-22 22:27:12] [AI] xRizz's Turn (Aggressive Strategy)
+[2025-11-22 22:27:12] [INFO] New order added to the list
+[2025-11-22 22:27:12] [AI] Advancing 4 armies from Territory16 to Territory22
+[2025-11-22 22:27:12] [AI] niCe's Turn (Cheater Strategy)
+[2025-11-22 22:27:12] [ANTICHEAT] (DUPLICATE REINFORCEMENT, 10, 20, niCe)
+[2025-11-22 22:27:12] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory39, 38, niCe)
+[2025-11-22 22:27:12] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory10, 9, niCe)
+[2025-11-22 22:27:12] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory24, 23, niCe)
+[2025-11-22 22:27:12] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory38, 37, niCe)
+[2025-11-22 22:27:12] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory14, 13, niCe)
+[2025-11-22 22:27:12] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory54, 53, niCe)
+[2025-11-22 22:27:12] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory46, 45, niCe)
+[2025-11-22 22:27:12] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory07, 6, niCe)
+[2025-11-22 22:27:12] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory05, 4, niCe)
+[2025-11-22 22:27:12] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory28, 27, niCe)
+[2025-11-22 22:27:12] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory42, 41, niCe)
+[2025-11-22 22:27:12] [AI] niCe owns 11 territories, checked 50 neighbors, found 40 enemy neighbors
+[2025-11-22 22:27:12] [ANTICHEAT] (INSTANT CONQUER, 29 territories conquered by niCe)
+[2025-11-22 22:31:04] [INFO] Command saved: loadmap
+[2025-11-22 22:31:04] [PROGRESSION] Current State: start
+[2025-11-22 22:31:04] [ERROR] No map file path is found.
+[2025-11-22 22:31:04] [INFO] Command: loadmap, Effect:Invalid command for current game loadmap
+[2025-11-22 22:31:11] [INFO] Command saved: loadmap
+[2025-11-22 22:31:11] [PROGRESSION] Current State: start
+[2025-11-22 22:31:11] [ERROR] No map file path is found.
+[2025-11-22 22:31:11] [INFO] Command: loadmap, Effect:Invalid command for current game loadmap
+[2025-11-22 22:31:19] [INFO] Command saved: loadmap Maps/albert.map
+[2025-11-22 22:31:19] [PROGRESSION] Current State: start
+[2025-11-22 22:31:19] [ERROR] This file path does not exist
+[2025-11-22 22:31:19] [INFO] Command: loadmap Maps/albert.map, Effect:Invalid command for current game loadmap Maps/albert.map
+[2025-11-22 22:31:35] [INFO] Command saved: loadmap Maps/alberta.map
+[2025-11-22 22:31:35] [PROGRESSION] Current State: start
+[2025-11-22 22:31:35] [INFO] Command: loadmap Maps/alberta.map, Effect:Valid command: loadmap in state start
+[2025-11-22 22:31:35] [INFO] GameEngine: Current State is: map_loaded
+[2025-11-22 22:31:35] [INFO] Command: loadmap Maps/alberta.map, Effect:Command loadmap Maps/alberta.map executed successfully.
+[2025-11-22 22:31:38] [INFO] Command saved: validatemap
+[2025-11-22 22:31:38] [PROGRESSION] Current State: map_loaded
+[2025-11-22 22:31:38] [INFO] Command: validatemap, Effect:Valid command: validatemap in state map_loaded
+[2025-11-22 22:31:38] [INFO] GameEngine: Current State is: map_validated
+[2025-11-22 22:31:38] [INFO] Command: validatemap, Effect:Command validatemap executed successfully.
+[2025-11-22 22:31:43] [INFO] Command saved: addplayer
+[2025-11-22 22:31:43] [PROGRESSION] Current State: map_validated
+[2025-11-22 22:31:43] [INFO] Command: addplayer, Effect:Invalid command for current game addplayer
+[2025-11-22 22:31:51] [INFO] Command saved: addplayer n00b69
+[2025-11-22 22:31:51] [PROGRESSION] Current State: map_validated
+[2025-11-22 22:31:51] [INFO] Command: addplayer n00b69, Effect:Valid command: addplayer in state map_validated
+[2025-11-22 22:31:51] [INFO] GameEngine: Current State is: players_added
+[2025-11-22 22:31:51] [INFO] Command: addplayer n00b69, Effect:Command addplayer n00b69 executed successfully.
+[2025-11-22 22:31:54] [INFO] Command saved: gamestart
+[2025-11-22 22:31:54] [PROGRESSION] Current State: players_added
+[2025-11-22 22:31:54] [INFO] Command: gamestart, Effect:Valid command: gamestart in state players_added
+[2025-11-22 22:31:54] [INFO] GameEngine: Current State is: assign_reinforcement
+[2025-11-22 22:31:54] [INFO] Command: gamestart, Effect:Command gamestart executed successfully.
+[2025-11-22 22:32:29] [INFO] Command saved: end
+[2025-11-22 22:32:29] [PROGRESSION] Current State: assign_reinforcement
+[2025-11-22 22:32:29] [INFO] Command: end, Effect:Error: Unknown command 'end'
+[2025-11-22 22:32:29] [INFO] Command: end, Effect:Invalid command for current game end
+[2025-11-22 22:33:39] [INFO] Loading map from: Maps/alberta.map
+[2025-11-22 22:33:39] [INFO] Map 'Maps/alberta.map' loaded successfully.
+[2025-11-22 22:33:39] [INFO] GameEngine: Current State is: map_loaded
+[2025-11-22 22:33:48] [INFO] 1. Map connectivity: PASSED
+[2025-11-22 22:33:48] [INFO] 2. Continent connectivity: PASSED
+[2025-11-22 22:33:48] [INFO] 3. Territory membership: PASSED
+[2025-11-22 22:33:48] [INFO] Overall map validation: VALID
+[2025-11-22 22:33:48] [INFO] Map validated successfully.
+[2025-11-22 22:33:48] [INFO] GameEngine: Current State is: map_validated
+[2025-11-22 22:33:56] [INFO] Player 'bro69' added.
+[2025-11-22 22:33:56] [INFO] GameEngine: Current State is: players_added
+[2025-11-22 22:34:24] [INFO] Player 'n00b78' added.
+[2025-11-22 22:34:24] [INFO] GameEngine: Current State is: players_added
+[2025-11-22 22:34:27] [PROGRESSION] GAME STARTED with players: 2
+[2025-11-22 22:34:27] [INFO]   - bro69
+[2025-11-22 22:34:27] [INFO]   - n00b78
+[2025-11-22 22:34:27] [INFO] Distributing territories equally among players
+[2025-11-22 22:34:27] [INFO] Determining random order of play
+[2025-11-22 22:34:27] [INFO]   1. bro69
+[2025-11-22 22:34:27] [INFO]   2. n00b78
+[2025-11-22 22:34:27] [INFO] Assigning 50 army units to each player's reinforcement pool
+[2025-11-22 22:34:27] [COMBAT]   bro69 receives 50 armies.
+[2025-11-22 22:34:27] [COMBAT]   n00b78 receives 50 armies.
+[2025-11-22 22:34:27] [INFO] Each player draws 2 initial cards from the deck
+[2025-11-22 22:34:27] [PROGRESSION]   bro69 drew 2 cards.
+[2025-11-22 22:34:27] [PROGRESSION]   n00b78 drew 2 cards.
+[2025-11-22 22:34:27] [INFO] Switching to play phase!
+[2025-11-22 22:34:27] [INFO] GameEngine: Current State is: assign_reinforcement
+[2025-11-22 22:34:27] [INFO] Transitioned to assign_reinforcement state.
+[2025-11-22 22:34:27] [INFO] Play phase started! (Next valid command: 'issueorder')
+[2025-11-22 22:34:39] [INFO] Loading map from: Maps/alberta.map
+[2025-11-22 22:34:39] [INFO] 1. Map connectivity: PASSED
+[2025-11-22 22:34:39] [INFO] 2. Continent connectivity: PASSED
+[2025-11-22 22:34:39] [INFO] 3. Territory membership: PASSED
+[2025-11-22 22:34:39] [INFO] Overall map validation: VALID
+[2025-11-22 22:35:03] [INFO] Loading map from: Maps/alberta.map
+[2025-11-22 22:35:03] [INFO] 1. Map connectivity: PASSED
+[2025-11-22 22:35:03] [INFO] 2. Continent connectivity: PASSED
+[2025-11-22 22:35:03] [INFO] 3. Territory membership: PASSED
+[2025-11-22 22:35:03] [INFO] Overall map validation: VALID
+[2025-11-22 22:35:08] [INFO] Loading map from: Maps/alberta.map
+[2025-11-22 22:35:08] [INFO] 1. Map connectivity: PASSED
+[2025-11-22 22:35:08] [INFO] 2. Continent connectivity: PASSED
+[2025-11-22 22:35:08] [INFO] 3. Territory membership: PASSED
+[2025-11-22 22:35:08] [INFO] Overall map validation: VALID
+[2025-11-22 22:35:31] [COMBAT] Deployed 5 to Territory1
+[2025-11-22 22:35:31] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-22 22:35:31] [INFO] Moved 3 to defend Territory3
+[2025-11-22 22:35:31] [PROGRESSION] Conquered Territory2 with 7 survivors.
+[2025-11-22 22:35:31] [DEBUG] Invalid: target is not enemy or not adjacent to issuer territories.
+[2025-11-22 22:35:31] [DEBUG] Invalid: target is not enemy or not adjacent to issuer territories.
+[2025-11-22 22:35:31] [COMBAT] Blockade: doubled armies and transferred Territory3 to Neutral.
+[2025-11-22 22:35:31] [COMBAT] Airlifted 4 from Territory1 to Territory3
+[2025-11-22 22:35:31] [INFO] Negotiation: attacks between players blocked for this turn.
+[2025-11-22 22:35:31] [INFO] New order added to the list
+[2025-11-22 22:35:31] [INFO] New order added to the list
+[2025-11-22 22:35:31] [INFO] New order added to the list
+[2025-11-22 22:35:36] [INFO] Loading map from: Maps/alberta.map
+[2025-11-22 22:35:36] [INFO] 1. Map connectivity: PASSED
+[2025-11-22 22:35:36] [INFO] 2. Continent connectivity: PASSED
+[2025-11-22 22:35:36] [INFO] 3. Territory membership: PASSED
+[2025-11-22 22:35:36] [INFO] Overall map validation: VALID
+[2025-11-22 22:35:46] [INFO] Loading map from: Maps/alberta.map
+[2025-11-22 22:35:46] [INFO] 1. Map connectivity: PASSED
+[2025-11-22 22:35:46] [INFO] 2. Continent connectivity: PASSED
+[2025-11-22 22:35:46] [INFO] 3. Territory membership: PASSED
+[2025-11-22 22:35:46] [INFO] Overall map validation: VALID
+[2025-11-22 22:35:59] [INFO] Command saved: loadmap masp
+[2025-11-22 22:35:59] [INFO] Command saved: loadmap masp
+[2025-11-22 22:35:59] [INFO] Command: loadmap masp, Effect:Effect of the command
+[2025-11-22 22:35:59] [INFO] New order added to the list
+[2025-11-22 22:35:59] [INFO] New order added to the list
+[2025-11-22 22:35:59] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-22 22:35:59] [INFO] GameEngine: Current State is: map_loaded
+[2025-11-22 22:35:59] [INFO] GameEngine: Current State is: map_loaded
+[2025-11-22 22:35:59] [INFO] GameEngine: Current State is: map_validated
+[2025-11-22 22:35:59] [INFO] GameEngine: Current State is: map_validated
+[2025-11-22 22:35:59] [INFO] GameEngine: Current State is: players_added
+[2025-11-22 22:35:59] [INFO] GameEngine: Current State is: players_added
+[2025-11-22 22:35:59] [INFO] GameEngine: Current State is: assign_reinforcement
+[2025-11-22 22:35:59] [INFO] GameEngine: Current State is: assign_reinforcement
+[2025-11-22 22:36:25] [INFO] Command saved: quite
+[2025-11-22 22:36:25] [INFO] Command saved: quite
+[2025-11-22 22:36:25] [INFO] Command: quite, Effect:Effect of the command
+[2025-11-22 22:36:25] [INFO] New order added to the list
+[2025-11-22 22:36:25] [INFO] New order added to the list
+[2025-11-22 22:36:25] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-22 22:36:25] [INFO] GameEngine: Current State is: map_loaded
+[2025-11-22 22:36:25] [INFO] GameEngine: Current State is: map_loaded
+[2025-11-22 22:36:25] [INFO] GameEngine: Current State is: map_validated
+[2025-11-22 22:36:25] [INFO] GameEngine: Current State is: map_validated
+[2025-11-22 22:36:25] [INFO] GameEngine: Current State is: players_added
+[2025-11-22 22:36:25] [INFO] GameEngine: Current State is: players_added
+[2025-11-22 22:36:25] [INFO] GameEngine: Current State is: assign_reinforcement
+[2025-11-22 22:36:25] [INFO] GameEngine: Current State is: assign_reinforcement
+[2025-11-22 22:36:37] [INFO] Command saved: quite
+[2025-11-22 22:36:37] [INFO] Command saved: quite
+[2025-11-22 22:36:37] [INFO] Command: quite, Effect:Effect of the command
+[2025-11-22 22:36:37] [INFO] New order added to the list
+[2025-11-22 22:36:37] [INFO] New order added to the list
+[2025-11-22 22:36:37] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-22 22:36:37] [INFO] GameEngine: Current State is: map_loaded
+[2025-11-22 22:36:37] [INFO] GameEngine: Current State is: map_loaded
+[2025-11-22 22:36:37] [INFO] GameEngine: Current State is: map_validated
+[2025-11-22 22:36:37] [INFO] GameEngine: Current State is: map_validated
+[2025-11-22 22:36:37] [INFO] GameEngine: Current State is: players_added
+[2025-11-22 22:36:37] [INFO] GameEngine: Current State is: players_added
+[2025-11-22 22:36:37] [INFO] GameEngine: Current State is: assign_reinforcement
+[2025-11-22 22:36:37] [INFO] GameEngine: Current State is: assign_reinforcement
+[2025-11-22 22:38:16] [INFO] Command saved: do something
+[2025-11-22 22:38:16] [INFO] Command saved: do something
+[2025-11-22 22:38:16] [INFO] Command: do something, Effect:Effect of the command
+[2025-11-22 22:38:16] [INFO] New order added to the list
+[2025-11-22 22:38:16] [INFO] New order added to the list
+[2025-11-22 22:38:16] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-22 22:38:16] [INFO] GameEngine: Current State is: map_loaded
+[2025-11-22 22:38:16] [INFO] GameEngine: Current State is: map_loaded
+[2025-11-22 22:38:16] [INFO] GameEngine: Current State is: map_validated
+[2025-11-22 22:38:16] [INFO] GameEngine: Current State is: map_validated
+[2025-11-22 22:38:16] [INFO] GameEngine: Current State is: players_added
+[2025-11-22 22:38:16] [INFO] GameEngine: Current State is: players_added
+[2025-11-22 22:38:16] [INFO] GameEngine: Current State is: assign_reinforcement
+[2025-11-22 22:38:16] [INFO] GameEngine: Current State is: assign_reinforcement
+[2025-11-22 22:41:48] [INFO] Loading map from: Maps/alberta.map
+[2025-11-22 22:41:48] [INFO] 1. Map connectivity: PASSED
+[2025-11-22 22:41:48] [INFO] 2. Continent connectivity: PASSED
+[2025-11-22 22:41:48] [INFO] 3. Territory membership: PASSED
+[2025-11-22 22:41:48] [INFO] Overall map validation: VALID
+[2025-11-22 22:41:56] [INFO] Loading map from: Maps/alberta.map
+[2025-11-22 22:41:56] [INFO] 1. Map connectivity: PASSED
+[2025-11-22 22:41:56] [INFO] 2. Continent connectivity: PASSED
+[2025-11-22 22:41:56] [INFO] 3. Territory membership: PASSED
+[2025-11-22 22:41:56] [INFO] Overall map validation: VALID
+[2025-11-22 22:42:00] [COMBAT] Deployed 5 to Territory1
+[2025-11-22 22:42:00] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-22 22:42:00] [INFO] Moved 3 to defend Territory3
+[2025-11-22 22:42:00] [PROGRESSION] Conquered Territory2 with 6 survivors.
+[2025-11-22 22:42:00] [DEBUG] Invalid: target is not enemy or not adjacent to issuer territories.
+[2025-11-22 22:42:00] [DEBUG] Invalid: target is not enemy or not adjacent to issuer territories.
+[2025-11-22 22:42:00] [COMBAT] Blockade: doubled armies and transferred Territory3 to Neutral.
+[2025-11-22 22:42:00] [COMBAT] Airlifted 4 from Territory1 to Territory3
+[2025-11-22 22:42:00] [INFO] Negotiation: attacks between players blocked for this turn.
+[2025-11-22 22:42:00] [INFO] New order added to the list
+[2025-11-22 22:42:00] [INFO] New order added to the list
+[2025-11-22 22:42:00] [INFO] New order added to the list
+[2025-11-22 22:42:11] [ERROR] Cmd entered by user: <empty>
+[2025-11-22 22:42:20] [ERROR] Error: Cannot open file Mappy
+[2025-11-22 22:42:20] [ERROR] Error: Failed to load map.
+[2025-11-22 22:42:20] [DEBUG] Mappy
+[2025-11-22 22:42:37] [INFO] Loading map from: Maps/alberta.map
+[2025-11-22 22:42:37] [INFO] Map 'Maps/alberta.map' loaded successfully.
+[2025-11-22 22:42:37] [INFO] GameEngine: Current State is: map_loaded
+[2025-11-22 22:42:41] [INFO] 1. Map connectivity: PASSED
+[2025-11-22 22:42:41] [INFO] 2. Continent connectivity: PASSED
+[2025-11-22 22:42:41] [INFO] 3. Territory membership: PASSED
+[2025-11-22 22:42:41] [INFO] Overall map validation: VALID
+[2025-11-22 22:42:41] [INFO] Map validated successfully.
+[2025-11-22 22:42:41] [INFO] GameEngine: Current State is: map_validated
+[2025-11-22 22:42:54] [INFO] Player 'n00b59' added.
+[2025-11-22 22:42:54] [INFO] GameEngine: Current State is: players_added
+[2025-11-22 22:43:10] [INFO] Player 'n0069' added.
+[2025-11-22 22:43:10] [INFO] GameEngine: Current State is: players_added
+[2025-11-22 22:43:16] [PROGRESSION] GAME STARTED with players: 2
+[2025-11-22 22:43:16] [INFO]   - n00b59
+[2025-11-22 22:43:16] [INFO]   - n0069
+[2025-11-22 22:43:16] [INFO] Distributing territories equally among players
+[2025-11-22 22:43:16] [INFO] Determining random order of play
+[2025-11-22 22:43:16] [INFO]   1. n00b59
+[2025-11-22 22:43:16] [INFO]   2. n0069
+[2025-11-22 22:43:16] [INFO] Assigning 50 army units to each player's reinforcement pool
+[2025-11-22 22:43:16] [COMBAT]   n00b59 receives 50 armies.
+[2025-11-22 22:43:16] [COMBAT]   n0069 receives 50 armies.
+[2025-11-22 22:43:16] [INFO] Each player draws 2 initial cards from the deck
+[2025-11-22 22:43:16] [PROGRESSION]   n00b59 drew 2 cards.
+[2025-11-22 22:43:16] [PROGRESSION]   n0069 drew 2 cards.
+[2025-11-22 22:43:16] [INFO] Switching to play phase!
+[2025-11-22 22:43:16] [INFO] GameEngine: Current State is: assign_reinforcement
+[2025-11-22 22:43:16] [INFO] Transitioned to assign_reinforcement state.
+[2025-11-22 22:43:16] [INFO] Play phase started! (Next valid command: 'issueorder')
+[2025-11-22 22:59:40] [INFO] Loading map from: Tests/003_I72_Fairchild T-31/003_I72_Fairchild T-31.map
+[2025-11-22 22:59:40] [INFO] 1. Map connectivity: PASSED
+[2025-11-22 22:59:40] [INFO] 2. Continent connectivity: PASSED
+[2025-11-22 22:59:40] [INFO] 3. Territory membership: PASSED
+[2025-11-22 22:59:40] [INFO] Overall map validation: VALID
+[2025-11-22 22:59:40] [AI] n00b69 strategy changed to Human
+[2025-11-22 22:59:40] [AI] PostalDude77 strategy changed to Aggressive
+[2025-11-22 22:59:40] [AI] Jalla strategy changed to Benevolent
+[2025-11-22 22:59:40] [AI] xRizz strategy changed to Neutral
+[2025-11-22 22:59:40] [AI] niCe strategy changed to Cheater
+[2025-11-22 22:59:40] [AI] xRizz strategy changed to Aggressive
+[2025-11-22 22:59:40] [AI] Jalla strategy changed to Neutral
+[2025-11-22 22:59:40] [AI] PostalDude77's Turn (Aggressive Strategy)
+[2025-11-22 22:59:40] [INFO] New order added to the list
+[2025-11-22 22:59:40] [AI] Deployed 10 armies to Territory41
+[2025-11-22 22:59:40] [AI] PostalDude77's Turn (Aggressive Strategy)
+[2025-11-22 22:59:40] [INFO] New order added to the list
+[2025-11-22 22:59:40] [AI] Advancing 4 armies from Territory41 to Territory43
+[2025-11-22 22:59:40] [AI] PostalDude77's Turn (Aggressive Strategy)
+[2025-11-22 22:59:40] [INFO] New order added to the list
+[2025-11-22 22:59:40] [AI] Advancing 4 armies from Territory41 to Territory43
+[2025-11-22 22:59:40] [AI] PostalDude77's Turn (Aggressive Strategy)
+[2025-11-22 22:59:40] [INFO] New order added to the list
+[2025-11-22 22:59:40] [AI] Advancing 4 armies from Territory41 to Territory43
+[2025-11-22 22:59:40] [AI] PostalDude77's Turn (Aggressive Strategy)
+[2025-11-22 22:59:40] [INFO] New order added to the list
+[2025-11-22 22:59:40] [AI] Advancing 4 armies from Territory41 to Territory43
+[2025-11-22 22:59:40] [AI] Jalla's Turn (Neutral Strategy)
+[2025-11-22 22:59:40] [AI] xRizz's Turn (Aggressive Strategy)
+[2025-11-22 22:59:40] [INFO] New order added to the list
+[2025-11-22 22:59:40] [AI] Deployed 10 armies to Territory20
+[2025-11-22 22:59:40] [AI] xRizz's Turn (Aggressive Strategy)
+[2025-11-22 22:59:40] [INFO] New order added to the list
+[2025-11-22 22:59:40] [AI] Advancing 4 armies from Territory20 to Territory21
+[2025-11-22 22:59:40] [AI] xRizz's Turn (Aggressive Strategy)
+[2025-11-22 22:59:40] [INFO] New order added to the list
+[2025-11-22 22:59:40] [AI] Advancing 4 armies from Territory20 to Territory21
+[2025-11-22 22:59:40] [AI] xRizz's Turn (Aggressive Strategy)
+[2025-11-22 22:59:40] [INFO] New order added to the list
+[2025-11-22 22:59:40] [AI] Advancing 4 armies from Territory20 to Territory21
+[2025-11-22 22:59:40] [AI] xRizz's Turn (Aggressive Strategy)
+[2025-11-22 22:59:40] [INFO] New order added to the list
+[2025-11-22 22:59:40] [AI] Advancing 4 armies from Territory20 to Territory21
+[2025-11-22 22:59:40] [AI] niCe's Turn (Cheater Strategy)
+[2025-11-22 22:59:40] [ANTICHEAT] (DUPLICATE REINFORCEMENT, 10, 20, niCe)
+[2025-11-22 22:59:40] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory28, 27, niCe)
+[2025-11-22 22:59:40] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory09, 8, niCe)
+[2025-11-22 22:59:40] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory14, 13, niCe)
+[2025-11-22 22:59:40] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory19, 18, niCe)
+[2025-11-22 22:59:40] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory54, 53, niCe)
+[2025-11-22 22:59:40] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory07, 6, niCe)
+[2025-11-22 22:59:40] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory03, 2, niCe)
+[2025-11-22 22:59:40] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory02, 1, niCe)
+[2025-11-22 22:59:40] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory04, 3, niCe)
+[2025-11-22 22:59:40] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory49, 48, niCe)
+[2025-11-22 22:59:40] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory38, 37, niCe)
+[2025-11-22 22:59:40] [AI] niCe owns 11 territories, checked 51 neighbors, found 41 enemy neighbors
+[2025-11-22 22:59:40] [ANTICHEAT] (INSTANT CONQUER, 30 territories conquered by niCe)
+[2025-11-22 23:00:14] [INFO] Loading map from: Tests/003_I72_Fairchild T-31/003_I72_Fairchild T-31.map
+[2025-11-22 23:00:14] [INFO] 1. Map connectivity: PASSED
+[2025-11-22 23:00:14] [INFO] 2. Continent connectivity: PASSED
+[2025-11-22 23:00:14] [INFO] 3. Territory membership: PASSED
+[2025-11-22 23:00:14] [INFO] Overall map validation: VALID
+[2025-11-22 23:00:14] [AI] n00b69 strategy changed to Human
+[2025-11-22 23:00:14] [AI] PostalDude77 strategy changed to Aggressive
+[2025-11-22 23:00:14] [AI] Jalla strategy changed to Benevolent
+[2025-11-22 23:00:14] [AI] xRizz strategy changed to Neutral
+[2025-11-22 23:00:14] [AI] niCe strategy changed to Cheater
+[2025-11-22 23:00:14] [AI] xRizz strategy changed to Aggressive
+[2025-11-22 23:00:14] [AI] Jalla strategy changed to Neutral
+[2025-11-22 23:00:14] [AI] PostalDude77's Turn (Aggressive Strategy)
+[2025-11-22 23:00:14] [INFO] New order added to the list
+[2025-11-22 23:00:14] [AI] Deployed 10 armies to Territory09
+[2025-11-22 23:00:14] [AI] PostalDude77's Turn (Aggressive Strategy)
+[2025-11-22 23:00:14] [INFO] New order added to the list
+[2025-11-22 23:00:14] [AI] Advancing 4 armies from Territory09 to Territory10
+[2025-11-22 23:00:14] [AI] PostalDude77's Turn (Aggressive Strategy)
+[2025-11-22 23:00:14] [INFO] New order added to the list
+[2025-11-22 23:00:14] [AI] Advancing 4 armies from Territory09 to Territory10
+[2025-11-22 23:00:14] [AI] PostalDude77's Turn (Aggressive Strategy)
+[2025-11-22 23:00:14] [INFO] New order added to the list
+[2025-11-22 23:00:14] [AI] Advancing 4 armies from Territory09 to Territory10
+[2025-11-22 23:00:14] [AI] PostalDude77's Turn (Aggressive Strategy)
+[2025-11-22 23:00:14] [INFO] New order added to the list
+[2025-11-22 23:00:14] [AI] Advancing 4 armies from Territory09 to Territory10
+[2025-11-22 23:00:14] [AI] Jalla's Turn (Neutral Strategy)
+[2025-11-22 23:00:14] [AI] xRizz's Turn (Aggressive Strategy)
+[2025-11-22 23:00:14] [INFO] New order added to the list
+[2025-11-22 23:00:14] [AI] Deployed 10 armies to Territory34
+[2025-11-22 23:00:14] [AI] xRizz's Turn (Aggressive Strategy)
+[2025-11-22 23:00:14] [INFO] New order added to the list
+[2025-11-22 23:00:14] [AI] Advancing 4 armies from Territory34 to Territory36
+[2025-11-22 23:00:14] [AI] xRizz's Turn (Aggressive Strategy)
+[2025-11-22 23:00:14] [INFO] New order added to the list
+[2025-11-22 23:00:14] [AI] Advancing 4 armies from Territory34 to Territory36
+[2025-11-22 23:00:14] [AI] xRizz's Turn (Aggressive Strategy)
+[2025-11-22 23:00:14] [INFO] New order added to the list
+[2025-11-22 23:00:14] [AI] Advancing 4 armies from Territory34 to Territory36
+[2025-11-22 23:00:14] [AI] xRizz's Turn (Aggressive Strategy)
+[2025-11-22 23:00:14] [INFO] New order added to the list
+[2025-11-22 23:00:14] [AI] Advancing 4 armies from Territory34 to Territory36
+[2025-11-22 23:00:14] [AI] niCe's Turn (Cheater Strategy)
+[2025-11-22 23:00:14] [ANTICHEAT] (DUPLICATE REINFORCEMENT, 10, 20, niCe)
+[2025-11-22 23:00:14] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory11, 10, niCe)
+[2025-11-22 23:00:14] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory32, 31, niCe)
+[2025-11-22 23:00:14] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory13, 12, niCe)
+[2025-11-22 23:00:14] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory35, 34, niCe)
+[2025-11-22 23:00:14] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory01, 0, niCe)
+[2025-11-22 23:00:14] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory12, 11, niCe)
+[2025-11-22 23:00:14] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory36, 35, niCe)
+[2025-11-22 23:00:14] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory02, 1, niCe)
+[2025-11-22 23:00:14] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory16, 15, niCe)
+[2025-11-22 23:00:14] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory15, 14, niCe)
+[2025-11-22 23:00:14] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory41, 40, niCe)
+[2025-11-22 23:00:14] [AI] niCe owns 11 territories, checked 39 neighbors, found 23 enemy neighbors
+[2025-11-22 23:00:14] [ANTICHEAT] (INSTANT CONQUER, 19 territories conquered by niCe)
+[2025-11-22 23:02:04] [INFO] Loading map from: Tests/003_I72_Fairchild T-31/003_I72_Fairchild T-31.map
+[2025-11-22 23:02:04] [INFO] 1. Map connectivity: PASSED
+[2025-11-22 23:02:04] [INFO] 2. Continent connectivity: PASSED
+[2025-11-22 23:02:04] [INFO] 3. Territory membership: PASSED
+[2025-11-22 23:02:04] [INFO] Overall map validation: VALID
+[2025-11-22 23:02:04] [AI] n00b69 strategy changed to Human
+[2025-11-22 23:02:04] [AI] PostalDude77 strategy changed to Aggressive
+[2025-11-22 23:02:04] [AI] Jalla strategy changed to Benevolent
+[2025-11-22 23:02:04] [AI] xRizz strategy changed to Neutral
+[2025-11-22 23:02:04] [AI] niCe strategy changed to Cheater
+[2025-11-22 23:02:04] [AI] xRizz strategy changed to Aggressive
+[2025-11-22 23:02:04] [AI] Jalla strategy changed to Neutral
+[2025-11-22 23:02:04] [AI] PostalDude77's Turn (Aggressive Strategy)
+[2025-11-22 23:02:04] [INFO] New order added to the list
+[2025-11-22 23:02:04] [AI] Deployed 10 armies to Territory29
+[2025-11-22 23:02:04] [AI] PostalDude77's Turn (Aggressive Strategy)
+[2025-11-22 23:02:04] [INFO] New order added to the list
+[2025-11-22 23:02:04] [AI] Advancing 4 armies from Territory29 to Territory32
+[2025-11-22 23:02:04] [AI] PostalDude77's Turn (Aggressive Strategy)
+[2025-11-22 23:02:04] [INFO] New order added to the list
+[2025-11-22 23:02:04] [AI] Advancing 4 armies from Territory29 to Territory32
+[2025-11-22 23:02:04] [AI] PostalDude77's Turn (Aggressive Strategy)
+[2025-11-22 23:02:04] [INFO] New order added to the list
+[2025-11-22 23:02:04] [AI] Advancing 4 armies from Territory29 to Territory32
+[2025-11-22 23:02:04] [AI] PostalDude77's Turn (Aggressive Strategy)
+[2025-11-22 23:02:04] [INFO] New order added to the list
+[2025-11-22 23:02:04] [AI] Advancing 4 armies from Territory29 to Territory32
+[2025-11-22 23:02:04] [AI] Jalla's Turn (Neutral Strategy)
+[2025-11-22 23:02:04] [AI] xRizz's Turn (Aggressive Strategy)
+[2025-11-22 23:02:04] [INFO] New order added to the list
+[2025-11-22 23:02:04] [AI] Deployed 10 armies to Territory02
+[2025-11-22 23:02:04] [AI] xRizz's Turn (Aggressive Strategy)
+[2025-11-22 23:02:04] [INFO] New order added to the list
+[2025-11-22 23:02:04] [AI] Advancing 4 armies from Territory02 to Territory08
+[2025-11-22 23:02:04] [AI] xRizz's Turn (Aggressive Strategy)
+[2025-11-22 23:02:04] [INFO] New order added to the list
+[2025-11-22 23:02:04] [AI] Advancing 4 armies from Territory02 to Territory08
+[2025-11-22 23:02:04] [AI] xRizz's Turn (Aggressive Strategy)
+[2025-11-22 23:02:04] [INFO] New order added to the list
+[2025-11-22 23:02:04] [AI] Advancing 4 armies from Territory02 to Territory08
+[2025-11-22 23:02:04] [AI] xRizz's Turn (Aggressive Strategy)
+[2025-11-22 23:02:04] [INFO] New order added to the list
+[2025-11-22 23:02:04] [AI] Advancing 4 armies from Territory02 to Territory08
+[2025-11-22 23:02:04] [AI] niCe's Turn (Cheater Strategy)
+[2025-11-22 23:02:04] [ANTICHEAT] (DUPLICATE REINFORCEMENT, 10, 20, niCe)
+[2025-11-22 23:02:04] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory13, 12, niCe)
+[2025-11-22 23:02:04] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory04, 3, niCe)
+[2025-11-22 23:02:04] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory12, 11, niCe)
+[2025-11-22 23:02:04] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory43, 42, niCe)
+[2025-11-22 23:02:04] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory41, 40, niCe)
+[2025-11-22 23:02:04] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory30, 29, niCe)
+[2025-11-22 23:02:04] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory26, 25, niCe)
+[2025-11-22 23:02:04] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory47, 46, niCe)
+[2025-11-22 23:02:04] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory42, 41, niCe)
+[2025-11-22 23:02:04] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory46, 45, niCe)
+[2025-11-22 23:02:04] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory54, 53, niCe)
+[2025-11-22 23:02:04] [AI] niCe owns 11 territories, checked 45 neighbors, found 35 enemy neighbors
+[2025-11-22 23:02:04] [ANTICHEAT] (INSTANT CONQUER, 25 territories conquered by niCe)
+[2025-11-22 23:04:11] [INFO] Loading map from: Tests/003_I72_Fairchild T-31/003_I72_Fairchild T-31.map
+[2025-11-22 23:04:11] [DEBUG] Added continent: Left Wing(ID: 0, Bonus: 4)
+[2025-11-22 23:04:11] [DEBUG] Added continent: Right Wing(ID: 1, Bonus: 4)
+[2025-11-22 23:04:11] [DEBUG] Added continent: Tail(ID: 2, Bonus: 5)
+[2025-11-22 23:04:11] [DEBUG] Added continent: Engine(ID: 3, Bonus: 3)
+[2025-11-22 23:04:11] [DEBUG] Added continent: Cockpit(ID: 4, Bonus: 6)
+[2025-11-22 23:04:11] [DEBUG] Added continent: Fuselage(ID: 5, Bonus: 8)
+[2025-11-22 23:04:11] [INFO] 1. Map connectivity: PASSED
+[2025-11-22 23:04:11] [INFO] 2. Continent connectivity: PASSED
+[2025-11-22 23:04:11] [INFO] 3. Territory membership: PASSED
+[2025-11-22 23:04:11] [INFO] Overall map validation: VALID
+[2025-11-22 23:04:11] [AI] n00b69 strategy changed to Human
+[2025-11-22 23:04:11] [AI] PostalDude77 strategy changed to Aggressive
+[2025-11-22 23:04:11] [AI] Jalla strategy changed to Benevolent
+[2025-11-22 23:04:11] [AI] xRizz strategy changed to Neutral
+[2025-11-22 23:04:11] [AI] niCe strategy changed to Cheater
+[2025-11-22 23:04:11] [AI] xRizz strategy changed to Aggressive
+[2025-11-22 23:04:11] [AI] Jalla strategy changed to Neutral
+[2025-11-22 23:04:11] [AI] PostalDude77's Turn (Aggressive Strategy)
+[2025-11-22 23:04:11] [INFO] New order added to the list
+[2025-11-22 23:04:11] [AI] Deployed 10 armies to Territory23
+[2025-11-22 23:04:11] [AI] PostalDude77's Turn (Aggressive Strategy)
+[2025-11-22 23:04:11] [INFO] New order added to the list
+[2025-11-22 23:04:11] [AI] Advancing 4 armies from Territory23 to Territory24
+[2025-11-22 23:04:11] [AI] PostalDude77's Turn (Aggressive Strategy)
+[2025-11-22 23:04:11] [INFO] New order added to the list
+[2025-11-22 23:04:11] [AI] Advancing 4 armies from Territory23 to Territory24
+[2025-11-22 23:04:11] [AI] PostalDude77's Turn (Aggressive Strategy)
+[2025-11-22 23:04:11] [INFO] New order added to the list
+[2025-11-22 23:04:11] [AI] Advancing 4 armies from Territory23 to Territory24
+[2025-11-22 23:04:11] [AI] PostalDude77's Turn (Aggressive Strategy)
+[2025-11-22 23:04:11] [INFO] New order added to the list
+[2025-11-22 23:04:11] [AI] Advancing 4 armies from Territory23 to Territory24
+[2025-11-22 23:04:11] [AI] Jalla's Turn (Neutral Strategy)
+[2025-11-22 23:04:11] [AI] xRizz's Turn (Aggressive Strategy)
+[2025-11-22 23:04:11] [INFO] New order added to the list
+[2025-11-22 23:04:11] [AI] Deployed 10 armies to Territory25
+[2025-11-22 23:04:11] [AI] xRizz's Turn (Aggressive Strategy)
+[2025-11-22 23:04:11] [INFO] New order added to the list
+[2025-11-22 23:04:11] [AI] Advancing 4 armies from Territory25 to Territory26
+[2025-11-22 23:04:11] [AI] xRizz's Turn (Aggressive Strategy)
+[2025-11-22 23:04:11] [INFO] New order added to the list
+[2025-11-22 23:04:11] [AI] Advancing 4 armies from Territory25 to Territory26
+[2025-11-22 23:04:11] [AI] xRizz's Turn (Aggressive Strategy)
+[2025-11-22 23:04:11] [INFO] New order added to the list
+[2025-11-22 23:04:11] [AI] Advancing 4 armies from Territory25 to Territory26
+[2025-11-22 23:04:11] [AI] xRizz's Turn (Aggressive Strategy)
+[2025-11-22 23:04:11] [INFO] New order added to the list
+[2025-11-22 23:04:11] [AI] Advancing 4 armies from Territory25 to Territory26
+[2025-11-22 23:04:11] [AI] niCe's Turn (Cheater Strategy)
+[2025-11-22 23:04:11] [ANTICHEAT] (DUPLICATE REINFORCEMENT, 10, 20, niCe)
+[2025-11-22 23:04:11] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory14, 13, niCe)
+[2025-11-22 23:04:11] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory01, 0, niCe)
+[2025-11-22 23:04:11] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory05, 4, niCe)
+[2025-11-22 23:04:11] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory20, 19, niCe)
+[2025-11-22 23:04:11] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory10, 9, niCe)
+[2025-11-22 23:04:11] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory40, 39, niCe)
+[2025-11-22 23:04:11] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory02, 1, niCe)
+[2025-11-22 23:04:11] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory17, 16, niCe)
+[2025-11-22 23:04:11] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory42, 41, niCe)
+[2025-11-22 23:04:11] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory04, 3, niCe)
+[2025-11-22 23:04:11] [ANTICHEAT] (INFINIT AMMO, 5, 10, Territory03, 2, niCe)
+[2025-11-22 23:04:11] [AI] niCe owns 11 territories, checked 46 neighbors, found 34 enemy neighbors
+[2025-11-22 23:04:11] [ANTICHEAT] (INSTANT CONQUER, 21 territories conquered by niCe)

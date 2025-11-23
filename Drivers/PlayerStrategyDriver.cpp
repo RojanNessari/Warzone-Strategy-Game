@@ -1,6 +1,7 @@
 #include "../PlayerStrategies/PlayerStrategies.h"
 #include "../Models/Player.h"
 #include "../Models/Map.h"
+#include "../Models/Cards.h"
 #include "../utils/logger.h"
 #include "../utils/LoggingObserver.h"
 #include <iostream>
@@ -37,6 +38,10 @@ void testPlayerStrategies()
         logMessage(ERROR, "Map Validation Failed. Exiting ...");
         exit(1);
     }
+
+    // Create a deck for the game
+    Deck *gameDeck = new Deck();
+    logMessage(DEBUG, "Game deck created");
 
     logMessage(PROGRESSION, "Part 1: Creating players with different strategies");
 
@@ -106,7 +111,7 @@ void testPlayerStrategies()
     int orderCount = 0;
     while (continuePlaying && orderCount < 5)
     { // Allow up to 5 orders
-        continuePlaying = aggressivePlayer->issueOrder(gameMap);
+        continuePlaying = aggressivePlayer->issueOrder(gameMap, gameDeck);
         orderCount++;
     }
     logMessage(INFO, "Total orders issued: " + to_string(aggressivePlayer->getOrdersList()->size()));
@@ -125,7 +130,7 @@ void testPlayerStrategies()
     orderCount = 0;
     while (continuePlaying && orderCount < 3)
     {
-        continuePlaying = benevolentPlayer->issueOrder(gameMap);
+        continuePlaying = benevolentPlayer->issueOrder(gameMap, gameDeck);
         orderCount++;
     }
     logMessage(INFO, "Total orders issued: " + to_string(benevolentPlayer->getOrdersList()->size()));
@@ -136,7 +141,7 @@ void testPlayerStrategies()
     orderCount = 0;
     while (continuePlaying && orderCount < 5)
     {
-        continuePlaying = neutralPlayer->issueOrder(gameMap);
+        continuePlaying = neutralPlayer->issueOrder(gameMap, gameDeck);
         orderCount++;
     }
     logMessage(INFO, "Total orders issued: " + to_string(neutralPlayer->getOrdersList()->size()));
@@ -164,7 +169,7 @@ void testPlayerStrategies()
     orderCount = 0;
     while (continuePlaying && orderCount < 3)
     {
-        continuePlaying = cheaterPlayer->issueOrder(gameMap);
+        continuePlaying = cheaterPlayer->issueOrder(gameMap, gameDeck);
         orderCount++;
     }
 
@@ -190,6 +195,7 @@ void testPlayerStrategies()
     _players.clear();
     delete gameMap;
     delete mapLoader;
+    delete gameDeck;
 
     // Clean up global logger at program end
     LogObserver::destroyInstance();
@@ -199,7 +205,6 @@ void testPlayerStrategies()
 
 int main()
 {
-
     testPlayerStrategies();
 
     return 0;

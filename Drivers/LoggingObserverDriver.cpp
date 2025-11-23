@@ -25,8 +25,8 @@ public:
 // Enhanced testLoggingObserver to explicitly demonstrate all requirements
 void testLoggingObserver()
 {
-    // Create a LogObserver
-    LogObserver *logger = new LogObserver();
+    // Use the global singleton logger instead of creating a new one
+    LogObserver *logger = LogObserver::getInstance();
 
     // Test CommandProcessor
     std::cout << "Testing CommandProcessor..." << std::endl;
@@ -96,7 +96,8 @@ void testLoggingObserver()
     delete processor;
     delete ordersList;
     delete engine;
-    delete logger;
+    // Don't delete logger - it's managed by the singleton
+    // LogObserver::destroyInstance() will be called at program end
 
     std::cout << "Check Logs/GameLogs.txt for results." << std::endl;
 }

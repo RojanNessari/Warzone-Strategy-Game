@@ -522,7 +522,7 @@ Map *MapLoader::handleCurrentState(Section currentState, const string &line, Map
 
             int id = map->getContinentsSize();
             map->addContinent(Continent(name, id, bonusValue));
-            cout << "[DEBUG] Added continent: " << name << " (ID: " << id << ", Bonus: " << bonusValue << ")" << endl;
+            Notify(this, DEBUG, "Added continent: " + name + "(ID: " + to_string(id) + ", Bonus: " + to_string(bonusValue) + ")");
         }
     }
     else if (currentState == TERRITORIES)

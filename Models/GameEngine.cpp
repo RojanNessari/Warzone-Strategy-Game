@@ -315,6 +315,7 @@ void GameEngine::issueOrdersPhase()
 
     std::vector<bool> playersDone(players.size(), false);
     bool allDone = false;
+    Deck *deck = new Deck();
     while (!allDone)
     {
         allDone = true;
@@ -332,7 +333,7 @@ void GameEngine::issueOrdersPhase()
             logMessage(PROGRESSION, player->getPlayerName() + "'s turn to issue order");
             Notify(this, PROGRESSION, player->getPlayerName() + "'s turn to issue order");
 
-            bool hasMore = player->issueOrder(gameMap); // Pass the map
+            bool hasMore = player->issueOrder(gameMap, deck); // Pass the map and deck
 
             if (!hasMore)
             {

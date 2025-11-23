@@ -4,7 +4,7 @@ echo "MAIN DRIVER"
 echo "=============="
 echo "Compiling MainDriver.cpp..."
 
-if g++ -std=c++17 -o MainDriver MainDriver.cpp Drivers/*.cpp Models/*.cpp utils/*.cpp; then
+if g++ -std=c++17 -o MainDriver MainDriver.cpp Drivers/*.cpp Models/*.cpp utils/*.cpp PlayerStrategies/*.cpp; then
     echo "Compilation succeeded. Running MainDriver..."
     ./MainDriver || echo "MainDriver exited with non-zero status"
     rm -f MainDriver

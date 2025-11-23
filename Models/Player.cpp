@@ -204,13 +204,14 @@ OrdersList *Player::getOrdersList() const
     return orders;
 }
 
-bool Player::issueOrder(Map *map)
+bool Player::issueOrder(Map *map, Deck *deck)
 {
     if (strategy != nullptr)
     {
-        return strategy->issueOrder(this, map);
+        return strategy->issueOrder(this, map, deck);
     }
     logMessage(ERROR, "strategy -> nullptr for issueOrder()");
+    Notify(this, ERROR, "strategy -> nullptr for issueOrder()");
     return false; // fallback
 
     /*

@@ -51,7 +51,7 @@ public:
     // Required functions
     std::vector<Territory *> toDefend();         // Return a collection of Territories to be defended
     std::vector<Territory *> toAttack(Map *map); // Return a collection of Territories to be attacked
-    bool issueOrder(Map *map);                   // Returns false when done issuing orders
+    bool issueOrder(Map *map, Deck *deck);       // Returns false when done issuing orders
     OrdersList *getOrdersList() const;           // Get the orders list
 
     // Stream insertion operator overload

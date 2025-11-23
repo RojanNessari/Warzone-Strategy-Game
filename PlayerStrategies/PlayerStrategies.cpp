@@ -47,7 +47,7 @@ string HumanPlayerStrategy::getStrategyName() const
     return toStringStrategy(StrategyName::HUMAN);
 }
 
-bool HumanPlayerStrategy::issueOrder(Player *player, Map *map)
+bool HumanPlayerStrategy::issueOrder(Player *player, Map *map, Deck *deck)
 {
     logMessage(INFO, player->getPlayerName() + "'s Turn (" + getStrategyName() + " Strategy)");
     Notify(this, INFO, player->getPlayerName() + "'s Turn (" + getStrategyName() + " Strategy)");
@@ -186,6 +186,7 @@ bool HumanPlayerStrategy::issueOrder(Player *player, Map *map)
             {
                 Card *card = hand->getCards()[cardIndex - 1];
                 // card->play(player, map); Need to fix this
+                card->play(*player, *(player->getOrdersList()), *deck);
                 logMessage(INFO, "Card played");
             }
         }
@@ -257,7 +258,7 @@ Territory *AggressivePlayerStrategy::getStrongestTerritory(Player *player) const
     return strongest;
 }
 
-bool AggressivePlayerStrategy::issueOrder(Player *player, Map *map)
+bool AggressivePlayerStrategy::issueOrder(Player *player, Map *map, Deck *deck)
 {
     logMessage(AI, player->getPlayerName() + "'s Turn (" + getStrategyName() + " Strategy)");
     Notify(this, AI, player->getPlayerName() + "'s Turn (" + getStrategyName() + " Strategy)");
@@ -358,7 +359,7 @@ Territory *BenevolentPlayerStrategy::getWeakestTerritory(Player *player) const
     return weakest;
 }
 
-bool BenevolentPlayerStrategy::issueOrder(Player *player, Map *map)
+bool BenevolentPlayerStrategy::issueOrder(Player *player, Map *map, Deck *deck)
 {
     logMessage(AI, player->getPlayerName() + "'s Turn (" + getStrategyName() + " Strategy)");
     Notify(this, AI, player->getPlayerName() + "'s Turn (" + getStrategyName() + " Strategy)");
@@ -437,7 +438,7 @@ string NeutralPlayerStrategy::getStrategyName() const
     return toStringStrategy(StrategyName::NEUTRAL);
 }
 
-bool NeutralPlayerStrategy::issueOrder(Player *player, Map *map)
+bool NeutralPlayerStrategy::issueOrder(Player *player, Map *map, Deck *deck)
 {
     logMessage(AI, player->getPlayerName() + "'s Turn (" + getStrategyName() + " Strategy)");
     Notify(this, AI, player->getPlayerName() + "'s Turn (" + getStrategyName() + " Strategy)");
@@ -487,7 +488,7 @@ void CheaterPlayerStrategy::duplicateReinforcementsCheat(Player *player)
     }
 }
 
-bool CheaterPlayerStrategy::issueOrder(Player *player, Map *map)
+bool CheaterPlayerStrategy::issueOrder(Player *player, Map *map, Deck *deck)
 {
     logMessage(AI, player->getPlayerName() + "'s Turn (" + getStrategyName() + " Strategy)");
     Notify(this, AI, player->getPlayerName() + "'s Turn (" + getStrategyName() + " Strategy)");
