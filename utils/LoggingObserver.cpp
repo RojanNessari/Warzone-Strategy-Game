@@ -3,12 +3,14 @@
 #include <string>
 #include <fstream>
 #include <sys/stat.h>
-#include "logger.h"
 #include <ctime>   // For timestamp generation
 #include <iomanip> // For formatting the timestamp
 #include <sstream> // For std::ostringstream
 
-const std::string LOGGER_PATH_FILE = "Logs/gamelog.txt";
+const std::string LOGGER_PATH_FILE = "Logs/gamelog.log";
+
+// Static member initialization
+LogObserver *LogObserver::instance = nullptr;
 
 // Helper function to ensure directory exists
 static void ensureDirectoryExists(const std::string &filepath)
@@ -31,6 +33,12 @@ static void ensureDirectoryExists(const std::string &filepath)
 Subject::Subject()
 {
     observers = new std::list<Observer *>;
+    // Auto-attach global logger if it exists
+    LogObserver *globalLogger = LogObserver::getInstance();
+    if (globalLogger)
+    {
+        observers->push_back(globalLogger);
+    }
 }
 
 Subject::~Subject()
@@ -48,10 +56,16 @@ void Subject::Detach(Observer *o)
     observers->remove(o);
 }
 
-void Subject::Notify(ILoggable *loggable, std::string messageType)
+void Subject::Notify(ILoggable *loggable, LogLevel level, std::string messageType)
 {
     for (Observer *o : *observers)
-        o->Update(loggable, messageType);
+        o->Update(loggable, level, messageType);
+}
+// Const version of Notify
+void Subject::Notify(const ILoggable *loggable, LogLevel level, std::string messageType) const
+{
+    for (Observer *o : *observers)
+        o->Update(const_cast<ILoggable *>(loggable), level, messageType);
 }
 
 // LogObserver methods
@@ -60,9 +74,29 @@ LogObserver::LogObserver()
     // Ensure the Logs directory exists when observer is created
     ensureDirectoryExists(LOGGER_PATH_FILE);
 }
+
 LogObserver::~LogObserver() {}
 
-void LogObserver::Update(ILoggable *loggable, std::string messageType)
+// Singleton methods
+LogObserver *LogObserver::getInstance()
+{
+    if (instance == nullptr)
+    {
+        instance = new LogObserver();
+    }
+    return instance;
+}
+
+void LogObserver::destroyInstance()
+{
+    if (instance != nullptr)
+    {
+        delete instance;
+        instance = nullptr;
+    }
+}
+
+void LogObserver::Update(ILoggable *loggable, LogLevel level, std::string messageType)
 {
     // Get the current time
     std::time_t now = std::time(nullptr);
@@ -72,20 +106,103 @@ void LogObserver::Update(ILoggable *loggable, std::string messageType)
     std::ostringstream timestamp;
     timestamp << std::put_time(localTime, "%Y-%m-%d %H:%M:%S");
     std::string color;
-    if (messageType == "ERROR")
-        color = RED;
-    else if (messageType == "INFO")
+    if (level == DEBUG)
+    {
+        color = CYAN;
+    }
+    else if (level == INFO)
+    {
         color = GREEN;
-    else if (messageType == "WARNING")
+    }
+    else if (level == ERROR)
+    {
+        color = RED;
+    }
+    else if (level == WARNING)
+    {
         color = YELLOW;
-    else if (messageType == "DEBUG")
+    }
+    else if (level == ANTICHEAT)
+    {
+        color = MAGENTA;
+    }
+    else if (level == AI)
+    {
         color = BLUE;
+    }
+    else if (level == INVENTORY)
+    {
+        color = CYAN;
+    }
+    else if (level == COMBAT)
+    {
+        color = RED;
+    }
+    else if (level == PROGRESSION)
+    {
+        color = GREEN;
+    }
+    else if (level == INPUT)
+    {
+        color = GREEN;
+    }
+    else if (level == EVENT)
+    {
+        color = MAGENTA;
+    }
     else
+    {
         color = RESET;
+    }
+
+    // Convert LogLevel to string
+    std::string levelStr;
+    switch (level)
+    {
+    case DEBUG:
+        levelStr = "DEBUG";
+        break;
+    case INFO:
+        levelStr = "INFO";
+        break;
+    case ERROR:
+        levelStr = "ERROR";
+        break;
+    case WARNING:
+        levelStr = "WARNING";
+        break;
+    case ANTICHEAT:
+        levelStr = "ANTICHEAT";
+        break;
+    case AI:
+        levelStr = "AI";
+        break;
+    case INVENTORY:
+        levelStr = "INVENTORY";
+        break;
+    case COMBAT:
+        levelStr = "COMBAT";
+        break;
+    case PROGRESSION:
+        levelStr = "PROGRESSION";
+        break;
+    case REPLAY:
+        levelStr = "REPLAY";
+        break;
+    case INPUT:
+        levelStr = "INPUT";
+        break;
+    case EVENT:
+        levelStr = "EVENT";
+        break;
+    default:
+        levelStr = "UNKNOWN";
+        break;
+    }
 
     // Format the log entry
     std::ostringstream logEntry;
-    logEntry << "[" << timestamp.str() << "] [" << messageType << "] " << loggable->stringToLog();
+    logEntry << "[" << timestamp.str() << "] [" << levelStr << "] " << messageType;
 
     // Write to the log file
     std::ofstream logFile(LOGGER_PATH_FILE, std::ios::app);

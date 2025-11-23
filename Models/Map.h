@@ -5,6 +5,7 @@
 #include <unordered_map>
 #include <unordered_set>
 #include "Player.h"
+#include "../utils/LoggingObserver.h"
 
 class Player;
 class Map;
@@ -97,7 +98,7 @@ public:
     void setBonusValue(int bonus);
 };
 
-class Map
+class Map : public Subject, public ILoggable
 {
 private:
     // Obj property
@@ -147,9 +148,11 @@ public:
 
     // distributeTerritories - distributes all territories fairly among players
     void distributeTerritories(std::vector<Player *> &players);
+    std::vector<Territory *> getNeighborsOf(Territory *territory);
+    std::vector<Territory *> getNeighborsOf(int territoryId);
 };
 
-class MapLoader
+class MapLoader : public Subject, public ILoggable
 {
 public:
     // Constructor

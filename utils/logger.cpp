@@ -2,21 +2,82 @@
 #include <iostream>
 #include <string>
 
-void logMessage(LogLevel level, const std::string &logMessage)
+void logMessage(LogLevel level, const std::string &message)
 {
+    std::string color;
+    std::string prefix;
+
     switch (level)
     {
     case DEBUG:
-        std::cout << BLUE << "[DEBUG] " << RESET << logMessage << std::endl;
+        color = CYAN;
+        prefix = "[DEBUG]";
         break;
+
     case INFO:
-        std::cout << GREEN << "[INFO] " << RESET << logMessage << std::endl;
+        color = GREEN;
+        prefix = "[INFO]";
         break;
+
     case ERROR:
-        std::cerr << RED << "[ERROR] " << RESET << logMessage << std::endl;
+        color = RED;
+        prefix = "[ERROR]";
         break;
+
     case WARNING:
-        std::cout << YELLOW << "[WARNING]" << RESET << logMessage << std::endl;
+        color = YELLOW;
+        prefix = "[WARNING]";
+        break;
+
+    case ANTICHEAT:
+        color = MAGENTA;
+        prefix = "[ANTICHEAT]";
+        break;
+
+    case AI:
+        color = BLUE;
+        prefix = "[AI]";
+        break;
+
+    case INVENTORY:
+        color = CYAN;
+        prefix = "[INVENTORY]";
+        break;
+
+    case COMBAT:
+        color = RED;
+        prefix = "[COMBAT]";
+        break;
+
+    case EVENT:
+        color = MAGENTA;
+        prefix = "[EVENT]";
+        break;
+
+    case PROGRESSION:
+        color = GREEN;
+        prefix = "[PROGRESSION]";
+        break;
+
+    case REPLAY:
+        color = CYAN;
+        prefix = "[REPLAY]";
+        break;
+
+    case INPUT:
+        color = BLUE;
+        prefix = "[INPUT]";
+        break;
+
+    default:
+        color = RESET;
+        prefix = "[UNKNOWN]";
         break;
     }
+
+    // Print to stdout except for ERROR
+    if (level == ERROR)
+        std::cerr << color << prefix << RESET << " " << message << std::endl;
+    else
+        std::cout << color << prefix << RESET << " " << message << std::endl;
 }

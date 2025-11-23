@@ -9,7 +9,7 @@
 using namespace std;
 
 // Default constructor
-Player::Player(const std::string &playerName) : territories(), handOfCards(new Hand()), orders(new OrdersList()), playerName(playerName), reinforcementPool(0)
+Player::Player(const std::string &playerName) : territories(), handOfCards(new Hand()), orders(new OrdersList()), playerName(playerName), reinforcementPool(0), strategy(nullptr)
 {
     logMessage(INFO, "Player created.");
 }
@@ -97,6 +97,8 @@ Player::~Player()
         delete handOfCards;
     if (orders)
         delete orders;
+    if (strategy)
+        delete strategy;
     logMessage(INFO, "Player destroyed.");
 }
 
@@ -124,23 +126,43 @@ bool Player::ownsTerritoryId(int tid) const
     return false;
 }
 
-vector<Territory *> Player::toDefend() const
+void Player::setStrategy(PlayerStrategy *newStrategy)
 {
+    if (strategy != nullptr)
+    {
+        delete strategy; // delete previous strategy
+    }
+
+    strategy = newStrategy;
+    logMessage(AI, playerName + " strategy set to " + strategy->getStrategyName());
+    Notify(this, AI, playerName + " strategy set to " + strategy->getStrategyName());
+}
+
+vector<Territory *> Player::toDefend()
+{
+    if (strategy != nullptr)
+    {
+        return strategy->toDefend(this);
+    }
+    logMessage(ERROR, "Strategy -> nullptr");
+    return vector<Territory *>();
     // Return a subset of territories to defend (arbitrary logic for now)
-    return territories; // Placeholder: return all territories
+    // return territories; // Placeholder: return all territories
 }
 
-vector<Territory *> &Player::toDefend()
+vector<Territory *> Player::toAttack(Map *map)
 {
-    // Non-const version for modifying territories
-    return territories;
-}
+    if (strategy != nullptr)
+    {
+        return strategy->toAttack(this, map);
+    }
+    logMessage(ERROR, "Strategy -> nullptr for toAttack()");
+    return vector<Territory *>(); // fallback
 
-vector<Territory *> Player::toAttack(Map *map) const
-{
+    /*
     // Return neighboring enemy territories that can be attacked
     vector<Territory *> attackTargets;
-    
+
     if (map == nullptr)
     {
         logMessage(WARNING, "toAttack() called with null map");
@@ -161,10 +183,10 @@ vector<Territory *> Player::toAttack(Map *map) const
         {
             // Look up the adjacent territory in the map
             Territory *adjacentTerritory = map->getTerritoryById(adjId);
-            
+
             if (adjacentTerritory == nullptr)
                 continue;
-            
+
             // Check if this adjacent territory is owned by an enemy (not us)
             if (adjacentTerritory->getOwner() != this && adjacentTerritory->getOwner() != nullptr)
             {
@@ -174,7 +196,7 @@ vector<Territory *> Player::toAttack(Map *map) const
         }
     }
 
-    return attackTargets;
+    return attackTargets;*/
 }
 
 OrdersList *Player::getOrdersList() const
@@ -182,8 +204,17 @@ OrdersList *Player::getOrdersList() const
     return orders;
 }
 
-bool Player::issueOrder(Map *map)
+bool Player::issueOrder(Map *map, Deck *deck)
 {
+    if (strategy != nullptr)
+    {
+        return strategy->issueOrder(this, map, deck);
+    }
+    logMessage(ERROR, "strategy -> nullptr for issueOrder()");
+    Notify(this, ERROR, "strategy -> nullptr for issueOrder()");
+    return false; // fallback
+
+    /*
     // Priority 1: Deploy orders while reinforcement pool has armies
     if (reinforcementPool > 0)
     {
@@ -217,7 +248,7 @@ bool Player::issueOrder(Map *map)
     {
         // Get lists of territories to defend and attack
         vector<Territory *> defendList = toDefend();
-        vector<Territory *> attackList = toAttack(map);  // Pass map parameter
+        vector<Territory *> attackList = toAttack(map); // Pass map parameter
 
         // Strategy: Try to move armies to defend first, then attack
 
@@ -252,28 +283,6 @@ bool Player::issueOrder(Map *map)
                 }
             }
         }
-
-        // Option 2: Attack enemy territories
-        // Note: toAttack() currently returns empty list due to lack of Map access
-        // This would work if toAttack() was properly implemented
-        if (!attackList.empty() && territories[0]->getArmies() > 1)
-        {
-            Territory *source = territories[0];
-            Territory *target = attackList[0];
-            int armiesToAttack = source->getArmies() - 1; // Leave one army
-
-            if (armiesToAttack > 0)
-            {
-                Order *advanceOrder = new Advance(this, source, target, armiesToAttack);
-                orders->add(advanceOrder);
-
-                logMessage(INFO, playerName + " issues Advance order (attack): " +
-                                     std::to_string(armiesToAttack) + " armies from " +
-                                     source->getName() + " to " + target->getName());
-
-                return true;
-            }
-        }
     }
 
     // Priority 3: Play cards from hand
@@ -304,7 +313,7 @@ bool Player::issueOrder(Map *map)
 
     // No more orders to issue
     logMessage(INFO, playerName + " is done issuing orders for this turn");
-    return false;
+    return false;*/
 }
 
 // Stream insertion operator

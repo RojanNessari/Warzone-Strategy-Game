@@ -62,7 +62,21 @@ public:
     void executeOrdersPhase();
 
     friend ostream &operator<<(ostream &os, const GameEngine &ge);
-    std::string stringToLog() override;
+    // Assignment 3 - Part 2
+    void runTournament(const vector<string> &mapFiles,
+                       const vector<string> &strategies,
+                       int numGames,
+                       int maxTurns);
+
+    string runSingleGame(const string &mapFile,
+                         const vector<string> &strategies,
+                         int maxTurns);
+
+    void generateTournamentReport(const vector<vector<string>> &results,
+                                  const vector<string> &mapFiles,
+                                  const vector<string> &strategies,
+                                  int numGames,
+                                  int maxTurns);
 
 private:
     void clear();

@@ -2,6 +2,7 @@
 #include <utility>
 #include <sstream>
 #include <fstream>
+#include <vector>
 #include <algorithm>
 #include <random>
 #include "Map.h"
@@ -184,16 +185,13 @@ bool GameEngine::applyCommand(const string &cmd)
     if (!next)
     {
         logMessage(ERROR, string("Invalid command from state '") + current_->getName() + "'");
+        Notify(this, ERROR, string("Invalid command from state '") + current_->getName() + "'");
         return false;
     }
     logMessage(INFO, string("Transition: ") + current_->getName() + " -- " + cmd + " ==> " + next->getName());
     current_ = next;
-    Notify(this, "INFO"); // Added INFO as the messageType for Notify
+    Notify(this, INFO, "GameEngine: Current State is: " + (current_ ? current_->getName() : "NULL")); // Added INFO as the messageType for Notify
     return true;
-}
-string GameEngine::stringToLog()
-{
-    return "GameEngine: Current State is: " + (current_ ? current_->getName() : "NULL");
 }
 
 const State *GameEngine::current() const { return current_; }
@@ -269,6 +267,9 @@ void GameEngine::reinforcementPhase()
                              std::to_string(territoriesOwned) + " territories");
         logMessage(INFO, "Base reinforcements: " + std::to_string(armies));
 
+        Notify(this, INFO, player->getPlayerName() + " owns " + std::to_string(territoriesOwned) + " territories");
+        Notify(this, INFO, "Base reinforcements: " + std::to_string(armies));
+
         // Add Continent Bonuses
         if (gameMap != nullptr)
         {
@@ -293,12 +294,14 @@ void GameEngine::reinforcementPhase()
                     logMessage(INFO, player->getPlayerName() +
                                          " controls continent " + continent.getName() +
                                          " (+" + std::to_string(bonus) + " bonus)");
+                    Notify(this, INFO, player->getPlayerName() + " controls continent " + continent.getName() + " (+" + std::to_string(bonus) + " bonus)");
                 }
             }
         }
         player->setReinforcementPool(armies);
         logMessage(INFO, player->getPlayerName() + " receives " +
                              std::to_string(armies) + " armies");
+        Notify(this, INFO, player->getPlayerName() + " receives " + std::to_string(armies) + " armies");
     }
     logMessage(INFO, "====================================");
 }
@@ -313,6 +316,7 @@ void GameEngine::issueOrdersPhase()
 
     std::vector<bool> playersDone(players.size(), false);
     bool allDone = false;
+    Deck *deck = new Deck();
     while (!allDone)
     {
         allDone = true;
@@ -327,14 +331,16 @@ void GameEngine::issueOrdersPhase()
                 playersDone[i] = true;
                 continue;
             }
-            logMessage(INFO, player->getPlayerName() + "'s turn to issue order");
+            logMessage(PROGRESSION, player->getPlayerName() + "'s turn to issue order");
+            Notify(this, PROGRESSION, player->getPlayerName() + "'s turn to issue order");
 
-            bool hasMore = player->issueOrder(gameMap);  // Pass the map
+            bool hasMore = player->issueOrder(gameMap, deck); // Pass the map and deck
 
             if (!hasMore)
             {
                 playersDone[i] = true;
-                logMessage(INFO, player->getPlayerName() + " has no more orders to issue");
+                logMessage(COMBAT, player->getPlayerName() + " has no more orders to issue");
+                Notify(this, COMBAT, player->getPlayerName() + " has no more orders to issue");
             }
             else
             {
@@ -343,6 +349,7 @@ void GameEngine::issueOrdersPhase()
         }
     }
     logMessage(INFO, "\nAll players have finished issuing orders");
+    Notify(this, INFO, "\nAll players have finished issuing orders");
     logMessage(INFO, "====================================\n");
 }
 
@@ -382,8 +389,10 @@ void GameEngine::executeOrdersPhase()
                 if (deployOrder != nullptr)
                 {
                     logMessage(INFO, "\nExecuting " + player->getPlayerName() + "'s Deploy order");
+                    Notify(this, INFO, "\nExecuting " + player->getPlayerName() + "'s Deploy order");
                     order->execute();
                     logMessage(INFO, "Effect: " + order->getEffect());
+                    Notify(this, INFO, "Effect: " + order->getEffect());
 
                     orderList->remove(i);
                     foundDeploy = true;
@@ -413,8 +422,10 @@ void GameEngine::executeOrdersPhase()
             {
                 Order *order = orderList->get(0);
                 logMessage(INFO, "\nExecuting " + player->getPlayerName() + "'s order");
+                Notify(this, INFO, "\nExecuting " + player->getPlayerName() + "'s order");
                 order->execute();
                 logMessage(INFO, "Effect: " + order->getEffect());
+                Notify(this, INFO, "Effect: " + order->getEffect());
 
                 orderList->remove(0);
                 foundOtherOrders = true;
@@ -434,8 +445,9 @@ void GameEngine::executeOrdersPhase()
                 if (card != nullptr)
                 {
                     player->getHandOfCards()->addCard(card);
-                    logMessage(INFO, player->getPlayerName() +
-                                         " conquered territory and receives a card");
+                    logMessage(COMBAT, player->getPlayerName() +
+                                           " conquered territory and receives a card");
+                    Notify(this, COMBAT, player->getPlayerName() + " conquered territory and receives a card");
                 }
             }
         }
@@ -476,6 +488,7 @@ void GameEngine::mainGameLoop()
             {
                 logMessage(INFO, (*it)->getPlayerName() +
                                      " has been eliminated (no territories)");
+                Notify(this, INFO, (*it)->getPlayerName() + " has been eliminated (no territories)");
                 // remove player from active players
                 it = players.erase(it);
             }
@@ -501,12 +514,15 @@ void GameEngine::mainGameLoop()
             logMessage(INFO, "GAME OVER!");
             logMessage(INFO, potentialPlayerWinner->getPlayerName() + " WINS!");
             logMessage(INFO, "====================================");
+            Notify(this, INFO, "GAME OVER!");
+            Notify(this, INFO, potentialPlayerWinner->getPlayerName() + " WINS!");
             applyCommand("win");
             break;
         }
         if (playersWithTerritories == 0)
         {
-            logMessage(ERROR, "\nNo players remain with territories. Game ends in a draw.");
+            logMessage(PROGRESSION, "\nNo players remain with territories. Game ends in a draw.");
+            Notify(this, PROGRESSION, "\nNo players remain with territories. Game ends in a draw.");
             break;
         }
         turnNumber++;
@@ -514,6 +530,7 @@ void GameEngine::mainGameLoop()
         if (turnNumber > 100)
         {
             logMessage(WARNING, "Woho, Limit reached pal. End Game.");
+            Notify(this, WARNING, "Woho, Limit reached pal. End Game.");
             break;
         }
     }
@@ -558,6 +575,7 @@ void GameEngine::startupPhase()
             if (argument.empty())
             {
                 logMessage(ERROR, "Usage: loadmap <filename>");
+                Notify(this, ERROR, "Cmd entered by user: <empty>");
                 continue;
             }
             // Clean up old map if exists
@@ -571,10 +589,13 @@ void GameEngine::startupPhase()
             {
                 logMessage(ERROR, "Error: Failed to load map.");
                 logMessage(DEBUG, argument);
+                Notify(this, ERROR, "Error: Failed to load map.");
+                Notify(this, DEBUG, argument);
                 continue;
             }
 
             logMessage(INFO, string("Map '") + argument + "' loaded successfully.");
+            Notify(this, INFO, string("Map '") + argument + "' loaded successfully.");
             mapLoaded = true;
             applyCommand("loadmap");
         }
@@ -584,6 +605,7 @@ void GameEngine::startupPhase()
             if (!mapLoaded || gameMap == nullptr)
             {
                 logMessage(ERROR, "You must load a map first.");
+                Notify(this, ERROR, "User did not load map and entered cmd: " + command);
                 continue;
             }
 
@@ -591,12 +613,14 @@ void GameEngine::startupPhase()
             if (isMapValidated)
             {
                 logMessage(INFO, "Map validated successfully.");
+                Notify(this, INFO, "Map validated successfully.");
                 mapValidated = true;
                 applyCommand("validatemap");
             }
             else
             {
                 logMessage(ERROR, "Map validation failed. Please check the map file.");
+                Notify(this, ERROR, "Map validation failed. Please check the map file.");
             }
         }
 
@@ -605,16 +629,19 @@ void GameEngine::startupPhase()
             if (!mapLoaded)
             {
                 logMessage(ERROR, "You must load a map first.");
+                Notify(this, ERROR, "User did not load map and entered cmd: " + command);
                 continue;
             }
             if (!mapValidated)
             {
                 logMessage(ERROR, "You must validate the map.");
+                Notify(this, ERROR, "User did not validate map and entered cmd: " + command);
                 continue;
             }
             if (argument.empty())
             {
                 logMessage(ERROR, "Usage: addplayer <playername>");
+                Notify(this, ERROR, "User entered <empty> for player name");
                 continue;
             }
 
@@ -626,17 +653,20 @@ void GameEngine::startupPhase()
             if (it != players.end())
             {
                 logMessage(ERROR, string("Player '") + argument + "' already added.");
+                Notify(this, ERROR, string("Player '") + argument + "' already added.");
                 continue;
             }
             if (players.size() > 6)
             {
                 logMessage(ERROR, "Ease up lil bro, you can only add 2-6 Players.");
+                Notify(this, ERROR, "Maximum Player Size: (2-6), Players: " + to_string(players.size()));
                 continue;
             }
             // Create new player and add to list
             Player *newPlayer = new Player(argument);
             players.push_back(newPlayer);
             logMessage(INFO, string("Player '") + newPlayer->getPlayerName() + "' added.");
+            Notify(this, INFO, string("Player '") + newPlayer->getPlayerName() + "' added.");
             applyCommand("addplayer");
         }
         else if (command == "gamestart")
@@ -646,54 +676,365 @@ void GameEngine::startupPhase()
                 logMessage(ERROR, "You need between 2 and 6 players before starting.");
                 continue;
             }
-            logMessage(INFO, string("=== Starting the game with ") + to_string(players.size()) + " players ===");
+            logMessage(PROGRESSION, string("=== Starting the game with ") + to_string(players.size()) + " players ===");
+            Notify(this, PROGRESSION, "GAME STARTED with players: " + to_string(players.size()));
             for (const auto *p : players)
+            {
                 logMessage(INFO, string("  - ") + p->getPlayerName());
-
+                Notify(this, INFO, string("  - ") + p->getPlayerName());
+            }
             // 4a. Distribute territories fairly among players
             logMessage(INFO, "4a) Distributing territories equally among players...");
+            Notify(this, INFO, "Distributing territories equally among players");
             gameMap->distributeTerritories(players);
 
             // 4b. Determine random order of play
             logMessage(INFO, "4b) Determining random order of play...");
+            Notify(this, INFO, "Determining random order of play");
             random_device rd;
             mt19937 g(rd());
             shuffle(players.begin(), players.end(), g);
             logMessage(INFO, "Order of play:");
             for (size_t i = 0; i < players.size(); ++i)
+            {
                 logMessage(INFO, string("  ") + to_string(i + 1) + ". " + players[i]->getPlayerName());
+                Notify(this, INFO, string("  ") + to_string(i + 1) + ". " + players[i]->getPlayerName());
+            }
 
             // 4c. Give 50 initial army units to each player's reinforcement pool
             logMessage(INFO, "4c) Assigning 50 army units to each player's reinforcement pool...");
+            Notify(this, INFO, "Assigning 50 army units to each player's reinforcement pool");
             for (auto *p : players)
             {
                 p->setReinforcementPool(50);
-                logMessage(INFO, string("  ") + p->getPlayerName() + " receives 50 armies.");
+                logMessage(COMBAT, string("  ") + p->getPlayerName() + " receives 50 armies.");
+                Notify(this, COMBAT, string("  ") + p->getPlayerName() + " receives 50 armies.");
             }
 
             // 4d. Let each player draw 2 initial cards from the deck
             logMessage(INFO, "4d) Each player draws 2 initial cards from the deck...");
+            Notify(this, INFO, "Each player draws 2 initial cards from the deck");
             for (auto *p : players)
             {
                 gameDeck->draw(*p, *(p->getHandOfCards()));
                 gameDeck->draw(*p, *(p->getHandOfCards()));
-                logMessage(INFO, string("  ") + p->getPlayerName() + " drew 2 cards.");
+                logMessage(PROGRESSION, string("  ") + p->getPlayerName() + " drew 2 cards.");
+                Notify(this, PROGRESSION, string("  ") + p->getPlayerName() + " drew 2 cards.");
             }
 
             // 4e. Switch to play phase
             logMessage(INFO, "4e) Switching to play phase!");
+            Notify(this, INFO, "Switching to play phase!");
             applyCommand("gamestart");
             logMessage(INFO, "Transitioned to assign_reinforcement state.");
+            Notify(this, INFO, "Transitioned to assign_reinforcement state.");
             logMessage(INFO, "Play phase started! (Next valid command: 'issueorder')");
+            Notify(this, INFO, "Play phase started! (Next valid command: 'issueorder')");
             break;
         }
 
         else
         {
-            cout << "Invalid command. Try: loadmap, validatemap, addplayer, gamestart\n";
+            logMessage(ERROR, "Invalid command. Try: loadmap, validatemap, addplayer, gamestart\n");
         }
     }
 
     // Note: Map and Deck are now stored in member variables gameMap and gameDeck
     // They will be cleaned up in the destructor
+}
+
+// Assignement 03 part 2 implementation
+void GameEngine::runTournament(const vector<string> &mapFiles,
+                               const vector<string> &strategies,
+                               int numGames,
+                               int maxTurns)
+{
+    logMessage(INFO, "====================================");
+    logMessage(INFO, "STARTING TOURNAMENT MODE");
+    Notify(this, INFO, "STARTING TOURNAMENT MODE");
+    logMessage(INFO, "====================================");
+
+    logMessage(INFO, "Tournament Parameters:");
+    Notify(this, INFO, "Tournament Parameters:");
+    logMessage(INFO, "Maps:");
+    Notify(this, INFO, "Maps:");
+
+    for (const auto &map : mapFiles)
+    {
+        logMessage(INFO, "  - " + map);
+        Notify(this, INFO, "  - " + map);
+    }
+
+    logMessage(INFO, "Strategies:");
+    for (const auto &s : strategies)
+    {
+        logMessage(INFO, "  - " + s);
+        Notify(this, INFO, "  - " + s);
+    }
+
+    logMessage(INFO, "Games per map: " + to_string(numGames));
+    Notify(this, INFO, "Games per map: " + to_string(numGames));
+    logMessage(INFO, "Max turns: " + to_string(maxTurns));
+    Notify(this, INFO, "Max turns: " + to_string(maxTurns));
+
+    // Results table: results[mapIndex][gameIndex] = winner
+    vector<vector<string>> results(
+        mapFiles.size(),
+        vector<string>(numGames, "Draw"));
+
+    // Play tournament
+    for (size_t mapIdx = 0; mapIdx < mapFiles.size(); mapIdx++)
+    {
+        logMessage(PROGRESSION, "Playing on map: " + mapFiles[mapIdx]);
+        Notify(this, PROGRESSION, "Playing on map: " + mapFiles[mapIdx]);
+
+        for (int gameIdx = 0; gameIdx < numGames; gameIdx++)
+        {
+            logMessage(INFO, "Game " + to_string(gameIdx + 1) + "/" + to_string(numGames));
+            Notify(this, INFO, "Game " + to_string(gameIdx + 1) + "/" + to_string(numGames));
+
+            results[mapIdx][gameIdx] =
+                runSingleGame(mapFiles[mapIdx], strategies, maxTurns);
+
+            logMessage(INFO, "Result = " + results[mapIdx][gameIdx]);
+            Notify(this, INFO, "Result = " + results[mapIdx][gameIdx]);
+        }
+    }
+
+    // Print final tournament results
+    generateTournamentReport(results, mapFiles, strategies, numGames, maxTurns);
+}
+
+string GameEngine::runSingleGame(const string &mapFile,
+                                 const vector<string> &strategies,
+                                 int maxTurns)
+{
+    logMessage(EVENT, "Building Game engine. . .");
+    Notify(this, EVENT, "Building Game engine. . .");
+    GameEngine game;
+    game.buildGraph();
+    logMessage(EVENT, "GameEngine built!");
+    Notify(this, EVENT, "Building Game engine. . .");
+
+    // Load map
+    MapLoader loader;
+    game.gameMap = loader.loadMap(mapFile);
+
+    if (!game.gameMap)
+    {
+        logMessage(ERROR, "Map load failed: " + mapFile);
+        Notify(this, ERROR, "Map load failed: " + mapFile);
+        return "Error";
+    }
+    if (!game.gameMap->validate())
+    {
+        logMessage(ERROR, "Map validation failed: " + mapFile);
+        Notify(this, ERROR, "Map validation failed: " + mapFile);
+        delete game.gameMap;
+        return "Error";
+    }
+
+    // Create players with basic behavior (no strategies yet)
+    for (size_t i = 0; i < strategies.size(); i++)
+    {
+        Player *p = new Player(strategies[i] + "_Player");
+
+        if (strategies[i] == "Aggressive")
+        {
+            p->setStrategy(new AggressivePlayerStrategy());
+        }
+        else if (strategies[i] == "Benevolent")
+        {
+            p->setStrategy(new BenevolentPlayerStrategy());
+        }
+        else if (strategies[i] == "Neutral")
+        {
+            p->setStrategy(new NeutralPlayerStrategy());
+        }
+        else if (strategies[i] == "Cheater")
+        {
+            p->setStrategy(new CheaterPlayerStrategy());
+        }
+        else
+        {
+            // Default to Human if strategy name not recognized
+            p->setStrategy(new HumanPlayerStrategy());
+        }
+        game.players.push_back(p);
+    }
+
+    // Automated startup
+    game.gameMap->distributeTerritories(game.players);
+
+    // Shuffle player order
+    random_device rd;
+    mt19937 g(rd());
+    shuffle(game.players.begin(), game.players.end(), g);
+
+    // Create deck if missing
+    if (!game.gameDeck)
+        game.gameDeck = new Deck();
+
+    for (auto *p : game.players)
+    {
+        p->setReinforcementPool(50);
+        game.gameDeck->draw(*p, *(p->getHandOfCards()));
+        game.gameDeck->draw(*p, *(p->getHandOfCards()));
+    }
+    logMessage(EVENT, "GAME START!");
+    Notify(this, EVENT, "GAME START");
+    game.applyCommand("gamestart");
+
+    // Main loop with turn limit
+    int turn = 1;
+    bool finished = false;
+    string winner = "Draw";
+
+    while (!finished && turn <= maxTurns)
+    {
+        game.reinforcementPhase();
+        game.issueOrdersPhase();
+        game.executeOrdersPhase();
+
+        // Remove eliminated players
+        auto it = game.players.begin();
+        while (it != game.players.end())
+        {
+            if ((*it)->getTerritories().empty())
+            {
+                delete *it; // Delete the eliminated player
+                it = game.players.erase(it);
+            }
+            else
+                ++it;
+        }
+
+        // Win check - extract strategy name from player name
+        if (game.players.size() == 1)
+        {
+            string winnerName = game.players[0]->getPlayerName();
+            // Extract strategy name (remove "_Player" suffix)
+            size_t pos = winnerName.find("_Player");
+            if (pos != string::npos)
+            {
+                winner = winnerName.substr(0, pos);
+            }
+            else
+            {
+                winner = winnerName;
+            }
+            finished = true;
+        }
+        else if (game.players.empty())
+        {
+            winner = "Draw";
+            finished = true;
+        }
+
+        turn++;
+    }
+
+    if (turn > maxTurns)
+        winner = "Draw";
+
+    // Cleanup - delete remaining players manually
+    for (auto *p : game.players)
+        delete p;
+    game.players.clear();
+
+    // Delete map and deck, then set to nullptr to prevent double-delete in destructor
+    if (game.gameMap)
+    {
+        delete game.gameMap;
+        game.gameMap = nullptr;
+    }
+    if (game.gameDeck)
+    {
+        delete game.gameDeck;
+        game.gameDeck = nullptr;
+    }
+
+    return winner;
+}
+
+void GameEngine::generateTournamentReport(
+    const vector<vector<string>> &results,
+    const vector<string> &mapFiles,
+    const vector<string> &strategies,
+    int numGames,
+    int maxTurns)
+{
+
+    cout << "\n\n====================================\n";
+    cout << "        TOURNAMENT RESULTS\n";
+    cout << "====================================\n\n";
+
+    cout << "Tournament Mode:" << endl;
+    cout << "M: ";
+    for (size_t i = 0; i < mapFiles.size(); i++)
+    {
+        cout << mapFiles[i];
+        if (i != mapFiles.size() - 1)
+            cout << ", ";
+    }
+    cout << "\nP: ";
+    for (size_t i = 0; i < strategies.size(); i++)
+    {
+        cout << strategies[i];
+        if (i != strategies.size() - 1)
+            cout << ", ";
+    }
+    cout << "\nG: " << numGames;
+    cout << "\nD: " << maxTurns << "\n\n";
+
+    // Header
+    cout << "|            |";
+    for (int g = 1; g <= numGames; g++)
+    {
+        cout << " Game " << g << "    |";
+    }
+    cout << "\n";
+
+    // Separator
+    cout << "|------------|";
+    for (int g = 0; g < numGames; g++)
+    {
+        cout << "-----------|";
+    }
+    cout << "\n";
+
+    // Results rows
+    for (size_t m = 0; m < mapFiles.size(); m++)
+    {
+        // Format map name for display
+        string mapName = mapFiles[m];
+        if (mapName.length() > 10)
+        {
+            mapName = mapName.substr(0, 10);
+        }
+        cout << "| " << mapName;
+        // Padding for map name
+        for (int i = mapName.length(); i < 10; i++)
+        {
+            cout << " ";
+        }
+        cout << " |";
+
+        // Game results
+        for (int g = 0; g < numGames; g++)
+        {
+            string result = results[m][g];
+            cout << " " << result;
+            // Padding for result
+            int padding = 9 - result.length();
+            if (padding > 0)
+            {
+                cout << string(padding, ' ');
+            }
+            cout << "|";
+        }
+        cout << "\n";
+    }
+
+    logMessage(EVENT, "Tournament results displayed successfully.");
 }
