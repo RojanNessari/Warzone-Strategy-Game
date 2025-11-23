@@ -146,6 +146,10 @@ void LogObserver::Update(ILoggable *loggable, LogLevel level, std::string messag
     {
         color = GREEN;
     }
+    else if (level == EVENT)
+    {
+        color = MAGENTA;
+    }
     else
     {
         color = RESET;
@@ -179,9 +183,6 @@ void LogObserver::Update(ILoggable *loggable, LogLevel level, std::string messag
     case COMBAT:
         levelStr = "COMBAT";
         break;
-    case EVENT:
-        levelStr = "EVENT";
-        break;
     case PROGRESSION:
         levelStr = "PROGRESSION";
         break;
@@ -190,6 +191,9 @@ void LogObserver::Update(ILoggable *loggable, LogLevel level, std::string messag
         break;
     case INPUT:
         levelStr = "INPUT";
+        break;
+    case EVENT:
+        levelStr = "EVENT";
         break;
     default:
         levelStr = "UNKNOWN";

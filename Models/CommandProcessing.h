@@ -130,6 +130,11 @@ public:
     // Stream insertion operator
     friend std::ostream &operator<<(std::ostream &os, const Command &cmd);
 
+    std::vector<std::string> tournamentMaps;
+    std::vector<std::string> tournamentStrategies;
+    int tournamentGames = 0;
+    int tournamentMaxTurns = 0;
+
 private:
     std::string command; // The command text
     std::string effect;  // The effect after execution

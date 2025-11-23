@@ -782,6 +782,7 @@ void Map::distributeTerritories(vector<Player *> &players)
     if (players.empty() || territories.empty())
     {
         logMessage(ERROR, "Cannot distribute territories: no players or no territories available.");
+        Notify(this, ERROR, "Cannot distribute territories: no players or no territories available.");
         return;
     }
 
@@ -822,5 +823,6 @@ void Map::distributeTerritories(vector<Player *> &players)
                 count++;
         }
         logMessage(INFO, string("  ") + players[i]->getPlayerName() + ": " + to_string(count) + " territories");
+        Notify(this, INFO, string("  ") + players[i]->getPlayerName() + ": " + to_string(count) + " territories");
     }
 }
