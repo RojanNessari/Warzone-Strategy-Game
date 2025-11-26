@@ -25,7 +25,8 @@ enum LogLevel
     EVENT,
     PROGRESSION,
     REPLAY,
-    INPUT
+    INPUT,
+    HUMAN
 
 };
 

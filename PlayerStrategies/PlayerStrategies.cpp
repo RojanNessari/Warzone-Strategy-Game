@@ -71,14 +71,16 @@ bool HumanPlayerStrategy::issueOrder(Player *player, Map *map, Deck *deck)
         }
         if (choice < 1 || choice > 4)
         {
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
             logMessage(WARNING, "You entered incorrect number. Proceeding with option 4");
             Notify(this, WARNING, "Human player entered incorrect choice goto option 4");
             return false;
         }
         if (choice == 4)
         {
-            logMessage(PROGRESSION, player->getPlayerName() + "Done issuing orders");
-            Notify(this, PROGRESSION, player->getPlayerName() + "Done issuing orders");
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            logMessage(PROGRESSION, player->getPlayerName() + " Done issuing orders");
+            Notify(this, PROGRESSION, player->getPlayerName() + " Dsone issuing orders");
             return false; // Done issuing orders
         }
 
@@ -95,6 +97,7 @@ bool HumanPlayerStrategy::issueOrder(Player *player, Map *map, Deck *deck)
             logMessage(INPUT, "Select territory to deploy to (1 - " + to_string(territories.size()) + "): ");
             int territoryChoice;
             cin >> territoryChoice;
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
             if (territoryChoice < 1 || territoryChoice > territories.size())
             {
                 logMessage(WARNING, "Invalid Choice!");
@@ -104,6 +107,7 @@ bool HumanPlayerStrategy::issueOrder(Player *player, Map *map, Deck *deck)
             logMessage(INPUT, "How many armies to deploy? (available: " + to_string(player->getReinforcementPool()) + "): ");
             int armies;
             cin >> armies;
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
             if (armies > player->getReinforcementPool() || armies < 1)
             {
                 logMessage(WARNING, "Invalid number of armies!");
@@ -129,7 +133,7 @@ bool HumanPlayerStrategy::issueOrder(Player *player, Map *map, Deck *deck)
             logMessage(INPUT, "Select source territory: ");
             int sourceChoice;
             cin >> sourceChoice;
-
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
             if (sourceChoice < 1 || sourceChoice > territories.size())
             {
                 logMessage(WARNING, "Invalid choice");
@@ -148,6 +152,7 @@ bool HumanPlayerStrategy::issueOrder(Player *player, Map *map, Deck *deck)
             logMessage(INPUT, "Select target territory: ");
             int targetChoice;
             cin >> targetChoice;
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
             if (targetChoice < 1 || targetChoice > neighbors.size())
             {
@@ -158,6 +163,7 @@ bool HumanPlayerStrategy::issueOrder(Player *player, Map *map, Deck *deck)
             logMessage(INPUT, "How many armies to advance? (available: " + to_string(source->getArmies()) + ")");
             int armies;
             cin >> armies;
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
             if (armies < 1 || armies > source->getArmies())
             {
@@ -181,6 +187,7 @@ bool HumanPlayerStrategy::issueOrder(Player *player, Map *map, Deck *deck)
 
             int cardIndex;
             cin >> cardIndex;
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
             if (cardIndex > 0 && cardIndex <= hand->size())
             {
@@ -197,6 +204,8 @@ bool HumanPlayerStrategy::issueOrder(Player *player, Map *map, Deck *deck)
         logMessage(ERROR, string("Human player did something unexpected: ") + e.what());
         Notify(this, ERROR, string("Human player did something unexpected: ") + e.what());
         cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
         return false;
     }
 }
@@ -246,12 +255,16 @@ Territory *AggressivePlayerStrategy::getStrongestTerritory(Player *player) const
     if (territories.empty())
         return nullptr;
 
-    Territory *strongest = territories[0];
+    Territory *strongest = nullptr;
     for (Territory *t : territories)
     {
-        if (t->getArmies() > strongest->getArmies())
+        // Verify territory is still owned by player
+        if (t->getOwner() == player)
         {
-            strongest = t;
+            if (!strongest || t->getArmies() > strongest->getArmies())
+            {
+                strongest = t;
+            }
         }
     }
 
@@ -269,6 +282,7 @@ bool AggressivePlayerStrategy::issueOrder(Player *player, Map *map, Deck *deck)
         Territory *strongest = getStrongestTerritory(player);
         if (strongest)
         {
+
             int armies = player->getReinforcementPool();
             player->getOrdersList()->add(new Deploy(player, strongest, armies));
             player->takeFromReinforcement(armies);
@@ -347,12 +361,16 @@ Territory *BenevolentPlayerStrategy::getWeakestTerritory(Player *player) const
     if (territories.empty())
         return nullptr;
 
-    Territory *weakest = territories[0];
+    Territory *weakest = nullptr;
     for (Territory *t : territories)
     {
-        if (t->getArmies() < weakest->getArmies())
+        // Verify territory is still owned by player
+        if (t->getOwner() == player)
         {
-            weakest = t;
+            if (!weakest || t->getArmies() < weakest->getArmies())
+            {
+                weakest = t;
+            }
         }
     }
 
@@ -473,7 +491,21 @@ void CheaterPlayerStrategy::instantConquerCheat(const vector<Territory *> &toCon
 {
     for (Territory *territory : toConquer)
     {
+        // Get old owner and remove territory from their list
+        Player *oldOwner = territory->getOwner();
+        if (oldOwner != nullptr)
+        {
+            oldOwner->removeTerritory(territory);
+        }
+
+        // Set new owner and add to their list
         territory->setOwner(player);
+
+        // Only add if not already in player's list
+        if (!player->ownsTerritoryId(territory->getId()))
+        {
+            player->addTerritory(territory);
+        }
     }
 }
 
@@ -492,11 +524,12 @@ bool CheaterPlayerStrategy::issueOrder(Player *player, Map *map, Deck *deck)
 {
     logMessage(AI, player->getPlayerName() + "'s Turn (" + getStrategyName() + " Strategy)");
     Notify(this, AI, player->getPlayerName() + "'s Turn (" + getStrategyName() + " Strategy)");
+    /*
     if (hasConqueredThisTurn)
     {
         hasConqueredThisTurn = false; // reset for next round;
         return false;
-    }
+    }*/
 
     int currentReinforcement = player->getReinforcementPool();
 

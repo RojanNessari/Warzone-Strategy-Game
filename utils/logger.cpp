@@ -68,7 +68,10 @@ void logMessage(LogLevel level, const std::string &message)
         color = BLUE;
         prefix = "[INPUT]";
         break;
-
+    case HUMAN:
+        color = BLUE;
+        prefix = "[HUMAN]";
+        break;
     default:
         color = RESET;
         prefix = "[UNKNOWN]";

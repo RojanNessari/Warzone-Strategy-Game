@@ -31,7 +31,6 @@ void testPlayerStrategies()
     if (gameMap->validate())
     {
         logMessage(PROGRESSION, "Map Validation Completed");
-        gameMap->printMapStatistics();
     }
     else
     {
@@ -60,6 +59,9 @@ void testPlayerStrategies()
     Player *cheaterPlayer = new Player("niCe");
     cheaterPlayer->setStrategy(new CheaterPlayerStrategy());
 
+    logMessage(INFO, "All players created with different strategy.");
+
+    logMessage(DEBUG, "Added players to Troups");
     vector<Player *> _players;
     _players.push_back(humanPlayer);
     _players.push_back(aggressivePlayer);
@@ -67,131 +69,147 @@ void testPlayerStrategies()
     _players.push_back(neutralPlayer);
     _players.push_back(cheaterPlayer);
 
+    logMessage(INFO, "Distributiing Territories...");
     gameMap->distributeTerritories(_players);
-
-    // Give each player some reinforcements to work with
+    cout << endl;
+    // Give each player some refinforcements and cards to get the game going
     for (Player *player : _players)
     {
+
         player->addReinforcements(10);
+        logMessage(COMBAT, "Added " + to_string(player->getReinforcementPool()) + " Reinforcements to " + player->getPlayerName());
+
+        // Give each player 3 starting cards:
+        for (int i = 0; i < 3; i++)
+        {
+            gameDeck->draw(*player, *player->getHandOfCards());
+        }
+
         logMessage(DEBUG, player->getPlayerName() + " has " + to_string(player->getReinforcementPool()) + " reinforcements");
         logMessage(DEBUG, player->getPlayerName() + " owns " + to_string(player->getTerritories().size()) + " territories");
+        logMessage(DEBUG, player->getPlayerName() + " has " + to_string(player->getHandOfCards()->size()) + " cards");
 
-        // Show first few territories owned
+        // Display first territories owned by player:
         if (player->getTerritories().size() > 0)
         {
-            logMessage(DEBUG, "  First territory: " + player->getTerritories()[0]->getName() + " with " + to_string(player->getTerritories()[0]->getArmies()) + " armies");
+            logMessage(DEBUG, "First territory: " + player->getTerritories()[0]->getName() + " with " + to_string(player->getTerritories()[0]->getArmies()) + " armies");
         }
+
+        cout << endl;
     }
-
-    logMessage(INFO, "All players created with different strategy.");
-
     logMessage(PROGRESSION, "Part 2: Demonstrating dynamic strategy change");
-
     logMessage(DEBUG, "Neutral player is attacked! Becoming aggressive. . .");
     neutralPlayer->setStrategy(new AggressivePlayerStrategy());
-
     logMessage(DEBUG, "Benevolent player changes to neutral strategy. . .");
     benevolentPlayer->setStrategy(new NeutralPlayerStrategy());
 
+    cout << endl;
+
     logMessage(PROGRESSION, "Part 3: Demonstrating different behaviors");
 
-    // Give each territory some initial armies for better demonstration
+    logMessage(COMBAT, "Setting 7 armies to " + to_string(gameMap->getTerritoriesSize()) + " territories of the GameMap");
     for (int i = 0; i < gameMap->getTerritoriesSize(); i++)
     {
         Territory *t = gameMap->getTerritoryByIndex(i);
         if (t)
         {
-            t->setArmies(5); // Start each territory with 5 armies
+            t->setArmies(7); // setting 7 armies to the territories;
         }
     }
-
-    logMessage(INFO, "\n=== AGGRESSIVE PLAYER (PostalDude77) ===");
-    logMessage(INFO, "Behavior: Deploys to strongest territory, then attacks from it");
     bool continuePlaying = true;
     int orderCount = 0;
-    while (continuePlaying && orderCount < 5)
-    { // Allow up to 5 orders
-        continuePlaying = aggressivePlayer->issueOrder(gameMap, gameDeck);
+    const int MAX_COUNT = 2; // Number of rounds
+    bool isCheaterPlayer = false;
+    int territoriesBefore;
+    int totalArmiesBefore;
+
+    while (orderCount < MAX_COUNT)
+    {
+        for (Player *player : _players)
+        { // turn by turn
+            logMessage(INFO, "=== " + player->getPlayerStrategyName() + " Player (" + player->getPlayerName() + ") ===");
+            // dynamic casting during gameplay:
+            if (dynamic_cast<HumanPlayerStrategy *>(player->getStrategy()) == nullptr)
+            { // its not human player
+                logMessage(INFO, "Current Player Strategy: " + player->getPlayerStrategyName());
+                logMessage(INPUT, "Would you like to change player strategy [C/A/N]? Hit 'Enter' to continue.");
+                cout << " C: Cheater" << endl;
+                cout << " A: Aggressive" << endl;
+                cout << " N: Neutral" << endl;
+
+                string changeStrategy;
+                getline(cin, changeStrategy);
+
+                if (changeStrategy.empty())
+                {
+                    goto SKIP_PROCESS;
+                }
+                // user gave input → process it
+                if (changeStrategy == "C" || changeStrategy == "c")
+                    player->setStrategy(new CheaterPlayerStrategy());
+                else if (changeStrategy == "A" || changeStrategy == "a")
+                    player->setStrategy(new AggressivePlayerStrategy());
+                else if (changeStrategy == "N" || changeStrategy == "n")
+                    player->setStrategy(new NeutralPlayerStrategy());
+            SKIP_PROCESS:;
+            }
+
+            // Special Case for the cheater player:
+            if (dynamic_cast<CheaterPlayerStrategy *>(player->getStrategy()) != nullptr)
+            {
+                isCheaterPlayer = true;
+                logMessage(INFO, "Behavior: Automatically doubles armies in owned territories");
+                territoriesBefore = player->getTerritories().size();
+                totalArmiesBefore = 0;
+                for (Territory *t : player->getTerritories())
+                {
+                    totalArmiesBefore += t->getArmies();
+                }
+            }
+            continuePlaying = player->issueOrder(gameMap, gameDeck);
+
+            if (isCheaterPlayer)
+            {
+                int totalArmiesAfter = 0;
+                for (Territory *t : player->getTerritories())
+                {
+                    totalArmiesAfter += t->getArmies();
+                }
+                logMessage(ANTICHEAT, "Territories owned: " + to_string(territoriesBefore));
+                logMessage(ANTICHEAT, "Total armies before cheating: " + to_string(totalArmiesBefore));
+                logMessage(ANTICHEAT, "Total armies after cheating: " + to_string(totalArmiesAfter));
+                isCheaterPlayer = false;
+            }
+
+            logMessage(INFO, "Total orders issued: " + to_string(player->getOrdersList()->size()));
+            // Show Order list
+            if (player->getOrdersList()->size() > 0)
+            {
+                logMessage(INFO, "Order list for player: " + player->getPlayerName());
+                for (size_t t = 0; t < player->getOrdersList()->size(); t++)
+                {
+                    Order *order = player->getOrdersList()->get(t);
+                    cout << "  - " << *order << endl; // Use stream operator instead
+                }
+            }
+
+            // logMessage(PROGRESSION, "\nExecuting all orders for turn " + to_string(turn));
+            OrdersList *orders = player->getOrdersList();
+            while (orders->size() > 0)
+            {
+                Order *order = orders->get(0);
+                order->execute();
+                orders->remove(0);
+            }
+        }
         orderCount++;
     }
-    logMessage(INFO, "Total orders issued: " + to_string(aggressivePlayer->getOrdersList()->size()));
 
-    // Show the orders
-    cout << "\nOrders list for " << aggressivePlayer->getPlayerName() << ":" << endl;
-    for (size_t i = 0; i < aggressivePlayer->getOrdersList()->size(); i++)
-    {
-        Order *order = aggressivePlayer->getOrdersList()->get(i);
-        cout << "  - " << *order << endl;
-    }
-
-    logMessage(INFO, "\n=== NEUTRAL PLAYER (Jalla - changed from Benevolent) ===");
-    logMessage(INFO, "Behavior: Does nothing");
-    continuePlaying = true;
-    orderCount = 0;
-    while (continuePlaying && orderCount < 3)
-    {
-        continuePlaying = benevolentPlayer->issueOrder(gameMap, gameDeck);
-        orderCount++;
-    }
-    logMessage(INFO, "Total orders issued: " + to_string(benevolentPlayer->getOrdersList()->size()));
-
-    logMessage(INFO, "\n=== AGGRESSIVE PLAYER (xRizz - changed from Neutral) ===");
-    logMessage(INFO, "Behavior: Shows dynamic strategy change - now aggressive");
-    continuePlaying = true;
-    orderCount = 0;
-    while (continuePlaying && orderCount < 5)
-    {
-        continuePlaying = neutralPlayer->issueOrder(gameMap, gameDeck);
-        orderCount++;
-    }
-    logMessage(INFO, "Total orders issued: " + to_string(neutralPlayer->getOrdersList()->size()));
-
-    // Show the orders
-    cout << "\nOrders list for " << neutralPlayer->getPlayerName() << " (changed to Aggressive):" << endl;
-    for (size_t i = 0; i < neutralPlayer->getOrdersList()->size(); i++)
-    {
-        Order *order = neutralPlayer->getOrdersList()->get(i);
-        cout << "  - " << *order << endl;
-    }
-
-    logMessage(INFO, "\n=== CHEATER PLAYER (niCe) ===");
-    logMessage(INFO, "Behavior: Automatically doubles armies in owned territories");
-
-    // Count territories and armies before
-    int territoriesBefore = cheaterPlayer->getTerritories().size();
-    int totalArmiesBefore = 0;
-    for (Territory *t : cheaterPlayer->getTerritories())
-    {
-        totalArmiesBefore += t->getArmies();
-    }
-
-    continuePlaying = true;
-    orderCount = 0;
-    while (continuePlaying && orderCount < 3)
-    {
-        continuePlaying = cheaterPlayer->issueOrder(gameMap, gameDeck);
-        orderCount++;
-    }
-
-    // Count after
-    int totalArmiesAfter = 0;
-    for (Territory *t : cheaterPlayer->getTerritories())
-    {
-        totalArmiesAfter += t->getArmies();
-    }
-
-    logMessage(INFO, "Territories owned: " + to_string(territoriesBefore));
-    logMessage(INFO, "Total armies before cheating: " + to_string(totalArmiesBefore));
-    logMessage(INFO, "Total armies after cheating: " + to_string(totalArmiesAfter));
-    logMessage(INFO, "Total orders issued: " + to_string(cheaterPlayer->getOrdersList()->size()));
-
-    logMessage(INFO, "\n>> Human player requires user interaction (skipped in automated test)");
-
+    // clear memory
     for (Player *player : _players)
     {
         delete player;
     }
-
     _players.clear();
     delete gameMap;
     delete mapLoader;
@@ -202,10 +220,10 @@ void testPlayerStrategies()
 
     logMessage(INFO, "PLAYER STRATEGIES TEST COMPLETE");
 }
-
+/*
 int main()
 {
     testPlayerStrategies();
 
     return 0;
-}
+}*/

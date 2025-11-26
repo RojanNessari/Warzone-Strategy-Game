@@ -134,8 +134,27 @@ void Player::setStrategy(PlayerStrategy *newStrategy)
     }
 
     strategy = newStrategy;
-    logMessage(AI, playerName + " strategy set to " + strategy->getStrategyName());
-    Notify(this, AI, playerName + " strategy set to " + strategy->getStrategyName());
+
+    if (dynamic_cast<HumanPlayerStrategy *>(newStrategy) != nullptr)
+    {
+        logMessage(HUMAN, playerName + " strategy set to " + strategy->getStrategyName());
+        Notify(this, HUMAN, playerName + " strategy set to " + strategy->getStrategyName());
+    }
+    else
+    {
+        logMessage(AI, playerName + " strategy set to " + strategy->getStrategyName());
+        Notify(this, AI, playerName + " strategy set to " + strategy->getStrategyName());
+    }
+}
+
+PlayerStrategy *Player::getStrategy() const
+{
+    return strategy;
+}
+
+string Player::getPlayerStrategyName() const
+{
+    return strategy->getStrategyName();
 }
 
 vector<Territory *> Player::toDefend()

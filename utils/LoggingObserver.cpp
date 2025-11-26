@@ -150,6 +150,10 @@ void LogObserver::Update(ILoggable *loggable, LogLevel level, std::string messag
     {
         color = MAGENTA;
     }
+    else if (level == HUMAN)
+    {
+        color = BLUE;
+    }
     else
     {
         color = RESET;
@@ -176,6 +180,9 @@ void LogObserver::Update(ILoggable *loggable, LogLevel level, std::string messag
         break;
     case AI:
         levelStr = "AI";
+        break;
+    case HUMAN:
+        levelStr = "HUMAN";
         break;
     case INVENTORY:
         levelStr = "INVENTORY";
@@ -215,4 +222,10 @@ void LogObserver::Update(ILoggable *loggable, LogLevel level, std::string messag
     {
         logMessage(ERROR, "Error: could not open: " + LOGGER_PATH_FILE + "\n");
     }
+}
+
+// Helper method to log directly to file without needing ILoggable
+void LogObserver::logToFile(LogLevel level, const std::string &message)
+{
+    Update(nullptr, level, message);
 }

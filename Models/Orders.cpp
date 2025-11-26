@@ -75,6 +75,7 @@ void Deploy::execute()
 {
     if (!validate())
     {
+
         effect = "Invalid: target not owned by issuer.";
         Notify(this, DEBUG, "Invalid: target not owned by issuer.");
         return;
@@ -177,9 +178,21 @@ void Advance::execute()
     {
         // capture territory; survivors occupy
         Player *prevOwner = target->getOwner();
-        (void)prevOwner; // if unused
+
+        // Update territory ownership in both Territory and Player lists
+        if (prevOwner != nullptr)
+        {
+            prevOwner->removeTerritory(target);
+        }
         target->setOwner(issuer);
+
+        // Only add if not already in issuer's list (shouldn't happen, but safety check)
+        if (!issuer->ownsTerritoryId(target->getId()))
+        {
+            issuer->addTerritory(target);
+        }
         target->setArmies(a);
+
         issuer->markConqueredThisTurn();
         effect = "Conquered " + target->getName() + " with " + std::to_string(a) + " survivors.";
     }

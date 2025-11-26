@@ -42,6 +42,9 @@ public:
     ~LogObserver();
     void Update(ILoggable *loggable, LogLevel level, std::string messageType) override;
 
+    // Helper method to log messages directly to file
+    void logToFile(LogLevel level, const std::string &message);
+
     // Singleton instance
     static LogObserver *getInstance();
     static void destroyInstance();

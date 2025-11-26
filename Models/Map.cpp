@@ -656,7 +656,6 @@ Map *MapLoader::loadMap(const string &filename)
         // Remove whitespace
         line.erase(0, line.find_first_not_of(WHITE_SPACE));
         line.erase(line.find_last_not_of(WHITE_SPACE) + 1);
-        logMessage(DEBUG, string("line: ") + line);
 
         if (line.empty())
             continue;
@@ -665,7 +664,7 @@ Map *MapLoader::loadMap(const string &filename)
         if (newSection != NONE)
         {
             string strSection = sectionToString(newSection);
-            logMessage(DEBUG, string("Detected Section: ") + strSection);
+            Notify(this, DEBUG, string("Detected Section: ") + strSection);
             currentSection = newSection;
             continue;
         }
@@ -728,7 +727,7 @@ Map *MapLoader::loadMap(const string &filename)
             map->addTerritory(territory);
             continent->addTerritory(territoryId);
 
-            logMessage(DEBUG, string("Territory: ") + name + " -> " + continentName + " (Adjacent: " + to_string(adjacentNames.size()) + ")");
+            Notify(this, DEBUG, string("Territory: ") + name + " -> " + continentName + " (Adjacent: " + to_string(adjacentNames.size()) + ")");
         }
         else
         {

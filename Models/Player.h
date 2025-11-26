@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include <algorithm>
 #include "Map.h"
 #include "Orders.h"
 #include "Cards.h"
@@ -31,6 +32,12 @@ public:
     void addTerritory(Territory *territory)
     {
         territories.push_back(territory);
+    }
+    void removeTerritory(Territory *territory)
+    {
+        territories.erase(
+            std::remove(territories.begin(), territories.end(), territory),
+            territories.end());
     }
     std::vector<Territory *> getTerritories() const { return territories; }
     int takeFromReinforcement(int n); // for Deploy
@@ -61,6 +68,8 @@ public:
 
     // Set player strategy:
     void setStrategy(PlayerStrategy *newStrategy);
+    string getPlayerStrategyName() const;
+    PlayerStrategy *getStrategy() const;
 
 private:
     int id = -1;

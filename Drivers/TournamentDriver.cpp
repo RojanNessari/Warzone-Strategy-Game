@@ -1,99 +1,226 @@
 #include <iostream>
 #include <vector>
 #include "../Models/GameEngine.h"
+#include "../utils/logger.h"
+#include "../utils/LoggingObserver.h"
+#include <string>
+#include <vector>
+using namespace std;
 
-void testTournament()
+void testTournament(vector<string> mapFiles,
+                    vector<string> playerStrategies,
+                    int numGames, int maxTurns)
 {
-    std::cout << "=== Testing Tournament Mode with Player Strategies ===" << std::endl;
+    LogObserver::getInstance();
+
+    logMessage(EVENT, "=== Testing Tournament Mode with Player Strategies ===");
 
     GameEngine engine;
     engine.buildGraph();
-
-    // Test with available map files
-    std::vector<std::string> testMaps = {
-        "Maps/alberta.map"};
-
-    // Player strategies that should exhibit different behaviors
-    std::vector<std::string> testStrategies = {
-        "Aggressive", "Benevolent", "Cheater"};
-
-    int testGames = 2;
-    int testTurns = 20;
-
-    std::cout << "Testing tournament with implemented player strategies:" << std::endl;
-    std::cout << "- Aggressive: Focuses on attacking and conquering" << std::endl;
-    std::cout << "- Benevolent: Focuses on defending weak territories" << std::endl;
-    std::cout << "- Cheater: Automatically conquers adjacent territories" << std::endl
-              << std::endl;
-
-    std::cout << "Tournament Parameters:" << std::endl;
-    std::cout << "- Maps: ";
-    for (const auto &map : testMaps)
-        std::cout << map << " ";
-    std::cout << std::endl
-              << "- Strategies: ";
-    for (const auto &strategy : testStrategies)
-        std::cout << strategy << " ";
-    std::cout << std::endl
-              << "- Games: " << testGames;
-    std::cout << std::endl
-              << "- Max Turns: " << testTurns << std::endl;
 
     try
     {
-        engine.runTournament(testMaps, testStrategies, testGames, testTurns);
-        std::cout << "Tournament completed successfully with strategy behaviors!" << std::endl;
+        engine.runTournament(mapFiles, playerStrategies, numGames, maxTurns);
     }
     catch (const std::exception &e)
     {
-        std::cout << "Tournament error: " << e.what() << std::endl;
+        logMessage(ERROR, string("Tournament error: ") + e.what());
+        exit(1);
     }
 
-    std::cout << "=== Tournament Test Complete ===" << std::endl;
+    logMessage(EVENT, "=== Tournament Test Complete ===");
+
+    // Clean up global logger at program end
+    LogObserver::destroyInstance();
 }
 
-// Optional: Test different strategy combinations
-void testTournamentStrategies()
+bool argumentValidator(int argc, char *argv[],
+                       vector<string> &mapFiles,
+                       vector<string> &playerStrategies,
+                       int &numGames,
+                       int &maxTurns)
 {
-    std::cout << "\n=== Testing Different Strategy Combinations ===" << std::endl;
 
-    GameEngine engine;
-    engine.buildGraph();
+    // Initialize the logger
+    LogObserver *logger = LogObserver::getInstance();
 
-    // Test 1: Aggressive vs Benevolent
-    std::cout << "Test 1: Aggressive vs Benevolent" << std::endl;
-    engine.runTournament(
-        {"Maps/alberta.map"},
-        {"Aggressive", "Benevolent"},
-        1, // 1 game
-        15 // 15 turns
-    );
+    if (argc < 2)
+    {
+        cout << "No arguments provided." << endl;
+        cout << "Usage: tournament -M <mapfiles> -P <strategies> -G <games> -D <turns>" << endl;
+        cout << "Note: Use quotes for paths with spaces: -M \"path with spaces.map\"" << endl;
+        return false;
+    }
 
-    // Test 2: All strategy types
-    std::cout << "\nTest 2: All Strategy Types" << std::endl;
-    engine.runTournament(
-        {"Maps/alberta.map"},
-        {"Aggressive", "Benevolent", "Neutral", "Cheater"},
-        1, // 1 game
-        15 // 15 turns
-    );
+    // Parse arguments
+    for (int i = 1; i < argc; i++)
+    {
+        string arg = argv[i];
 
-    // Test 3: Cheater strategy dominance test
-    std::cout << "\nTest 3: Cheater Strategy Test" << std::endl;
-    engine.runTournament(
-        {"Maps/alberta.map"},
-        {"Cheater", "Aggressive", "Benevolent"},
-        1, // 1 game
-        10 // 10 turns
-    );
+        if (arg == "-M")
+        {
+            // Read all map files until next flag
+            string currentPath = "";
+            while (i + 1 < argc && argv[i + 1][0] != '-')
+            {
+                string mapFile = argv[++i];
+                // Remove trailing comma if present
+                if (!mapFile.empty() && mapFile.back() == ',')
+                    mapFile.pop_back();
+
+                // If currentPath is not empty, this might be continuation of a space-separated path
+                if (!currentPath.empty())
+                {
+                    currentPath += " " + mapFile;
+                }
+                else
+                {
+                    currentPath = mapFile;
+                }
+
+                // Check if this looks like a complete path (ends with .map or is followed by comma/flag)
+                bool isComplete = false;
+                if (currentPath.find(".map") != string::npos)
+                {
+                    // Check if next arg is a flag or new path
+                    if (i + 1 >= argc || argv[i + 1][0] == '-' ||
+                        string(argv[i + 1]).find("Tests/") == 0 ||
+                        string(argv[i + 1]).find("Maps/") == 0)
+                    {
+                        isComplete = true;
+                    }
+                }
+
+                if (isComplete && !currentPath.empty())
+                {
+                    mapFiles.push_back(currentPath);
+                    currentPath = "";
+                }
+            }
+            // Add any remaining path
+            if (!currentPath.empty())
+            {
+                mapFiles.push_back(currentPath);
+            }
+        }
+        else if (arg == "-P")
+        {
+            // Read all player strategies until next flag
+            while (i + 1 < argc && argv[i + 1][0] != '-')
+            {
+                string strategy = argv[++i];
+                // Remove trailing comma and whitespace if present
+                if (!strategy.empty() && strategy.back() == ',')
+                    strategy.pop_back();
+                if (!strategy.empty())
+                    playerStrategies.push_back(strategy);
+            }
+        }
+        else if (arg == "-G" && i + 1 < argc)
+        {
+            try
+            {
+                numGames = stoi(argv[++i]);
+            }
+            catch (const exception &e)
+            {
+                logMessage(ERROR, "Invalid number for -G");
+                return false;
+            }
+        }
+        else if (arg == "-D" && i + 1 < argc)
+        {
+            try
+            {
+                maxTurns = stoi(argv[++i]);
+            }
+            catch (const exception &e)
+            {
+                logMessage(ERROR, "Invalid number for -D");
+                return false;
+            }
+        }
+        else
+        {
+            logMessage(ERROR, "Unknown argument: " + arg);
+            return false;
+        }
+    }
+
+    // Validate required arguments
+    if (mapFiles.empty())
+    {
+        logMessage(ERROR, "Error: At least one map file required (-M)");
+        return false;
+    }
+    if (playerStrategies.empty())
+    {
+        logMessage(ERROR, "Error: At least one player strategy required (-P)");
+        return false;
+    }
+    if (numGames <= 0)
+    {
+
+        logMessage(ERROR, "Error: Number of games must be positive (-G)");
+        return false;
+    }
+    if (maxTurns <= 0)
+    {
+        logMessage(ERROR, "Error: Max turns must be positive (-D)");
+        return false;
+    }
+    logMessage(INFO, "Maps:");
+    for (const auto &map : mapFiles)
+        cout << " " + map << endl;
+    logMessage(INFO, "Players:");
+    for (const auto &player : playerStrategies)
+        cout << " " + player;
+    cout << "\n";
+    logMessage(INFO, "Games: " + to_string(numGames));
+    logMessage(INFO, "Max Turn: " + to_string(maxTurns));
+
+    // Log tournament details to file
+    logger->logToFile(EVENT, "Tournament mode:");
+
+    // Format maps
+    string mapsStr = "M: ";
+    for (size_t i = 0; i < mapFiles.size(); i++)
+    {
+        mapsStr += mapFiles[i];
+        if (i < mapFiles.size() - 1)
+            mapsStr += ", ";
+    }
+    logger->logToFile(EVENT, mapsStr);
+
+    // Format player strategies
+    string playersStr = "P: ";
+    for (size_t i = 0; i < playerStrategies.size(); i++)
+    {
+        playersStr += playerStrategies[i];
+        if (i < playerStrategies.size() - 1)
+            playersStr += ", ";
+    }
+    logger->logToFile(EVENT, playersStr);
+
+    // Log games and max turns
+    logger->logToFile(EVENT, "G: " + to_string(numGames));
+    logger->logToFile(EVENT, "D: " + to_string(maxTurns));
+
+    return true; // All validations passed
 }
 
-int main()
+/*
+int main(int argc, char *argv[])
 {
-    testTournament();
+    vector<string> mapFiles;
+    vector<string> playerStrategies;
+    int numGames = 0;
+    int maxTurns = 0;
 
-    // Uncomment to test additional strategy combinations
-    // testTournamentStrategies();
-
+    if (!argumentValidator(argc, argv, mapFiles, playerStrategies, numGames, maxTurns))
+    {
+        exit(1);
+    }
+    testTournament(mapFiles, playerStrategies, numGames, maxTurns);
     return 0;
-}
+}*/

@@ -20,10 +20,11 @@ void testPlayers()
     // Create a simple map for testing
     Map testMap;
 
+    Deck *deck = new Deck();
     // Issue orders
     cout << "\n Issuing orders for p1...\n";
-    p1.issueOrder(&testMap);
-    p1.issueOrder(&testMap);
+    p1.issueOrder(&testMap, deck);
+    p1.issueOrder(&testMap, deck);
     cout << p1 << endl;
 
     // Add cards to hand

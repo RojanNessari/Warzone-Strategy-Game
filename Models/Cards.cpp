@@ -274,6 +274,7 @@ Card *Deck::draw(Player & /*player*/, Hand &hand)
     if (cards.empty())
     {
         DebugPrint("Deck::draw on empty deck");
+        Notify(this, INFO, "Deck::draw on empty deck");
         return nullptr;
     }
     uniform_int_distribution<size_t> dist(0, cards.size() - 1);
@@ -287,6 +288,7 @@ Card *Deck::draw(Player & /*player*/, Hand &hand)
     ostringstream oss;
     oss << *c;
     DebugPrint("Deck::draw gave " + oss.str() + " to player's hand");
+    Notify(this, INFO, "Deck::draw gave " + oss.str() + " to player's hand");
     return c;
 }
 

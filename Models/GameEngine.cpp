@@ -902,12 +902,16 @@ string GameEngine::runSingleGame(const string &mapFile,
         {
             if ((*it)->getTerritories().empty())
             {
+                logMessage(WARNING, (*it)->getPlayerName() + " eliminated!");
+                Notify(this, WARNING, (*it)->getPlayerName() + " eliminated!");
                 delete *it; // Delete the eliminated player
                 it = game.players.erase(it);
             }
             else
                 ++it;
         }
+
+        logMessage(DEBUG, "Turn " + to_string(turn) + ": " + to_string(game.players.size()) + " players remaining");
 
         // Win check - extract strategy name from player name
         if (game.players.size() == 1)
@@ -934,7 +938,8 @@ string GameEngine::runSingleGame(const string &mapFile,
         turn++;
     }
 
-    if (turn > maxTurns)
+    // Only set to draw if game wasn't finished (no winner determined)
+    if (!finished && turn > maxTurns)
         winner = "Draw";
 
     // Cleanup - delete remaining players manually
