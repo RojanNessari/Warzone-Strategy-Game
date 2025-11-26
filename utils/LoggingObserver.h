@@ -2,12 +2,12 @@
 #include <string>
 #include <list>
 #include <fstream>
+#include "logger.h"
 
 // Interface for loggable objects
 class ILoggable
 {
 public:
-    virtual std::string stringToLog() = 0;
     virtual ~ILoggable() = default;
 };
 
@@ -15,7 +15,8 @@ public:
 class Observer
 {
 public:
-    virtual void Update(ILoggable *loggable, std::string messageType) = 0;
+    virtual void Update(ILoggable *loggable, LogLevel level, std::string messageType) = 0;
+
     virtual ~Observer() = default;
 };
 
@@ -30,7 +31,8 @@ public:
     virtual ~Subject();
     virtual void Attach(Observer *o);
     virtual void Detach(Observer *o);
-    virtual void Notify(ILoggable *loggable, std::string messageType);
+    virtual void Notify(ILoggable *loggable, LogLevel level, std::string messageType);
+    virtual void Notify(const ILoggable *loggable, LogLevel level, std::string messageType) const;
 };
 
 class LogObserver : public Observer
@@ -38,6 +40,16 @@ class LogObserver : public Observer
 public:
     LogObserver();
     ~LogObserver();
-    void Update(ILoggable *loggable, std::string messageType) override;
+    void Update(ILoggable *loggable, LogLevel level, std::string messageType) override;
+
+    // Helper method to log messages directly to file
+    void logToFile(LogLevel level, const std::string &message);
+
+    // Singleton instance
+    static LogObserver *getInstance();
+    static void destroyInstance();
+
+private:
+    static LogObserver *instance;
 };
 #pragma once

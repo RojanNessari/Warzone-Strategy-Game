@@ -54,12 +54,7 @@ void Command::saveEffect(const string &effectText)
 {
     effect = effectText; // Store the effect string
     logMessage(INFO, "Effect saved: " + effectText);
-    Notify(this, "INFO"); // Notify Observer
-}
-
-string Command::stringToLog()
-{
-    return "Command: " + command + ", Effect:" + effect;
+    Notify(this, INFO, "Command: " + command + ", Effect:" + effect); // Notify Observer
 }
 
 // Stream insertion operator for Command
@@ -84,6 +79,7 @@ FileLineReader::FileLineReader(const string &fileName)
     if (!fileStream->is_open())
     {
         logMessage(ERROR, "Error: Could not open file " + fileName);
+        Notify(this, ERROR, "Error: Could not open file " + fileName);
     }
 }
 
@@ -134,6 +130,7 @@ string FileLineReader::readLineFromFile()
     }
 
     logMessage(DEBUG, "End of file or error reading file.");
+    Notify(this, DEBUG, "End of file or error reading file.");
     return ""; // Return empty string if EOF or error
 }
 
@@ -203,15 +200,6 @@ string CommandProcessor::readCommand()
     return commandLine;
 }
 
-string CommandProcessor::stringToLog()
-{
-    if (!commands.empty())
-    {
-        return "CommandProcessor: Last command Processed: " + commands.back()->getCommand();
-    }
-    return "CommandProcessor: No commands processed yet";
-}
-
 // This method is the main public interface - it:
 // 1. Reads a command (using readCommand())
 // 2. Creates a Command object
@@ -243,7 +231,7 @@ void CommandProcessor::saveCommand(Command *cmd)
     {
         commands.push_back(cmd); // add to vector
         logMessage(INFO, "Command saved: " + cmd->getCommand());
-        Notify(this, "INFO");
+        Notify(this, INFO, "Command saved: " + cmd->getCommand());
     }
 }
 
@@ -282,7 +270,70 @@ bool CommandProcessor::validate(Command *cmd, GameEngine *engine)
     string commandName;
     iss >> commandName; // Extract first word
 
-    logMessage(DEBUG, "Current State: " + currentState);
+    logMessage(PROGRESSION, "Current State: " + currentState);
+    Notify(this, PROGRESSION, "Current State: " + currentState);
+    if (cmd->getCommand().rfind("tournament", 0) == 0)
+    {
+        std::string commandText = cmd->getCommand();
+        std::stringstream ss(commandText);
+        std::string tok;
+        std::vector<std::string> tokens;
+
+        while (ss >> tok)
+            tokens.push_back(tok);
+
+        std::vector<std::string> maps, strategies;
+        int games = 0, turns = 0;
+
+        for (size_t i = 1; i < tokens.size(); i++)
+        {
+            if (tokens[i] == "-M")
+            {
+                i++;
+                while (i < tokens.size() && tokens[i][0] != '-')
+                    maps.push_back(tokens[i++]);
+                i--;
+            }
+            else if (tokens[i] == "-P")
+            {
+                i++;
+                while (i < tokens.size() && tokens[i][0] != '-')
+                    strategies.push_back(tokens[i++]);
+                i--;
+            }
+            else if (tokens[i] == "-G")
+            {
+                games = std::stoi(tokens[++i]);
+            }
+            else if (tokens[i] == "-D")
+            {
+                turns = std::stoi(tokens[++i]);
+            }
+        }
+
+        if (maps.size() < 1 || maps.size() > 5)
+            return false;
+        if (strategies.size() < 2 || strategies.size() > 4)
+            return false;
+        if (games < 1 || games > 5)
+            return false;
+        if (turns < 10 || turns > 50)
+            return false;
+
+        // Save inside the command
+        cmd->tournamentMaps = maps;
+        cmd->tournamentStrategies = strategies;
+        cmd->tournamentGames = games;
+        cmd->tournamentMaxTurns = turns;
+
+        if (currentState != "start")
+        {
+            cmd->saveEffect("Error: Tournament command only valid in 'start' state");
+            return false;
+        }
+        cmd->saveEffect("Tournament command validated.");
+        return true;
+    }
 
     // Validate based on the stat transition table
     if (commandName == "loadmap")
@@ -293,6 +344,7 @@ bool CommandProcessor::validate(Command *cmd, GameEngine *engine)
         if (argument.empty())
         {
             logMessage(ERROR, "No map file path is found.");
+            Notify(this, ERROR, "No map file path is found.");
             return false;
         }
         try
@@ -300,12 +352,14 @@ bool CommandProcessor::validate(Command *cmd, GameEngine *engine)
             if (!filesystem::exists(argument)) // file path does not exist
             {
                 logMessage(ERROR, "This file path does not exist");
+                Notify(this, ERROR, "This file path does not exist");
                 return false;
             }
         }
         catch (const filesystem::filesystem_error &err)
         {
             logMessage(ERROR, "FileSystem Error: " + string(err.what()));
+            Notify(this, ERROR, "FileSystem Error: " + string(err.what()));
             return false;
         }
 

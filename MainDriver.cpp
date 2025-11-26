@@ -4,7 +4,7 @@
   Assignment: A1 (Parts 1–5)
   Authors: Adja Bineta Boye (ID: 40281923), Ali Sher (ID: 40255236), Achraf Cheniti (ID: 40244865)
            Joseph El Bitar (ID: 40270590), Rojan Nessari (ID: 40255637)
-  Date: 2025-11-11
+  Date: 2025-11-26
 -----------------------------------------------------------------------------*/
 
 #include <iostream>
@@ -15,8 +15,13 @@
 #include "Drivers/PlayerDriver.h"
 #include "Drivers/CommandProcessingDriver.h"
 #include "Drivers/LoggingObserverDriver.h"
+#include "utils/LoggingObserver.h"
+#include "Drivers/PlayerStrategyDriver.h"
+#include "Drivers/TournamentDriver.h"
 
 #include <string>
+#include <cctype>
+#include <algorithm>
 
 using namespace std;
 
@@ -221,9 +226,88 @@ void Assignment_02_Menu()
     }
 }
 
-int main()
+void Assignment_03_Menu(vector<string> mapFiles,
+                        vector<string>
+                            playerStrategies,
+                        int numGames, int maxTurns)
 {
     string cmd;
+    // Display menu as written
+    while (true)
+    {
+        // Display menu as written
+        cout << R"(
+╔══════════════════════════════════════════════════════════════════════════════════╗
+║                           COMP-345 Assignment-02                                 ║
+╠══════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                  ║
+║  1) Run testPlayerStrategies()   - Part 1: Run Player Strategies                 ║
+║  2) Run testTournament()         - Part 2: Test Tournament Phase                 ║             
+║  Type "quit" to exit                                                             ║
+╚══════════════════════════════════════════════════════════════════════════════════╝
+    )";
+        cout << "Enter one of the following choices [1/2] else type 'quit' to exit."
+             << endl;
+        if (!getline(cin, cmd))
+            break;
+
+        if (cmd == "quit")
+        {
+            cout << "=======================================================" << endl;
+            cout << "                      End Of Program                  " << endl;
+            cout << "=======================================================" << endl;
+            break;
+        }
+
+        if (cmd == "1")
+        {
+            cout << "=======================================================" << endl;
+            cout << "                 TEST PLAYER STRATEGIES                " << endl;
+            cout << "=======================================================" << endl;
+            testPlayerStrategies();
+            cout << "=======================================================" << endl;
+            cout << "             END OF TEST PLAYER STRATEGIES             " << endl;
+            cout << "=======================================================" << endl;
+        }
+        else if (cmd == "2")
+        {
+            cout << "=======================================================" << endl;
+            cout << "                     TEST TOURNAMENT                   " << endl;
+            cout << "=======================================================" << endl;
+            testTournament(mapFiles, playerStrategies, numGames, maxTurns);
+            cout << "=======================================================" << endl;
+            cout << "                 END OF TEST TOURNAMENT                " << endl;
+            cout << "=======================================================" << endl;
+        }
+        else
+        {
+            cout << "Unknown Command. Please try again." << endl;
+        }
+    }
+}
+
+int main(int argc, char *argv[])
+{
+    // Initialize global logger ONCE at the start of the program
+    // All Subject objects will auto-attach to it
+    LogObserver::getInstance();
+    vector<string> mapFiles;
+    vector<string> playerStrategies;
+    int numGames = 0;
+    int maxTurns = 0;
+
+    if (!argumentValidator(argc, argv, mapFiles, playerStrategies, numGames, maxTurns))
+    {
+        exit(1);
+    }
+
+    Assignment_03_Menu(mapFiles,
+
+                       playerStrategies, numGames, maxTurns);
+    /*
+    string cmd;
+
+
     cout << "Run Assignment-01 ? [Y/n]" << endl;
     getline(cin, cmd);
     if (cmd == "y" || cmd == "Y")
@@ -235,7 +319,10 @@ int main()
     if (cmd == "n" || cmd == "N")
     {
         Assignment_02_Menu();
-    }
+    }*/
+
+    // Clean up global logger at program end
+    LogObserver::destroyInstance();
 
     return 0;
 }

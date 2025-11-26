@@ -1,0 +1,2143 @@
+[2025-11-26 17:09:38] [EVENT] Tournament mode:
+[2025-11-26 17:09:38] [EVENT] M: Maps/alberta.map
+[2025-11-26 17:09:38] [EVENT] P: Aggressive, Benevolent, Neutral
+[2025-11-26 17:09:38] [EVENT] G: 4
+[2025-11-26 17:09:38] [EVENT] D: 10
+[2025-11-26 17:09:48] [INFO] STARTING TOURNAMENT MODE
+[2025-11-26 17:09:48] [INFO] Tournament Parameters:
+[2025-11-26 17:09:48] [INFO] Maps:
+[2025-11-26 17:09:48] [INFO]   - Maps/alberta.map
+[2025-11-26 17:09:48] [INFO]   - Aggressive
+[2025-11-26 17:09:48] [INFO]   - Benevolent
+[2025-11-26 17:09:48] [INFO]   - Neutral
+[2025-11-26 17:09:48] [INFO] Games per map: 4
+[2025-11-26 17:09:48] [INFO] Max turns: 10
+[2025-11-26 17:09:48] [PROGRESSION] Playing on map: Maps/alberta.map
+[2025-11-26 17:09:48] [INFO] Game 1/4
+[2025-11-26 17:09:48] [EVENT] Building Game engine. . .
+[2025-11-26 17:09:48] [EVENT] Building Game engine. . .
+[2025-11-26 17:09:48] [INFO] Loading map from: Maps/alberta.map
+[2025-11-26 17:09:48] [DEBUG] Detected Section: CONTINENTS
+[2025-11-26 17:09:48] [DEBUG] Added continent: Northern Alberta(ID: 0, Bonus: 4)
+[2025-11-26 17:09:48] [DEBUG] Added continent: Grande Prairie(ID: 1, Bonus: 6)
+[2025-11-26 17:09:48] [DEBUG] Added continent: Slave Lake(ID: 2, Bonus: 7)
+[2025-11-26 17:09:48] [DEBUG] Added continent: Greater Edmonton(ID: 3, Bonus: 6)
+[2025-11-26 17:09:48] [DEBUG] Added continent: Cold Lake(ID: 4, Bonus: 7)
+[2025-11-26 17:09:48] [DEBUG] Added continent: Foothills(ID: 5, Bonus: 7)
+[2025-11-26 17:09:48] [DEBUG] Added continent: Greater Calgary(ID: 6, Bonus: 4)
+[2025-11-26 17:09:48] [DEBUG] Added continent: Badlands(ID: 7, Bonus: 5)
+[2025-11-26 17:09:48] [DEBUG] Added continent: Crowsnest(ID: 8, Bonus: 7)
+[2025-11-26 17:09:48] [DEBUG] Added continent: Prairies(ID: 9, Bonus: 6)
+[2025-11-26 17:09:48] [DEBUG] Detected Section: TERRITORIES
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory01 -> Northern Alberta (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory1A -> Northern Alberta (Adjacent: 7)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory02 -> Northern Alberta (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory03 -> Northern Alberta (Adjacent: 3)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory04 -> Northern Alberta (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory05 -> Northern Alberta (Adjacent: 3)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory06 -> Northern Alberta (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory07 -> Northern Alberta (Adjacent: 5)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory08 -> Grande Prairie (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory09 -> Northern Alberta (Adjacent: 8)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory10 -> Northern Alberta (Adjacent: 8)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory11 -> Northern Alberta (Adjacent: 2)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory12 -> Grande Prairie (Adjacent: 5)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory13 -> Grande Prairie (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory14 -> Grande Prairie (Adjacent: 5)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory15 -> Grande Prairie (Adjacent: 2)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory16 -> Grande Prairie (Adjacent: 8)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory17 -> Slave Lake (Adjacent: 2)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory18 -> Slave Lake (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory19 -> Slave Lake (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory20 -> Cold Lake (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory21 -> Cold Lake (Adjacent: 3)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory22 -> Grande Prairie (Adjacent: 3)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory23 -> Grande Prairie (Adjacent: 5)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory24 -> Slave Lake (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory25 -> Slave Lake (Adjacent: 5)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory26 -> Slave Lake (Adjacent: 5)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory27 -> Slave Lake (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory28 -> Cold Lake (Adjacent: 5)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory29 -> Cold Lake (Adjacent: 5)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory30 -> Cold Lake (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory31 -> Cold Lake (Adjacent: 3)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory32 -> Cold Lake (Adjacent: 3)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory33 -> Cold Lake (Adjacent: 7)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory34 -> Cold Lake (Adjacent: 5)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory35 -> Cold Lake (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory36 -> Cold Lake (Adjacent: 8)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory37 -> Cold Lake (Adjacent: 8)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory38 -> Greater Edmonton (Adjacent: 3)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory39 -> Greater Edmonton (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory40 -> Greater Edmonton (Adjacent: 7)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory41 -> Greater Edmonton (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory42 -> Greater Edmonton (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory43 -> Greater Edmonton (Adjacent: 7)
+[2025-11-26 17:09:48] [DEBUG] Territory: Edmonton -> Greater Edmonton (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory45 -> Foothills (Adjacent: 5)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory46 -> Grande Prairie (Adjacent: 7)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory47 -> Grande Prairie (Adjacent: 3)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory48 -> Foothills (Adjacent: 9)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory49 -> Foothills (Adjacent: 3)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory50 -> Foothills (Adjacent: 8)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory51 -> Foothills (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory52 -> Badlands (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory53 -> Badlands (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory54 -> Badlands (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory55 -> Foothills (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory56 -> Foothills (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory57 -> Foothills (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory58 -> Foothills (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory59 -> Greater Calgary (Adjacent: 5)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory60 -> Greater Calgary (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory61 -> Badlands (Adjacent: 10)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory62 -> Badlands (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory63 -> Badlands (Adjacent: 3)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory64 -> Badlands (Adjacent: 3)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory65 -> Badlands (Adjacent: 3)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory66 -> Prairies (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory67 -> Prairies (Adjacent: 5)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory68 -> Prairies (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory69 -> Greater Calgary (Adjacent: 9)
+[2025-11-26 17:09:48] [DEBUG] Territory: Calgary -> Greater Calgary (Adjacent: 3)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory71 -> Greater Calgary (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory72 -> Crowsnest (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory73 -> Crowsnest (Adjacent: 3)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory74 -> Crowsnest (Adjacent: 5)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory75 -> Crowsnest (Adjacent: 8)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory76 -> Crowsnest (Adjacent: 5)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory77 -> Prairies (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory78 -> Prairies (Adjacent: 5)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory79 -> Prairies (Adjacent: 2)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory80 -> Prairies (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory81 -> Prairies (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory82 -> Crowsnest (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory83 -> Crowsnest (Adjacent: 8)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory84 -> Crowsnest (Adjacent: 3)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory85 -> Crowsnest (Adjacent: 5)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory86 -> Crowsnest (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory87 -> Crowsnest (Adjacent: 3)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory88 -> Crowsnest (Adjacent: 3)
+[2025-11-26 17:09:48] [INFO] 1. Map connectivity: PASSED
+[2025-11-26 17:09:48] [INFO] 2. Continent connectivity: PASSED
+[2025-11-26 17:09:48] [INFO] 3. Territory membership: PASSED
+[2025-11-26 17:09:48] [INFO] Overall map validation: VALID
+[2025-11-26 17:09:48] [AI] Aggressive_Player strategy set to Aggressive
+[2025-11-26 17:09:48] [AI] Benevolent_Player strategy set to Benevolent
+[2025-11-26 17:09:48] [AI] Neutral_Player strategy set to Neutral
+[2025-11-26 17:09:48] [INFO]   Aggressive_Player: 30 territories
+[2025-11-26 17:09:48] [INFO]   Benevolent_Player: 30 territories
+[2025-11-26 17:09:48] [INFO]   Neutral_Player: 29 territories
+[2025-11-26 17:09:48] [INFO] Deck::draw gave Card(Type: Reinforcement) to player's hand
+[2025-11-26 17:09:48] [INFO] Deck::draw gave Card(Type: Reinforcement) to player's hand
+[2025-11-26 17:09:48] [INFO] Deck::draw gave Card(Type: Blockade) to player's hand
+[2025-11-26 17:09:48] [INFO] Deck::draw gave Card(Type: Blockade) to player's hand
+[2025-11-26 17:09:48] [INFO] Deck::draw gave Card(Type: Blockade) to player's hand
+[2025-11-26 17:09:48] [INFO] Deck::draw gave Card(Type: Bomb) to player's hand
+[2025-11-26 17:09:48] [EVENT] GAME START
+[2025-11-26 17:09:48] [ERROR] Invalid command from state 'start'
+[2025-11-26 17:09:48] [INFO] Benevolent_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Benevolent_Player receives 10 armies
+[2025-11-26 17:09:48] [INFO] Aggressive_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Aggressive_Player receives 10 armies
+[2025-11-26 17:09:48] [INFO] Neutral_Player owns 29 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 9
+[2025-11-26 17:09:48] [INFO] Neutral_Player receives 9 armies
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to weakest territory: Territory52
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to Territory39
+[2025-11-26 17:09:48] [PROGRESSION] Neutral_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Neutral_Player's Turn (Neutral Strategy)
+[2025-11-26 17:09:48] [COMBAT] Neutral_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [COMBAT] Benevolent_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [COMBAT] Aggressive_Player has no more orders to issue
+[2025-11-26 17:09:48] [INFO] 
+All players have finished issuing orders
+[2025-11-26 17:09:48] [INFO] 
+Executing Benevolent_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] 
+Executing Aggressive_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Benevolent_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Benevolent_Player receives 10 armies
+[2025-11-26 17:09:48] [INFO] Aggressive_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Aggressive_Player receives 10 armies
+[2025-11-26 17:09:48] [INFO] Neutral_Player owns 29 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 9
+[2025-11-26 17:09:48] [INFO] Neutral_Player receives 9 armies
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to weakest territory: Territory52
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to Territory39
+[2025-11-26 17:09:48] [PROGRESSION] Neutral_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Neutral_Player's Turn (Neutral Strategy)
+[2025-11-26 17:09:48] [COMBAT] Neutral_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [COMBAT] Benevolent_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [COMBAT] Aggressive_Player has no more orders to issue
+[2025-11-26 17:09:48] [INFO] 
+All players have finished issuing orders
+[2025-11-26 17:09:48] [INFO] 
+Executing Benevolent_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] 
+Executing Aggressive_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Benevolent_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Benevolent_Player receives 10 armies
+[2025-11-26 17:09:48] [INFO] Aggressive_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Aggressive_Player receives 10 armies
+[2025-11-26 17:09:48] [INFO] Neutral_Player owns 29 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 9
+[2025-11-26 17:09:48] [INFO] Neutral_Player receives 9 armies
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to weakest territory: Territory52
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to Territory39
+[2025-11-26 17:09:48] [PROGRESSION] Neutral_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Neutral_Player's Turn (Neutral Strategy)
+[2025-11-26 17:09:48] [COMBAT] Neutral_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [COMBAT] Benevolent_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [COMBAT] Aggressive_Player has no more orders to issue
+[2025-11-26 17:09:48] [INFO] 
+All players have finished issuing orders
+[2025-11-26 17:09:48] [INFO] 
+Executing Benevolent_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] 
+Executing Aggressive_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Benevolent_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Benevolent_Player receives 10 armies
+[2025-11-26 17:09:48] [INFO] Aggressive_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Aggressive_Player receives 10 armies
+[2025-11-26 17:09:48] [INFO] Neutral_Player owns 29 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 9
+[2025-11-26 17:09:48] [INFO] Neutral_Player receives 9 armies
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to weakest territory: Territory52
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to Territory39
+[2025-11-26 17:09:48] [PROGRESSION] Neutral_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Neutral_Player's Turn (Neutral Strategy)
+[2025-11-26 17:09:48] [COMBAT] Neutral_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [COMBAT] Benevolent_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [COMBAT] Aggressive_Player has no more orders to issue
+[2025-11-26 17:09:48] [INFO] 
+All players have finished issuing orders
+[2025-11-26 17:09:48] [INFO] 
+Executing Benevolent_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] 
+Executing Aggressive_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Benevolent_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Benevolent_Player receives 10 armies
+[2025-11-26 17:09:48] [INFO] Aggressive_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Aggressive_Player receives 10 armies
+[2025-11-26 17:09:48] [INFO] Neutral_Player owns 29 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 9
+[2025-11-26 17:09:48] [INFO] Neutral_Player receives 9 armies
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to weakest territory: Territory52
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to Territory39
+[2025-11-26 17:09:48] [PROGRESSION] Neutral_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Neutral_Player's Turn (Neutral Strategy)
+[2025-11-26 17:09:48] [COMBAT] Neutral_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [COMBAT] Benevolent_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [COMBAT] Aggressive_Player has no more orders to issue
+[2025-11-26 17:09:48] [INFO] 
+All players have finished issuing orders
+[2025-11-26 17:09:48] [INFO] 
+Executing Benevolent_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] 
+Executing Aggressive_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Benevolent_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Benevolent_Player receives 10 armies
+[2025-11-26 17:09:48] [INFO] Aggressive_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Aggressive_Player receives 10 armies
+[2025-11-26 17:09:48] [INFO] Neutral_Player owns 29 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 9
+[2025-11-26 17:09:48] [INFO] Neutral_Player receives 9 armies
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to weakest territory: Territory52
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to Territory39
+[2025-11-26 17:09:48] [PROGRESSION] Neutral_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Neutral_Player's Turn (Neutral Strategy)
+[2025-11-26 17:09:48] [COMBAT] Neutral_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [COMBAT] Benevolent_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [COMBAT] Aggressive_Player has no more orders to issue
+[2025-11-26 17:09:48] [INFO] 
+All players have finished issuing orders
+[2025-11-26 17:09:48] [INFO] 
+Executing Benevolent_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] 
+Executing Aggressive_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Benevolent_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Benevolent_Player receives 10 armies
+[2025-11-26 17:09:48] [INFO] Aggressive_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Aggressive_Player receives 10 armies
+[2025-11-26 17:09:48] [INFO] Neutral_Player owns 29 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 9
+[2025-11-26 17:09:48] [INFO] Neutral_Player receives 9 armies
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to weakest territory: Territory52
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to Territory39
+[2025-11-26 17:09:48] [PROGRESSION] Neutral_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Neutral_Player's Turn (Neutral Strategy)
+[2025-11-26 17:09:48] [COMBAT] Neutral_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [COMBAT] Benevolent_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [COMBAT] Aggressive_Player has no more orders to issue
+[2025-11-26 17:09:48] [INFO] 
+All players have finished issuing orders
+[2025-11-26 17:09:48] [INFO] 
+Executing Benevolent_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] 
+Executing Aggressive_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Benevolent_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Benevolent_Player receives 10 armies
+[2025-11-26 17:09:48] [INFO] Aggressive_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Aggressive_Player receives 10 armies
+[2025-11-26 17:09:48] [INFO] Neutral_Player owns 29 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 9
+[2025-11-26 17:09:48] [INFO] Neutral_Player receives 9 armies
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to weakest territory: Territory52
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to Territory39
+[2025-11-26 17:09:48] [PROGRESSION] Neutral_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Neutral_Player's Turn (Neutral Strategy)
+[2025-11-26 17:09:48] [COMBAT] Neutral_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [COMBAT] Benevolent_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [COMBAT] Aggressive_Player has no more orders to issue
+[2025-11-26 17:09:48] [INFO] 
+All players have finished issuing orders
+[2025-11-26 17:09:48] [INFO] 
+Executing Benevolent_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] 
+Executing Aggressive_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Benevolent_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Benevolent_Player receives 10 armies
+[2025-11-26 17:09:48] [INFO] Aggressive_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Aggressive_Player receives 10 armies
+[2025-11-26 17:09:48] [INFO] Neutral_Player owns 29 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 9
+[2025-11-26 17:09:48] [INFO] Neutral_Player receives 9 armies
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to weakest territory: Territory52
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to Territory39
+[2025-11-26 17:09:48] [PROGRESSION] Neutral_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Neutral_Player's Turn (Neutral Strategy)
+[2025-11-26 17:09:48] [COMBAT] Neutral_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [COMBAT] Benevolent_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [COMBAT] Aggressive_Player has no more orders to issue
+[2025-11-26 17:09:48] [INFO] 
+All players have finished issuing orders
+[2025-11-26 17:09:48] [INFO] 
+Executing Benevolent_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] 
+Executing Aggressive_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Benevolent_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Benevolent_Player receives 10 armies
+[2025-11-26 17:09:48] [INFO] Aggressive_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Aggressive_Player receives 10 armies
+[2025-11-26 17:09:48] [INFO] Neutral_Player owns 29 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 9
+[2025-11-26 17:09:48] [INFO] Neutral_Player receives 9 armies
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to weakest territory: Territory52
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to Territory39
+[2025-11-26 17:09:48] [PROGRESSION] Neutral_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Neutral_Player's Turn (Neutral Strategy)
+[2025-11-26 17:09:48] [COMBAT] Neutral_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [COMBAT] Benevolent_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [COMBAT] Aggressive_Player has no more orders to issue
+[2025-11-26 17:09:48] [INFO] 
+All players have finished issuing orders
+[2025-11-26 17:09:48] [INFO] 
+Executing Benevolent_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] 
+Executing Aggressive_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Result = Draw
+[2025-11-26 17:09:48] [INFO] Game 2/4
+[2025-11-26 17:09:48] [EVENT] Building Game engine. . .
+[2025-11-26 17:09:48] [EVENT] Building Game engine. . .
+[2025-11-26 17:09:48] [INFO] Loading map from: Maps/alberta.map
+[2025-11-26 17:09:48] [DEBUG] Detected Section: CONTINENTS
+[2025-11-26 17:09:48] [DEBUG] Added continent: Northern Alberta(ID: 0, Bonus: 4)
+[2025-11-26 17:09:48] [DEBUG] Added continent: Grande Prairie(ID: 1, Bonus: 6)
+[2025-11-26 17:09:48] [DEBUG] Added continent: Slave Lake(ID: 2, Bonus: 7)
+[2025-11-26 17:09:48] [DEBUG] Added continent: Greater Edmonton(ID: 3, Bonus: 6)
+[2025-11-26 17:09:48] [DEBUG] Added continent: Cold Lake(ID: 4, Bonus: 7)
+[2025-11-26 17:09:48] [DEBUG] Added continent: Foothills(ID: 5, Bonus: 7)
+[2025-11-26 17:09:48] [DEBUG] Added continent: Greater Calgary(ID: 6, Bonus: 4)
+[2025-11-26 17:09:48] [DEBUG] Added continent: Badlands(ID: 7, Bonus: 5)
+[2025-11-26 17:09:48] [DEBUG] Added continent: Crowsnest(ID: 8, Bonus: 7)
+[2025-11-26 17:09:48] [DEBUG] Added continent: Prairies(ID: 9, Bonus: 6)
+[2025-11-26 17:09:48] [DEBUG] Detected Section: TERRITORIES
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory01 -> Northern Alberta (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory1A -> Northern Alberta (Adjacent: 7)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory02 -> Northern Alberta (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory03 -> Northern Alberta (Adjacent: 3)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory04 -> Northern Alberta (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory05 -> Northern Alberta (Adjacent: 3)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory06 -> Northern Alberta (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory07 -> Northern Alberta (Adjacent: 5)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory08 -> Grande Prairie (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory09 -> Northern Alberta (Adjacent: 8)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory10 -> Northern Alberta (Adjacent: 8)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory11 -> Northern Alberta (Adjacent: 2)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory12 -> Grande Prairie (Adjacent: 5)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory13 -> Grande Prairie (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory14 -> Grande Prairie (Adjacent: 5)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory15 -> Grande Prairie (Adjacent: 2)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory16 -> Grande Prairie (Adjacent: 8)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory17 -> Slave Lake (Adjacent: 2)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory18 -> Slave Lake (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory19 -> Slave Lake (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory20 -> Cold Lake (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory21 -> Cold Lake (Adjacent: 3)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory22 -> Grande Prairie (Adjacent: 3)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory23 -> Grande Prairie (Adjacent: 5)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory24 -> Slave Lake (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory25 -> Slave Lake (Adjacent: 5)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory26 -> Slave Lake (Adjacent: 5)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory27 -> Slave Lake (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory28 -> Cold Lake (Adjacent: 5)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory29 -> Cold Lake (Adjacent: 5)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory30 -> Cold Lake (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory31 -> Cold Lake (Adjacent: 3)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory32 -> Cold Lake (Adjacent: 3)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory33 -> Cold Lake (Adjacent: 7)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory34 -> Cold Lake (Adjacent: 5)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory35 -> Cold Lake (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory36 -> Cold Lake (Adjacent: 8)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory37 -> Cold Lake (Adjacent: 8)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory38 -> Greater Edmonton (Adjacent: 3)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory39 -> Greater Edmonton (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory40 -> Greater Edmonton (Adjacent: 7)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory41 -> Greater Edmonton (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory42 -> Greater Edmonton (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory43 -> Greater Edmonton (Adjacent: 7)
+[2025-11-26 17:09:48] [DEBUG] Territory: Edmonton -> Greater Edmonton (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory45 -> Foothills (Adjacent: 5)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory46 -> Grande Prairie (Adjacent: 7)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory47 -> Grande Prairie (Adjacent: 3)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory48 -> Foothills (Adjacent: 9)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory49 -> Foothills (Adjacent: 3)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory50 -> Foothills (Adjacent: 8)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory51 -> Foothills (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory52 -> Badlands (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory53 -> Badlands (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory54 -> Badlands (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory55 -> Foothills (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory56 -> Foothills (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory57 -> Foothills (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory58 -> Foothills (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory59 -> Greater Calgary (Adjacent: 5)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory60 -> Greater Calgary (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory61 -> Badlands (Adjacent: 10)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory62 -> Badlands (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory63 -> Badlands (Adjacent: 3)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory64 -> Badlands (Adjacent: 3)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory65 -> Badlands (Adjacent: 3)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory66 -> Prairies (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory67 -> Prairies (Adjacent: 5)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory68 -> Prairies (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory69 -> Greater Calgary (Adjacent: 9)
+[2025-11-26 17:09:48] [DEBUG] Territory: Calgary -> Greater Calgary (Adjacent: 3)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory71 -> Greater Calgary (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory72 -> Crowsnest (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory73 -> Crowsnest (Adjacent: 3)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory74 -> Crowsnest (Adjacent: 5)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory75 -> Crowsnest (Adjacent: 8)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory76 -> Crowsnest (Adjacent: 5)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory77 -> Prairies (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory78 -> Prairies (Adjacent: 5)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory79 -> Prairies (Adjacent: 2)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory80 -> Prairies (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory81 -> Prairies (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory82 -> Crowsnest (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory83 -> Crowsnest (Adjacent: 8)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory84 -> Crowsnest (Adjacent: 3)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory85 -> Crowsnest (Adjacent: 5)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory86 -> Crowsnest (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory87 -> Crowsnest (Adjacent: 3)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory88 -> Crowsnest (Adjacent: 3)
+[2025-11-26 17:09:48] [INFO] 1. Map connectivity: PASSED
+[2025-11-26 17:09:48] [INFO] 2. Continent connectivity: PASSED
+[2025-11-26 17:09:48] [INFO] 3. Territory membership: PASSED
+[2025-11-26 17:09:48] [INFO] Overall map validation: VALID
+[2025-11-26 17:09:48] [AI] Aggressive_Player strategy set to Aggressive
+[2025-11-26 17:09:48] [AI] Benevolent_Player strategy set to Benevolent
+[2025-11-26 17:09:48] [AI] Neutral_Player strategy set to Neutral
+[2025-11-26 17:09:48] [INFO]   Aggressive_Player: 30 territories
+[2025-11-26 17:09:48] [INFO]   Benevolent_Player: 30 territories
+[2025-11-26 17:09:48] [INFO]   Neutral_Player: 29 territories
+[2025-11-26 17:09:48] [INFO] Deck::draw gave Card(Type: Reinforcement) to player's hand
+[2025-11-26 17:09:48] [INFO] Deck::draw gave Card(Type: Blockade) to player's hand
+[2025-11-26 17:09:48] [INFO] Deck::draw gave Card(Type: Reinforcement) to player's hand
+[2025-11-26 17:09:48] [INFO] Deck::draw gave Card(Type: Airlift) to player's hand
+[2025-11-26 17:09:48] [INFO] Deck::draw gave Card(Type: Reinforcement) to player's hand
+[2025-11-26 17:09:48] [INFO] Deck::draw gave Card(Type: Bomb) to player's hand
+[2025-11-26 17:09:48] [EVENT] GAME START
+[2025-11-26 17:09:48] [ERROR] Invalid command from state 'start'
+[2025-11-26 17:09:48] [INFO] Neutral_Player owns 29 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 9
+[2025-11-26 17:09:48] [INFO] Neutral_Player receives 9 armies
+[2025-11-26 17:09:48] [INFO] Aggressive_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Aggressive_Player receives 10 armies
+[2025-11-26 17:09:48] [INFO] Benevolent_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Benevolent_Player receives 10 armies
+[2025-11-26 17:09:48] [PROGRESSION] Neutral_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Neutral_Player's Turn (Neutral Strategy)
+[2025-11-26 17:09:48] [COMBAT] Neutral_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to Territory34
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to weakest territory: Territory21
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [COMBAT] Aggressive_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [COMBAT] Benevolent_Player has no more orders to issue
+[2025-11-26 17:09:48] [INFO] 
+All players have finished issuing orders
+[2025-11-26 17:09:48] [INFO] 
+Executing Aggressive_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] 
+Executing Benevolent_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Neutral_Player owns 29 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 9
+[2025-11-26 17:09:48] [INFO] Neutral_Player receives 9 armies
+[2025-11-26 17:09:48] [INFO] Aggressive_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Aggressive_Player receives 10 armies
+[2025-11-26 17:09:48] [INFO] Benevolent_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Benevolent_Player receives 10 armies
+[2025-11-26 17:09:48] [PROGRESSION] Neutral_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Neutral_Player's Turn (Neutral Strategy)
+[2025-11-26 17:09:48] [COMBAT] Neutral_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to Territory34
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to weakest territory: Territory21
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [COMBAT] Aggressive_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [COMBAT] Benevolent_Player has no more orders to issue
+[2025-11-26 17:09:48] [INFO] 
+All players have finished issuing orders
+[2025-11-26 17:09:48] [INFO] 
+Executing Aggressive_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] 
+Executing Benevolent_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Neutral_Player owns 29 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 9
+[2025-11-26 17:09:48] [INFO] Neutral_Player receives 9 armies
+[2025-11-26 17:09:48] [INFO] Aggressive_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Aggressive_Player receives 10 armies
+[2025-11-26 17:09:48] [INFO] Benevolent_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Benevolent_Player receives 10 armies
+[2025-11-26 17:09:48] [PROGRESSION] Neutral_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Neutral_Player's Turn (Neutral Strategy)
+[2025-11-26 17:09:48] [COMBAT] Neutral_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to Territory34
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to weakest territory: Territory21
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [COMBAT] Aggressive_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [COMBAT] Benevolent_Player has no more orders to issue
+[2025-11-26 17:09:48] [INFO] 
+All players have finished issuing orders
+[2025-11-26 17:09:48] [INFO] 
+Executing Aggressive_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] 
+Executing Benevolent_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Neutral_Player owns 29 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 9
+[2025-11-26 17:09:48] [INFO] Neutral_Player receives 9 armies
+[2025-11-26 17:09:48] [INFO] Aggressive_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Aggressive_Player receives 10 armies
+[2025-11-26 17:09:48] [INFO] Benevolent_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Benevolent_Player receives 10 armies
+[2025-11-26 17:09:48] [PROGRESSION] Neutral_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Neutral_Player's Turn (Neutral Strategy)
+[2025-11-26 17:09:48] [COMBAT] Neutral_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to Territory34
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to weakest territory: Territory21
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [COMBAT] Aggressive_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [COMBAT] Benevolent_Player has no more orders to issue
+[2025-11-26 17:09:48] [INFO] 
+All players have finished issuing orders
+[2025-11-26 17:09:48] [INFO] 
+Executing Aggressive_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] 
+Executing Benevolent_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Neutral_Player owns 29 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 9
+[2025-11-26 17:09:48] [INFO] Neutral_Player receives 9 armies
+[2025-11-26 17:09:48] [INFO] Aggressive_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Aggressive_Player receives 10 armies
+[2025-11-26 17:09:48] [INFO] Benevolent_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Benevolent_Player receives 10 armies
+[2025-11-26 17:09:48] [PROGRESSION] Neutral_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Neutral_Player's Turn (Neutral Strategy)
+[2025-11-26 17:09:48] [COMBAT] Neutral_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to Territory34
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to weakest territory: Territory21
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [COMBAT] Aggressive_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [COMBAT] Benevolent_Player has no more orders to issue
+[2025-11-26 17:09:48] [INFO] 
+All players have finished issuing orders
+[2025-11-26 17:09:48] [INFO] 
+Executing Aggressive_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] 
+Executing Benevolent_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Neutral_Player owns 29 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 9
+[2025-11-26 17:09:48] [INFO] Neutral_Player receives 9 armies
+[2025-11-26 17:09:48] [INFO] Aggressive_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Aggressive_Player receives 10 armies
+[2025-11-26 17:09:48] [INFO] Benevolent_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Benevolent_Player receives 10 armies
+[2025-11-26 17:09:48] [PROGRESSION] Neutral_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Neutral_Player's Turn (Neutral Strategy)
+[2025-11-26 17:09:48] [COMBAT] Neutral_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to Territory34
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to weakest territory: Territory21
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [COMBAT] Aggressive_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [COMBAT] Benevolent_Player has no more orders to issue
+[2025-11-26 17:09:48] [INFO] 
+All players have finished issuing orders
+[2025-11-26 17:09:48] [INFO] 
+Executing Aggressive_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] 
+Executing Benevolent_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Neutral_Player owns 29 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 9
+[2025-11-26 17:09:48] [INFO] Neutral_Player receives 9 armies
+[2025-11-26 17:09:48] [INFO] Aggressive_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Aggressive_Player receives 10 armies
+[2025-11-26 17:09:48] [INFO] Benevolent_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Benevolent_Player receives 10 armies
+[2025-11-26 17:09:48] [PROGRESSION] Neutral_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Neutral_Player's Turn (Neutral Strategy)
+[2025-11-26 17:09:48] [COMBAT] Neutral_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to Territory34
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to weakest territory: Territory21
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [COMBAT] Aggressive_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [COMBAT] Benevolent_Player has no more orders to issue
+[2025-11-26 17:09:48] [INFO] 
+All players have finished issuing orders
+[2025-11-26 17:09:48] [INFO] 
+Executing Aggressive_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] 
+Executing Benevolent_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Neutral_Player owns 29 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 9
+[2025-11-26 17:09:48] [INFO] Neutral_Player receives 9 armies
+[2025-11-26 17:09:48] [INFO] Aggressive_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Aggressive_Player receives 10 armies
+[2025-11-26 17:09:48] [INFO] Benevolent_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Benevolent_Player receives 10 armies
+[2025-11-26 17:09:48] [PROGRESSION] Neutral_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Neutral_Player's Turn (Neutral Strategy)
+[2025-11-26 17:09:48] [COMBAT] Neutral_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to Territory34
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to weakest territory: Territory21
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [COMBAT] Aggressive_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [COMBAT] Benevolent_Player has no more orders to issue
+[2025-11-26 17:09:48] [INFO] 
+All players have finished issuing orders
+[2025-11-26 17:09:48] [INFO] 
+Executing Aggressive_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] 
+Executing Benevolent_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Neutral_Player owns 29 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 9
+[2025-11-26 17:09:48] [INFO] Neutral_Player receives 9 armies
+[2025-11-26 17:09:48] [INFO] Aggressive_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Aggressive_Player receives 10 armies
+[2025-11-26 17:09:48] [INFO] Benevolent_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Benevolent_Player receives 10 armies
+[2025-11-26 17:09:48] [PROGRESSION] Neutral_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Neutral_Player's Turn (Neutral Strategy)
+[2025-11-26 17:09:48] [COMBAT] Neutral_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to Territory34
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to weakest territory: Territory21
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [COMBAT] Aggressive_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [COMBAT] Benevolent_Player has no more orders to issue
+[2025-11-26 17:09:48] [INFO] 
+All players have finished issuing orders
+[2025-11-26 17:09:48] [INFO] 
+Executing Aggressive_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] 
+Executing Benevolent_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Neutral_Player owns 29 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 9
+[2025-11-26 17:09:48] [INFO] Neutral_Player receives 9 armies
+[2025-11-26 17:09:48] [INFO] Aggressive_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Aggressive_Player receives 10 armies
+[2025-11-26 17:09:48] [INFO] Benevolent_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Benevolent_Player receives 10 armies
+[2025-11-26 17:09:48] [PROGRESSION] Neutral_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Neutral_Player's Turn (Neutral Strategy)
+[2025-11-26 17:09:48] [COMBAT] Neutral_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to Territory34
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to weakest territory: Territory21
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [COMBAT] Aggressive_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [COMBAT] Benevolent_Player has no more orders to issue
+[2025-11-26 17:09:48] [INFO] 
+All players have finished issuing orders
+[2025-11-26 17:09:48] [INFO] 
+Executing Aggressive_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] 
+Executing Benevolent_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Result = Draw
+[2025-11-26 17:09:48] [INFO] Game 3/4
+[2025-11-26 17:09:48] [EVENT] Building Game engine. . .
+[2025-11-26 17:09:48] [EVENT] Building Game engine. . .
+[2025-11-26 17:09:48] [INFO] Loading map from: Maps/alberta.map
+[2025-11-26 17:09:48] [DEBUG] Detected Section: CONTINENTS
+[2025-11-26 17:09:48] [DEBUG] Added continent: Northern Alberta(ID: 0, Bonus: 4)
+[2025-11-26 17:09:48] [DEBUG] Added continent: Grande Prairie(ID: 1, Bonus: 6)
+[2025-11-26 17:09:48] [DEBUG] Added continent: Slave Lake(ID: 2, Bonus: 7)
+[2025-11-26 17:09:48] [DEBUG] Added continent: Greater Edmonton(ID: 3, Bonus: 6)
+[2025-11-26 17:09:48] [DEBUG] Added continent: Cold Lake(ID: 4, Bonus: 7)
+[2025-11-26 17:09:48] [DEBUG] Added continent: Foothills(ID: 5, Bonus: 7)
+[2025-11-26 17:09:48] [DEBUG] Added continent: Greater Calgary(ID: 6, Bonus: 4)
+[2025-11-26 17:09:48] [DEBUG] Added continent: Badlands(ID: 7, Bonus: 5)
+[2025-11-26 17:09:48] [DEBUG] Added continent: Crowsnest(ID: 8, Bonus: 7)
+[2025-11-26 17:09:48] [DEBUG] Added continent: Prairies(ID: 9, Bonus: 6)
+[2025-11-26 17:09:48] [DEBUG] Detected Section: TERRITORIES
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory01 -> Northern Alberta (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory1A -> Northern Alberta (Adjacent: 7)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory02 -> Northern Alberta (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory03 -> Northern Alberta (Adjacent: 3)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory04 -> Northern Alberta (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory05 -> Northern Alberta (Adjacent: 3)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory06 -> Northern Alberta (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory07 -> Northern Alberta (Adjacent: 5)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory08 -> Grande Prairie (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory09 -> Northern Alberta (Adjacent: 8)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory10 -> Northern Alberta (Adjacent: 8)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory11 -> Northern Alberta (Adjacent: 2)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory12 -> Grande Prairie (Adjacent: 5)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory13 -> Grande Prairie (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory14 -> Grande Prairie (Adjacent: 5)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory15 -> Grande Prairie (Adjacent: 2)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory16 -> Grande Prairie (Adjacent: 8)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory17 -> Slave Lake (Adjacent: 2)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory18 -> Slave Lake (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory19 -> Slave Lake (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory20 -> Cold Lake (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory21 -> Cold Lake (Adjacent: 3)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory22 -> Grande Prairie (Adjacent: 3)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory23 -> Grande Prairie (Adjacent: 5)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory24 -> Slave Lake (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory25 -> Slave Lake (Adjacent: 5)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory26 -> Slave Lake (Adjacent: 5)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory27 -> Slave Lake (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory28 -> Cold Lake (Adjacent: 5)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory29 -> Cold Lake (Adjacent: 5)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory30 -> Cold Lake (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory31 -> Cold Lake (Adjacent: 3)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory32 -> Cold Lake (Adjacent: 3)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory33 -> Cold Lake (Adjacent: 7)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory34 -> Cold Lake (Adjacent: 5)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory35 -> Cold Lake (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory36 -> Cold Lake (Adjacent: 8)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory37 -> Cold Lake (Adjacent: 8)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory38 -> Greater Edmonton (Adjacent: 3)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory39 -> Greater Edmonton (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory40 -> Greater Edmonton (Adjacent: 7)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory41 -> Greater Edmonton (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory42 -> Greater Edmonton (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory43 -> Greater Edmonton (Adjacent: 7)
+[2025-11-26 17:09:48] [DEBUG] Territory: Edmonton -> Greater Edmonton (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory45 -> Foothills (Adjacent: 5)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory46 -> Grande Prairie (Adjacent: 7)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory47 -> Grande Prairie (Adjacent: 3)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory48 -> Foothills (Adjacent: 9)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory49 -> Foothills (Adjacent: 3)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory50 -> Foothills (Adjacent: 8)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory51 -> Foothills (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory52 -> Badlands (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory53 -> Badlands (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory54 -> Badlands (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory55 -> Foothills (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory56 -> Foothills (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory57 -> Foothills (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory58 -> Foothills (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory59 -> Greater Calgary (Adjacent: 5)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory60 -> Greater Calgary (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory61 -> Badlands (Adjacent: 10)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory62 -> Badlands (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory63 -> Badlands (Adjacent: 3)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory64 -> Badlands (Adjacent: 3)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory65 -> Badlands (Adjacent: 3)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory66 -> Prairies (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory67 -> Prairies (Adjacent: 5)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory68 -> Prairies (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory69 -> Greater Calgary (Adjacent: 9)
+[2025-11-26 17:09:48] [DEBUG] Territory: Calgary -> Greater Calgary (Adjacent: 3)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory71 -> Greater Calgary (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory72 -> Crowsnest (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory73 -> Crowsnest (Adjacent: 3)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory74 -> Crowsnest (Adjacent: 5)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory75 -> Crowsnest (Adjacent: 8)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory76 -> Crowsnest (Adjacent: 5)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory77 -> Prairies (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory78 -> Prairies (Adjacent: 5)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory79 -> Prairies (Adjacent: 2)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory80 -> Prairies (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory81 -> Prairies (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory82 -> Crowsnest (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory83 -> Crowsnest (Adjacent: 8)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory84 -> Crowsnest (Adjacent: 3)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory85 -> Crowsnest (Adjacent: 5)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory86 -> Crowsnest (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory87 -> Crowsnest (Adjacent: 3)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory88 -> Crowsnest (Adjacent: 3)
+[2025-11-26 17:09:48] [INFO] 1. Map connectivity: PASSED
+[2025-11-26 17:09:48] [INFO] 2. Continent connectivity: PASSED
+[2025-11-26 17:09:48] [INFO] 3. Territory membership: PASSED
+[2025-11-26 17:09:48] [INFO] Overall map validation: VALID
+[2025-11-26 17:09:48] [AI] Aggressive_Player strategy set to Aggressive
+[2025-11-26 17:09:48] [AI] Benevolent_Player strategy set to Benevolent
+[2025-11-26 17:09:48] [AI] Neutral_Player strategy set to Neutral
+[2025-11-26 17:09:48] [INFO]   Aggressive_Player: 30 territories
+[2025-11-26 17:09:48] [INFO]   Benevolent_Player: 30 territories
+[2025-11-26 17:09:48] [INFO]   Neutral_Player: 29 territories
+[2025-11-26 17:09:48] [INFO] Deck::draw gave Card(Type: Airlift) to player's hand
+[2025-11-26 17:09:48] [INFO] Deck::draw gave Card(Type: Reinforcement) to player's hand
+[2025-11-26 17:09:48] [INFO] Deck::draw gave Card(Type: Diplomacy) to player's hand
+[2025-11-26 17:09:48] [INFO] Deck::draw gave Card(Type: Blockade) to player's hand
+[2025-11-26 17:09:48] [INFO] Deck::draw gave Card(Type: Diplomacy) to player's hand
+[2025-11-26 17:09:48] [INFO] Deck::draw gave Card(Type: Bomb) to player's hand
+[2025-11-26 17:09:48] [EVENT] GAME START
+[2025-11-26 17:09:48] [ERROR] Invalid command from state 'start'
+[2025-11-26 17:09:48] [INFO] Aggressive_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Aggressive_Player receives 10 armies
+[2025-11-26 17:09:48] [INFO] Benevolent_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Benevolent_Player receives 10 armies
+[2025-11-26 17:09:48] [INFO] Neutral_Player owns 29 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 9
+[2025-11-26 17:09:48] [INFO] Neutral_Player receives 9 armies
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to Territory76
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to weakest territory: Territory67
+[2025-11-26 17:09:48] [PROGRESSION] Neutral_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Neutral_Player's Turn (Neutral Strategy)
+[2025-11-26 17:09:48] [COMBAT] Neutral_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [COMBAT] Aggressive_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [COMBAT] Benevolent_Player has no more orders to issue
+[2025-11-26 17:09:48] [INFO] 
+All players have finished issuing orders
+[2025-11-26 17:09:48] [INFO] 
+Executing Aggressive_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] 
+Executing Benevolent_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Aggressive_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Aggressive_Player receives 10 armies
+[2025-11-26 17:09:48] [INFO] Benevolent_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Benevolent_Player receives 10 armies
+[2025-11-26 17:09:48] [INFO] Neutral_Player owns 29 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 9
+[2025-11-26 17:09:48] [INFO] Neutral_Player receives 9 armies
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to Territory76
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to weakest territory: Territory67
+[2025-11-26 17:09:48] [PROGRESSION] Neutral_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Neutral_Player's Turn (Neutral Strategy)
+[2025-11-26 17:09:48] [COMBAT] Neutral_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [COMBAT] Aggressive_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [COMBAT] Benevolent_Player has no more orders to issue
+[2025-11-26 17:09:48] [INFO] 
+All players have finished issuing orders
+[2025-11-26 17:09:48] [INFO] 
+Executing Aggressive_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] 
+Executing Benevolent_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Aggressive_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Aggressive_Player receives 10 armies
+[2025-11-26 17:09:48] [INFO] Benevolent_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Benevolent_Player receives 10 armies
+[2025-11-26 17:09:48] [INFO] Neutral_Player owns 29 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 9
+[2025-11-26 17:09:48] [INFO] Neutral_Player receives 9 armies
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to Territory76
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to weakest territory: Territory67
+[2025-11-26 17:09:48] [PROGRESSION] Neutral_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Neutral_Player's Turn (Neutral Strategy)
+[2025-11-26 17:09:48] [COMBAT] Neutral_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [COMBAT] Aggressive_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [COMBAT] Benevolent_Player has no more orders to issue
+[2025-11-26 17:09:48] [INFO] 
+All players have finished issuing orders
+[2025-11-26 17:09:48] [INFO] 
+Executing Aggressive_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] 
+Executing Benevolent_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Aggressive_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Aggressive_Player receives 10 armies
+[2025-11-26 17:09:48] [INFO] Benevolent_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Benevolent_Player receives 10 armies
+[2025-11-26 17:09:48] [INFO] Neutral_Player owns 29 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 9
+[2025-11-26 17:09:48] [INFO] Neutral_Player receives 9 armies
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to Territory76
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to weakest territory: Territory67
+[2025-11-26 17:09:48] [PROGRESSION] Neutral_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Neutral_Player's Turn (Neutral Strategy)
+[2025-11-26 17:09:48] [COMBAT] Neutral_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [COMBAT] Aggressive_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [COMBAT] Benevolent_Player has no more orders to issue
+[2025-11-26 17:09:48] [INFO] 
+All players have finished issuing orders
+[2025-11-26 17:09:48] [INFO] 
+Executing Aggressive_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] 
+Executing Benevolent_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Aggressive_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Aggressive_Player receives 10 armies
+[2025-11-26 17:09:48] [INFO] Benevolent_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Benevolent_Player receives 10 armies
+[2025-11-26 17:09:48] [INFO] Neutral_Player owns 29 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 9
+[2025-11-26 17:09:48] [INFO] Neutral_Player receives 9 armies
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to Territory76
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to weakest territory: Territory67
+[2025-11-26 17:09:48] [PROGRESSION] Neutral_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Neutral_Player's Turn (Neutral Strategy)
+[2025-11-26 17:09:48] [COMBAT] Neutral_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [COMBAT] Aggressive_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [COMBAT] Benevolent_Player has no more orders to issue
+[2025-11-26 17:09:48] [INFO] 
+All players have finished issuing orders
+[2025-11-26 17:09:48] [INFO] 
+Executing Aggressive_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] 
+Executing Benevolent_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Aggressive_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Aggressive_Player receives 10 armies
+[2025-11-26 17:09:48] [INFO] Benevolent_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Benevolent_Player receives 10 armies
+[2025-11-26 17:09:48] [INFO] Neutral_Player owns 29 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 9
+[2025-11-26 17:09:48] [INFO] Neutral_Player receives 9 armies
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to Territory76
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to weakest territory: Territory67
+[2025-11-26 17:09:48] [PROGRESSION] Neutral_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Neutral_Player's Turn (Neutral Strategy)
+[2025-11-26 17:09:48] [COMBAT] Neutral_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [COMBAT] Aggressive_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [COMBAT] Benevolent_Player has no more orders to issue
+[2025-11-26 17:09:48] [INFO] 
+All players have finished issuing orders
+[2025-11-26 17:09:48] [INFO] 
+Executing Aggressive_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] 
+Executing Benevolent_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Aggressive_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Aggressive_Player receives 10 armies
+[2025-11-26 17:09:48] [INFO] Benevolent_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Benevolent_Player receives 10 armies
+[2025-11-26 17:09:48] [INFO] Neutral_Player owns 29 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 9
+[2025-11-26 17:09:48] [INFO] Neutral_Player receives 9 armies
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to Territory76
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to weakest territory: Territory67
+[2025-11-26 17:09:48] [PROGRESSION] Neutral_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Neutral_Player's Turn (Neutral Strategy)
+[2025-11-26 17:09:48] [COMBAT] Neutral_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [COMBAT] Aggressive_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [COMBAT] Benevolent_Player has no more orders to issue
+[2025-11-26 17:09:48] [INFO] 
+All players have finished issuing orders
+[2025-11-26 17:09:48] [INFO] 
+Executing Aggressive_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] 
+Executing Benevolent_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Aggressive_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Aggressive_Player receives 10 armies
+[2025-11-26 17:09:48] [INFO] Benevolent_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Benevolent_Player receives 10 armies
+[2025-11-26 17:09:48] [INFO] Neutral_Player owns 29 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 9
+[2025-11-26 17:09:48] [INFO] Neutral_Player receives 9 armies
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to Territory76
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to weakest territory: Territory67
+[2025-11-26 17:09:48] [PROGRESSION] Neutral_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Neutral_Player's Turn (Neutral Strategy)
+[2025-11-26 17:09:48] [COMBAT] Neutral_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [COMBAT] Aggressive_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [COMBAT] Benevolent_Player has no more orders to issue
+[2025-11-26 17:09:48] [INFO] 
+All players have finished issuing orders
+[2025-11-26 17:09:48] [INFO] 
+Executing Aggressive_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] 
+Executing Benevolent_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Aggressive_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Aggressive_Player receives 10 armies
+[2025-11-26 17:09:48] [INFO] Benevolent_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Benevolent_Player receives 10 armies
+[2025-11-26 17:09:48] [INFO] Neutral_Player owns 29 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 9
+[2025-11-26 17:09:48] [INFO] Neutral_Player receives 9 armies
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to Territory76
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to weakest territory: Territory67
+[2025-11-26 17:09:48] [PROGRESSION] Neutral_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Neutral_Player's Turn (Neutral Strategy)
+[2025-11-26 17:09:48] [COMBAT] Neutral_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [COMBAT] Aggressive_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [COMBAT] Benevolent_Player has no more orders to issue
+[2025-11-26 17:09:48] [INFO] 
+All players have finished issuing orders
+[2025-11-26 17:09:48] [INFO] 
+Executing Aggressive_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] 
+Executing Benevolent_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Aggressive_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Aggressive_Player receives 10 armies
+[2025-11-26 17:09:48] [INFO] Benevolent_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Benevolent_Player receives 10 armies
+[2025-11-26 17:09:48] [INFO] Neutral_Player owns 29 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 9
+[2025-11-26 17:09:48] [INFO] Neutral_Player receives 9 armies
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to Territory76
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to weakest territory: Territory67
+[2025-11-26 17:09:48] [PROGRESSION] Neutral_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Neutral_Player's Turn (Neutral Strategy)
+[2025-11-26 17:09:48] [COMBAT] Neutral_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [COMBAT] Aggressive_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [COMBAT] Benevolent_Player has no more orders to issue
+[2025-11-26 17:09:48] [INFO] 
+All players have finished issuing orders
+[2025-11-26 17:09:48] [INFO] 
+Executing Aggressive_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] 
+Executing Benevolent_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Result = Draw
+[2025-11-26 17:09:48] [INFO] Game 4/4
+[2025-11-26 17:09:48] [EVENT] Building Game engine. . .
+[2025-11-26 17:09:48] [EVENT] Building Game engine. . .
+[2025-11-26 17:09:48] [INFO] Loading map from: Maps/alberta.map
+[2025-11-26 17:09:48] [DEBUG] Detected Section: CONTINENTS
+[2025-11-26 17:09:48] [DEBUG] Added continent: Northern Alberta(ID: 0, Bonus: 4)
+[2025-11-26 17:09:48] [DEBUG] Added continent: Grande Prairie(ID: 1, Bonus: 6)
+[2025-11-26 17:09:48] [DEBUG] Added continent: Slave Lake(ID: 2, Bonus: 7)
+[2025-11-26 17:09:48] [DEBUG] Added continent: Greater Edmonton(ID: 3, Bonus: 6)
+[2025-11-26 17:09:48] [DEBUG] Added continent: Cold Lake(ID: 4, Bonus: 7)
+[2025-11-26 17:09:48] [DEBUG] Added continent: Foothills(ID: 5, Bonus: 7)
+[2025-11-26 17:09:48] [DEBUG] Added continent: Greater Calgary(ID: 6, Bonus: 4)
+[2025-11-26 17:09:48] [DEBUG] Added continent: Badlands(ID: 7, Bonus: 5)
+[2025-11-26 17:09:48] [DEBUG] Added continent: Crowsnest(ID: 8, Bonus: 7)
+[2025-11-26 17:09:48] [DEBUG] Added continent: Prairies(ID: 9, Bonus: 6)
+[2025-11-26 17:09:48] [DEBUG] Detected Section: TERRITORIES
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory01 -> Northern Alberta (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory1A -> Northern Alberta (Adjacent: 7)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory02 -> Northern Alberta (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory03 -> Northern Alberta (Adjacent: 3)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory04 -> Northern Alberta (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory05 -> Northern Alberta (Adjacent: 3)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory06 -> Northern Alberta (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory07 -> Northern Alberta (Adjacent: 5)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory08 -> Grande Prairie (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory09 -> Northern Alberta (Adjacent: 8)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory10 -> Northern Alberta (Adjacent: 8)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory11 -> Northern Alberta (Adjacent: 2)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory12 -> Grande Prairie (Adjacent: 5)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory13 -> Grande Prairie (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory14 -> Grande Prairie (Adjacent: 5)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory15 -> Grande Prairie (Adjacent: 2)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory16 -> Grande Prairie (Adjacent: 8)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory17 -> Slave Lake (Adjacent: 2)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory18 -> Slave Lake (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory19 -> Slave Lake (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory20 -> Cold Lake (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory21 -> Cold Lake (Adjacent: 3)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory22 -> Grande Prairie (Adjacent: 3)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory23 -> Grande Prairie (Adjacent: 5)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory24 -> Slave Lake (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory25 -> Slave Lake (Adjacent: 5)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory26 -> Slave Lake (Adjacent: 5)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory27 -> Slave Lake (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory28 -> Cold Lake (Adjacent: 5)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory29 -> Cold Lake (Adjacent: 5)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory30 -> Cold Lake (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory31 -> Cold Lake (Adjacent: 3)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory32 -> Cold Lake (Adjacent: 3)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory33 -> Cold Lake (Adjacent: 7)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory34 -> Cold Lake (Adjacent: 5)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory35 -> Cold Lake (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory36 -> Cold Lake (Adjacent: 8)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory37 -> Cold Lake (Adjacent: 8)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory38 -> Greater Edmonton (Adjacent: 3)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory39 -> Greater Edmonton (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory40 -> Greater Edmonton (Adjacent: 7)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory41 -> Greater Edmonton (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory42 -> Greater Edmonton (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory43 -> Greater Edmonton (Adjacent: 7)
+[2025-11-26 17:09:48] [DEBUG] Territory: Edmonton -> Greater Edmonton (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory45 -> Foothills (Adjacent: 5)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory46 -> Grande Prairie (Adjacent: 7)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory47 -> Grande Prairie (Adjacent: 3)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory48 -> Foothills (Adjacent: 9)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory49 -> Foothills (Adjacent: 3)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory50 -> Foothills (Adjacent: 8)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory51 -> Foothills (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory52 -> Badlands (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory53 -> Badlands (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory54 -> Badlands (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory55 -> Foothills (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory56 -> Foothills (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory57 -> Foothills (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory58 -> Foothills (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory59 -> Greater Calgary (Adjacent: 5)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory60 -> Greater Calgary (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory61 -> Badlands (Adjacent: 10)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory62 -> Badlands (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory63 -> Badlands (Adjacent: 3)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory64 -> Badlands (Adjacent: 3)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory65 -> Badlands (Adjacent: 3)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory66 -> Prairies (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory67 -> Prairies (Adjacent: 5)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory68 -> Prairies (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory69 -> Greater Calgary (Adjacent: 9)
+[2025-11-26 17:09:48] [DEBUG] Territory: Calgary -> Greater Calgary (Adjacent: 3)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory71 -> Greater Calgary (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory72 -> Crowsnest (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory73 -> Crowsnest (Adjacent: 3)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory74 -> Crowsnest (Adjacent: 5)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory75 -> Crowsnest (Adjacent: 8)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory76 -> Crowsnest (Adjacent: 5)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory77 -> Prairies (Adjacent: 6)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory78 -> Prairies (Adjacent: 5)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory79 -> Prairies (Adjacent: 2)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory80 -> Prairies (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory81 -> Prairies (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory82 -> Crowsnest (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory83 -> Crowsnest (Adjacent: 8)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory84 -> Crowsnest (Adjacent: 3)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory85 -> Crowsnest (Adjacent: 5)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory86 -> Crowsnest (Adjacent: 4)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory87 -> Crowsnest (Adjacent: 3)
+[2025-11-26 17:09:48] [DEBUG] Territory: Territory88 -> Crowsnest (Adjacent: 3)
+[2025-11-26 17:09:48] [INFO] 1. Map connectivity: PASSED
+[2025-11-26 17:09:48] [INFO] 2. Continent connectivity: PASSED
+[2025-11-26 17:09:48] [INFO] 3. Territory membership: PASSED
+[2025-11-26 17:09:48] [INFO] Overall map validation: VALID
+[2025-11-26 17:09:48] [AI] Aggressive_Player strategy set to Aggressive
+[2025-11-26 17:09:48] [AI] Benevolent_Player strategy set to Benevolent
+[2025-11-26 17:09:48] [AI] Neutral_Player strategy set to Neutral
+[2025-11-26 17:09:48] [INFO]   Aggressive_Player: 30 territories
+[2025-11-26 17:09:48] [INFO]   Benevolent_Player: 30 territories
+[2025-11-26 17:09:48] [INFO]   Neutral_Player: 29 territories
+[2025-11-26 17:09:48] [INFO] Deck::draw gave Card(Type: Blockade) to player's hand
+[2025-11-26 17:09:48] [INFO] Deck::draw gave Card(Type: Airlift) to player's hand
+[2025-11-26 17:09:48] [INFO] Deck::draw gave Card(Type: Bomb) to player's hand
+[2025-11-26 17:09:48] [INFO] Deck::draw gave Card(Type: Blockade) to player's hand
+[2025-11-26 17:09:48] [INFO] Deck::draw gave Card(Type: Bomb) to player's hand
+[2025-11-26 17:09:48] [INFO] Deck::draw gave Card(Type: Reinforcement) to player's hand
+[2025-11-26 17:09:48] [EVENT] GAME START
+[2025-11-26 17:09:48] [ERROR] Invalid command from state 'start'
+[2025-11-26 17:09:48] [INFO] Neutral_Player owns 29 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 9
+[2025-11-26 17:09:48] [INFO] Neutral_Player receives 9 armies
+[2025-11-26 17:09:48] [INFO] Benevolent_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Benevolent_Player receives 10 armies
+[2025-11-26 17:09:48] [INFO] Aggressive_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Aggressive_Player receives 10 armies
+[2025-11-26 17:09:48] [PROGRESSION] Neutral_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Neutral_Player's Turn (Neutral Strategy)
+[2025-11-26 17:09:48] [COMBAT] Neutral_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to weakest territory: Territory27
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to Territory16
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [COMBAT] Benevolent_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [COMBAT] Aggressive_Player has no more orders to issue
+[2025-11-26 17:09:48] [INFO] 
+All players have finished issuing orders
+[2025-11-26 17:09:48] [INFO] 
+Executing Benevolent_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] 
+Executing Aggressive_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Neutral_Player owns 29 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 9
+[2025-11-26 17:09:48] [INFO] Neutral_Player receives 9 armies
+[2025-11-26 17:09:48] [INFO] Benevolent_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Benevolent_Player receives 10 armies
+[2025-11-26 17:09:48] [INFO] Aggressive_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Aggressive_Player receives 10 armies
+[2025-11-26 17:09:48] [PROGRESSION] Neutral_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Neutral_Player's Turn (Neutral Strategy)
+[2025-11-26 17:09:48] [COMBAT] Neutral_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to weakest territory: Territory27
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to Territory16
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [COMBAT] Benevolent_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [COMBAT] Aggressive_Player has no more orders to issue
+[2025-11-26 17:09:48] [INFO] 
+All players have finished issuing orders
+[2025-11-26 17:09:48] [INFO] 
+Executing Benevolent_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] 
+Executing Aggressive_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Neutral_Player owns 29 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 9
+[2025-11-26 17:09:48] [INFO] Neutral_Player receives 9 armies
+[2025-11-26 17:09:48] [INFO] Benevolent_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Benevolent_Player receives 10 armies
+[2025-11-26 17:09:48] [INFO] Aggressive_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Aggressive_Player receives 10 armies
+[2025-11-26 17:09:48] [PROGRESSION] Neutral_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Neutral_Player's Turn (Neutral Strategy)
+[2025-11-26 17:09:48] [COMBAT] Neutral_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to weakest territory: Territory27
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to Territory16
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [COMBAT] Benevolent_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [COMBAT] Aggressive_Player has no more orders to issue
+[2025-11-26 17:09:48] [INFO] 
+All players have finished issuing orders
+[2025-11-26 17:09:48] [INFO] 
+Executing Benevolent_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] 
+Executing Aggressive_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Neutral_Player owns 29 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 9
+[2025-11-26 17:09:48] [INFO] Neutral_Player receives 9 armies
+[2025-11-26 17:09:48] [INFO] Benevolent_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Benevolent_Player receives 10 armies
+[2025-11-26 17:09:48] [INFO] Aggressive_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Aggressive_Player receives 10 armies
+[2025-11-26 17:09:48] [PROGRESSION] Neutral_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Neutral_Player's Turn (Neutral Strategy)
+[2025-11-26 17:09:48] [COMBAT] Neutral_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to weakest territory: Territory27
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to Territory16
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [COMBAT] Benevolent_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [COMBAT] Aggressive_Player has no more orders to issue
+[2025-11-26 17:09:48] [INFO] 
+All players have finished issuing orders
+[2025-11-26 17:09:48] [INFO] 
+Executing Benevolent_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] 
+Executing Aggressive_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Neutral_Player owns 29 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 9
+[2025-11-26 17:09:48] [INFO] Neutral_Player receives 9 armies
+[2025-11-26 17:09:48] [INFO] Benevolent_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Benevolent_Player receives 10 armies
+[2025-11-26 17:09:48] [INFO] Aggressive_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Aggressive_Player receives 10 armies
+[2025-11-26 17:09:48] [PROGRESSION] Neutral_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Neutral_Player's Turn (Neutral Strategy)
+[2025-11-26 17:09:48] [COMBAT] Neutral_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to weakest territory: Territory27
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to Territory16
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [COMBAT] Benevolent_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [COMBAT] Aggressive_Player has no more orders to issue
+[2025-11-26 17:09:48] [INFO] 
+All players have finished issuing orders
+[2025-11-26 17:09:48] [INFO] 
+Executing Benevolent_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] 
+Executing Aggressive_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Neutral_Player owns 29 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 9
+[2025-11-26 17:09:48] [INFO] Neutral_Player receives 9 armies
+[2025-11-26 17:09:48] [INFO] Benevolent_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Benevolent_Player receives 10 armies
+[2025-11-26 17:09:48] [INFO] Aggressive_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Aggressive_Player receives 10 armies
+[2025-11-26 17:09:48] [PROGRESSION] Neutral_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Neutral_Player's Turn (Neutral Strategy)
+[2025-11-26 17:09:48] [COMBAT] Neutral_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to weakest territory: Territory27
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to Territory16
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [COMBAT] Benevolent_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [COMBAT] Aggressive_Player has no more orders to issue
+[2025-11-26 17:09:48] [INFO] 
+All players have finished issuing orders
+[2025-11-26 17:09:48] [INFO] 
+Executing Benevolent_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] 
+Executing Aggressive_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Neutral_Player owns 29 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 9
+[2025-11-26 17:09:48] [INFO] Neutral_Player receives 9 armies
+[2025-11-26 17:09:48] [INFO] Benevolent_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Benevolent_Player receives 10 armies
+[2025-11-26 17:09:48] [INFO] Aggressive_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Aggressive_Player receives 10 armies
+[2025-11-26 17:09:48] [PROGRESSION] Neutral_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Neutral_Player's Turn (Neutral Strategy)
+[2025-11-26 17:09:48] [COMBAT] Neutral_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to weakest territory: Territory27
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to Territory16
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [COMBAT] Benevolent_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [COMBAT] Aggressive_Player has no more orders to issue
+[2025-11-26 17:09:48] [INFO] 
+All players have finished issuing orders
+[2025-11-26 17:09:48] [INFO] 
+Executing Benevolent_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] 
+Executing Aggressive_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Neutral_Player owns 29 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 9
+[2025-11-26 17:09:48] [INFO] Neutral_Player receives 9 armies
+[2025-11-26 17:09:48] [INFO] Benevolent_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Benevolent_Player receives 10 armies
+[2025-11-26 17:09:48] [INFO] Aggressive_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Aggressive_Player receives 10 armies
+[2025-11-26 17:09:48] [PROGRESSION] Neutral_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Neutral_Player's Turn (Neutral Strategy)
+[2025-11-26 17:09:48] [COMBAT] Neutral_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to weakest territory: Territory27
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to Territory16
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [COMBAT] Benevolent_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [COMBAT] Aggressive_Player has no more orders to issue
+[2025-11-26 17:09:48] [INFO] 
+All players have finished issuing orders
+[2025-11-26 17:09:48] [INFO] 
+Executing Benevolent_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] 
+Executing Aggressive_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Neutral_Player owns 29 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 9
+[2025-11-26 17:09:48] [INFO] Neutral_Player receives 9 armies
+[2025-11-26 17:09:48] [INFO] Benevolent_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Benevolent_Player receives 10 armies
+[2025-11-26 17:09:48] [INFO] Aggressive_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Aggressive_Player receives 10 armies
+[2025-11-26 17:09:48] [PROGRESSION] Neutral_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Neutral_Player's Turn (Neutral Strategy)
+[2025-11-26 17:09:48] [COMBAT] Neutral_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to weakest territory: Territory27
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to Territory16
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [COMBAT] Benevolent_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [COMBAT] Aggressive_Player has no more orders to issue
+[2025-11-26 17:09:48] [INFO] 
+All players have finished issuing orders
+[2025-11-26 17:09:48] [INFO] 
+Executing Benevolent_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] 
+Executing Aggressive_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Neutral_Player owns 29 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 9
+[2025-11-26 17:09:48] [INFO] Neutral_Player receives 9 armies
+[2025-11-26 17:09:48] [INFO] Benevolent_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Benevolent_Player receives 10 armies
+[2025-11-26 17:09:48] [INFO] Aggressive_Player owns 30 territories
+[2025-11-26 17:09:48] [INFO] Base reinforcements: 10
+[2025-11-26 17:09:48] [INFO] Aggressive_Player receives 10 armies
+[2025-11-26 17:09:48] [PROGRESSION] Neutral_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Neutral_Player's Turn (Neutral Strategy)
+[2025-11-26 17:09:48] [COMBAT] Neutral_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to weakest territory: Territory27
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [INFO] New order added to the list
+[2025-11-26 17:09:48] [AI] Deployed 10 armies to Territory16
+[2025-11-26 17:09:48] [PROGRESSION] Benevolent_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Benevolent_Player's Turn (Benevolent Strategy)
+[2025-11-26 17:09:48] [COMBAT] Benevolent_Player has no more orders to issue
+[2025-11-26 17:09:48] [PROGRESSION] Aggressive_Player's turn to issue order
+[2025-11-26 17:09:48] [AI] Aggressive_Player's Turn (Aggressive Strategy)
+[2025-11-26 17:09:48] [COMBAT] Aggressive_Player has no more orders to issue
+[2025-11-26 17:09:48] [INFO] 
+All players have finished issuing orders
+[2025-11-26 17:09:48] [INFO] 
+Executing Benevolent_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] 
+Executing Aggressive_Player's Deploy order
+[2025-11-26 17:09:48] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Effect: Invalid: target not owned by issuer.
+[2025-11-26 17:09:48] [INFO] Result = Draw
+[2025-11-26 17:09:55] [INFO] Loading map from: Tests/003_I72_Fairchild T-31/003_I72_Fairchild T-31.map
+[2025-11-26 17:09:55] [DEBUG] Detected Section: CONTINENTS
+[2025-11-26 17:09:55] [DEBUG] Added continent: Left Wing(ID: 0, Bonus: 4)
+[2025-11-26 17:09:55] [DEBUG] Added continent: Right Wing(ID: 1, Bonus: 4)
+[2025-11-26 17:09:55] [DEBUG] Added continent: Tail(ID: 2, Bonus: 5)
+[2025-11-26 17:09:55] [DEBUG] Added continent: Engine(ID: 3, Bonus: 3)
+[2025-11-26 17:09:55] [DEBUG] Added continent: Cockpit(ID: 4, Bonus: 6)
+[2025-11-26 17:09:55] [DEBUG] Added continent: Fuselage(ID: 5, Bonus: 8)
+[2025-11-26 17:09:55] [DEBUG] Detected Section: TERRITORIES
+[2025-11-26 17:09:55] [DEBUG] Territory: Territory01 -> Left Wing (Adjacent: 4)
+[2025-11-26 17:09:55] [DEBUG] Territory: Territory02 -> Left Wing (Adjacent: 4)
+[2025-11-26 17:09:55] [DEBUG] Territory: Territory03 -> Left Wing (Adjacent: 4)
+[2025-11-26 17:09:55] [DEBUG] Territory: Territory04 -> Left Wing (Adjacent: 4)
+[2025-11-26 17:09:55] [DEBUG] Territory: Territory05 -> Left Wing (Adjacent: 4)
+[2025-11-26 17:09:55] [DEBUG] Territory: Territory06 -> Left Wing (Adjacent: 4)
+[2025-11-26 17:09:55] [DEBUG] Territory: Territory07 -> Left Wing (Adjacent: 4)
+[2025-11-26 17:09:55] [DEBUG] Territory: Territory08 -> Left Wing (Adjacent: 4)
+[2025-11-26 17:09:55] [DEBUG] Territory: Territory09 -> Left Wing (Adjacent: 4)
+[2025-11-26 17:09:55] [DEBUG] Territory: Territory10 -> Left Wing (Adjacent: 6)
+[2025-11-26 17:09:55] [DEBUG] Territory: Territory11 -> Left Wing (Adjacent: 3)
+[2025-11-26 17:09:55] [DEBUG] Territory: Territory12 -> Left Wing (Adjacent: 4)
+[2025-11-26 17:09:55] [DEBUG] Territory: Territory13 -> Left Wing (Adjacent: 4)
+[2025-11-26 17:09:55] [DEBUG] Territory: Territory14 -> Right Wing (Adjacent: 6)
+[2025-11-26 17:09:55] [DEBUG] Territory: Territory15 -> Right Wing (Adjacent: 4)
+[2025-11-26 17:09:55] [DEBUG] Territory: Territory16 -> Right Wing (Adjacent: 4)
+[2025-11-26 17:09:55] [DEBUG] Territory: Territory17 -> Right Wing (Adjacent: 4)
+[2025-11-26 17:09:55] [DEBUG] Territory: Territory18 -> Right Wing (Adjacent: 4)
+[2025-11-26 17:09:55] [DEBUG] Territory: Territory19 -> Right Wing (Adjacent: 4)
+[2025-11-26 17:09:55] [DEBUG] Territory: Territory20 -> Right Wing (Adjacent: 4)
+[2025-11-26 17:09:55] [DEBUG] Territory: Territory21 -> Right Wing (Adjacent: 4)
+[2025-11-26 17:09:55] [DEBUG] Territory: Territory22 -> Right Wing (Adjacent: 4)
+[2025-11-26 17:09:55] [DEBUG] Territory: Territory23 -> Right Wing (Adjacent: 4)
+[2025-11-26 17:09:55] [DEBUG] Territory: Territory24 -> Right Wing (Adjacent: 4)
+[2025-11-26 17:09:55] [DEBUG] Territory: Territory25 -> Right Wing (Adjacent: 3)
+[2025-11-26 17:09:55] [DEBUG] Territory: Territory26 -> Right Wing (Adjacent: 4)
+[2025-11-26 17:09:55] [DEBUG] Territory: Territory27 -> Tail (Adjacent: 4)
+[2025-11-26 17:09:55] [DEBUG] Territory: Territory28 -> Tail (Adjacent: 3)
+[2025-11-26 17:09:55] [DEBUG] Territory: Territory29 -> Tail (Adjacent: 3)
+[2025-11-26 17:09:55] [DEBUG] Territory: Territory30 -> Tail (Adjacent: 4)
+[2025-11-26 17:09:55] [DEBUG] Territory: Territory31 -> Tail (Adjacent: 4)
+[2025-11-26 17:09:55] [DEBUG] Territory: Territory32 -> Tail (Adjacent: 3)
+[2025-11-26 17:09:55] [DEBUG] Territory: Territory33 -> Tail (Adjacent: 5)
+[2025-11-26 17:09:55] [DEBUG] Territory: Territory34 -> Tail (Adjacent: 5)
+[2025-11-26 17:09:55] [DEBUG] Territory: Territory35 -> Tail (Adjacent: 3)
+[2025-11-26 17:09:55] [DEBUG] Territory: Territory36 -> Tail (Adjacent: 4)
+[2025-11-26 17:09:55] [DEBUG] Territory: Territory37 -> Tail (Adjacent: 4)
+[2025-11-26 17:09:55] [DEBUG] Territory: Territory38 -> Tail (Adjacent: 3)
+[2025-11-26 17:09:55] [DEBUG] Territory: Territory39 -> Tail (Adjacent: 3)
+[2025-11-26 17:09:55] [DEBUG] Territory: Territory40 -> Tail (Adjacent: 4)
+[2025-11-26 17:09:55] [DEBUG] Territory: Territory41 -> Engine (Adjacent: 2)
+[2025-11-26 17:09:55] [DEBUG] Territory: Territory42 -> Engine (Adjacent: 2)
+[2025-11-26 17:09:55] [DEBUG] Territory: Territory43 -> Engine (Adjacent: 3)
+[2025-11-26 17:09:55] [DEBUG] Territory: Territory44 -> Engine (Adjacent: 3)
+[2025-11-26 17:09:55] [DEBUG] Territory: Territory45 -> Left Wing (Adjacent: 4)
+[2025-11-26 17:09:55] [DEBUG] Territory: Territory46 -> Right Wing (Adjacent: 4)
+[2025-11-26 17:09:55] [DEBUG] Territory: Territory47 -> Cockpit (Adjacent: 3)
+[2025-11-26 17:09:55] [DEBUG] Territory: Territory48 -> Cockpit (Adjacent: 3)
+[2025-11-26 17:09:55] [DEBUG] Territory: Territory49 -> Cockpit (Adjacent: 4)
+[2025-11-26 17:09:55] [DEBUG] Territory: Territory50 -> Cockpit (Adjacent: 4)
+[2025-11-26 17:09:55] [DEBUG] Territory: Territory51 -> Cockpit (Adjacent: 3)
+[2025-11-26 17:09:55] [DEBUG] Territory: Territory52 -> Cockpit (Adjacent: 3)
+[2025-11-26 17:09:55] [DEBUG] Territory: Territory53 -> Fuselage (Adjacent: 8)
+[2025-11-26 17:09:55] [DEBUG] Territory: Territory54 -> Fuselage (Adjacent: 8)
+[2025-11-26 17:09:55] [DEBUG] Territory: Territory55 -> Fuselage (Adjacent: 3)
+[2025-11-26 17:09:55] [DEBUG] Territory: Territory56 -> Fuselage (Adjacent: 3)
+[2025-11-26 17:09:55] [INFO] 1. Map connectivity: PASSED
+[2025-11-26 17:09:55] [INFO] 2. Continent connectivity: PASSED
+[2025-11-26 17:09:55] [INFO] 3. Territory membership: PASSED
+[2025-11-26 17:09:55] [INFO] Overall map validation: VALID
+[2025-11-26 17:09:55] [HUMAN] n00b69 strategy set to Human
+[2025-11-26 17:09:55] [AI] PostalDude77 strategy set to Aggressive
+[2025-11-26 17:09:55] [AI] Jalla strategy set to Benevolent
+[2025-11-26 17:09:55] [AI] xRizz strategy set to Neutral
+[2025-11-26 17:09:55] [AI] niCe strategy set to Cheater
+[2025-11-26 17:09:55] [INFO]   n00b69: 12 territories
+[2025-11-26 17:09:55] [INFO]   PostalDude77: 11 territories
+[2025-11-26 17:09:55] [INFO]   Jalla: 11 territories
+[2025-11-26 17:09:55] [INFO]   xRizz: 11 territories
+[2025-11-26 17:09:55] [INFO]   niCe: 11 territories
+[2025-11-26 17:09:55] [INFO] Deck::draw gave Card(Type: Diplomacy) to player's hand
+[2025-11-26 17:09:55] [INFO] Deck::draw gave Card(Type: Blockade) to player's hand
+[2025-11-26 17:09:55] [INFO] Deck::draw gave Card(Type: Reinforcement) to player's hand
+[2025-11-26 17:09:55] [INFO] Deck::draw gave Card(Type: Bomb) to player's hand
+[2025-11-26 17:09:55] [INFO] Deck::draw gave Card(Type: Blockade) to player's hand
+[2025-11-26 17:09:55] [INFO] Deck::draw gave Card(Type: Airlift) to player's hand
+[2025-11-26 17:09:55] [INFO] Deck::draw gave Card(Type: Blockade) to player's hand
+[2025-11-26 17:09:55] [INFO] Deck::draw gave Card(Type: Bomb) to player's hand
+[2025-11-26 17:09:55] [INFO] Deck::draw gave Card(Type: Diplomacy) to player's hand
+[2025-11-26 17:09:55] [INFO] Deck::draw gave Card(Type: Blockade) to player's hand
+[2025-11-26 17:09:55] [INFO] Deck::draw gave Card(Type: Blockade) to player's hand
+[2025-11-26 17:09:55] [INFO] Deck::draw gave Card(Type: Airlift) to player's hand
+[2025-11-26 17:09:55] [INFO] Deck::draw gave Card(Type: Bomb) to player's hand
+[2025-11-26 17:09:55] [INFO] Deck::draw gave Card(Type: Airlift) to player's hand
+[2025-11-26 17:09:55] [INFO] Deck::draw gave Card(Type: Diplomacy) to player's hand
+[2025-11-26 17:09:55] [AI] xRizz strategy set to Aggressive
+[2025-11-26 17:09:55] [AI] Jalla strategy set to Neutral
+[2025-11-26 17:09:55] [INFO] n00b69's Turn (Human Strategy)
+[2025-11-26 17:09:55] [INFO] Reinforcement pool: 10
+[2025-11-26 17:10:03] [COMBAT] Playing card: Blockade
+[2025-11-26 17:10:03] [INVENTORY]  -> Creating Blockade order.
+[2025-11-26 17:10:03] [INFO] New order added to the list
+[2025-11-26 17:10:03] [INVENTORY] Order added to OrdersList.
+[2025-11-26 17:10:03] [INVENTORY]  -> Card returned to deck.
+[2025-11-26 17:10:03] [DEBUG] Invalid: target must be owned by issuer.
+[2025-11-26 17:10:06] [AI] PostalDude77 strategy set to Cheater
+[2025-11-26 17:10:06] [AI] PostalDude77's Turn (Cheater Strategy)
+[2025-11-26 17:10:06] [ANTICHEAT] (DUPLICATE REINFORCEMENT, 10, 20, PostalDude77)
+[2025-11-26 17:10:06] [ANTICHEAT] (INFINIT AMMO, 7, 14, Territory06, 5, PostalDude77)
+[2025-11-26 17:10:06] [ANTICHEAT] (INFINIT AMMO, 7, 14, Territory37, 36, PostalDude77)
+[2025-11-26 17:10:06] [ANTICHEAT] (INFINIT AMMO, 7, 14, Territory31, 30, PostalDude77)
+[2025-11-26 17:10:06] [ANTICHEAT] (INFINIT AMMO, 7, 14, Territory32, 31, PostalDude77)
+[2025-11-26 17:10:06] [ANTICHEAT] (INFINIT AMMO, 7, 14, Territory36, 35, PostalDude77)
+[2025-11-26 17:10:06] [ANTICHEAT] (INFINIT AMMO, 7, 14, Territory02, 1, PostalDude77)
+[2025-11-26 17:10:06] [ANTICHEAT] (INFINIT AMMO, 7, 14, Territory16, 15, PostalDude77)
+[2025-11-26 17:10:06] [ANTICHEAT] (INFINIT AMMO, 7, 14, Territory23, 22, PostalDude77)
+[2025-11-26 17:10:06] [ANTICHEAT] (INFINIT AMMO, 7, 14, Territory10, 9, PostalDude77)
+[2025-11-26 17:10:06] [ANTICHEAT] (INFINIT AMMO, 7, 14, Territory41, 40, PostalDude77)
+[2025-11-26 17:10:06] [ANTICHEAT] (INFINIT AMMO, 7, 14, Territory51, 50, PostalDude77)
+[2025-11-26 17:10:06] [AI] PostalDude77 owns 11 territories, checked 42 neighbors, found 36 enemy neighbors
+[2025-11-26 17:10:06] [ANTICHEAT] (INSTANT CONQUER, 28 territories conquered by PostalDude77)
+[2025-11-26 17:10:07] [AI] Jalla strategy set to Aggressive
+[2025-11-26 17:10:07] [AI] Jalla's Turn (Aggressive Strategy)
+[2025-11-26 17:10:07] [INFO] New order added to the list
+[2025-11-26 17:10:07] [AI] Deployed 10 armies to Territory56
+[2025-11-26 17:10:07] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:10:08] [AI] xRizz strategy set to Neutral
+[2025-11-26 17:10:08] [AI] xRizz's Turn (Neutral Strategy)
+[2025-11-26 17:10:09] [AI] niCe strategy set to Aggressive
+[2025-11-26 17:10:09] [AI] niCe's Turn (Aggressive Strategy)
+[2025-11-26 17:10:09] [INFO] New order added to the list
+[2025-11-26 17:10:09] [AI] Deployed 10 armies to Territory25
+[2025-11-26 17:10:09] [DEBUG] Invalid: target not owned by issuer.
+[2025-11-26 17:10:09] [INFO] n00b69's Turn (Human Strategy)
+[2025-11-26 17:10:09] [INFO] Reinforcement pool: 10
+[2025-11-26 17:10:10] [PROGRESSION] n00b69 Dsone issuing orders
+[2025-11-26 17:10:11] [AI] PostalDude77 strategy set to Cheater
+[2025-11-26 17:10:11] [AI] PostalDude77's Turn (Cheater Strategy)
+[2025-11-26 17:10:11] [ANTICHEAT] (INFINIT AMMO, 14, 28, Territory06, 5, PostalDude77)
+[2025-11-26 17:10:11] [ANTICHEAT] (INFINIT AMMO, 14, 28, Territory37, 36, PostalDude77)
+[2025-11-26 17:10:11] [ANTICHEAT] (INFINIT AMMO, 14, 28, Territory31, 30, PostalDude77)
+[2025-11-26 17:10:11] [ANTICHEAT] (INFINIT AMMO, 14, 28, Territory32, 31, PostalDude77)
+[2025-11-26 17:10:11] [ANTICHEAT] (INFINIT AMMO, 14, 28, Territory36, 35, PostalDude77)
+[2025-11-26 17:10:11] [ANTICHEAT] (INFINIT AMMO, 14, 28, Territory02, 1, PostalDude77)
+[2025-11-26 17:10:11] [ANTICHEAT] (INFINIT AMMO, 14, 28, Territory16, 15, PostalDude77)
+[2025-11-26 17:10:11] [ANTICHEAT] (INFINIT AMMO, 14, 28, Territory23, 22, PostalDude77)
+[2025-11-26 17:10:11] [ANTICHEAT] (INFINIT AMMO, 14, 28, Territory10, 9, PostalDude77)
+[2025-11-26 17:10:11] [ANTICHEAT] (INFINIT AMMO, 14, 28, Territory41, 40, PostalDude77)
+[2025-11-26 17:10:11] [ANTICHEAT] (INFINIT AMMO, 14, 28, Territory51, 50, PostalDude77)
+[2025-11-26 17:10:11] [ANTICHEAT] (INFINIT AMMO, 7, 14, Territory07, 6, PostalDude77)
+[2025-11-26 17:10:11] [ANTICHEAT] (INFINIT AMMO, 7, 14, Territory05, 4, PostalDude77)
+[2025-11-26 17:10:11] [ANTICHEAT] (INFINIT AMMO, 7, 14, Territory04, 3, PostalDude77)
+[2025-11-26 17:10:11] [ANTICHEAT] (INFINIT AMMO, 7, 14, Territory38, 37, PostalDude77)
+[2025-11-26 17:10:11] [ANTICHEAT] (INFINIT AMMO, 7, 14, Territory40, 39, PostalDude77)
+[2025-11-26 17:10:11] [ANTICHEAT] (INFINIT AMMO, 7, 14, Territory39, 38, PostalDude77)
+[2025-11-26 17:10:11] [ANTICHEAT] (INFINIT AMMO, 7, 14, Territory33, 32, PostalDude77)
+[2025-11-26 17:10:11] [ANTICHEAT] (INFINIT AMMO, 7, 14, Territory30, 29, PostalDude77)
+[2025-11-26 17:10:11] [ANTICHEAT] (INFINIT AMMO, 7, 14, Territory27, 26, PostalDude77)
+[2025-11-26 17:10:11] [ANTICHEAT] (INFINIT AMMO, 7, 14, Territory29, 28, PostalDude77)
+[2025-11-26 17:10:11] [ANTICHEAT] (INFINIT AMMO, 7, 14, Territory35, 34, PostalDude77)
+[2025-11-26 17:10:11] [ANTICHEAT] (INFINIT AMMO, 7, 14, Territory34, 33, PostalDude77)
+[2025-11-26 17:10:11] [ANTICHEAT] (INFINIT AMMO, 7, 14, Territory08, 7, PostalDude77)
+[2025-11-26 17:10:11] [ANTICHEAT] (INFINIT AMMO, 7, 14, Territory03, 2, PostalDude77)
+[2025-11-26 17:10:11] [ANTICHEAT] (INFINIT AMMO, 7, 14, Territory11, 10, PostalDude77)
+[2025-11-26 17:10:11] [ANTICHEAT] (INFINIT AMMO, 7, 14, Territory01, 0, PostalDude77)
+[2025-11-26 17:10:11] [ANTICHEAT] (INFINIT AMMO, 7, 14, Territory22, 21, PostalDude77)
+[2025-11-26 17:10:11] [ANTICHEAT] (INFINIT AMMO, 7, 14, Territory17, 16, PostalDude77)
+[2025-11-26 17:10:11] [ANTICHEAT] (INFINIT AMMO, 7, 14, Territory15, 14, PostalDude77)
+[2025-11-26 17:10:11] [ANTICHEAT] (INFINIT AMMO, 7, 14, Territory14, 13, PostalDude77)
+[2025-11-26 17:10:11] [ANTICHEAT] (INFINIT AMMO, 7, 14, Territory24, 23, PostalDude77)
+[2025-11-26 17:10:11] [ANTICHEAT] (INFINIT AMMO, 7, 14, Territory54, 53, PostalDude77)
+[2025-11-26 17:10:11] [ANTICHEAT] (INFINIT AMMO, 7, 14, Territory53, 52, PostalDude77)
+[2025-11-26 17:10:11] [ANTICHEAT] (INFINIT AMMO, 7, 14, Territory09, 8, PostalDude77)
+[2025-11-26 17:10:11] [ANTICHEAT] (INFINIT AMMO, 7, 14, Territory43, 42, PostalDude77)
+[2025-11-26 17:10:11] [ANTICHEAT] (INFINIT AMMO, 7, 14, Territory42, 41, PostalDude77)
+[2025-11-26 17:10:11] [ANTICHEAT] (INFINIT AMMO, 7, 14, Territory52, 51, PostalDude77)
+[2025-11-26 17:10:11] [ANTICHEAT] (INFINIT AMMO, 7, 14, Territory49, 48, PostalDude77)
+[2025-11-26 17:10:11] [AI] PostalDude77 owns 39 territories, checked 163 neighbors, found 33 enemy neighbors
+[2025-11-26 17:10:11] [ANTICHEAT] (INSTANT CONQUER, 15 territories conquered by PostalDude77)
+[2025-11-26 17:10:12] [AI] Jalla strategy set to Cheater
+[2025-11-26 17:10:12] [AI] Jalla's Turn (Cheater Strategy)
+[2025-11-26 17:10:12] [AI] Jalla owns 0 territories, checked 0 neighbors, found 0 enemy neighbors
+[2025-11-26 17:10:12] [WARNING] Jalla has no adjacent enemy territories to conquer (owns all neighbors!)
+[2025-11-26 17:10:13] [AI] xRizz strategy set to Cheater
+[2025-11-26 17:10:13] [AI] xRizz's Turn (Cheater Strategy)
+[2025-11-26 17:10:13] [ANTICHEAT] (DUPLICATE REINFORCEMENT, 10, 20, xRizz)
+[2025-11-26 17:10:13] [ANTICHEAT] (INFINIT AMMO, 7, 14, Territory20, 19, xRizz)
+[2025-11-26 17:10:13] [AI] xRizz owns 1 territories, checked 4 neighbors, found 4 enemy neighbors
+[2025-11-26 17:10:13] [ANTICHEAT] (INSTANT CONQUER, 4 territories conquered by xRizz)
+[2025-11-26 17:10:19] [AI] niCe strategy set to Cheater
+[2025-11-26 17:10:19] [AI] niCe's Turn (Cheater Strategy)
+[2025-11-26 17:10:19] [AI] niCe owns 0 territories, checked 0 neighbors, found 0 enemy neighbors
+[2025-11-26 17:10:19] [WARNING] niCe has no adjacent enemy territories to conquer (owns all neighbors!)

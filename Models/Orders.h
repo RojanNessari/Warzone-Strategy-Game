@@ -36,9 +36,6 @@ public:
     // For printing orders
     friend std::ostream &operator<<(std::ostream &os, const Order &order);
 
-    // stringToLog Method
-    std::string stringToLog();
-
 protected:
     std::string description;
     std::string effect;
@@ -184,9 +181,6 @@ public:
 
     size_t size() const;
     Order *get(int index) const;
-
-    // ILoggable interface implementation
-    std::string stringToLog() override;
 };
 
 #endif // ORDERS_H

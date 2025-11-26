@@ -5,6 +5,7 @@
 #include <random>
 #include <algorithm>
 #include <string>
+#include "../utils/logger.h"
 
 //  Base Order
 Order::Order(Player *issuingPlayer) : description("Generic Order"), effect("None"), executed(false), issuer(issuingPlayer) {}
@@ -35,12 +36,6 @@ std::ostream &operator<<(std::ostream &os, const Order &order)
     }
     return os;
 }
-
-std::string Order::stringToLog()
-{
-    return "Order: " + description + ", Effect: " + effect;
-}
-
 //  Deploy
 Deploy::Deploy()
 {
@@ -80,14 +75,15 @@ void Deploy::execute()
 {
     if (!validate())
     {
+
         effect = "Invalid: target not owned by issuer.";
-        Notify(this, "DEBUG");
+        Notify(this, DEBUG, "Invalid: target not owned by issuer.");
         return;
     }
     if (issuer->getReinforcementPool() < armies)
     {
         effect = "Invalid: not enough reinforcement armies.";
-        Notify(this, "DEBUG");
+        Notify(this, DEBUG, "Invalid: not enough reinforcement armies.");
         return;
     }
 
@@ -96,7 +92,7 @@ void Deploy::execute()
 
     effect = "Deployed " + std::to_string(armies) + " to " + target->getName();
     executed = true;
-    Notify(this, "INFO");
+    Notify(this, COMBAT, "Deployed " + std::to_string(armies) + " to " + target->getName());
 }
 
 Advance::Advance() { description = "Advance Order"; }
@@ -139,7 +135,7 @@ void Advance::execute()
     if (!validate())
     {
         effect = "Invalid: source not owned or not adjacent.";
-        Notify(this, "DEBUG"); // Notify observers
+        Notify(this, DEBUG, "Invalid: source not owned or not adjacent."); // Notify observers
         return;
     }
     if (target->getOwner() == issuer)
@@ -150,7 +146,7 @@ void Advance::execute()
         source->setArmies(src - moved);
         target->setArmies(target->getArmies() + moved);
         effect = "Moved " + std::to_string(moved) + " to defend " + target->getName();
-        Notify(this, "INFO");
+        Notify(this, INFO, effect);
         return;
     }
 
@@ -182,9 +178,21 @@ void Advance::execute()
     {
         // capture territory; survivors occupy
         Player *prevOwner = target->getOwner();
-        (void)prevOwner; // if unused
+
+        // Update territory ownership in both Territory and Player lists
+        if (prevOwner != nullptr)
+        {
+            prevOwner->removeTerritory(target);
+        }
         target->setOwner(issuer);
+
+        // Only add if not already in issuer's list (shouldn't happen, but safety check)
+        if (!issuer->ownsTerritoryId(target->getId()))
+        {
+            issuer->addTerritory(target);
+        }
         target->setArmies(a);
+
         issuer->markConqueredThisTurn();
         effect = "Conquered " + target->getName() + " with " + std::to_string(a) + " survivors.";
     }
@@ -193,7 +201,7 @@ void Advance::execute()
         effect = "Attack ended. Defender left " + std::to_string(d) + ", attackers left " + std::to_string(a) + ".";
     }
     executed = true;
-    Notify(this, "INFO"); // Notify Observers
+    Notify(this, PROGRESSION, effect); // Notify Observers
 }
 
 Bomb::Bomb() { description = "Bomb Order"; }
@@ -242,7 +250,7 @@ void Bomb::execute()
     if (!validate())
     {
         effect = "Invalid: target is not enemy or not adjacent to issuer territories.";
-        Notify(this, "DEBUG");
+        Notify(this, DEBUG, effect);
         return;
     }
     int before = target->getArmies();
@@ -250,7 +258,7 @@ void Bomb::execute()
     target->setArmies(after);
     effect = "Bombed " + target->getName() + " from " + std::to_string(before) + " to " + std::to_string(after);
     executed = true;
-    Notify(this, "INFO");
+    Notify(this, COMBAT, effect);
 }
 
 Blockade::Blockade() { description = "Blockade Order"; }
@@ -286,7 +294,7 @@ void Blockade::execute()
     if (!validate())
     {
         effect = "Invalid: target must be owned by issuer.";
-        Notify(this, "DEBUG");
+        Notify(this, DEBUG, effect);
         return;
     }
     target->setArmies(target->getArmies() * 2);
@@ -294,7 +302,7 @@ void Blockade::execute()
     target->setOwner(neutral);
     effect = "Blockade: doubled armies and transferred " + target->getName() + " to Neutral.";
     executed = true;
-    Notify(this, "INFO"); // Notify Observers
+    Notify(this, COMBAT, effect); // Notify Observers
 }
 
 Airlift::Airlift() { description = "Airlift Order"; }
@@ -329,7 +337,7 @@ void Airlift::execute()
     if (!validate())
     {
         effect = "Invalid: source/target must both be owned by issuer.";
-        Notify(this, "DEBUG"); // Notify Observers
+        Notify(this, DEBUG, effect); // Notify Observers
         return;
     }
     int src = source->getArmies();
@@ -338,7 +346,7 @@ void Airlift::execute()
     target->setArmies(target->getArmies() + moved);
     effect = "Airlifted " + std::to_string(moved) + " from " + source->getName() + " to " + target->getName();
     executed = true;
-    Notify(this, "INFO");
+    Notify(this, COMBAT, effect);
 }
 
 Negotiate::Negotiate() { description = "Negotiate Order"; }
@@ -373,13 +381,13 @@ void Negotiate::execute()
     if (!validate())
     {
         effect = "Invalid: cannot negotiate with self.";
-        Notify(this, "DEBUG");
+        Notify(this, DEBUG, effect);
         return;
     }
     engine->addTruce(issuer, other); // store truce for rest of this turn
     effect = "Negotiation: attacks between players blocked for this turn.";
     executed = true;
-    Notify(this, "INFO");
+    Notify(this, INFO, effect);
 }
 
 //  OrdersList
@@ -430,7 +438,8 @@ void OrdersList::add(Order *order)
     if (order != nullptr)
     {
         orders.push_back(order);
-        Notify(this, "INFO"); // Notify observer
+        string effect = "New order added to the list";
+        Notify(this, INFO, effect); // Notify observer
     }
 }
 
@@ -475,18 +484,4 @@ Order *OrdersList::get(int index) const
         return orders[index];
     }
     return nullptr;
-}
-
-std::string OrdersList::stringToLog()
-{
-    std::string log = "OrdersList: ";
-    if (orders.empty())
-    {
-        log += "Empty";
-    }
-    else
-    {
-        log += std::to_string(orders.size()) + " order(s)";
-    }
-    return log;
 }

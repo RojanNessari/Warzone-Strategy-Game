@@ -34,8 +34,6 @@ public:
 
     // Stream insertion operator
     friend std::ostream &operator<<(std::ostream &os, const CommandProcessor &cp);
-    // logging function
-    std::string stringToLog();
 
 protected:
     // Protected method to read command from console (no parameters - reads from cin)
@@ -77,7 +75,7 @@ private:
 };
 
 // Helper class to read lines from a file (Adaptee in Adapter pattern)
-class FileLineReader
+class FileLineReader : public Subject, public ILoggable
 {
 public:
     // Constructor - opens file
@@ -132,7 +130,10 @@ public:
     // Stream insertion operator
     friend std::ostream &operator<<(std::ostream &os, const Command &cmd);
 
-    std::string stringToLog();
+    std::vector<std::string> tournamentMaps;
+    std::vector<std::string> tournamentStrategies;
+    int tournamentGames = 0;
+    int tournamentMaxTurns = 0;
 
 private:
     std::string command; // The command text

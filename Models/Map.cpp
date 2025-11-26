@@ -117,6 +117,33 @@ Map &Map::operator=(const Map &other)
     return *this;
 }
 
+vector<Territory *> Map::getNeighborsOf(Territory *territory)
+{
+    return getNeighborsOf(territory->getId());
+}
+
+vector<Territory *> Map::getNeighborsOf(int territoryId)
+{
+    vector<Territory *> neighbors;
+    Territory *territory = getTerritoryById(territoryId);
+
+    if (territory == nullptr)
+    {
+        return neighbors;
+    }
+
+    const std::unordered_set<int> &adjacentIds = territory->getAdjacentIds();
+    for (int adjId : adjacentIds)
+    {
+        Territory *neighbor = getTerritoryById(adjId);
+        if (neighbor != nullptr)
+        {
+            neighbors.push_back(neighbor);
+        }
+    }
+    return neighbors;
+}
+
 Map::Map(const Map &other) : territories(other.territories), territoryNameToId(other.territoryNameToId),
                              continentIdToIndex(other.continentIdToIndex), continentNameToId(other.continentNameToId) {}
 
@@ -214,18 +241,23 @@ bool Map::validate() const
     // 1. Check if map is a connected graph
     bool connected = isConnectedGraph();
     logMessage(INFO, string("1. Map connectivity: ") + (connected ? "PASSED" : "FAILED"));
+    Notify(this, INFO, string("1. Map connectivity: ") + (connected ? "PASSED" : "FAILED"));
+
     isValid &= connected;
 
     // 2. Check if continents are connected subgraphs
     bool continentsValid = validateContinents();
     logMessage(INFO, string("2. Continent connectivity: ") + (continentsValid ? "PASSED" : "FAILED"));
+    Notify(this, INFO, string("2. Continent connectivity: ") + (continentsValid ? "PASSED" : "FAILED"));
     isValid &= continentsValid;
 
     // 3. Check territory membership (each territory belongs to exactly one continent)
     bool membershipValid = validateTerritoryMembership();
     logMessage(INFO, string("3. Territory membership: ") + (membershipValid ? "PASSED" : "FAILED"));
+    Notify(this, INFO, string("3. Territory membership: ") + (membershipValid ? "PASSED" : "FAILED"));
     isValid &= membershipValid;
     logMessage(INFO, string("Overall map validation: ") + (isValid ? "VALID" : "INVALID"));
+    Notify(this, INFO, string("Overall map validation: ") + (isValid ? "VALID" : "INVALID"));
     logMessage(INFO, "======================");
 
     return isValid;
@@ -275,6 +307,7 @@ bool Map::validateContinents() const
         if (territoryIds.empty())
         {
             logMessage(DEBUG, string("Continent '") + continent.getName() + "' has no territories");
+            Notify(this, DEBUG, string("Continent '") + continent.getName() + "' has no territories");
             continue;
         }
 
@@ -309,6 +342,7 @@ bool Map::validateContinents() const
         if (visited.size() != territoryIds.size())
         {
             logMessage(ERROR, string("Continent '") + continent.getName() + "' is not connected: " + to_string(visited.size()) + "/" + to_string(territoryIds.size()) + " territories reachable");
+            Notify(this, ERROR, string("Continent '") + continent.getName() + "' is not connected: " + to_string(visited.size()) + "/" + to_string(territoryIds.size()) + " territories reachable");
             return false;
         }
     }
@@ -488,7 +522,7 @@ Map *MapLoader::handleCurrentState(Section currentState, const string &line, Map
 
             int id = map->getContinentsSize();
             map->addContinent(Continent(name, id, bonusValue));
-            cout << "[DEBUG] Added continent: " << name << " (ID: " << id << ", Bonus: " << bonusValue << ")" << endl;
+            Notify(this, DEBUG, "Added continent: " + name + "(ID: " + to_string(id) + ", Bonus: " + to_string(bonusValue) + ")");
         }
     }
     else if (currentState == TERRITORIES)
@@ -512,6 +546,7 @@ Map *MapLoader::handleCurrentState(Section currentState, const string &line, Map
         if (!continent)
         {
             logMessage(ERROR, string("Error: Unknown continent '") + continentName + "' for territory '" + name + "'");
+            Notify(this, ERROR, string("Error: Unknown continent '") + continentName + "' for territory '" + name + "'");
             delete map;
             return nullptr;
         }
@@ -527,6 +562,7 @@ Map *MapLoader::handleCurrentState(Section currentState, const string &line, Map
         catch (const exception &)
         {
             logMessage(WARNING, string("Warning: Invalid coordinates for territory ") + name);
+            Notify(this, WARNING, string("Warning: Invalid coordinates for territory ") + name);
         }
         Territory territory(name, territoryId, continent->getId(), x, y);
 
@@ -545,7 +581,7 @@ Map *MapLoader::handleCurrentState(Section currentState, const string &line, Map
         }
 
         logMessage(DEBUG, string("Territory: ") + name + " -> " + continentName + " (Adjacent: " + to_string(adjacentNames.size()) + ")");
-
+        Notify(this, DEBUG, string("Territory: ") + name + " -> " + continentName + " (Adjacent: " + to_string(adjacentNames.size()) + ")");
         // Add territory to map
         map->addTerritory(territory);
         continent->addTerritory(territoryId);
@@ -600,6 +636,7 @@ Map *MapLoader::loadMap(const string &filename)
     if (!file.is_open())
     {
         logMessage(ERROR, string("Error: Cannot open file ") + filename);
+        Notify(this, ERROR, string("Error: Cannot open file ") + filename);
         return nullptr;
     }
 
@@ -611,6 +648,7 @@ Map *MapLoader::loadMap(const string &filename)
     vector<pair<string, vector<string>>> territoryAdjacencies;
 
     logMessage(INFO, string("Loading map from: ") + filename);
+    Notify(this, INFO, string("Loading map from: ") + filename);
 
     // First pass: Load continents and territories
     while (getline(file, line))
@@ -618,7 +656,6 @@ Map *MapLoader::loadMap(const string &filename)
         // Remove whitespace
         line.erase(0, line.find_first_not_of(WHITE_SPACE));
         line.erase(line.find_last_not_of(WHITE_SPACE) + 1);
-        logMessage(DEBUG, string("line: ") + line);
 
         if (line.empty())
             continue;
@@ -627,7 +664,7 @@ Map *MapLoader::loadMap(const string &filename)
         if (newSection != NONE)
         {
             string strSection = sectionToString(newSection);
-            logMessage(DEBUG, string("Detected Section: ") + strSection);
+            Notify(this, DEBUG, string("Detected Section: ") + strSection);
             currentSection = newSection;
             continue;
         }
@@ -690,7 +727,7 @@ Map *MapLoader::loadMap(const string &filename)
             map->addTerritory(territory);
             continent->addTerritory(territoryId);
 
-            logMessage(DEBUG, string("Territory: ") + name + " -> " + continentName + " (Adjacent: " + to_string(adjacentNames.size()) + ")");
+            Notify(this, DEBUG, string("Territory: ") + name + " -> " + continentName + " (Adjacent: " + to_string(adjacentNames.size()) + ")");
         }
         else
         {
@@ -744,6 +781,7 @@ void Map::distributeTerritories(vector<Player *> &players)
     if (players.empty() || territories.empty())
     {
         logMessage(ERROR, "Cannot distribute territories: no players or no territories available.");
+        Notify(this, ERROR, "Cannot distribute territories: no players or no territories available.");
         return;
     }
 
@@ -766,8 +804,8 @@ void Map::distributeTerritories(vector<Player *> &players)
         // Assign territory to current player using the new Player* setter
         territory->setOwner(players[playerIndex]);
 
-        // Add territory pointer to player's collection
-        players[playerIndex]->toDefend().push_back(territory);
+        // Add territory pointer to player's collection using addTerritory method
+        players[playerIndex]->addTerritory(territory);
 
         // Move to next player (round-robin)
         playerIndex = (playerIndex + 1) % players.size();
@@ -784,5 +822,6 @@ void Map::distributeTerritories(vector<Player *> &players)
                 count++;
         }
         logMessage(INFO, string("  ") + players[i]->getPlayerName() + ": " + to_string(count) + " territories");
+        Notify(this, INFO, string("  ") + players[i]->getPlayerName() + ": " + to_string(count) + " territories");
     }
 }

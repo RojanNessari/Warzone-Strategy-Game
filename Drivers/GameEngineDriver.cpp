@@ -155,7 +155,8 @@ void testMainGameLoop()
                          std::to_string(player1->getReinforcementPool()) + " armies in reinforcement pool");
 
     // Issue an order - should be Deploy
-    bool hasMore = player1->issueOrder(testMap); // Pass the map
+    Deck *deck = new Deck();
+    bool hasMore = player1->issueOrder(testMap, deck); // Pass the map
 
     if (hasMore && player1->getOrdersList()->size() > 0)
     {
@@ -164,11 +165,11 @@ void testMainGameLoop()
 
         if (deployOrder != nullptr)
         {
-            logMessage(INFO, "✓ Player correctly issued a Deploy order while having reinforcements");
+            logMessage(INFO, "Player correctly issued a Deploy order while having reinforcements");
         }
         else
         {
-            logMessage(ERROR, "✗ Player issued non-Deploy order while having reinforcements");
+            logMessage(ERROR, "Player issued non-Deploy order while having reinforcements");
         }
     }
 
@@ -184,7 +185,7 @@ void testMainGameLoop()
         player2->getTerritories()[0]->setArmies(10);
 
         // Issue order - should be Advance or done
-        hasMore = player2->issueOrder(testMap); // Pass the map
+        hasMore = player2->issueOrder(testMap, deck); // Pass the map
         logMessage(INFO, player2->getPlayerName() + " issued an order (or finished issuing)");
     }
 
